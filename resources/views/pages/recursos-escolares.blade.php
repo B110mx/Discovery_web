@@ -2,75 +2,227 @@
 
 @section('content')
 
-<section class="max-w-6xl mx-auto space-y-10">
-    <div class="bg-blue-700 text-white rounded-xl shadow-lg p-8 md:p-12">
-        <p class="font-semibold uppercase tracking-wide text-sm">Recursos escolares</p>
-        <h1 class="text-4xl md:text-5xl font-bold mt-3">Lista de utiles y calendario escolar</h1>
-        <p class="text-blue-50 text-lg mt-5 max-w-3xl">
-            Consulta los materiales sugeridos para cada nivel y las fechas principales del ciclo escolar.
-        </p>
+@php
+    $totalListas = collect($listasUtiles ?? [])->flatten(1)->count();
+    $niveles = array_keys($listasUtiles ?? []);
+    $calendario = [
+        ['titulo' => 'Inicio de clases', 'texto' => 'Bienvenida, integracion y entrega de indicaciones generales.', 'color' => 'bg-blue-700'],
+        ['titulo' => 'Evaluaciones parciales', 'texto' => 'Periodos de seguimiento academico durante el ciclo escolar.', 'color' => 'bg-red-600'],
+        ['titulo' => 'Consejo tecnico y suspensiones', 'texto' => 'Fechas de trabajo docente y descansos oficiales.', 'color' => 'bg-yellow-500'],
+        ['titulo' => 'Cierre de ciclo', 'texto' => 'Entrega de resultados, actividades finales y ceremonias escolares.', 'color' => 'bg-black'],
+    ];
+@endphp
+
+<section class="mx-auto max-w-7xl space-y-10">
+    <div class="overflow-hidden rounded-xl bg-blue-700 text-white shadow-lg">
+        <div class="grid gap-8 p-8 md:p-12 lg:grid-cols-[1.1fr_.9fr] lg:items-end">
+            <div>
+                <p class="text-sm font-bold uppercase tracking-wide text-blue-50">Recursos escolares</p>
+                <h1 class="mt-3 text-4xl font-extrabold md:text-5xl">Listas de utiles y fechas clave</h1>
+                <p class="mt-5 max-w-3xl text-lg leading-8 text-blue-50">
+                    Encuentra la lista correspondiente por nivel o grado y consulta los momentos principales del ciclo escolar.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+                <div class="rounded-lg bg-white/90 p-4 text-black">
+                    <span class="text-3xl font-extrabold">{{ $totalListas }}</span>
+                    <p class="mt-1 text-sm font-bold uppercase text-blue-700">Listas disponibles</p>
+                </div>
+                <div class="rounded-lg bg-yellow-500 p-4 text-black">
+                    <span class="text-3xl font-extrabold">{{ count($niveles) }}</span>
+                    <p class="mt-1 text-sm font-bold uppercase">Niveles con PDF</p>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div class="grid lg:grid-cols-2 gap-8">
-        <section class="bg-white rounded-xl shadow-md p-6 md:p-8">
-            <h2 class="text-2xl font-bold text-blue-700 mb-5">Lista de utiles</h2>
-
-            <div class="space-y-6">
+    <div class="grid gap-8 lg:grid-cols-[1.35fr_.65fr]">
+        <section class="rounded-xl bg-white p-6 shadow-md md:p-8" data-recursos>
+            <div class="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
                 <div>
-                    <h3 class="font-bold text-gray-900 mb-2">Preescolar</h3>
-                    <ul class="list-disc list-inside text-gray-600 space-y-1">
-                        <li>Cuaderno profesional cuadro grande</li>
-                        <li>Crayones, lapices de colores y resistol</li>
-                        <li>Paquete de hojas blancas y folder plastico</li>
-                    </ul>
+                    <p class="text-sm font-bold uppercase tracking-wide text-red-600">Listas en PDF</p>
+                    <h2 class="mt-2 text-3xl font-extrabold text-black">Busca por nivel o grado</h2>
+                    <p class="mt-3 text-gray-600">Abre el PDF en una nueva pestana para consultarlo o descargarlo.</p>
                 </div>
 
-                <div>
-                    <h3 class="font-bold text-gray-900 mb-2">Primaria</h3>
-                    <ul class="list-disc list-inside text-gray-600 space-y-1">
-                        <li>Cuadernos profesionales para materias base</li>
-                        <li>Lapices, plumas, colores, tijeras y pegamento</li>
-                        <li>Juego de geometria y diccionario escolar</li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h3 class="font-bold text-gray-900 mb-2">Secundaria y Bachillerato</h3>
-                    <ul class="list-disc list-inside text-gray-600 space-y-1">
-                        <li>Libretas por asignatura o carpeta de argollas</li>
-                        <li>Calculadora cientifica y juego de geometria</li>
-                        <li>Memoria USB y materiales segun laboratorio o taller</li>
-                    </ul>
-                </div>
+                <label class="block w-full md:max-w-xs">
+                    <span class="mb-2 block text-sm font-bold text-gray-700">Buscar lista</span>
+                    <input
+                        type="search"
+                        data-recursos-search
+                        placeholder="Ej. 6 grado, primaria..."
+                        class="w-full rounded border border-gray-300 p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    >
+                </label>
             </div>
+
+            @if (! empty($listasUtiles))
+                <div class="mt-7 flex flex-wrap gap-2" role="tablist" aria-label="Filtrar listas por nivel">
+                    <button
+                        type="button"
+                        data-recursos-filter="todos"
+                        class="rounded border border-blue-700 bg-blue-700 px-4 py-2 text-sm font-bold text-white"
+                        aria-pressed="true"
+                    >
+                        Todos
+                    </button>
+                    @foreach ($listasUtiles as $nivel => $listas)
+                        <button
+                            type="button"
+                            data-recursos-filter="{{ Str::slug($nivel) }}"
+                            class="rounded border border-gray-200 bg-gray-50 px-4 py-2 text-sm font-bold text-gray-700 transition hover:border-blue-600 hover:text-blue-700"
+                            aria-pressed="false"
+                        >
+                            {{ $nivel }} <span class="ml-1 text-xs opacity-70">({{ count($listas) }})</span>
+                        </button>
+                    @endforeach
+                </div>
+
+                <div class="mt-8 space-y-8">
+                    @foreach ($listasUtiles as $nivel => $listas)
+                        <div data-recursos-group="{{ Str::slug($nivel) }}">
+                            <div class="mb-4 flex items-center justify-between gap-4">
+                                <div>
+                                    <h3 class="text-xl font-extrabold text-black">{{ $nivel }}</h3>
+                                    <p class="text-sm text-gray-600">{{ count($listas) }} listas disponibles</p>
+                                </div>
+                                <span class="h-1.5 w-16 rounded-full {{ $loop->iteration % 2 === 0 ? 'bg-red-600' : 'bg-blue-700' }}"></span>
+                            </div>
+
+                            <div class="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+                                @foreach ($listas as $lista)
+                                    <a
+                                        href="{{ $lista['url'] }}"
+                                        target="_blank"
+                                        rel="noopener"
+                                        data-recursos-card
+                                        data-recursos-nivel="{{ Str::slug($nivel) }}"
+                                        data-recursos-text="{{ Str::lower($nivel . ' ' . $lista['grado'] . ' ' . $lista['titulo']) }}"
+                                        class="group flex min-h-36 flex-col justify-between rounded-lg border border-gray-200 bg-gray-50 p-4 transition hover:-translate-y-1 hover:border-blue-600 hover:bg-blue-50 hover:shadow-md"
+                                    >
+                                        <div>
+                                            <span class="inline-flex rounded-full bg-yellow-500 px-3 py-1 text-xs font-extrabold uppercase text-black">
+                                                {{ $lista['grado'] }}
+                                            </span>
+                                            <h4 class="mt-4 text-lg font-extrabold leading-snug text-black">{{ $lista['titulo'] }}</h4>
+                                        </div>
+                                        <span class="mt-5 inline-flex items-center text-sm font-extrabold text-red-600 group-hover:underline">
+                                            Abrir PDF
+                                        </span>
+                                    </a>
+                                @endforeach
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+
+                <div class="mt-8 hidden rounded-lg border border-dashed border-gray-300 p-6 text-center text-gray-600" data-recursos-empty>
+                    No encontramos una lista con ese filtro.
+                </div>
+            @else
+                <div class="mt-8 rounded-lg border border-dashed border-gray-300 p-6 text-gray-600">
+                    Aun no hay listas PDF disponibles.
+                </div>
+            @endif
         </section>
 
-        <section class="bg-white rounded-xl shadow-md p-6 md:p-8">
-            <h2 class="text-2xl font-bold text-blue-700 mb-5">Calendario escolar</h2>
-
-            <div class="space-y-4">
-                <div class="border-l-4 border-blue-600 pl-4">
-                    <p class="font-bold text-gray-900">Inicio de clases</p>
-                    <p class="text-gray-600">Bienvenida, integracion y entrega de indicaciones generales.</p>
+        <aside class="space-y-6">
+            <section class="rounded-xl bg-white p-6 shadow-md md:p-8">
+                <p class="text-sm font-bold uppercase tracking-wide text-blue-700">Como usarlo</p>
+                <h2 class="mt-2 text-2xl font-extrabold text-black">Encuentra tu PDF en tres pasos</h2>
+                <div class="mt-6 space-y-4">
+                    <div class="flex gap-3">
+                        <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-blue-700 text-sm font-extrabold text-white">1</span>
+                        <p class="text-gray-700">Filtra por nivel educativo.</p>
+                    </div>
+                    <div class="flex gap-3">
+                        <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-red-600 text-sm font-extrabold text-white">2</span>
+                        <p class="text-gray-700">Busca el grado o nombre de la lista.</p>
+                    </div>
+                    <div class="flex gap-3">
+                        <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-yellow-500 text-sm font-extrabold text-black">3</span>
+                        <p class="text-gray-700">Abre el PDF para revisarlo o descargarlo.</p>
+                    </div>
                 </div>
+            </section>
 
-                <div class="border-l-4 border-blue-600 pl-4">
-                    <p class="font-bold text-gray-900">Evaluaciones parciales</p>
-                    <p class="text-gray-600">Periodos de seguimiento academico durante el ciclo escolar.</p>
-                </div>
+            <section class="rounded-xl bg-white p-6 shadow-md md:p-8">
+                <p class="text-sm font-bold uppercase tracking-wide text-red-600">Calendario escolar</p>
+                <h2 class="mt-2 text-2xl font-extrabold text-black">Momentos principales</h2>
 
-                <div class="border-l-4 border-blue-600 pl-4">
-                    <p class="font-bold text-gray-900">Consejo tecnico y suspensiones</p>
-                    <p class="text-gray-600">Fechas de trabajo docente y descansos oficiales.</p>
+                <div class="mt-6 space-y-5">
+                    @foreach ($calendario as $item)
+                        <div class="relative pl-8">
+                            <span class="absolute left-0 top-1 h-4 w-4 rounded-full {{ $item['color'] }}"></span>
+                            @if (! $loop->last)
+                                <span class="absolute left-[7px] top-6 h-full w-0.5 bg-gray-200"></span>
+                            @endif
+                            <p class="font-extrabold text-black">{{ $item['titulo'] }}</p>
+                            <p class="mt-1 leading-6 text-gray-600">{{ $item['texto'] }}</p>
+                        </div>
+                    @endforeach
                 </div>
-
-                <div class="border-l-4 border-blue-600 pl-4">
-                    <p class="font-bold text-gray-900">Cierre de ciclo</p>
-                    <p class="text-gray-600">Entrega de resultados, actividades finales y ceremonias escolares.</p>
-                </div>
-            </div>
-        </section>
+            </section>
+        </aside>
     </div>
 </section>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const root = document.querySelector('[data-recursos]');
+        if (!root) return;
+
+        const search = root.querySelector('[data-recursos-search]');
+        const filters = Array.from(root.querySelectorAll('[data-recursos-filter]'));
+        const cards = Array.from(root.querySelectorAll('[data-recursos-card]'));
+        const groups = Array.from(root.querySelectorAll('[data-recursos-group]'));
+        const empty = root.querySelector('[data-recursos-empty]');
+        let activeFilter = 'todos';
+
+        const setActiveButton = () => {
+            filters.forEach((button) => {
+                const active = button.dataset.recursosFilter === activeFilter;
+                button.setAttribute('aria-pressed', active ? 'true' : 'false');
+                button.classList.toggle('bg-blue-700', active);
+                button.classList.toggle('text-white', active);
+                button.classList.toggle('border-blue-700', active);
+                button.classList.toggle('bg-gray-50', !active);
+                button.classList.toggle('text-gray-700', !active);
+                button.classList.toggle('border-gray-200', !active);
+            });
+        };
+
+        const applyFilters = () => {
+            const term = (search?.value || '').trim().toLowerCase();
+            let visibleCards = 0;
+
+            cards.forEach((card) => {
+                const matchesLevel = activeFilter === 'todos' || card.dataset.recursosNivel === activeFilter;
+                const matchesTerm = !term || card.dataset.recursosText.includes(term);
+                const visible = matchesLevel && matchesTerm;
+                card.classList.toggle('hidden', !visible);
+                if (visible) visibleCards += 1;
+            });
+
+            groups.forEach((group) => {
+                const groupCards = Array.from(group.querySelectorAll('[data-recursos-card]'));
+                group.classList.toggle('hidden', groupCards.every((card) => card.classList.contains('hidden')));
+            });
+
+            if (empty) empty.classList.toggle('hidden', visibleCards > 0);
+            setActiveButton();
+        };
+
+        filters.forEach((button) => {
+            button.addEventListener('click', () => {
+                activeFilter = button.dataset.recursosFilter;
+                applyFilters();
+            });
+        });
+
+        search?.addEventListener('input', applyFilters);
+    });
+</script>
 
 @endsection

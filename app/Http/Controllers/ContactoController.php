@@ -2,25 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Contacto;
+use App\Http\Requests\StoreContactoRequest;
+use App\Services\ContactoService;
+use Illuminate\Http\RedirectResponse;
 
 class ContactoController extends Controller
 {
-    public function store(Request $request)
-    {
-        Contacto::create([
-            'nombre' => $request->nombre,
-            'email' => $request->email,
-            'mensaje' => $request->mensaje,
-        ]);
+    public function __construct(
+        protected ContactoService $contactoService
+    ) {}
 
-        return back()->with('success', 'Mensaje enviado correctamente');
-    }
-
-    public function index()
+    public function store(StoreContactoRequest $request): RedirectResponse
     {
-        $contactos = Contacto::latest()->get();
-        return view('admin.contactos', compact('contactos'));
+        // El $request->validated() ya nos devuelve los datos limpios y seguros
+        $this->contactoService->registrarContacto($request->validated());
+
+        return redirect()->back()->with('success', '¡Gracias por comunicarte con el Colegio Discovery! Te contactaremos a la brevedad.');
     }
 }

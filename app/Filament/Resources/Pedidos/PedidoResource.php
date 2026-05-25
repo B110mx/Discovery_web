@@ -14,6 +14,7 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class PedidoResource extends Resource
 {
@@ -21,7 +22,15 @@ class PedidoResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
-    protected static ?string $navigationLabel = 'Pedidos';
+    protected static string|UnitEnum|null $navigationGroup = 'Solicitudes recibidas';
+
+    protected static ?int $navigationSort = 20;
+
+    protected static ?string $navigationLabel = 'Pedidos de uniformes';
+
+    protected static ?string $modelLabel = 'pedido de uniforme';
+
+    protected static ?string $pluralModelLabel = 'pedidos de uniformes';
 
     protected static ?string $recordTitleAttribute = 'alumno_nombre';
 

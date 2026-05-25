@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\Contactos\Tables;
+namespace App\Filament\Resources\HitoHistorias\Tables;
 
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
@@ -9,18 +9,24 @@ use Filament\Actions\ViewAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
-class ContactosTable
+class HitoHistoriasTable
 {
     public static function configure(Table $table): Table
     {
         return $table
             ->columns([
-                TextColumn::make('nombre')
-                    ->label('Nombre')
+                TextColumn::make('anio')
+                    ->label('Ano')
                     ->searchable(),
-                TextColumn::make('email')
-                    ->label('Correo electronico')
+                TextColumn::make('titulo')
+                    ->label('Hito')
                     ->searchable(),
+                TextColumn::make('imagen_url')
+                    ->label('Imagen')
+                    ->searchable(),
+                TextColumn::make('orden')
+                    ->numeric()
+                    ->sortable(),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

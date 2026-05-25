@@ -1,3 +1,128 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+    --discovery-blue: #0033A0;
+    --discovery-red: #E30613;
+    --discovery-yellow: #FFD100;
+    --discovery-black: #000000;
+}
+
+.bg-blue-600,
+.bg-blue-700,
+.bg-sky-500 {
+    background-color: var(--discovery-blue);
+}
+
+.bg-red-500,
+.bg-red-600 {
+    background-color: var(--discovery-red);
+}
+
+.bg-lime-400,
+.bg-lime-500,
+.bg-green-500,
+.bg-amber-500 {
+    background-color: var(--discovery-yellow);
+}
+
+.bg-black,
+.bg-gray-900 {
+    background-color: var(--discovery-black);
+}
+
+.text-blue-600,
+.text-blue-700,
+.text-sky-500 {
+    color: var(--discovery-blue);
+}
+
+.text-red-600 {
+    color: var(--discovery-red);
+}
+
+.text-lime-400,
+.text-green-500 {
+    color: var(--discovery-yellow);
+}
+
+.text-black,
+.text-gray-900,
+.text-gray-950 {
+    color: var(--discovery-black);
+}
+
+.border-blue-500,
+.border-blue-600,
+.border-blue-700,
+.border-sky-500 {
+    border-color: var(--discovery-blue);
+}
+
+.border-red-600 {
+    border-color: var(--discovery-red);
+}
+
+.border-lime-500,
+.border-green-600,
+.border-amber-500 {
+    border-color: var(--discovery-yellow);
+}
+
+.ring-blue-600 {
+    --tw-ring-color: var(--discovery-blue);
+}
+
+.ring-red-500 {
+    --tw-ring-color: var(--discovery-red);
+}
+
+.ring-lime-500,
+.ring-green-600 {
+    --tw-ring-color: var(--discovery-yellow);
+}
+
+.decoration-red-400 {
+    text-decoration-color: var(--discovery-red);
+}
+
+.decoration-blue-200 {
+    text-decoration-color: var(--discovery-blue);
+}
+
+.hover\:bg-blue-800:hover,
+.hover\:bg-sky-600:hover {
+    background-color: #002676;
+}
+
+.hover\:bg-red-700:hover {
+    background-color: #B9050F;
+}
+
+.hover\:bg-lime-500:hover,
+.hover\:bg-lime-600:hover,
+.hover\:bg-green-600:hover,
+.hover\:bg-green-700:hover,
+.hover\:bg-amber-600:hover {
+    background-color: #D6AF00;
+}
+
+.hover\:text-blue-700:hover,
+.hover\:text-blue-900:hover,
+.group:hover .group-hover\:text-blue-900 {
+    color: var(--discovery-blue);
+}
+
+.hover\:border-blue-400:hover,
+.hover\:border-blue-600:hover {
+    border-color: var(--discovery-blue);
+}
+
+.data-\[active\=true\]\:border-blue-700[data-active=true] {
+    border-color: var(--discovery-blue);
+}
+
+.data-\[active\=true\]\:bg-blue-700[data-active=true] {
+    background-color: var(--discovery-blue);
+}

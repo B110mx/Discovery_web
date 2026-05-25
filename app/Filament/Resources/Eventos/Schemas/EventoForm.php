@@ -3,11 +3,11 @@
 namespace App\Filament\Resources\Eventos\Schemas;
 
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\Toggle;
-use Filament\Forms\Components\Grid;
 use Filament\Schemas\Schema;
 
 class EventoForm
@@ -16,12 +16,12 @@ class EventoForm
     {
         return $schema
             ->components([
-                Section::make('Información del Evento')
+                Section::make('Texto que aparece en el carrusel de inicio')
                     ->schema([
                         Grid::make(2)
                             ->schema([
                                 TextInput::make('titulo')
-                                    ->label('Título')
+                                    ->label('Titulo del evento')
                                     ->required()
                                     ->maxLength(255),
                                 TextInput::make('orden')
@@ -30,14 +30,15 @@ class EventoForm
                                     ->default(0),
                             ]),
                         Textarea::make('descripcion')
-                            ->label('Descripción')
+                            ->label('Descripcion que acompana la imagen')
                             ->rows(3)
                             ->maxLength(500),
                     ]),
-                Section::make('Imagen del Evento')
+                Section::make('Imagen o cartel del evento')
                     ->schema([
                         FileUpload::make('imagen_url')
-                            ->label('Imagen')
+                            ->label('Imagen del carrusel')
+                            ->helperText('Esta imagen se muestra en el carrusel de Proximos eventos de la pagina de inicio.')
                             ->image()
                             ->required()
                             ->disk('public')
@@ -45,10 +46,10 @@ class EventoForm
                             ->visibility('public')
                             ->maxSize(5120),
                     ]),
-                Section::make('Estado')
+                Section::make('Visibilidad en inicio')
                     ->schema([
                         Toggle::make('activo')
-                            ->label('Evento Activo')
+                            ->label('Mostrar este evento en el carrusel')
                             ->default(true),
                     ]),
             ]);

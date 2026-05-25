@@ -21,17 +21,17 @@ class EventosTable
                     ->label('ID')
                     ->sortable(),
                 TextColumn::make('titulo')
-                    ->label('Título')
+                    ->label('Evento visible en inicio')
                     ->searchable()
                     ->sortable(),
                 ImageColumn::make('imagen_url')
-                    ->label('Imagen')
+                    ->label('Imagen del carrusel')
                     ->disk('public'),
                 TextColumn::make('orden')
                     ->label('Orden')
                     ->sortable(),
                 IconColumn::make('activo')
-                    ->label('Activo')
+                    ->label('Visible')
                     ->boolean(),
                 TextColumn::make('created_at')
                     ->label('Creado')

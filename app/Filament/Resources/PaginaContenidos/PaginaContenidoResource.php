@@ -13,6 +13,7 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class PaginaContenidoResource extends Resource
 {
@@ -20,11 +21,15 @@ class PaginaContenidoResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedPhoto;
 
-    protected static ?string $navigationLabel = 'Contenido de paginas';
+    protected static string|UnitEnum|null $navigationGroup = 'Contenido del sitio';
 
-    protected static ?string $modelLabel = 'contenido de pagina';
+    protected static ?int $navigationSort = 30;
 
-    protected static ?string $pluralModelLabel = 'contenidos de paginas';
+    protected static ?string $navigationLabel = 'Contacto - Datos y mapa';
+
+    protected static ?string $modelLabel = 'contenido de contacto';
+
+    protected static ?string $pluralModelLabel = 'datos de contacto y mapa';
 
     public static function form(Schema $schema): Schema
     {

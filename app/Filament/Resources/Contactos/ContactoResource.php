@@ -16,6 +16,7 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class ContactoResource extends Resource
 {
@@ -23,7 +24,17 @@ class ContactoResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
-    protected static ?string $recordTitleAttribute = 'contactos';
+    protected static string|UnitEnum|null $navigationGroup = 'Solicitudes recibidas';
+
+    protected static ?int $navigationSort = 10;
+
+    protected static ?string $navigationLabel = 'Mensajes del formulario';
+
+    protected static ?string $modelLabel = 'mensaje de contacto';
+
+    protected static ?string $pluralModelLabel = 'mensajes del formulario de contacto';
+
+    protected static ?string $recordTitleAttribute = 'nombre';
 
     public static function form(Schema $schema): Schema
     {

@@ -39,7 +39,7 @@
                         <div class="flex items-start gap-3">
                             <input type="checkbox" name="productos[{{ $slug }}][seleccionado]" value="1" class="mt-1">
                             <div class="flex-1">
-                                <p class="font-bold text-gray-900">{{ $producto['nombre'] }}</p>
+                                <p class="font-bold text-black">{{ $producto['nombre'] }}</p>
                                 <p class="text-sm text-gray-600 mt-1">{{ $producto['nivel'] }}</p>
                                 <p class="text-blue-700 font-bold mt-3">${{ number_format($producto['precio'], 2) }}</p>
                             </div>

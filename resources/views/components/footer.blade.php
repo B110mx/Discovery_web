@@ -1,7 +1,12 @@
-<footer class="bg-gray-900 text-white mt-12">
+<footer class="bg-black text-white mt-12">
     <div class="max-w-7xl mx-auto px-6 py-10 grid md:grid-cols-3 gap-8">
         <div>
-            <h2 class="text-2xl font-bold mb-3">Colegio Discovery</h2>
+            <img
+                src="{{ url('/media/logos%20principales/' . rawurlencode('logo-ib-y-discovery-Footer-1024x342.png')) }}"
+                alt="Colegio Discovery"
+                class="mb-4 h-16 w-auto object-contain"
+                loading="lazy"
+            >
             <p class="text-gray-300">
                 Via Puebla #3611, Residencial Cinco Bosques, Tehuacan, Puebla C.P. 75855.
             </p>
@@ -38,7 +43,7 @@
         </div>
     </div>
 
-    <div class="border-t border-gray-700 text-center text-gray-400 p-4">
+    <div class="border-t border-black text-center text-gray-400 p-4">
         Copyright Colegio Discovery
     </div>
 </footer>

@@ -13,12 +13,23 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class EventoResource extends Resource
 {
     protected static ?string $model = Evento::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+
+    protected static string|UnitEnum|null $navigationGroup = 'Contenido del sitio';
+
+    protected static ?int $navigationSort = 10;
+
+    protected static ?string $navigationLabel = 'Inicio - Carrusel de eventos';
+
+    protected static ?string $modelLabel = 'evento del carrusel';
+
+    protected static ?string $pluralModelLabel = 'eventos del carrusel de inicio';
 
     protected static ?string $recordTitleAttribute = 'titulo';
 

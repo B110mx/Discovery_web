@@ -10,12 +10,6 @@
     $telefonoPrincipal = $pagina?->telefono_principal ?? '(238) 688 11 79';
     $telefonoSecundario = $pagina?->telefono_secundario ?? '(238) 102 18 17';
     $correo = $pagina?->correo ?? 'informes@colegio-discovery.edu.mx';
-    $imagenPrincipal = $pagina?->imagen_principal
-        ? Illuminate\Support\Facades\Storage::disk('public')->url($pagina->imagen_principal)
-        : 'https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=1200&q=80';
-    $imagenSecundaria = $pagina?->imagen_secundaria
-        ? Illuminate\Support\Facades\Storage::disk('public')->url($pagina->imagen_secundaria)
-        : 'https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=900&q=80';
 @endphp
 
 <section class="max-w-7xl mx-auto">
@@ -27,11 +21,12 @@
                 <p class="text-blue-50 text-lg mt-5 max-w-xl">{{ $descripcion }}</p>
             </div>
 
-            <img
-                src="{{ $imagenPrincipal }}"
+            <x-imagen-seccion
+                :imagen="$imagenesContacto['hero']"
                 alt="Colegio Discovery contacto"
-                class="w-full h-72 lg:h-full object-cover"
-            >
+                class="h-72 w-full object-cover lg:h-full"
+                placeholder-class="h-72 lg:h-full"
+            />
         </div>
     </div>
 
@@ -80,11 +75,12 @@
                 <a href="mailto:{{ $correo }}" class="block mt-4 text-blue-700 hover:underline">{{ $correo }}</a>
             </div>
 
-            <img
-                src="{{ $imagenSecundaria }}"
+            <x-imagen-seccion
+                :imagen="$imagenesContacto['secundaria']"
                 alt="Comunidad Colegio Discovery"
-                class="w-full h-64 object-cover rounded-xl shadow-md"
-            >
+                class="h-64 w-full rounded-xl object-cover shadow-md"
+                placeholder-class="h-64"
+            />
         </aside>
     </div>
 

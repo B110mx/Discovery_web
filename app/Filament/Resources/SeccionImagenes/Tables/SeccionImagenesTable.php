@@ -1,34 +1,43 @@
 <?php
 
-namespace App\Filament\Resources\PaginaContenidos\Tables;
+namespace App\Filament\Resources\SeccionImagenes\Tables;
 
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
-class PaginaContenidosTable
+class SeccionImagenesTable
 {
     public static function configure(Table $table): Table
     {
         return $table
             ->columns([
-                ImageColumn::make('imagen_principal')
-                    ->label('Imagen principal')
+                ImageColumn::make('imagen')
+                    ->label('Imagen')
                     ->disk('public'),
+                TextColumn::make('vista')
+                    ->label('Vista / pagina')
+                    ->searchable()
+                    ->sortable(),
+                TextColumn::make('clave')
+                    ->label('Parte de la vista')
+                    ->searchable()
+                    ->sortable(),
                 TextColumn::make('titulo')
-                    ->label('Titulo de la pagina')
+                    ->label('Referencia')
                     ->searchable(),
-                TextColumn::make('slug')
-                    ->label('Vista')
-                    ->searchable(),
+                IconColumn::make('activo')
+                    ->boolean(),
                 TextColumn::make('updated_at')
                     ->label('Actualizado')
                     ->dateTime()
                     ->sortable(),
             ])
+            ->defaultSort('vista')
             ->recordActions([
                 EditAction::make(),
             ])

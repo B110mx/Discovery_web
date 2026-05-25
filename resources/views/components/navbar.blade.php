@@ -9,8 +9,13 @@
     </div>
 
     <nav class="max-w-7xl mx-auto px-4 py-4 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
-        <a href="{{ route('inicio') }}" class="text-2xl font-bold text-blue-700">
-            Colegio Discovery
+        <a href="{{ route('inicio') }}" class="flex items-center gap-3">
+            <img
+                src="{{ url('/media/logos%20principales/' . rawurlencode('logo-ib-y-discovery-principal-1024x342.png')) }}"
+                alt="Colegio Discovery"
+                class="h-14 w-auto object-contain"
+            >
+            <span class="sr-only">Colegio Discovery</span>
         </a>
 
         <ul class="flex flex-wrap items-center gap-5 text-gray-700 font-semibold">

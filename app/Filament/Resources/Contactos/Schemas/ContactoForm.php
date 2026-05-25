@@ -14,7 +14,7 @@ class ContactoForm
             TextInput::make('nombre')->required(),
 
             TextInput::make('email')
-                ->label('Email address')
+                ->label('Correo electronico')
                 ->email()
                 ->required(),
 

@@ -17,40 +17,20 @@
 </div>
 
 @if (! empty($eventos))
-    <section class="mt-16 overflow-hidden rounded-xl shadow-lg bg-blue-600">
-        <div class="relative min-h-[520px] bg-cover bg-center" style="background-image: linear-gradient(rgba(50, 178, 205, 0.72), rgba(50, 178, 205, 0.72)), url('https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=1600&q=80');">
-            <div class="max-w-5xl mx-auto px-6 py-10">
-                <div class="text-center mb-8">
-                    <p class="font-semibold uppercase tracking-wide text-sm text-blue-900">Eventos escolares</p>
-                    <h2 class="text-4xl font-extrabold text-gray-950 mt-2">Momentos Discovery</h2>
-                </div>
+    <section class="mt-16 overflow-hidden rounded-xl bg-white shadow-lg">
+        <div class="grid lg:grid-cols-[.85fr_1.15fr]">
+            <div class="bg-blue-700 p-8 text-white md:p-10">
+                <p class="font-semibold uppercase tracking-wide text-sm text-blue-100">Agenda Discovery</p>
+                <h2 class="mt-3 text-4xl font-extrabold">Proximos eventos</h2>
+                <p class="mt-5 leading-8 text-blue-50">
+                    Consulta las actividades que vienen para nuestra comunidad escolar. Este carrusel muestra las fotos o carteles de los eventos activos.
+                </p>
 
-                <div class="relative max-w-3xl mx-auto" data-event-carousel>
-                    <div class="overflow-hidden">
-                        <div class="flex transition-transform duration-500 ease-out" data-event-track>
-                            @foreach ($eventos as $evento)
-                                <article class="min-w-full px-2">
-                                    <div class="bg-white rounded-lg overflow-hidden shadow-2xl">
-                                        <img
-                                            src="{{ $evento['url'] }}"
-                                            alt="{{ $evento['titulo'] }}"
-                                            class="w-full h-80 md:h-[400px] object-cover"
-                                            loading="lazy"
-                                        >
-                                        <div class="p-5 text-center">
-                                            <h3 class="text-2xl font-extrabold text-blue-700">{{ $evento['titulo'] }}</h3>
-                                            <p class="text-gray-600 mt-2">{{ $evento['descripcion'] }}</p>
-                                        </div>
-                                    </div>
-                                </article>
-                            @endforeach
-                        </div>
-                    </div>
-
+                <div class="mt-8 flex items-center gap-3">
                     <button
                         type="button"
                         data-event-prev
-                        class="absolute left-2 top-1/2 -translate-y-1/2 h-12 w-12 rounded-full bg-white/80 text-blue-700 text-3xl font-bold shadow hover:bg-white"
+                        class="h-11 w-11 rounded-full bg-white text-2xl font-bold text-blue-700 shadow hover:bg-blue-50"
                         aria-label="Evento anterior"
                     >
                         &lt;
@@ -58,27 +38,54 @@
                     <button
                         type="button"
                         data-event-next
-                        class="absolute right-2 top-1/2 -translate-y-1/2 h-12 w-12 rounded-full bg-white/80 text-blue-700 text-3xl font-bold shadow hover:bg-white"
+                        class="h-11 w-11 rounded-full bg-red-600 text-2xl font-bold text-white shadow hover:bg-red-700"
                         aria-label="Evento siguiente"
                     >
                         &gt;
                     </button>
+                </div>
 
-                    <div class="flex justify-center gap-2 mt-5" data-event-dots>
+                <div class="mt-6 flex gap-2" data-event-dots>
+                    @foreach ($eventos as $evento)
+                        <button
+                            type="button"
+                            class="h-3 w-3 rounded-full bg-white/60"
+                            aria-label="Ir al evento {{ $loop->iteration }}"
+                            data-event-dot="{{ $loop->index }}"
+                        ></button>
+                    @endforeach
+                </div>
+
+                <a href="{{ route('recursos-escolares') }}" class="mt-8 inline-flex font-extrabold text-white underline decoration-red-400 decoration-4 underline-offset-4 hover:text-blue-100">
+                    Ver recursos escolares
+                </a>
+            </div>
+
+            <div class="relative" data-event-carousel>
+                <div class="overflow-hidden">
+                    <div class="flex transition-transform duration-500 ease-out" data-event-track>
                         @foreach ($eventos as $evento)
-                            <button
-                                type="button"
-                                class="h-3 w-3 rounded-full bg-white/70"
-                                aria-label="Ir al evento {{ $loop->iteration }}"
-                                data-event-dot="{{ $loop->index }}"
-                            ></button>
+                            <article class="min-w-full">
+                                <div class="grid md:grid-cols-[1fr_.55fr]">
+                                    <div class="bg-gray-100">
+                                        <img
+                                            src="{{ $evento['url'] }}"
+                                            alt="{{ $evento['titulo'] }}"
+                                            class="h-72 w-full object-contain p-3 md:h-[430px]"
+                                            loading="{{ $loop->first ? 'eager' : 'lazy' }}"
+                                        >
+                                    </div>
+
+                                    <div class="flex flex-col justify-center p-6 md:p-8">
+                                        <p class="text-sm font-bold uppercase tracking-wide text-red-600">Evento proximo</p>
+                                        <h3 class="mt-3 text-3xl font-extrabold text-blue-700">{{ $evento['titulo'] }}</h3>
+                                        <p class="mt-4 leading-8 text-gray-600">{{ $evento['descripcion'] }}</p>
+                                    </div>
+                                </div>
+                            </article>
                         @endforeach
                     </div>
                 </div>
-
-                <a href="{{ route('recursos-escolares') }}" class="mt-8 inline-flex text-red-600 font-extrabold hover:underline">
-                    Calendario de Eventos Anteriores ->
-                </a>
             </div>
         </div>
     </section>
@@ -87,6 +94,12 @@
 <section class="mt-16 bg-white px-6 py-10 rounded-xl shadow-md">
     <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
         <article class="flex flex-col">
+            <img
+                src="{{ $logosNiveles['preescolar'] ?? '' }}"
+                alt="Preescolar Discovery"
+                class="mx-auto mb-5 h-24 w-auto object-contain"
+                loading="lazy"
+            >
             <h2 class="text-xl font-extrabold text-center uppercase text-lime-400 mb-10">Preescolar</h2>
             <p class="text-gray-600 leading-7 flex-1">
                 <span class="text-sky-500">El mejor Kinder de Tehuacan.</span>
@@ -101,6 +114,12 @@
         </article>
 
         <article class="flex flex-col">
+            <img
+                src="{{ $logosNiveles['primaria'] ?? '' }}"
+                alt="Primaria Discovery"
+                class="mx-auto mb-5 h-24 w-auto object-contain"
+                loading="lazy"
+            >
             <h2 class="text-xl font-extrabold text-center uppercase text-red-600 mb-10">Primaria</h2>
             <p class="text-gray-600 leading-7 flex-1">
                 <span class="text-sky-500">La mejor primaria de Tehuacan.</span>
@@ -114,6 +133,12 @@
         </article>
 
         <article class="flex flex-col">
+            <img
+                src="{{ $logosNiveles['secundaria'] ?? '' }}"
+                alt="Secundaria Discovery"
+                class="mx-auto mb-5 h-24 w-auto object-contain"
+                loading="lazy"
+            >
             <h2 class="text-xl font-extrabold text-center uppercase text-blue-700 mb-10">Secundaria</h2>
             <p class="text-gray-600 leading-7 flex-1">
                 <span class="text-sky-500">La mejor Secundaria de Tehuacan.</span>
@@ -127,6 +152,12 @@
         </article>
 
         <article class="flex flex-col">
+            <img
+                src="{{ $logosNiveles['bachillerato'] ?? '' }}"
+                alt="Bachillerato Discovery"
+                class="mx-auto mb-5 h-24 w-auto object-contain"
+                loading="lazy"
+            >
             <h2 class="text-xl font-extrabold text-center uppercase text-green-500 mb-10">Bachillerato</h2>
             <p class="text-gray-600 leading-7 flex-1">
                 <span class="text-sky-500">El mejor Bachillerato de Tehuacan.</span>
@@ -159,9 +190,12 @@
     </div>
 
     <div>
-        <img src="https://images.unsplash.com/photo-1588072432836-e10032774350"
-             class="rounded-xl shadow-lg"
-             alt="Escuela">
+        <x-imagen-seccion
+            :imagen="$imagenesInicio['sobre_nosotros']"
+            alt="Escuela"
+            class="h-80 w-full rounded-xl object-cover shadow-lg"
+            placeholder-class="h-80"
+        />
     </div>
 </div>
 
@@ -193,7 +227,7 @@
         <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-6">
             <div>
                 <p class="font-semibold uppercase tracking-wide text-sm text-blue-700">Testimonios Alumni</p>
-                <h2 class="text-3xl font-bold text-gray-900 mt-2">Historias de nuestra comunidad</h2>
+                <h2 class="text-3xl font-bold text-black mt-2">Historias de nuestra comunidad</h2>
             </div>
 
             <div class="flex gap-3">
@@ -219,8 +253,8 @@
         <div class="overflow-hidden" data-video-carousel>
             <div class="flex transition-transform duration-500 ease-out" data-video-track>
                 @foreach ($testimonios as $video)
-                    <article class="min-w-full px-1 md:px-3">
-                        <div class="bg-gray-100 rounded-xl overflow-hidden shadow-sm">
+                    <article class="flex-shrink-0 w-full sm:w-1/2 lg:w-1/3 px-1 md:px-3">
+                        <div class="bg-gray-100 rounded-lg overflow-hidden shadow-sm">
                             <video
                                 src="{{ $video['url'] }}"
                                 controls
@@ -229,7 +263,7 @@
                                 class="w-full aspect-video bg-black"
                             ></video>
                         </div>
-                        <h3 class="text-xl font-bold text-gray-900 mt-4">{{ $video['titulo'] }}</h3>
+                        <h3 class="text-xl font-bold text-black mt-4">{{ $video['titulo'] }}</h3>
                     </article>
                 @endforeach
             </div>
@@ -269,7 +303,7 @@
 
             eventIndex = (index + eventSlides.length) % eventSlides.length;
             eventTrack.style.transform = `translateX(-${eventIndex * 100}%)`;
-            activateDots(eventDots, eventIndex, 'h-3 w-8 rounded-full bg-blue-700', 'h-3 w-3 rounded-full bg-white/70');
+            activateDots(eventDots, eventIndex, 'h-3 w-8 rounded-full bg-red-500', 'h-3 w-3 rounded-full bg-white/60');
         };
 
         const restartEventTimer = () => {
@@ -302,11 +336,22 @@
         showEvent(0);
         restartEventTimer();
 
+        const videoCarousel = document.querySelector('[data-video-carousel]');
         const videoTrack = document.querySelector('[data-video-track]');
         const videoSlides = videoTrack ? Array.from(videoTrack.children) : [];
         const videoDots = Array.from(document.querySelectorAll('[data-video-dot]'));
         const videos = Array.from(document.querySelectorAll('[data-video-track] video'));
         let videoIndex = 0;
+
+        const getVideosPerView = () => {
+            if (!videoCarousel || videoSlides.length === 0 || videoSlides[0].offsetWidth === 0) {
+                return 1;
+            }
+
+            return Math.max(1, Math.round(videoCarousel.clientWidth / videoSlides[0].offsetWidth));
+        };
+
+        const getMaxVideoIndex = () => Math.max(0, videoSlides.length - getVideosPerView());
 
         const pauseOtherVideos = (currentVideo) => {
             videos.forEach((video) => {
@@ -321,22 +366,25 @@
                 return;
             }
 
-            videoIndex = (index + videoSlides.length) % videoSlides.length;
-            videoTrack.style.transform = `translateX(-${videoIndex * 100}%)`;
+            videoIndex = Math.max(0, Math.min(index, getMaxVideoIndex()));
+            videoTrack.style.transform = `translateX(-${videoSlides[videoIndex].offsetLeft}px)`;
             activateDots(videoDots, videoIndex, 'h-3 w-8 rounded-full bg-blue-700', 'h-3 w-3 rounded-full bg-gray-300');
-
-            videos.forEach((video, currentIndex) => {
-                if (currentIndex !== videoIndex && !video.paused) {
-                    video.pause();
-                }
-            });
         };
 
-        document.querySelector('[data-video-prev]')?.addEventListener('click', () => showVideo(videoIndex - 1));
-        document.querySelector('[data-video-next]')?.addEventListener('click', () => showVideo(videoIndex + 1));
+        document.querySelector('[data-video-prev]')?.addEventListener('click', () => {
+            pauseOtherVideos(null);
+            showVideo(videoIndex - 1);
+        });
+        document.querySelector('[data-video-next]')?.addEventListener('click', () => {
+            pauseOtherVideos(null);
+            showVideo(videoIndex + 1);
+        });
 
         videoDots.forEach((dot) => {
-            dot.addEventListener('click', () => showVideo(Number(dot.dataset.videoDot)));
+            dot.addEventListener('click', () => {
+                pauseOtherVideos(null);
+                showVideo(Number(dot.dataset.videoDot));
+            });
         });
 
         videos.forEach((video, index) => {
@@ -346,6 +394,7 @@
             });
         });
 
+        window.addEventListener('resize', () => showVideo(videoIndex));
         showVideo(0);
     });
 </script>

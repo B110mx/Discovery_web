@@ -13,8 +13,8 @@ class PaginaContenidoForm
     {
         return $schema->components([
             TextInput::make('slug')
-                ->label('Identificador')
-                ->helperText('Ejemplo: contacto')
+                ->label('Pagina que se esta editando')
+                ->helperText('Ejemplo: contacto. Este campo conecta los datos con una vista del sitio.')
                 ->required()
                 ->unique(ignoreRecord: true),
 
@@ -27,14 +27,14 @@ class PaginaContenidoForm
                 ->columnSpanFull(),
 
             FileUpload::make('imagen_principal')
-                ->label('Imagen principal')
+                ->label('Imagen principal de la pagina')
                 ->image()
                 ->disk('public')
                 ->directory('paginas')
                 ->columnSpanFull(),
 
             FileUpload::make('imagen_secundaria')
-                ->label('Imagen secundaria')
+                ->label('Imagen secundaria o de apoyo')
                 ->image()
                 ->disk('public')
                 ->directory('paginas')
@@ -51,7 +51,7 @@ class PaginaContenidoForm
                 ->email(),
 
             Textarea::make('mapa_url')
-                ->label('URL o iframe de mapa')
+                ->label('Mapa de Google: URL o iframe')
                 ->columnSpanFull(),
         ]);
     }
