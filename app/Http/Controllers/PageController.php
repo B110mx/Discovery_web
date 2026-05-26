@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Evento;
 use App\Models\PaginaContenido;
 use App\Models\SeccionImagen;
-use Illuminate\Support\Facades\File;
+use App\Support\SiteCache;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
@@ -19,7 +19,7 @@ class PageController extends Controller
     public function inicio(): View
     {
         // Caché de 12 horas para evitar consultas repetitivas a la BD
-        $eventos = Cache::remember('inicio_eventos', 43200, function () {
+        $eventos = Cache::remember(SiteCache::key('inicio_eventos'), SiteCache::ttl(), function () {
             $eventos = Evento::where('activo', true)
                 ->orderBy('orden')
                 ->get()
@@ -33,47 +33,13 @@ class PageController extends Controller
                 return $eventos;
             }
 
-            return [
-                [
-                    'titulo' => 'Evento Preescolar',
-                    'descripcion' => 'Actividades proximas para nuestras familias de preescolar.',
-                    'url' => $this->generarMediaUrlDesdeRuta('Kinder/Colegio Discovery-15.jpg'),
-                ],
-                [
-                    'titulo' => 'Evento Primaria',
-                    'descripcion' => 'Experiencias, proyectos y encuentros para nuestros explorers de primaria.',
-                    'url' => $this->generarMediaUrlDesdeRuta('Elementary (Primaria)/Colegio Discovery-66.jpg'),
-                ],
-                [
-                    'titulo' => 'Evento Secundaria',
-                    'descripcion' => 'Actividades academicas y de comunidad para middle school.',
-                    'url' => $this->generarMediaUrlDesdeRuta('Middle (Secundaria)/Colegio Discovery-59.jpg'),
-                ],
-            ];
+            return $this->eventosInicioDefault();
         });
 
         // Caché para la lectura del disco duro (evita latencia de I/O)
-        $testimonios = Cache::remember('inicio_testimonios_v2', 43200, function () {
-            $testimoniosPath = base_path('videosyfotos/Testimonios Alumni');
-            
-            if (!File::isDirectory($testimoniosPath)) {
-                return [];
-            }
+        $testimonios = Cache::remember(SiteCache::key('inicio_testimonios'), SiteCache::ttl(), fn () => $this->testimoniosAlumni());
 
-            return collect(File::files($testimoniosPath))
-                ->filter(fn ($file) => in_array(strtolower($file->getExtension()), ['mp4', 'mov', 'webm', 'm4v']))
-                ->map(fn ($file) => [
-                    'titulo' => pathinfo($file->getFilename(), PATHINFO_FILENAME),
-                    'url' => $this->generarMediaUrl($file),
-            ])->values()->all();
-        });
-
-        $logosNiveles = [
-            'preescolar' => $this->generarMediaUrlDesdeRuta('Logos de niveles educativos/preescolar.png'),
-            'primaria' => $this->generarMediaUrlDesdeRuta('Logos de niveles educativos/primaria.png'),
-            'secundaria' => $this->generarMediaUrlDesdeRuta('Logos de niveles educativos/secundaria.png'),
-            'bachillerato' => $this->generarMediaUrlDesdeRuta('Logos de niveles educativos/bachillerato.png'),
-        ];
+        $logosNiveles = $this->mapearMediaPaths(config('colegio.inicio.logos_niveles', []));
         $imagenesInicio = $this->imagenesVista('inicio', [
             'sobre_nosotros' => [
                 'titulo' => 'Inicio - Sobre Nosotros',
@@ -104,177 +70,30 @@ class PageController extends Controller
 
     public function ofertaAcademica(): View
     {
-        $ofertaNiveles = [
-            'preescolar' => [
-                'titulo' => 'Preescolar',
-                'subtitulo' => 'Primeros pasos con seguridad, juego y acompanamiento.',
-                'descripcion' => 'Un entorno cercano para iniciar el aprendizaje con creatividad, bienestar emocional y bases bilingues.',
-                'edad' => 'Maternal a Pre-primary',
-                'color' => 'lime',
-                'ruta' => route('nivel', 'preescolar'),
-                'logo' => $this->generarMediaUrlDesdeRuta('Logos de niveles educativos/logo preescolar.png'),
-                'imagen' => $this->imagenVista('oferta-academica', 'preescolar', [
-                    'titulo' => 'Oferta Educativa - Preescolar',
-                    'referencia' => 'Imagen destacada para Preescolar en la vista Oferta Educativa.',
-                    'url' => $this->generarMediaUrlDesdeRuta('Kinder/Colegio Discovery-15.jpg'),
-                ]),
-                'puntos' => ['Neuroaprendizaje', 'Ingles natural', 'Grupos reducidos'],
-            ],
-            'primaria' => [
-                'titulo' => 'Primaria',
-                'subtitulo' => 'Bases solidas para explorar, investigar y crear.',
-                'descripcion' => 'Aprendizaje activo con enfoque bilingue, pensamiento logico, proyectos IB y desarrollo social.',
-                'edad' => '1 a 6 grado',
-                'color' => 'red',
-                'ruta' => route('nivel', 'primaria'),
-                'logo' => $this->generarMediaUrlDesdeRuta('Logos de niveles educativos/logo primaria.png'),
-                'imagen' => $this->imagenVista('oferta-academica', 'primaria', [
-                    'titulo' => 'Oferta Educativa - Primaria',
-                    'referencia' => 'Imagen destacada para Primaria en la vista Oferta Educativa.',
-                    'url' => $this->generarMediaUrlDesdeRuta('Elementary (Primaria)/Colegio Discovery-66.jpg'),
-                ]),
-                'puntos' => ['Ingles diario', 'Frances desde 5 grado', 'Tecnologia y arte'],
-            ],
-            'secundaria' => [
-                'titulo' => 'Secundaria',
-                'subtitulo' => 'Acompanamiento para descubrir voz, criterio y talentos.',
-                'descripcion' => 'Formacion academica con idiomas, tecnologia, proyectos interdisciplinarios y bienestar emocional.',
-                'edad' => '7 a 9 grado',
-                'color' => 'blue',
-                'ruta' => route('nivel', 'secundaria'),
-                'logo' => $this->generarMediaUrlDesdeRuta('Logos de niveles educativos/logo secundaria.png'),
-                'imagen' => $this->imagenVista('oferta-academica', 'secundaria', [
-                    'titulo' => 'Oferta Educativa - Secundaria',
-                    'referencia' => 'Imagen destacada para Secundaria en la vista Oferta Educativa.',
-                    'url' => $this->generarMediaUrlDesdeRuta('Middle (Secundaria)/Colegio Discovery-59.jpg'),
-                ]),
-                'puntos' => ['Tres idiomas', 'Deporte diario', 'Liderazgo y proyectos'],
-            ],
-            'bachillerato' => [
-                'titulo' => 'Bachillerato',
-                'subtitulo' => 'Preparacion universitaria con vision internacional.',
-                'descripcion' => 'Una etapa retadora con Programa del Diploma IB, orientacion vocacional, liderazgo y proyectos reales.',
-                'edad' => '10 a 12 grado',
-                'color' => 'green',
-                'ruta' => route('nivel', 'bachillerato'),
-                'logo' => $this->generarMediaUrlDesdeRuta('Logos de niveles educativos/logo bachillerato.png'),
-                'imagen' => $this->imagenVista('oferta-academica', 'bachillerato', [
-                    'titulo' => 'Oferta Educativa - Bachillerato',
-                    'referencia' => 'Imagen destacada para Bachillerato en la vista Oferta Educativa.',
-                    'url' => $this->generarMediaUrlDesdeRuta('High (Prepa)/IMG_7346-scaled.jpg'),
-                ]),
-                'puntos' => ['Diploma IB', 'Orientacion vocacional', 'Becas universitarias'],
-            ],
-            'ib-en-discovery' => [
-                'titulo' => 'IB en Discovery',
-                'subtitulo' => 'Mentalidad internacional en la vida escolar.',
-                'descripcion' => 'Un enfoque que fortalece investigacion, pensamiento critico, comunicacion y responsabilidad global.',
-                'edad' => 'Enfoque transversal',
-                'color' => 'amber',
-                'ruta' => route('nivel', 'ib-en-discovery'),
-                'logo' => $this->generarMediaUrlDesdeRuta('Logos de niveles educativos/Logo IB cl.jpeg'),
-                'imagen' => $this->imagenVista('oferta-academica', 'ib', [
-                    'titulo' => 'Oferta Educativa - IB en Discovery',
-                    'referencia' => 'Imagen destacada para IB en Discovery en la vista Oferta Educativa.',
-                    'url' => $this->generarMediaUrlDesdeRuta('Logos de niveles educativos/Logo IB cl.jpeg'),
-                ]),
-                'puntos' => ['Perfil IB', 'Indagacion', 'Accion con impacto'],
-            ],
-            'certificacion-de-ingles' => [
-                'titulo' => 'Certificacion de Ingles',
-                'subtitulo' => 'Metas claras para avanzar con confianza.',
-                'descripcion' => 'Acompanamiento academico para fortalecer reading, writing, listening y speaking con objetivos medibles.',
-                'edad' => 'Preparacion continua',
-                'color' => 'sky',
-                'ruta' => route('nivel', 'certificacion-de-ingles'),
-                'logo' => null,
-                'imagen' => $this->imagenVista('oferta-academica', 'certificacion_ingles', [
-                    'titulo' => 'Oferta Educativa - Certificacion de Ingles',
-                    'referencia' => 'Imagen destacada para Certificacion de Ingles en la vista Oferta Educativa.',
-                ]),
-                'puntos' => ['Practica guiada', 'Habilidades comunicativas', 'Seguimiento academico'],
-            ],
-        ];
+        $ofertaNiveles = collect(config('colegio.oferta_academica', []))
+            ->map(fn (array $nivel, string $slug) => $this->prepararNivelOferta($slug, $nivel))
+            ->all();
 
         return view('pages.oferta-academica', compact('ofertaNiveles'));
     }
 
     public function protagonistas(): View
     {
-        $testimonios = Cache::remember('protagonistas_testimonios_v1', 43200, function () {
-            $testimoniosPath = base_path('videosyfotos/Testimonios Alumni');
-
-            if (!File::isDirectory($testimoniosPath)) {
-                return [];
-            }
-
-            return collect(File::files($testimoniosPath))
-                ->filter(fn ($file) => in_array(strtolower($file->getExtension()), ['mp4', 'mov', 'webm', 'm4v']))
-                ->map(fn ($file) => [
-                    'titulo' => pathinfo($file->getFilename(), PATHINFO_FILENAME),
-                    'url' => $this->generarMediaUrl($file),
-                ])->values()->all();
-        });
-
-        $comunidad = [
-            'niveles' => [
-                [
-                    'titulo' => 'Preescolar',
-                    'imagen' => $this->imagenVista('protagonistas', 'preescolar', [
-                        'titulo' => 'Comunidad - Preescolar',
-                        'referencia' => 'Imagen para representar Preescolar dentro de Comunidad.',
-                        'url' => $this->generarMediaUrlDesdeRuta('Kinder/Colegio Discovery-15.jpg'),
-                    ]),
-                    'color' => 'bg-lime-500',
-                ],
-                [
-                    'titulo' => 'Primaria',
-                    'imagen' => $this->imagenVista('protagonistas', 'primaria', [
-                        'titulo' => 'Comunidad - Primaria',
-                        'referencia' => 'Imagen para representar Primaria dentro de Comunidad.',
-                        'url' => $this->generarMediaUrlDesdeRuta('Elementary (Primaria)/Colegio Discovery-66.jpg'),
-                    ]),
-                    'color' => 'bg-red-600',
-                ],
-                [
-                    'titulo' => 'Secundaria',
-                    'imagen' => $this->imagenVista('protagonistas', 'secundaria', [
-                        'titulo' => 'Comunidad - Secundaria',
-                        'referencia' => 'Imagen para representar Secundaria dentro de Comunidad.',
-                        'url' => $this->generarMediaUrlDesdeRuta('Middle (Secundaria)/Colegio Discovery-61.jpg'),
-                    ]),
-                    'color' => 'bg-blue-700',
-                ],
-                [
-                    'titulo' => 'Bachillerato',
-                    'imagen' => $this->imagenVista('protagonistas', 'bachillerato', [
-                        'titulo' => 'Comunidad - Bachillerato',
-                        'referencia' => 'Imagen para representar Bachillerato dentro de Comunidad.',
-                        'url' => $this->generarMediaUrlDesdeRuta('Logos de niveles educativos/bachillerato.png'),
-                    ]),
-                    'color' => 'bg-green-600',
-                ],
-            ],
-        ];
+        $testimonios = Cache::remember(SiteCache::key('protagonistas_testimonios'), SiteCache::ttl(), fn () => $this->testimoniosAlumni());
+        $comunidad = $this->prepararComunidadProtagonistas();
 
         return view('pages.protagonistas', compact('testimonios', 'comunidad'));
     }
 
     public function recursosEscolares(): View
     {
-        $listasUtiles = Cache::remember('recursos_listas_utiles_v2', 43200, function () {
-            $listasPath = base_path('videosyfotos/Listas de útiles');
-
-            if (!File::isDirectory($listasPath)) {
-                return [];
-            }
-
-            return collect(File::files($listasPath))
-                ->filter(fn ($file) => strtolower($file->getExtension()) === 'pdf')
+        $listasUtiles = Cache::remember(SiteCache::key('recursos_listas_utiles'), SiteCache::ttl(), function () {
+            return $this->mediaFiles('Listas de útiles')
+                ->filter(fn (string $path) => strtolower(pathinfo($path, PATHINFO_EXTENSION)) === 'pdf')
                 ->map(fn ($file) => [
-                    'grado' => $this->obtenerGradoListaUtiles($file->getFilename()),
-                    'nivel' => $this->obtenerNivelListaUtiles($file->getFilename()),
-                    'titulo' => pathinfo($file->getFilename(), PATHINFO_FILENAME),
+                    'grado' => $this->obtenerGradoListaUtiles(basename($file)),
+                    'nivel' => $this->obtenerNivelListaUtiles(basename($file)),
+                    'titulo' => pathinfo($file, PATHINFO_FILENAME),
                     'url' => $this->generarMediaUrl($file),
                 ])
                 ->sortBy(fn ($lista) => $this->ordenarListaUtiles($lista['grado']))
@@ -283,7 +102,9 @@ class PageController extends Controller
                 ->all();
         });
 
-        return view('pages.recursos-escolares', compact('listasUtiles'));
+        $calendarioEscolarUrl = $this->generarMediaUrlDesdeRuta('Calendario Escolar/Calendario Escolar 2025-2026.jpg');
+
+        return view('pages.recursos-escolares', compact('listasUtiles', 'calendarioEscolarUrl'));
     }
 
     public function contacto(): View
@@ -292,7 +113,7 @@ class PageController extends Controller
         // Antes guardabas el modelo completo en caché (ESO ROMPE Laravel)
         // Ahora guardamos SOLO el ID
 
-        $paginaId = Cache::remember('contacto_pagina_id', 43200, function () {
+        $paginaId = Cache::remember(SiteCache::key('contacto_pagina_id'), SiteCache::ttl(), function () {
             return PaginaContenido::where('slug', 'contacto')->value('id');
         });
 
@@ -322,22 +143,14 @@ class PageController extends Controller
         $niveles = $this->obtenerDefinicionNiveles();
         abort_unless(isset($niveles[$nivel]), 404);
 
-        $carpetas = [
-            'preescolar' => 'Kinder',
-            'primaria' => 'Elementary (Primaria)',
-            'secundaria' => 'Middle (Secundaria)',
-            'bachillerato' => 'High (Prepa)',
-        ];
+        $carpetas = config('colegio.niveles.carpetas_galeria', []);
 
-        $galeria = Cache::remember("galeria_{$nivel}", 43200, function () use ($nivel, $carpetas, $niveles) {
+        $galeria = Cache::remember(SiteCache::key("galeria.{$nivel}"), SiteCache::ttl(), function () use ($nivel, $carpetas, $niveles) {
             if (!isset($carpetas[$nivel])) return [];
 
-            $rutaGaleria = base_path('videosyfotos/' . $carpetas[$nivel]);
-            if (!File::isDirectory($rutaGaleria)) return [];
-
-            return collect(File::files($rutaGaleria))
-                ->filter(fn ($file) => in_array(strtolower($file->getExtension()), ['jpg', 'jpeg', 'png', 'webp']))
-                ->sortByDesc(fn ($file) => $nivel === 'secundaria' && $file->getFilename() === 'Colegio Discovery-59.jpg')
+            return $this->mediaFiles($carpetas[$nivel])
+                ->filter(fn (string $file) => in_array(strtolower(pathinfo($file, PATHINFO_EXTENSION)), config('colegio.media.image_extensions', [])))
+                ->sortByDesc(fn (string $file) => $nivel === 'secundaria' && basename($file) === 'Colegio Discovery-59.jpg')
                 ->take(12)
                 ->map(fn ($file) => [
                     'alt' => $niveles[$nivel]['titulo'],
@@ -346,6 +159,7 @@ class PageController extends Controller
         });
 
         $nivelContenido = $niveles[$nivel];
+        $nivelContenido['tema'] = $this->obtenerTemaNivel($nivel);
         $nivelContenido['logo'] = isset($nivelContenido['logo_path'])
             ? $this->generarMediaUrlDesdeRuta($nivelContenido['logo_path'])
             : null;
@@ -372,10 +186,14 @@ class PageController extends Controller
      */
     public function serveMedia(string $path): BinaryFileResponse
     {
-        $basePath = str_replace('\\', '/', realpath(base_path('videosyfotos')));
-        $filePath = str_replace('\\', '/', realpath(base_path('videosyfotos/' . $path)) ?: '');
+        $path = $this->normalizarMediaPath($path);
+        $disk = Storage::disk($this->mediaDisk());
 
-        abort_unless($basePath && $filePath && ($filePath === $basePath || str_starts_with($filePath, $basePath . '/')) && is_file($filePath), 404);
+        abort_unless($path && $disk->exists($path), 404);
+
+        $filePath = $disk->path($path);
+
+        abort_unless(is_file($filePath), 404);
 
         return response()->file($filePath);
     }
@@ -383,18 +201,124 @@ class PageController extends Controller
     /**
      * --- MÉTODOS PRIVADOS (Helpers) ---
      */
-    private function generarMediaUrl($file): string
+    private function mediaDisk(): string
     {
-        $basePath = str_replace('\\', '/', realpath(base_path('videosyfotos')));
-        $filePath = str_replace('\\', '/', $file->getRealPath());
-        $relativePath = ltrim(substr($filePath, strlen($basePath)), '/');
+        return config('colegio.media.disk', 'videosyfotos');
+    }
 
-        return url('/media/' . collect(explode('/', $relativePath))->map(fn ($segment) => rawurlencode($segment))->implode('/'));
+    private function mediaFiles(string $directory): \Illuminate\Support\Collection
+    {
+        $disk = Storage::disk($this->mediaDisk());
+
+        if (! $disk->directoryExists($directory)) {
+            return collect();
+        }
+
+        return collect($disk->files($directory));
+    }
+
+    private function generarMediaUrl(string $path): string
+    {
+        return $this->generarMediaUrlDesdeRuta($path);
     }
 
     private function generarMediaUrlDesdeRuta(string $relativePath): string
     {
+        $relativePath = $this->normalizarMediaPath($relativePath);
+
         return url('/media/' . collect(explode('/', $relativePath))->map(fn ($segment) => rawurlencode($segment))->implode('/'));
+    }
+
+    private function normalizarMediaPath(string $path): string
+    {
+        $path = trim(str_replace('\\', '/', $path), '/');
+        $segments = array_filter(explode('/', $path), fn (string $segment) => $segment !== '' && $segment !== '.');
+
+        abort_if(collect($segments)->contains('..'), 404);
+
+        return implode('/', $segments);
+    }
+
+    private function eventosInicioDefault(): array
+    {
+        return collect(config('colegio.inicio.eventos_default', []))
+            ->map(fn (array $evento) => [
+                'titulo' => $evento['titulo'],
+                'descripcion' => $evento['descripcion'],
+                'url' => $this->generarMediaUrlDesdeRuta($evento['media_path']),
+            ])
+            ->all();
+    }
+
+    private function testimoniosAlumni(): array
+    {
+        return $this->mediaFiles('Testimonios Alumni')
+            ->filter(fn (string $path) => in_array(strtolower(pathinfo($path, PATHINFO_EXTENSION)), config('colegio.media.video_extensions', [])))
+            ->map(fn (string $path) => [
+                'titulo' => pathinfo($path, PATHINFO_FILENAME),
+                'url' => $this->generarMediaUrl($path),
+            ])
+            ->values()
+            ->all();
+    }
+
+    private function mapearMediaPaths(array $paths): array
+    {
+        return collect($paths)
+            ->map(fn (string $path) => $this->generarMediaUrlDesdeRuta($path))
+            ->all();
+    }
+
+    private function prepararNivelOferta(string $slug, array $nivel): array
+    {
+        $default = $this->defaultConMediaUrl($nivel['imagen_default'] ?? []);
+
+        return [
+            ...$nivel,
+            'ruta' => route('nivel', $slug),
+            'logo' => ! empty($nivel['logo_path']) ? $this->generarMediaUrlDesdeRuta($nivel['logo_path']) : null,
+            'imagen' => $this->imagenVista('oferta-academica', $nivel['imagen_clave'], $default),
+        ];
+    }
+
+    private function prepararComunidadProtagonistas(): array
+    {
+        $niveles = collect(config('colegio.protagonistas.niveles', []))
+            ->map(function (array $nivel) {
+                return [
+                    'titulo' => $nivel['titulo'],
+                    'imagen' => $this->imagenVista('protagonistas', $nivel['clave'], [
+                        'titulo' => 'Comunidad - ' . $nivel['titulo'],
+                        'referencia' => $nivel['referencia'],
+                        'url' => $this->generarMediaUrlDesdeRuta($nivel['media_path']),
+                    ]),
+                    'color' => $nivel['color'],
+                ];
+            })
+            ->all();
+
+        $protagonistas = collect(config('colegio.protagonistas.protagonistas', []))
+            ->map(fn (array $item, string $clave) => [
+                'imagen' => $this->imagenVista('protagonistas', $clave, [
+                    'titulo' => $item['titulo'],
+                    'referencia' => $item['referencia'],
+                    'url' => $this->generarMediaUrlDesdeRuta($item['media_path']),
+                ]),
+                'color' => $item['color'],
+            ])
+            ->all();
+
+        return compact('niveles', 'protagonistas');
+    }
+
+    private function defaultConMediaUrl(array $default): array
+    {
+        if (isset($default['media_path'])) {
+            $default['url'] = $this->generarMediaUrlDesdeRuta($default['media_path']);
+            unset($default['media_path']);
+        }
+
+        return $default;
     }
 
     private function imagenVista(string $vista, string $clave, array $default): array
@@ -464,190 +388,12 @@ class PageController extends Controller
 
     private function obtenerDefinicionNiveles(): array
     {
-        return [
-            'preescolar' => [
-                'titulo' => 'Preescolar',
-                'descripcion' => 'Un entorno cercano para iniciar el aprendizaje con seguridad, creatividad y acompanamiento.',
-                'logo_path' => 'Logos de niveles educativos/logo preescolar.png',
-                'hoja_informativa_path' => 'Hojas informativas/Kinder _ hoja informativa.pdf.pdf',
-                'modelo_academico_path' => 'Modelos educativos/modelo educativo kínder.png',
-                'informacion' => [
-                    'titulo' => 'El kinder ideal para tus hijos',
-                    'intro' => 'Una infancia feliz, segura y bilingue, con programas de neuroaprendizaje y bases solidas para Elementary.',
-                    'puntos' => [
-                        'Programas de neuroaprendizaje: Neuromotor, Audiomotor y Spark.',
-                        'Aprendizaje natural en ingles y espanol con estrategias multisensoriales.',
-                        'Programas alineados al Bachillerato Internacional desde los primeros anos.',
-                        'Grupos reducidos de 14 a 24 alumnos con atencion personalizada.',
-                        'Bienestar emocional, expresion oral y acompanamiento cercano.',
-                    ],
-                    'secciones' => [
-                        [
-                            'titulo' => 'Estimulación para cuerpo y mente',
-                            'texto' => 'Neuromotor y Audiomotor fortalecen coordinacion, atencion, creatividad, autodominio fisico y madurez neurologica.',
-                        ],
-                        [
-                            'titulo' => 'Aprendizaje en dos idiomas',
-                            'texto' => 'Spark impulsa lectoescritura, vocabulario, comprension y expresion en ingles y espanol desde los primeros anos.',
-                        ],
-                        [
-                            'titulo' => 'Pensamiento logico jugando',
-                            'texto' => 'Con Bancubi aprenden matematicas de forma concreta: clasifican, ordenan, comparan y resuelven problemas manipulando objetos reales.',
-                        ],
-                        [
-                            'titulo' => 'Crecimiento en comunidad',
-                            'texto' => 'Crecen en un entorno de amor, respeto y seguridad, con valores del perfil IB, empatia y mentalidad abierta.',
-                        ],
-                    ],
-                    'experiencias' => [
-                        'Convivio de Navidad',
-                        'Clase Neuromotora',
-                        'Visita de Pre-primary a Elementary',
-                        'Profesiones y Oficios',
-                        'Festival de la Primavera',
-                        'Dia del nino y la nina',
-                    ],
-                ],
-            ],
-            'primaria' => [
-                'titulo' => 'Primaria',
-                'descripcion' => 'Bases academicas solidas, valores y experiencias que despiertan la curiosidad.',
-                'logo_path' => 'Logos de niveles educativos/logo primaria.png',
-                'hoja_informativa_path' => 'Hojas informativas/Elementary _hoja informativa.pdf',
-                'modelo_academico_path' => 'Modelos educativos/modelo educativo elementary.png',
-                'informacion' => [
-                    'titulo' => 'La primaria para tus hijos',
-                    'intro' => 'Un entorno bilingue y trilingue donde los alumnos desarrollan mentalidad internacional, creatividad, tecnologia y bienestar emocional.',
-                    'puntos' => [
-                        'Tres bloques diarios en ingles con materias como Science y Civics.',
-                        'Frances desde 5° de primaria como tercer idioma.',
-                        'Mock Cambridge desde 3° de primaria para practicar reading, writing, listening y speaking.',
-                        'Unidades de indagacion del modelo IB para investigar, cuestionar y resolver problemas reales.',
-                        'Artes, deporte diario y academias vespertinas como futbol, basquetbol, ajedrez, origami, atletismo y UrbanKids.',
-                    ],
-                    'secciones' => [
-                        [
-                            'titulo' => 'Formacion bilingue y trilingue',
-                            'texto' => 'Aprenden ingles en un entorno de inmersion y suman frances para ampliar su vision como ciudadanos globales.',
-                        ],
-                        [
-                            'titulo' => 'Perfil IB y pensamiento global',
-                            'texto' => 'Trabajan atributos como ser pensadores, informados, comunicadores, solidarios y de mentalidad abierta.',
-                        ],
-                        [
-                            'titulo' => 'Pensamiento logico y algoritmico',
-                            'texto' => 'Tecnologia y concursos de programacion fortalecen analisis, secuenciacion, creatividad y toma de decisiones.',
-                        ],
-                        [
-                            'titulo' => 'Cuerpo, atencion y creatividad',
-                            'texto' => 'Neuromotor continua en Elementary junto con deporte diario y artes integradas para una formacion equilibrada.',
-                        ],
-                    ],
-                    'experiencias' => [
-                        'Mini Olimpiadas',
-                        'Obras de teatro',
-                        'Festival Dia del Nino',
-                        'Graduacion',
-                        'Unidades de Indagacion',
-                    ],
-                ],
-            ],
-            'secundaria' => [
-                'titulo' => 'Secundaria',
-                'descripcion' => 'Formacion integral con tecnologia, proyectos y desarrollo personal.',
-                'logo_path' => 'Logos de niveles educativos/logo secundaria.png',
-                'hoja_informativa_path' => 'Hojas informativas/Secundaria _hoja informativa.pdf.pdf',
-                'modelo_academico_path' => 'Modelos educativos/modelo educativo middle.png',
-                'informacion' => [
-                    'titulo' => 'La secundaria que ayuda a tus hijos a convertirse en su mejor version',
-                    'intro' => 'Middle School es la etapa donde los jovenes despiertan su voz, definen su camino y conectan localmente con una vision global.',
-                    'puntos' => [
-                        'Ingles, espanol y frances con mas de 15 bloques a la semana.',
-                        'Enfoques de aprendizaje: pensamiento, autogestion, comunicacion, investigacion y habilidades sociales.',
-                        'Proyectos interdisciplinarios con mentalidad internacional.',
-                        'Deporte diario: futbol, basquetbol, voleibol o tenis.',
-                        'Bienestar emocional y preceptoria hasta el ultimo ano.',
-                    ],
-                    'secciones' => [
-                        [
-                            'titulo' => 'Idiomas para comunicarse con el mundo',
-                            'texto' => 'Viven el ingles todos los dias, incorporan frances y se preparan para certificaciones como Cambridge y Lengua B del Programa Diploma.',
-                        ],
-                        [
-                            'titulo' => 'Deporte diario',
-                            'texto' => 'La practica deportiva fortalece salud fisica, disciplina, autoestima, trabajo en equipo y habitos saludables.',
-                        ],
-                        [
-                            'titulo' => 'Liderazgo y proyectos globales',
-                            'texto' => 'Programas como DKMun y WASP desarrollan investigacion, debate, diplomacia y liderazgo desde edades tempranas.',
-                        ],
-                        [
-                            'titulo' => 'Talentos y pasiones',
-                            'texto' => 'Exploran arte, ciencia, ferias escolares y experiencias que conectan lo aprendido con el mundo real.',
-                        ],
-                    ],
-                    'experiencias' => [
-                        'Dia del Arte',
-                        'Deportes',
-                        'Aniversario',
-                        'Clanes',
-                        'Presentaciones',
-                    ],
-                ],
-            ],
-            'bachillerato' => [
-                'titulo' => 'Bachillerato',
-                'descripcion' => 'Preparacion para la universidad con orientacion vocacional y alto nivel academico.',
-                'logo_path' => 'Logos de niveles educativos/logo bachillerato.png',
-                'hoja_informativa_path' => 'Hojas informativas/High school _ hoja informativa.pdf.pdf',
-                'modelo_academico_path' => 'Modelos educativos/modelo educativo high.png',
-                'informacion' => [
-                    'titulo' => 'Un bachillerato que te reta, forma y tambien se disfruta',
-                    'intro' => 'Preparacion universitaria con Programa del Diploma IB, orientacion vocacional, idiomas, liderazgo y proyectos reales.',
-                    'puntos' => [
-                        'Bachillerato IB oficial con validez internacional.',
-                        'Programa del Diploma y desarrollo del perfil IB.',
-                        'Ingles, espanol y frances con 15 bloques semanales en ingles.',
-                        'Mas del 70% de egresados obtiene becas en universidades de Mexico y el extranjero.',
-                        'Orientacion vocacional, asesoria para admisiones y seguimiento individual.',
-                    ],
-                    'secciones' => [
-                        [
-                            'titulo' => 'Pensamiento global',
-                            'texto' => 'Teoria del Conocimiento y CAS fortalecen pensamiento critico, vision internacional y capacidad de tomar decisiones.',
-                        ],
-                        [
-                            'titulo' => 'Certificaciones e idiomas',
-                            'texto' => 'La formacion en ingles y frances prepara para comunicar argumentos, escribir ensayos y abrir puertas universitarias.',
-                        ],
-                        [
-                            'titulo' => 'Debates y liderazgo',
-                            'texto' => 'DKMUN permite negociar, argumentar, proponer soluciones y representar paises en asuntos internacionales.',
-                        ],
-                        [
-                            'titulo' => 'Impacto social y expresion',
-                            'texto' => 'CAS, arte y deporte diario hacen que cada estudiante participe en proyectos culturales, sociales, ambientales o deportivos.',
-                        ],
-                    ],
-                    'experiencias' => [
-                        'Expo Arte',
-                        'Graduacion',
-                        'Dia del Estudiante',
-                        'DKMUN',
-                        'Proyectos IB',
-                    ],
-                ],
-            ],
-            'ib-en-discovery' => [
-                'titulo' => 'IB en Discovery',
-                'descripcion' => 'Una experiencia educativa con enfoque internacional y pensamiento critico.',
-                'logo_path' => 'Logos de niveles educativos/Logo IB cl.jpeg',
-            ],
-            'certificacion-de-ingles' => [
-                'titulo' => 'Certificacion de Ingles',
-                'descripcion' => 'Desarrollo del idioma ingles con metas claras y acompanamiento academico.',
-            ],
-        ];
+        return config('colegio.niveles.definiciones', []);
+    }
+
+    private function obtenerTemaNivel(string $nivel): array
+    {
+        return config("colegio.temas_niveles.{$nivel}", config('colegio.temas_niveles.default', []));
     }
 
     private function obtenerHistoriaNosotros(): array

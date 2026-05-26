@@ -52,6 +52,7 @@ class PaginaContenidoForm
 
             Textarea::make('mapa_url')
                 ->label('Mapa de Google: URL o iframe')
+                ->helperText('Puedes pegar el iframe completo de Google Maps o solo la URL del atributo src. Si se deja vacio, se usara la ubicacion default del colegio.')
                 ->columnSpanFull(),
         ]);
     }

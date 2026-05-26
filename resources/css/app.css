@@ -3,10 +3,12 @@
 @tailwind utilities;
 
 :root {
-    --discovery-blue: #0033A0;
-    --discovery-red: #E30613;
-    --discovery-yellow: #FFD100;
-    --discovery-black: #000000;
+    --discovery-blue: #0066AF;
+    --discovery-red: #ED1C24;
+    --discovery-yellow: #FDB913;
+    --discovery-kinder: #FFCB05;
+    --discovery-green: #00AF41;
+    --discovery-black: #231F20;
 }
 
 .bg-blue-600,
@@ -21,9 +23,17 @@
 }
 
 .bg-lime-400,
-.bg-lime-500,
+.bg-lime-500 {
+    background-color: var(--discovery-kinder);
+}
+
 .bg-green-500,
-.bg-amber-500 {
+.bg-green-600 {
+    background-color: var(--discovery-green);
+}
+
+.bg-amber-500,
+.bg-yellow-500 {
     background-color: var(--discovery-yellow);
 }
 
@@ -43,7 +53,17 @@
 }
 
 .text-lime-400,
-.text-green-500 {
+.text-lime-500,
+.text-lime-800 {
+    color: var(--discovery-kinder);
+}
+
+.text-green-500,
+.text-green-600 {
+    color: var(--discovery-green);
+}
+
+.text-yellow-500 {
     color: var(--discovery-yellow);
 }
 
@@ -64,8 +84,22 @@
     border-color: var(--discovery-red);
 }
 
-.border-lime-500,
-.border-green-600,
+.border-lime-500 {
+    border-color: var(--discovery-kinder);
+}
+
+.border-lime-300 {
+    border-color: var(--discovery-kinder);
+}
+
+.border-green-600 {
+    border-color: var(--discovery-green);
+}
+
+.border-green-200 {
+    border-color: var(--discovery-green);
+}
+
 .border-amber-500 {
     border-color: var(--discovery-yellow);
 }
@@ -78,9 +112,12 @@
     --tw-ring-color: var(--discovery-red);
 }
 
-.ring-lime-500,
+.ring-lime-500 {
+    --tw-ring-color: var(--discovery-kinder);
+}
+
 .ring-green-600 {
-    --tw-ring-color: var(--discovery-yellow);
+    --tw-ring-color: var(--discovery-green);
 }
 
 .decoration-red-400 {
@@ -93,19 +130,25 @@
 
 .hover\:bg-blue-800:hover,
 .hover\:bg-sky-600:hover {
-    background-color: #002676;
+    background-color: #004E86;
 }
 
 .hover\:bg-red-700:hover {
-    background-color: #B9050F;
+    background-color: #BD1017;
 }
 
 .hover\:bg-lime-500:hover,
-.hover\:bg-lime-600:hover,
+.hover\:bg-lime-600:hover {
+    background-color: #D8A800;
+}
+
 .hover\:bg-green-600:hover,
-.hover\:bg-green-700:hover,
+.hover\:bg-green-700:hover {
+    background-color: #009739;
+}
+
 .hover\:bg-amber-600:hover {
-    background-color: #D6AF00;
+    background-color: #D89702;
 }
 
 .hover\:text-blue-700:hover,

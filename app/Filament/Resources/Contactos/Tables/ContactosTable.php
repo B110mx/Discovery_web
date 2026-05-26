@@ -33,6 +33,7 @@ class ContactosTable
             ->filters([
                 //
             ])
+            ->defaultSort('created_at', 'desc')
             ->recordActions([
                 ViewAction::make(),
                 EditAction::make(),

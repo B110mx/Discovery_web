@@ -2,7 +2,7 @@
     <div class="max-w-7xl mx-auto px-6 py-10 grid md:grid-cols-3 gap-8">
         <div>
             <img
-                src="{{ url('/media/logos%20principales/' . rawurlencode('logo-ib-y-discovery-Footer-1024x342.png')) }}"
+                src="{{ url('/media/Logos%20principales/' . rawurlencode('logo-ib-y-discovery-Footer-1024x342.png')) }}"
                 alt="Colegio Discovery"
                 class="mb-4 h-16 w-auto object-contain"
                 loading="lazy"

@@ -128,6 +128,28 @@
         </section>
 
         <aside class="space-y-6">
+            @if (! empty($calendarioEscolarUrl))
+                <section class="overflow-hidden rounded-xl bg-white shadow-md">
+                    <div class="p-6 md:p-8">
+                        <p class="text-sm font-bold uppercase tracking-wide text-blue-700">Calendario 2025-2026</p>
+                        <h2 class="mt-2 text-2xl font-extrabold text-black">Consulta el calendario escolar</h2>
+                    </div>
+                    <a href="{{ $calendarioEscolarUrl }}" target="_blank" rel="noopener" class="block bg-gray-50 p-3">
+                        <img
+                            src="{{ $calendarioEscolarUrl }}"
+                            alt="Calendario escolar 2025-2026"
+                            class="max-h-[520px] w-full rounded-lg object-contain"
+                            loading="lazy"
+                        >
+                    </a>
+                    <div class="px-6 pb-6 md:px-8">
+                        <a href="{{ $calendarioEscolarUrl }}" target="_blank" rel="noopener" class="inline-flex rounded bg-red-600 px-5 py-3 text-sm font-extrabold text-white hover:bg-red-700">
+                            Abrir calendario
+                        </a>
+                    </div>
+                </section>
+            @endif
+
             <section class="rounded-xl bg-white p-6 shadow-md md:p-8">
                 <p class="text-sm font-bold uppercase tracking-wide text-blue-700">Como usarlo</p>
                 <h2 class="mt-2 text-2xl font-extrabold text-black">Encuentra tu PDF en tres pasos</h2>

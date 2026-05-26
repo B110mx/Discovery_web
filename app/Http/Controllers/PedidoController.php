@@ -2,31 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StorePedidoRequest;
 use App\Models\Pedido;
-use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 
 class PedidoController extends Controller
 {
-    public function create()
+    public function create(): View
     {
         return view('pages.tienda', [
             'productos' => Pedido::productosDisponibles(),
+            'niveles' => Pedido::nivelesDisponibles(),
         ]);
     }
 
-    public function store(Request $request)
+    public function store(StorePedidoRequest $request): RedirectResponse
     {
-        $data = $request->validate([
-            'alumno_nombre' => ['required', 'string', 'max:255'],
-            'alumno_nivel' => ['required', 'string', 'max:255'],
-            'alumno_grado' => ['nullable', 'string', 'max:255'],
-            'padre_nombre' => ['required', 'string', 'max:255'],
-            'padre_telefono' => ['required', 'string', 'max:255'],
-            'padre_email' => ['nullable', 'email', 'max:255'],
-            'notas' => ['nullable', 'string'],
-            'productos' => ['required', 'array'],
-        ]);
-
+        $data = $request->validated();
         $catalogo = Pedido::productosDisponibles();
         $productos = [];
         $total = 0;

@@ -17,5 +17,7 @@
 
     @include('components.footer')
 
+    <x-whatsapp-button />
+
 </body>
 </html>

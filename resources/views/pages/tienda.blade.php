@@ -68,8 +68,8 @@
                     <label for="alumno_nivel" class="block text-sm font-semibold text-gray-700 mb-1">Nivel</label>
                     <select id="alumno_nivel" name="alumno_nivel" class="w-full border border-gray-300 p-3 rounded" required>
                         <option value="">Selecciona un nivel</option>
-                        @foreach (['Preescolar', 'Primaria', 'Secundaria', 'Bachillerato'] as $nivel)
-                            <option value="{{ $nivel }}" @selected(old('alumno_nivel') === $nivel)>{{ $nivel }}</option>
+                        @foreach ($niveles as $valor => $etiqueta)
+                            <option value="{{ $valor }}" @selected(old('alumno_nivel') === $valor)>{{ $etiqueta }}</option>
                         @endforeach
                     </select>
                     @error('alumno_nivel') <p class="text-red-600 text-sm mt-1">{{ $message }}</p> @enderror

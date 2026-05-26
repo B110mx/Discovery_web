@@ -41,6 +41,7 @@ class EventosTable
             ->filters([
                 //
             ])
+            ->defaultSort('orden')
             ->recordActions([
                 EditAction::make(),
                 DeleteAction::make(),

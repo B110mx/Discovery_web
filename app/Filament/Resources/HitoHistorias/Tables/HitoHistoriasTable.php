@@ -39,6 +39,7 @@ class HitoHistoriasTable
             ->filters([
                 //
             ])
+            ->defaultSort('orden')
             ->recordActions([
                 ViewAction::make(),
                 EditAction::make(),

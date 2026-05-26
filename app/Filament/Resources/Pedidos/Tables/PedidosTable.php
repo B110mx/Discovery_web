@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Pedidos\Tables;
 
+use App\Models\Pedido;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
@@ -42,11 +43,9 @@ class PedidosTable
             ])
             ->filters([
                 SelectFilter::make('estado')
-                    ->options([
-                        'incompleto' => 'Incompleto',
-                        'completado' => 'Completado',
-                    ]),
+                    ->options(Pedido::estadosDisponibles()),
             ])
+            ->defaultSort('created_at', 'desc')
             ->recordActions([
                 ViewAction::make(),
                 EditAction::make(),

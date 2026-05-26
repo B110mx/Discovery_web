@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Pedidos\Schemas;
 
+use App\Models\Pedido;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -18,12 +19,7 @@ class PedidoForm
 
             Select::make('alumno_nivel')
                 ->label('Nivel')
-                ->options([
-                    'Preescolar' => 'Preescolar',
-                    'Primaria' => 'Primaria',
-                    'Secundaria' => 'Secundaria',
-                    'Bachillerato' => 'Bachillerato',
-                ])
+                ->options(Pedido::nivelesDisponibles())
                 ->required(),
 
             TextInput::make('alumno_grado')
@@ -42,10 +38,7 @@ class PedidoForm
                 ->email(),
 
             Select::make('estado')
-                ->options([
-                    'incompleto' => 'Incompleto',
-                    'completado' => 'Completado',
-                ])
+                ->options(Pedido::estadosDisponibles())
                 ->required(),
 
             TextInput::make('total')
