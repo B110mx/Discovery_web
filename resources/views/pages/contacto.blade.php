@@ -43,7 +43,7 @@
             <x-imagen-seccion
                 :imagen="$imagenesContacto['hero']"
                 alt="Colegio Discovery contacto"
-                class="h-72 w-full object-cover lg:h-full"
+                class="h-72 w-full bg-white object-contain p-8 lg:h-full lg:p-10"
                 placeholder-class="h-72 lg:h-full"
             />
         </div>

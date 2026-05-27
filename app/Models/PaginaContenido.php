@@ -32,6 +32,8 @@ class PaginaContenido extends Model
         if ($this->slug === 'contacto') {
             SiteCache::forget('contacto_pagina_id');
         }
+
+        SiteCache::forget("pagina_contenido.{$this->slug}");
     }
 
     public function mapaEmbedUrl(): string

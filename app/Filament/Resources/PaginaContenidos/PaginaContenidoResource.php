@@ -25,11 +25,13 @@ class PaginaContenidoResource extends Resource
 
     protected static ?int $navigationSort = 30;
 
-    protected static ?string $navigationLabel = 'Contacto - Datos y mapa';
+    protected static ?string $navigationLabel = 'Contenido de paginas';
 
-    protected static ?string $modelLabel = 'contenido de contacto';
+    protected static ?string $modelLabel = 'contenido de pagina';
 
-    protected static ?string $pluralModelLabel = 'datos de contacto y mapa';
+    protected static ?string $pluralModelLabel = 'contenidos editables de paginas';
+
+    protected static bool $shouldRegisterNavigation = false;
 
     public static function form(Schema $schema): Schema
     {

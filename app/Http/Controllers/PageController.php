@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Evento;
+use App\Models\HitoHistoria;
 use App\Models\PaginaContenido;
 use App\Models\SeccionImagen;
+use App\Models\TestimonioVideo;
 use App\Support\SiteCache;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
@@ -13,27 +15,57 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class PageController extends Controller
 {
+    private function paginaContenido(string $slug): ?PaginaContenido
+    {
+        $paginaId = Cache::remember(SiteCache::key("pagina_contenido.{$slug}"), SiteCache::ttl(), function () use ($slug) {
+            return PaginaContenido::where('slug', $slug)->value('id');
+        });
+
+        return $paginaId ? PaginaContenido::find($paginaId) : null;
+    }
+
     /**
      * Muestra la página de inicio con eventos y testimonios cacheados.
      */
     public function inicio(): View
     {
+        $paginaInicio = $this->paginaContenido('inicio');
+
         // Caché de 12 horas para evitar consultas repetitivas a la BD
         $eventos = Cache::remember(SiteCache::key('inicio_eventos'), SiteCache::ttl(), function () {
+            $eventosDefault = $this->eventosInicioDefault();
+            $imagenesCarrusel = $this->imagenesCarruselEventosInicio();
+
             $eventos = Evento::where('activo', true)
                 ->orderBy('orden')
                 ->get()
-                ->map(fn ($evento) => [
-                    'titulo' => $evento->titulo,
-                    'descripcion' => $evento->descripcion ?? 'Proximo evento de la comunidad Discovery.',
-                    'url' => asset('storage/' . $evento->imagen_url),
-                ])->values()->all();
+                ->map(function (Evento $evento, int $index) use ($eventosDefault, $imagenesCarrusel) {
+                    $imagen = $imagenesCarrusel[$index] ?? ($eventosDefault[$index]['imagen'] ?? null);
+                    $url = $this->publicUploadUrl($evento->imagen_url)
+                        ?? $this->mediaUrlIfExists($evento->imagen_media_path);
+
+                    if ($url) {
+                        $imagen = [
+                            'url' => $url,
+                            'titulo' => $evento->titulo,
+                            'referencia' => $evento->descripcion ?? 'Imagen del carrusel de eventos en Inicio.',
+                            'pendiente' => false,
+                        ];
+                    }
+
+                    return [
+                        'titulo' => $evento->titulo,
+                        'descripcion' => $evento->descripcion ?? 'Proximo evento de la comunidad Discovery.',
+                        'url' => $imagen['url'] ?? null,
+                        'imagen' => $imagen,
+                    ];
+                })->values()->all();
 
             if (!empty($eventos)) {
                 return $eventos;
             }
 
-            return $this->eventosInicioDefault();
+            return $eventosDefault;
         });
 
         // Caché para la lectura del disco duro (evita latencia de I/O)
@@ -44,45 +76,57 @@ class PageController extends Controller
             'sobre_nosotros' => [
                 'titulo' => 'Inicio - Sobre Nosotros',
                 'referencia' => 'Imagen lateral de la seccion Sobre Nosotros en la pagina de inicio.',
+                'url' => $this->publicUploadUrl($paginaInicio?->imagen_principal),
+                'media_path' => 'Kinder fotos actuales/IMG_5775.JPG',
             ],
         ]);
 
-        return view('pages.inicio', compact('eventos', 'testimonios', 'logosNiveles', 'imagenesInicio'));
+        return view('pages.inicio', compact('eventos', 'testimonios', 'logosNiveles', 'imagenesInicio', 'paginaInicio'));
     }
 
     public function nosotros(): View
     {
+        $paginaNosotros = $this->paginaContenido('nosotros');
+
         $imagenesNosotros = $this->imagenesVista('nosotros', [
             'hero' => [
                 'titulo' => 'Nosotros - Imagen principal',
                 'referencia' => 'Imagen grande del encabezado de la pagina Nosotros.',
+                'url' => $this->publicUploadUrl($paginaNosotros?->imagen_principal),
+                'media_path' => 'Logos principales/LOGO DISCOVERY PNG.png',
             ],
             'modelo' => [
                 'titulo' => 'Nosotros - Modelo educativo',
                 'referencia' => 'Imagen de apoyo para la seccion de modelo educativo.',
+                'url' => $this->publicUploadUrl($paginaNosotros?->imagen_secundaria),
+                'media_path' => 'Modelos educativos/modelo-educativo-Principal.png',
             ],
         ]);
 
-        $historiaNosotros = $this->obtenerHistoriaNosotros();
+        $historiaNosotros = Cache::remember(SiteCache::key('nosotros_historia'), SiteCache::ttl(), fn () => $this->obtenerHistoriaNosotros());
+        $universidadesVinculacion = $this->universidadesVinculacion();
 
-        return view('pages.nosotros', compact('imagenesNosotros', 'historiaNosotros'));
+        return view('pages.nosotros', compact('imagenesNosotros', 'historiaNosotros', 'paginaNosotros', 'universidadesVinculacion'));
     }
 
     public function ofertaAcademica(): View
     {
+        $paginaOferta = $this->paginaContenido('oferta-academica');
+
         $ofertaNiveles = collect(config('colegio.oferta_academica', []))
             ->map(fn (array $nivel, string $slug) => $this->prepararNivelOferta($slug, $nivel))
             ->all();
 
-        return view('pages.oferta-academica', compact('ofertaNiveles'));
+        return view('pages.oferta-academica', compact('ofertaNiveles', 'paginaOferta'));
     }
 
     public function protagonistas(): View
     {
+        $paginaProtagonistas = $this->paginaContenido('protagonistas');
         $testimonios = Cache::remember(SiteCache::key('protagonistas_testimonios'), SiteCache::ttl(), fn () => $this->testimoniosAlumni());
         $comunidad = $this->prepararComunidadProtagonistas();
 
-        return view('pages.protagonistas', compact('testimonios', 'comunidad'));
+        return view('pages.protagonistas', compact('testimonios', 'comunidad', 'paginaProtagonistas'));
     }
 
     public function recursosEscolares(): View
@@ -113,7 +157,7 @@ class PageController extends Controller
         // Antes guardabas el modelo completo en caché (ESO ROMPE Laravel)
         // Ahora guardamos SOLO el ID
 
-        $paginaId = Cache::remember(SiteCache::key('contacto_pagina_id'), SiteCache::ttl(), function () {
+        $paginaId = Cache::remember(SiteCache::key('pagina_contenido.contacto'), SiteCache::ttl(), function () {
             return PaginaContenido::where('slug', 'contacto')->value('id');
         });
 
@@ -123,12 +167,12 @@ class PageController extends Controller
             'hero' => [
                 'titulo' => 'Contacto - Imagen principal',
                 'referencia' => 'Imagen principal de la vista Contacto.',
-                'url' => $pagina?->imagen_principal ? Storage::disk('public')->url($pagina->imagen_principal) : null,
+                'url' => $this->publicUploadUrl($pagina?->imagen_principal),
             ],
             'secundaria' => [
                 'titulo' => 'Contacto - Imagen secundaria',
                 'referencia' => 'Imagen secundaria de apoyo de la vista Contacto.',
-                'url' => $pagina?->imagen_secundaria ? Storage::disk('public')->url($pagina->imagen_secundaria) : null,
+                'url' => $this->publicUploadUrl($pagina?->imagen_secundaria),
             ],
         ]);
 
@@ -169,10 +213,15 @@ class PageController extends Controller
         $nivelContenido['modelo_academico_url'] = isset($nivelContenido['modelo_academico_path'])
             ? $this->generarMediaUrlDesdeRuta($nivelContenido['modelo_academico_path'])
             : null;
+        $imagenGaleriaPrincipal = $galeria[0]['url'] ?? null;
+        $mediaPathGaleriaPrincipal = isset($carpetas[$nivel], $imagenGaleriaPrincipal)
+            ? $carpetas[$nivel] . '/' . basename($imagenGaleriaPrincipal)
+            : ($nivelContenido['usar_placeholder_hero'] ?? false ? null : ($nivelContenido['logo_path'] ?? null));
         $nivelContenido['imagen_principal'] = $this->imagenVista($nivel, 'hero', [
             'titulo' => $nivelContenido['titulo'] . ' - Imagen principal',
             'referencia' => 'Imagen principal del encabezado del nivel ' . $nivelContenido['titulo'] . '.',
-            'url' => $galeria[0]['url'] ?? null,
+            'url' => $imagenGaleriaPrincipal,
+            'media_path' => $mediaPathGaleriaPrincipal,
         ]);
 
         return view('pages.nivel', [
@@ -226,7 +275,37 @@ class PageController extends Controller
     {
         $relativePath = $this->normalizarMediaPath($relativePath);
 
-        return url('/media/' . collect(explode('/', $relativePath))->map(fn ($segment) => rawurlencode($segment))->implode('/'));
+        return '/media/' . collect(explode('/', $relativePath))->map(fn ($segment) => rawurlencode($segment))->implode('/');
+    }
+
+    private function mediaUrlIfExists(?string $relativePath): ?string
+    {
+        if (empty($relativePath)) {
+            return null;
+        }
+
+        $relativePath = $this->normalizarMediaPath($relativePath);
+
+        if (! Storage::disk($this->mediaDisk())->exists($relativePath)) {
+            return null;
+        }
+
+        return $this->generarMediaUrlDesdeRuta($relativePath);
+    }
+
+    private function publicUploadUrl(?string $path): ?string
+    {
+        if (empty($path)) {
+            return null;
+        }
+
+        if (! Storage::disk('public')->exists($path)) {
+            return null;
+        }
+
+        return '/storage/' . collect(explode('/', trim(str_replace('\\', '/', $path), '/')))
+            ->map(fn ($segment) => rawurlencode($segment))
+            ->implode('/');
     }
 
     private function normalizarMediaPath(string $path): string
@@ -241,17 +320,68 @@ class PageController extends Controller
 
     private function eventosInicioDefault(): array
     {
+        $imagenesCarrusel = $this->imagenesCarruselEventosInicio();
+
         return collect(config('colegio.inicio.eventos_default', []))
-            ->map(fn (array $evento) => [
+            ->map(fn (array $evento, int $index) => [
                 'titulo' => $evento['titulo'],
                 'descripcion' => $evento['descripcion'],
-                'url' => $this->generarMediaUrlDesdeRuta($evento['media_path']),
+                'url' => $imagenesCarrusel[$index]['url'] ?? null,
+                'imagen' => $imagenesCarrusel[$index] ?? [
+                    'url' => null,
+                    'titulo' => $evento['titulo'],
+                    'referencia' => 'Espacio pendiente para el carrusel de eventos en Inicio.',
+                    'pendiente' => true,
+                ],
             ])
             ->all();
     }
 
+    private function imagenesCarruselEventosInicio(): array
+    {
+        return array_values($this->imagenesVista('carruseles', $this->defaultsCarruselEventosInicio()));
+    }
+
+    private function defaultsCarruselEventosInicio(): array
+    {
+        return [
+            'inicio_eventos_1' => [
+                'titulo' => 'Inicio - Carrusel de eventos - Slide 1',
+                'referencia' => 'Modulo del carrusel de eventos. Subir aqui la imagen definitiva desde el panel.',
+            ],
+            'inicio_eventos_2' => [
+                'titulo' => 'Inicio - Carrusel de eventos - Slide 2',
+                'referencia' => 'Modulo del carrusel de eventos. Subir aqui la imagen definitiva desde el panel.',
+            ],
+            'inicio_eventos_3' => [
+                'titulo' => 'Inicio - Carrusel de eventos - Slide 3',
+                'referencia' => 'Modulo del carrusel de eventos. Subir aqui la imagen definitiva desde el panel.',
+            ],
+        ];
+    }
+
     private function testimoniosAlumni(): array
     {
+        $testimonios = TestimonioVideo::where('activo', true)
+            ->orderBy('orden')
+            ->get()
+            ->map(function (TestimonioVideo $video) {
+                $url = $this->publicUploadUrl($video->video)
+                    ?? $this->mediaUrlIfExists($video->video_media_path);
+
+                return $url ? [
+                    'titulo' => $video->titulo,
+                    'url' => $url,
+                ] : null;
+            })
+            ->filter()
+            ->values()
+            ->all();
+
+        if (! empty($testimonios)) {
+            return $testimonios;
+        }
+
         return $this->mediaFiles('Testimonios Alumni')
             ->filter(fn (string $path) => in_array(strtolower(pathinfo($path, PATHINFO_EXTENSION)), config('colegio.media.video_extensions', [])))
             ->map(fn (string $path) => [
@@ -265,8 +395,27 @@ class PageController extends Controller
     private function mapearMediaPaths(array $paths): array
     {
         return collect($paths)
-            ->map(fn (string $path) => $this->generarMediaUrlDesdeRuta($path))
+            ->map(fn (string $path) => $this->mediaUrlIfExists($path))
+            ->filter()
             ->all();
+    }
+
+    private function universidadesVinculacion(): array
+    {
+        return [
+            ['nombre' => 'UVM', 'url' => 'https://colegiodiscovery.edu.mx/wp-content/uploads/2022/08/uvm.png'],
+            ['nombre' => 'UPAEP', 'url' => 'https://colegiodiscovery.edu.mx/wp-content/uploads/2022/08/upaep.png'],
+            ['nombre' => 'UDLAP', 'url' => 'https://colegiodiscovery.edu.mx/wp-content/uploads/2022/08/udlap.png'],
+            ['nombre' => 'Anahuac', 'url' => 'https://colegiodiscovery.edu.mx/wp-content/uploads/2022/08/anahuac.png'],
+            ['nombre' => 'Ibero', 'url' => 'https://colegiodiscovery.edu.mx/wp-content/uploads/2022/08/ibero.png'],
+            ['nombre' => 'Tec de Monterrey', 'url' => 'https://colegiodiscovery.edu.mx/wp-content/uploads/2022/08/tec-de-monterrey.png'],
+            ['nombre' => 'Escuela Libre de Derecho', 'url' => 'https://colegiodiscovery.edu.mx/wp-content/uploads/2022/08/escuela-libre-de-derecho.png'],
+            ['nombre' => 'Vatel', 'url' => 'https://colegiodiscovery.edu.mx/wp-content/uploads/2022/08/vatel.png'],
+            ['nombre' => 'ITAM', 'url' => 'https://colegiodiscovery.edu.mx/wp-content/uploads/2022/08/itam.png'],
+            ['nombre' => 'ISU', 'url' => 'https://colegiodiscovery.edu.mx/wp-content/uploads/2022/08/isu.png'],
+            ['nombre' => 'Universidad Panamericana', 'url' => 'https://colegiodiscovery.edu.mx/wp-content/uploads/2022/08/universidad-panamericana.png'],
+            ['nombre' => 'Unilomas', 'url' => 'https://colegiodiscovery.edu.mx/wp-content/uploads/2022/08/unilomas.png'],
+        ];
     }
 
     private function prepararNivelOferta(string $slug, array $nivel): array
@@ -276,7 +425,7 @@ class PageController extends Controller
         return [
             ...$nivel,
             'ruta' => route('nivel', $slug),
-            'logo' => ! empty($nivel['logo_path']) ? $this->generarMediaUrlDesdeRuta($nivel['logo_path']) : null,
+            'logo' => ! empty($nivel['logo_path']) ? $this->mediaUrlIfExists($nivel['logo_path']) : null,
             'imagen' => $this->imagenVista('oferta-academica', $nivel['imagen_clave'], $default),
         ];
     }
@@ -290,7 +439,7 @@ class PageController extends Controller
                     'imagen' => $this->imagenVista('protagonistas', $nivel['clave'], [
                         'titulo' => 'Comunidad - ' . $nivel['titulo'],
                         'referencia' => $nivel['referencia'],
-                        'url' => $this->generarMediaUrlDesdeRuta($nivel['media_path']),
+                        'media_path' => $nivel['media_path'],
                     ]),
                     'color' => $nivel['color'],
                 ];
@@ -299,23 +448,88 @@ class PageController extends Controller
 
         $protagonistas = collect(config('colegio.protagonistas.protagonistas', []))
             ->map(fn (array $item, string $clave) => [
-                'imagen' => $this->imagenVista('protagonistas', $clave, [
+                'imagenes' => $this->imagenesGrupoProtagonista($clave, [
                     'titulo' => $item['titulo'],
                     'referencia' => $item['referencia'],
-                    'url' => $this->generarMediaUrlDesdeRuta($item['media_path']),
+                    'media_path' => $item['media_path'],
+                    'media_directory' => $item['media_directory'] ?? null,
                 ]),
                 'color' => $item['color'],
             ])
+            ->map(function (array $item) {
+                $item['imagen'] = $item['imagenes'][array_rand($item['imagenes'])] ?? [
+                    'url' => null,
+                    'titulo' => 'Comunidad Discovery',
+                    'referencia' => 'Imagen para la seccion Quienes hacen viva nuestra comunidad.',
+                    'pendiente' => true,
+                ];
+
+                return $item;
+            })
             ->all();
 
         return compact('niveles', 'protagonistas');
     }
 
+    private function imagenesGrupoProtagonista(string $clave, array $default): array
+    {
+        $registros = SeccionImagen::where('vista', 'protagonistas')
+            ->where('activo', true)
+            ->where(function ($query) use ($clave) {
+                $query
+                    ->where('clave', $clave)
+                    ->orWhere('clave', 'like', "{$clave}\_%");
+            })
+            ->orderBy('orden')
+            ->get();
+
+        $imagenesDirectorio = collect();
+
+        if (! empty($default['media_directory'])) {
+            $imagenesDirectorio = $this->mediaFiles($default['media_directory'])
+                ->filter(fn (string $path) => in_array(strtolower(pathinfo($path, PATHINFO_EXTENSION)), config('colegio.media.image_extensions', []), true))
+                ->sort()
+                ->map(fn (string $path) => [
+                    'url' => $this->generarMediaUrl($path),
+                    'titulo' => $default['titulo'] ?? pathinfo($path, PATHINFO_FILENAME),
+                    'referencia' => $default['referencia'] ?? null,
+                    'pendiente' => false,
+                ]);
+        }
+
+        $imagenes = $imagenesDirectorio;
+
+        if ($imagenes->isEmpty()) {
+            $imagenes = $registros
+                ->map(function (SeccionImagen $registro) {
+                    $url = $this->publicUploadUrl($registro->imagen)
+                        ?? $this->mediaUrlIfExists($registro->respaldo_media_path);
+
+                    return $url ? [
+                        'url' => $url,
+                        'titulo' => $registro->titulo,
+                        'referencia' => $registro->referencia,
+                        'pendiente' => false,
+                    ] : null;
+                })
+                ->filter()
+                ->values();
+        }
+
+        if ($imagenes->isEmpty()) {
+            return [$this->imagenVista('protagonistas', $clave, $default)];
+        }
+
+        return $imagenes
+            ->unique('url')
+            ->values()
+            ->all();
+    }
+
     private function defaultConMediaUrl(array $default): array
     {
         if (isset($default['media_path'])) {
-            $default['url'] = $this->generarMediaUrlDesdeRuta($default['media_path']);
-            unset($default['media_path']);
+            $default['url'] = $this->mediaUrlIfExists($default['media_path']);
         }
 
         return $default;
@@ -337,9 +551,10 @@ class PageController extends Controller
         return collect($defaults)
             ->map(function (array $default, string $clave) use ($registros) {
                 $registro = $registros->get($clave);
-                $imagen = $registro?->imagen
-                    ? Storage::disk('public')->url($registro->imagen)
-                    : ($default['url'] ?? null);
+                $imagen = $this->publicUploadUrl($registro?->imagen)
+                    ?? $this->mediaUrlIfExists($registro?->respaldo_media_path)
+                    ?? ($default['url'] ?? null)
+                    ?? $this->mediaUrlIfExists($default['media_path'] ?? null);
 
                 return [
                     'url' => $imagen,
@@ -402,66 +617,66 @@ class PageController extends Controller
             'historia_2003' => [
                 'titulo' => 'Nosotros - Historia 2003',
                 'referencia' => 'Imagen para el hito Discovery Kinder en la linea del tiempo de Nosotros.',
-                'url' => $this->generarMediaUrlDesdeRuta('Linea del tiempo/2003-1.jpg'),
+                'media_path' => 'Linea del tiempo/2003-1.jpg',
             ],
             'historia_2003_2' => [
                 'titulo' => 'Nosotros - Historia 2003 - Imagen secundaria',
                 'referencia' => 'Imagen secundaria para el hito Discovery Kinder en la linea del tiempo de Nosotros.',
-                'url' => $this->generarMediaUrlDesdeRuta('Linea del tiempo/2003-2.jpg'),
+                'media_path' => 'Linea del tiempo/2003-2.jpg',
             ],
             'historia_2005' => [
                 'titulo' => 'Nosotros - Historia 2005',
                 'referencia' => 'Imagen para el hito Discovery Primaria en la linea del tiempo de Nosotros.',
-                'url' => $this->generarMediaUrlDesdeRuta('Linea del tiempo/2005-1.jpg'),
+                'media_path' => 'Linea del tiempo/2005-1.jpg',
             ],
             'historia_2005_2' => [
                 'titulo' => 'Nosotros - Historia 2005 - Imagen secundaria',
                 'referencia' => 'Imagen secundaria para el hito Discovery Primaria en la linea del tiempo de Nosotros.',
-                'url' => $this->generarMediaUrlDesdeRuta('Linea del tiempo/2005-2.jpg'),
+                'media_path' => 'Linea del tiempo/2005-2.jpg',
             ],
             'historia_2011' => [
                 'titulo' => 'Nosotros - Historia 2011',
                 'referencia' => 'Imagen para el hito Discovery Secundaria en la linea del tiempo de Nosotros.',
-                'url' => $this->generarMediaUrlDesdeRuta('Linea del tiempo/2011-1.jpg'),
+                'media_path' => 'Linea del tiempo/2011-1.jpg',
             ],
             'historia_2016' => [
                 'titulo' => 'Nosotros - Historia 2016',
                 'referencia' => 'Imagen para el hito Discovery Bachillerato en la linea del tiempo de Nosotros.',
-                'url' => $this->generarMediaUrlDesdeRuta('Linea del tiempo/2016-1.jpg'),
+                'media_path' => 'Linea del tiempo/2016-1.jpg',
             ],
             'historia_2018' => [
                 'titulo' => 'Nosotros - Historia 2018',
                 'referencia' => 'Imagen para el hito Colegio del Mundo IB en la linea del tiempo de Nosotros.',
-                'url' => $this->generarMediaUrlDesdeRuta('Linea del tiempo/2018-1.jpg'),
+                'media_path' => 'Linea del tiempo/2018-1.jpg',
             ],
             'historia_2019' => [
                 'titulo' => 'Nosotros - Historia 2019',
                 'referencia' => 'Imagen para el hito Nuevas instalaciones en la linea del tiempo de Nosotros.',
-                'url' => $this->generarMediaUrlDesdeRuta('Linea del tiempo/2019-1.jpg'),
+                'media_path' => 'Linea del tiempo/2019-1.jpg',
             ],
             'historia_2019_2' => [
                 'titulo' => 'Nosotros - Historia 2019 - Imagen secundaria',
                 'referencia' => 'Imagen secundaria para el hito Nuevas instalaciones en la linea del tiempo de Nosotros.',
-                'url' => $this->generarMediaUrlDesdeRuta('Linea del tiempo/2019-2.jpg'),
+                'media_path' => 'Linea del tiempo/2019-2.jpg',
             ],
             'historia_2023' => [
                 'titulo' => 'Nosotros - Historia 2023',
                 'referencia' => 'Imagen para el hito DKMUN primera edicion en la linea del tiempo de Nosotros.',
-                'url' => $this->generarMediaUrlDesdeRuta('Linea del tiempo/2023-1.jpg'),
+                'media_path' => 'Linea del tiempo/2023-1.jpg',
             ],
             'historia_2023_2' => [
                 'titulo' => 'Nosotros - Historia 2023 - Imagen secundaria',
                 'referencia' => 'Imagen secundaria para el hito DKMUN primera edicion en la linea del tiempo de Nosotros.',
-                'url' => $this->generarMediaUrlDesdeRuta('Linea del tiempo/2023-2.jpg'),
+                'media_path' => 'Linea del tiempo/2023-2.jpg',
             ],
             'historia_2025' => [
                 'titulo' => 'Nosotros - Historia 2025',
                 'referencia' => 'Imagen para el hito Actualmente en la linea del tiempo de Nosotros.',
-                'url' => $this->generarMediaUrlDesdeRuta('Linea del tiempo/2025-1.jpg'),
+                'media_path' => 'Linea del tiempo/2025-1.jpg',
             ],
         ]);
 
-        return [
+        $historiaDefault = [
             ['anio' => '2003', 'titulo' => 'Discovery Kinder', 'texto' => 'Nace Discovery Kinder, el inicio de un sueno educativo porque los primeros pasos trascienden.', 'imagenes' => [$imagenesHistoria['historia_2003'], $imagenesHistoria['historia_2003_2']]],
             ['anio' => '2005', 'titulo' => 'Discovery Primaria', 'texto' => 'Inauguracion de Discovery Primaria, creciendo con pasos firmes.', 'imagenes' => [$imagenesHistoria['historia_2005'], $imagenesHistoria['historia_2005_2']]],
             ['anio' => '2011', 'titulo' => 'Discovery Secundaria', 'texto' => 'Se suma Discovery Secundaria, ampliando horizontes.', 'imagenes' => [$imagenesHistoria['historia_2011']]],
@@ -471,5 +686,46 @@ class PageController extends Controller
             ['anio' => '2023', 'titulo' => 'DKMUN primera edicion', 'texto' => 'Realizamos nuestra primera edicion DKMUN, un espacio para el liderazgo y la diplomacia.', 'imagenes' => [$imagenesHistoria['historia_2023'], $imagenesHistoria['historia_2023_2']]],
             ['anio' => '2025', 'titulo' => 'Actualmente', 'texto' => 'Seguimos escribiendo nuestra historia, creciendo y evolucionando juntos.', 'imagenes' => [$imagenesHistoria['historia_2025']]],
         ];
+
+        $registros = HitoHistoria::orderBy('orden')->get();
+
+        if ($registros->isEmpty()) {
+            return $historiaDefault;
+        }
+
+        $fallbacksPorAnio = collect($historiaDefault)->keyBy('anio');
+
+        return $registros
+            ->map(function (HitoHistoria $hito) use ($fallbacksPorAnio) {
+                $fallback = $fallbacksPorAnio->get($hito->anio, ['imagenes' => []]);
+                $imagenes = $fallback['imagenes'] ?? [];
+
+                if ($url = $this->publicUploadUrl($hito->imagen_url)) {
+                    $imagenes[0] = [
+                        'url' => $url,
+                        'titulo' => $hito->titulo,
+                        'referencia' => 'Imagen principal del hito ' . $hito->titulo . '.',
+                        'pendiente' => false,
+                    ];
+                }
+
+                if ($url = $this->publicUploadUrl($hito->imagen_secundaria_url)) {
+                    $imagenes[1] = [
+                        'url' => $url,
+                        'titulo' => $hito->titulo . ' - Imagen secundaria',
+                        'referencia' => 'Imagen secundaria del hito ' . $hito->titulo . '.',
+                        'pendiente' => false,
+                    ];
+                }
+
+                return [
+                    'anio' => $hito->anio,
+                    'titulo' => $hito->titulo,
+                    'texto' => $hito->texto,
+                    'imagenes' => collect($imagenes)->filter(fn (array $imagen) => ! empty($imagen['url']))->values()->all(),
+                ];
+            })
+            ->values()
+            ->all();
     }
 }

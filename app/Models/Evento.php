@@ -11,6 +11,7 @@ class Evento extends Model
         'titulo',
         'descripcion',
         'imagen_url',
+        'imagen_media_path',
         'orden',
         'activo',
     ];

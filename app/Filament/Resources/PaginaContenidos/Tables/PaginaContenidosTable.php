@@ -3,9 +3,9 @@
 namespace App\Filament\Resources\PaginaContenidos\Tables;
 
 use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
-use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
@@ -15,14 +15,24 @@ class PaginaContenidosTable
     {
         return $table
             ->columns([
-                ImageColumn::make('imagen_principal')
-                    ->label('Imagen principal')
-                    ->disk('public'),
-                TextColumn::make('titulo')
-                    ->label('Titulo de la pagina')
-                    ->searchable(),
                 TextColumn::make('slug')
-                    ->label('Vista')
+                    ->label('Pagina')
+                    ->badge()
+                    ->formatStateUsing(fn (string $state): string => match ($state) {
+                        'inicio' => 'Inicio',
+                        'nosotros' => 'Conocenos / Nosotros',
+                        'oferta-academica' => 'Oferta Educativa',
+                        'protagonistas' => 'Comunidad',
+                        'contacto' => 'Contacto',
+                        default => $state,
+                    })
+                    ->searchable(),
+                TextColumn::make('titulo')
+                    ->label('Titulo principal')
+                    ->searchable(),
+                TextColumn::make('descripcion')
+                    ->label('Descripcion')
+                    ->limit(70)
                     ->searchable(),
                 TextColumn::make('updated_at')
                     ->label('Actualizado')
@@ -31,6 +41,7 @@ class PaginaContenidosTable
             ])
             ->recordActions([
                 EditAction::make(),
+                DeleteAction::make(),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

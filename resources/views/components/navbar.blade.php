@@ -1,10 +1,19 @@
 <header class="bg-white shadow-md">
     <div class="bg-blue-700 text-white text-sm">
-        <div class="max-w-7xl mx-auto px-4 py-2 flex flex-col md:flex-row md:justify-end gap-2 md:gap-6">
+        <div class="max-w-7xl mx-auto px-4 py-2 flex flex-col md:flex-row md:items-center md:justify-end gap-2 md:gap-6">
             <a href="mailto:informes@colegio-discovery.edu.mx" class="hover:underline">
                 informes@colegio-discovery.edu.mx
             </a>
             <span>(238) 688 11 79, (238) 102 18 17</span>
+            <a
+                href="https://www.instagram.com/colegio_discoveryth/"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex w-fit items-center justify-center rounded bg-white px-3 py-1 font-bold text-blue-700 transition-colors hover:bg-blue-50"
+                aria-label="Abrir Instagram de Colegio Discovery"
+            >
+                Instagram
+            </a>
         </div>
     </div>
 

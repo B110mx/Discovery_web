@@ -124,6 +124,22 @@
                     @endforeach
                 </div>
 
+                @if (! empty($nivel['informacion']['imagenes_referencia']))
+                    <div class="mt-10">
+                        <h3 class="text-2xl font-bold {{ $tema['heading'] }}">Imagenes de referencia</h3>
+                        <div class="mt-5 grid gap-5 md:grid-cols-2">
+                            @foreach ($nivel['informacion']['imagenes_referencia'] as $imagenReferencia)
+                                <x-imagen-seccion
+                                    :imagen="$imagenReferencia"
+                                    alt="{{ $imagenReferencia['titulo'] ?? 'Imagen pendiente' }}"
+                                    class="aspect-[4/3] w-full object-cover"
+                                    placeholder-class="aspect-[4/3] w-full"
+                                />
+                            @endforeach
+                        </div>
+                    </div>
+                @endif
+
                 @if (! empty($nivel['informacion']['experiencias']))
                     <div class="mt-10 rounded-xl bg-gray-50 p-6">
                         <h3 class="text-2xl font-bold {{ $tema['heading'] }}">Comunidad y experiencias</h3>

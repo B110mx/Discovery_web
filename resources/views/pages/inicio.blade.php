@@ -4,11 +4,11 @@
 
 <div class="bg-blue-600 text-white py-20 text-center rounded-xl shadow-lg">
     <h1 class="text-5xl font-bold mb-6">
-        Colegio Internacional Discovery
+        {{ $paginaInicio?->titulo ?? 'Colegio Internacional Discovery' }}
     </h1>
 
     <p class="text-xl mb-6">
-        Formando lideres del futuro con educacion de excelencia
+        {{ $paginaInicio?->descripcion ?? 'Formando lideres del futuro con educacion de excelencia' }}
     </p>
 
     <a href="{{ route('nosotros') }}" class="bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-200">
@@ -17,7 +17,7 @@
 </div>
 
 @if (! empty($eventos))
-    <section class="mt-16 overflow-hidden rounded-xl bg-white shadow-lg">
+    <section class="mt-16 overflow-hidden rounded-xl bg-white shadow-lg animate-on-scroll">
         <div class="grid lg:grid-cols-[.85fr_1.15fr]">
             <div class="bg-blue-700 p-8 text-white md:p-10">
                 <p class="font-semibold uppercase tracking-wide text-sm text-blue-100">Agenda Discovery</p>
@@ -68,12 +68,12 @@
                             <article class="min-w-full">
                                 <div class="grid md:grid-cols-[1fr_.55fr]">
                                     <div class="bg-gray-100">
-                                        <img
-                                            src="{{ $evento['url'] }}"
-                                            alt="{{ $evento['titulo'] }}"
+                                        <x-imagen-seccion
+                                            :imagen="$evento['imagen'] ?? ['url' => $evento['url'] ?? null, 'titulo' => $evento['titulo'], 'referencia' => 'Modulo del carrusel de eventos.']"
+                                            :alt="$evento['titulo']"
                                             class="h-72 w-full object-contain p-3 md:h-[430px]"
-                                            loading="{{ $loop->first ? 'eager' : 'lazy' }}"
-                                        >
+                                            placeholder-class="h-72 md:h-[430px]"
+                                        />
                                     </div>
 
                                     <div class="flex flex-col justify-center p-6 md:p-8">
@@ -93,7 +93,7 @@
 
 <section class="mt-16 bg-white px-6 py-10 rounded-xl shadow-md">
     <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
-        <article class="flex flex-col">
+        <article class="flex flex-col animate-on-scroll" style="transition-delay: 100ms;">
             <img
                 src="{{ $logosNiveles['preescolar'] ?? '' }}"
                 alt="Preescolar Discovery"
@@ -113,7 +113,7 @@
             </a>
         </article>
 
-        <article class="flex flex-col">
+        <article class="flex flex-col animate-on-scroll" style="transition-delay: 200ms;">
             <img
                 src="{{ $logosNiveles['primaria'] ?? '' }}"
                 alt="Primaria Discovery"
@@ -132,7 +132,7 @@
             </a>
         </article>
 
-        <article class="flex flex-col">
+        <article class="flex flex-col animate-on-scroll" style="transition-delay: 300ms;">
             <img
                 src="{{ $logosNiveles['secundaria'] ?? '' }}"
                 alt="Secundaria Discovery"
@@ -151,7 +151,7 @@
             </a>
         </article>
 
-        <article class="flex flex-col">
+        <article class="flex flex-col animate-on-scroll" style="transition-delay: 400ms;">
             <img
                 src="{{ $logosNiveles['bachillerato'] ?? '' }}"
                 alt="Bachillerato Discovery"
@@ -172,7 +172,7 @@
     </div>
 </section>
 
-<div class="mt-20 grid md:grid-cols-2 gap-10 items-center">
+<div class="mt-20 grid md:grid-cols-2 gap-10 items-center animate-on-scroll">
     <div>
         <h2 class="text-3xl font-bold text-blue-600 mb-4">
             Sobre Nosotros
@@ -199,31 +199,8 @@
     </div>
 </div>
 
-<div class="mt-20 bg-white p-8 rounded-xl shadow-md">
-    <h2 class="text-2xl font-bold text-blue-600 mb-6">
-        Contactanos
-    </h2>
-
-    <form action="/contacto" method="POST" class="space-y-4">
-        @csrf
-
-        <input type="text" name="nombre" placeholder="Nombre"
-            class="w-full border p-3 rounded">
-
-        <input type="email" name="email" placeholder="Correo"
-            class="w-full border p-3 rounded">
-
-        <textarea name="mensaje" placeholder="Mensaje"
-            class="w-full border p-3 rounded"></textarea>
-
-        <button class="bg-blue-600 text-white px-6 py-3 rounded">
-            Enviar
-        </button>
-    </form>
-</div>
-
 @if (! empty($testimonios))
-    <section class="mt-20 bg-white rounded-xl shadow-md p-6 md:p-8">
+    <section class="mt-20 bg-white rounded-xl shadow-md p-6 md:p-8 animate-on-scroll">
         <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-6">
             <div>
                 <p class="font-semibold uppercase tracking-wide text-sm text-blue-700">Testimonios Alumni</p>
@@ -361,6 +338,14 @@
             });
         };
 
+        const pauseAllVideos = () => {
+            videos.forEach((video) => {
+                if (!video.paused) {
+                    video.pause();
+                }
+            });
+        };
+
         const showVideo = (index) => {
             if (!videoTrack || videoSlides.length === 0) {
                 return;
@@ -372,24 +357,23 @@
         };
 
         document.querySelector('[data-video-prev]')?.addEventListener('click', () => {
-            pauseOtherVideos(null);
+            pauseAllVideos();
             showVideo(videoIndex - 1);
         });
         document.querySelector('[data-video-next]')?.addEventListener('click', () => {
-            pauseOtherVideos(null);
+            pauseAllVideos();
             showVideo(videoIndex + 1);
         });
 
         videoDots.forEach((dot) => {
             dot.addEventListener('click', () => {
-                pauseOtherVideos(null);
+                pauseAllVideos();
                 showVideo(Number(dot.dataset.videoDot));
             });
         });
 
         videos.forEach((video, index) => {
             video.addEventListener('play', () => {
-                showVideo(index);
                 pauseOtherVideos(video);
             });
         });

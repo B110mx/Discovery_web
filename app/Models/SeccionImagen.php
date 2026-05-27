@@ -15,6 +15,7 @@ class SeccionImagen extends Model
         'titulo',
         'referencia',
         'imagen',
+        'respaldo_media_path',
         'orden',
         'activo',
     ];
@@ -37,6 +38,14 @@ class SeccionImagen extends Model
 
         if ($this->vista === 'contacto') {
             SiteCache::forget('contacto_pagina_id');
+        }
+
+        if ($this->vista === 'nosotros' && str($this->clave)->startsWith('historia_')) {
+            SiteCache::forget('nosotros_historia');
+        }
+
+        if ($this->vista === 'carruseles') {
+            SiteCache::forget('inicio_eventos');
         }
     }
 }

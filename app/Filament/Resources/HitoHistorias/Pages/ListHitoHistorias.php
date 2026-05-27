@@ -13,7 +13,8 @@ class ListHitoHistorias extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            CreateAction::make(),
+            CreateAction::make()
+                ->label('Agregar nuevo momento'),
         ];
     }
 }

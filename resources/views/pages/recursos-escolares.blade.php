@@ -5,12 +5,6 @@
 @php
     $totalListas = collect($listasUtiles ?? [])->flatten(1)->count();
     $niveles = array_keys($listasUtiles ?? []);
-    $calendario = [
-        ['titulo' => 'Inicio de clases', 'texto' => 'Bienvenida, integracion y entrega de indicaciones generales.', 'color' => 'bg-blue-700'],
-        ['titulo' => 'Evaluaciones parciales', 'texto' => 'Periodos de seguimiento academico durante el ciclo escolar.', 'color' => 'bg-red-600'],
-        ['titulo' => 'Consejo tecnico y suspensiones', 'texto' => 'Fechas de trabajo docente y descansos oficiales.', 'color' => 'bg-yellow-500'],
-        ['titulo' => 'Cierre de ciclo', 'texto' => 'Entrega de resultados, actividades finales y ceremonias escolares.', 'color' => 'bg-black'],
-    ];
 @endphp
 
 <section class="mx-auto max-w-7xl space-y-10">
@@ -18,9 +12,9 @@
         <div class="grid gap-8 p-8 md:p-12 lg:grid-cols-[1.1fr_.9fr] lg:items-end">
             <div>
                 <p class="text-sm font-bold uppercase tracking-wide text-blue-50">Recursos escolares</p>
-                <h1 class="mt-3 text-4xl font-extrabold md:text-5xl">Listas de utiles y fechas clave</h1>
+                <h1 class="mt-3 text-4xl font-extrabold md:text-5xl">Listas de utiles y calendario</h1>
                 <p class="mt-5 max-w-3xl text-lg leading-8 text-blue-50">
-                    Encuentra la lista correspondiente por nivel o grado y consulta los momentos principales del ciclo escolar.
+                    Encuentra la lista correspondiente por nivel o grado y consulta el calendario escolar vigente.
                 </p>
             </div>
 
@@ -166,24 +160,6 @@
                         <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-yellow-500 text-sm font-extrabold text-black">3</span>
                         <p class="text-gray-700">Abre el PDF para revisarlo o descargarlo.</p>
                     </div>
-                </div>
-            </section>
-
-            <section class="rounded-xl bg-white p-6 shadow-md md:p-8">
-                <p class="text-sm font-bold uppercase tracking-wide text-red-600">Calendario escolar</p>
-                <h2 class="mt-2 text-2xl font-extrabold text-black">Momentos principales</h2>
-
-                <div class="mt-6 space-y-5">
-                    @foreach ($calendario as $item)
-                        <div class="relative pl-8">
-                            <span class="absolute left-0 top-1 h-4 w-4 rounded-full {{ $item['color'] }}"></span>
-                            @if (! $loop->last)
-                                <span class="absolute left-[7px] top-6 h-full w-0.5 bg-gray-200"></span>
-                            @endif
-                            <p class="font-extrabold text-black">{{ $item['titulo'] }}</p>
-                            <p class="mt-1 leading-6 text-gray-600">{{ $item['texto'] }}</p>
-                        </div>
-                    @endforeach
                 </div>
             </section>
         </aside>

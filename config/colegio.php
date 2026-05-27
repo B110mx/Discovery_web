@@ -6,13 +6,19 @@ return [
         'keys' => [
             'inicio_eventos' => 'inicio_eventos',
             'inicio_testimonios' => 'inicio_testimonios_v2',
+            'nosotros_historia' => 'nosotros_historia_v1',
             'protagonistas_testimonios' => 'protagonistas_testimonios_v1',
             'recursos_listas_utiles' => 'recursos_listas_utiles_v2',
             'contacto_pagina_id' => 'contacto_pagina_id',
-            'galeria.preescolar' => 'galeria_preescolar',
-            'galeria.primaria' => 'galeria_primaria',
-            'galeria.secundaria' => 'galeria_secundaria',
-            'galeria.bachillerato' => 'galeria_bachillerato',
+            'pagina_contenido.inicio' => 'pagina_contenido_inicio',
+            'pagina_contenido.nosotros' => 'pagina_contenido_nosotros',
+            'pagina_contenido.oferta-academica' => 'pagina_contenido_oferta_academica',
+            'pagina_contenido.protagonistas' => 'pagina_contenido_protagonistas',
+            'pagina_contenido.contacto' => 'pagina_contenido_contacto',
+            'galeria.preescolar' => 'galeria_preescolar_actuales_v1',
+            'galeria.primaria' => 'galeria_primaria_actuales_v1',
+            'galeria.secundaria' => 'galeria_secundaria_actuales_v1',
+            'galeria.bachillerato' => 'galeria_bachillerato_actuales_v1',
             'galeria.ib-en-discovery' => 'galeria_ib-en-discovery',
             'galeria.certificacion-de-ingles' => 'galeria_certificacion-de-ingles',
         ],
@@ -69,17 +75,17 @@ return [
             [
                 'titulo' => 'Evento Preescolar',
                 'descripcion' => 'Actividades proximas para nuestras familias de preescolar.',
-                'media_path' => 'Kinder/Colegio Discovery-15.jpg',
+                'media_path' => 'Kinder fotos actuales/IMG_5775.JPG',
             ],
             [
                 'titulo' => 'Evento Primaria',
                 'descripcion' => 'Experiencias, proyectos y encuentros para nuestros explorers de primaria.',
-                'media_path' => 'Elementary (Primaria)/Colegio Discovery-66.jpg',
+                'media_path' => 'Elementary fotos actuales/IMG_5684.JPG',
             ],
             [
                 'titulo' => 'Evento Secundaria',
                 'descripcion' => 'Actividades academicas y de comunidad para middle school.',
-                'media_path' => 'Middle (Secundaria)/Colegio Discovery-59.jpg',
+                'media_path' => 'Middle fotos actuales/IMG_5867.JPG',
             ],
         ],
         'logos_niveles' => [
@@ -102,7 +108,7 @@ return [
             'imagen_default' => [
                 'titulo' => 'Oferta Educativa - Preescolar',
                 'referencia' => 'Imagen destacada para Preescolar en la vista Oferta Educativa.',
-                'media_path' => 'Kinder/Colegio Discovery-15.jpg',
+                'media_path' => 'Kinder fotos actuales/IMG_5775.JPG',
             ],
             'puntos' => ['Neuroaprendizaje', 'Ingles natural', 'Grupos reducidos'],
         ],
@@ -117,7 +123,7 @@ return [
             'imagen_default' => [
                 'titulo' => 'Oferta Educativa - Primaria',
                 'referencia' => 'Imagen destacada para Primaria en la vista Oferta Educativa.',
-                'media_path' => 'Elementary (Primaria)/Colegio Discovery-66.jpg',
+                'media_path' => 'Elementary fotos actuales/IMG_5684.JPG',
             ],
             'puntos' => ['Ingles diario', 'Frances desde 5 grado', 'Tecnologia y arte'],
         ],
@@ -132,7 +138,7 @@ return [
             'imagen_default' => [
                 'titulo' => 'Oferta Educativa - Secundaria',
                 'referencia' => 'Imagen destacada para Secundaria en la vista Oferta Educativa.',
-                'media_path' => 'Middle (Secundaria)/Colegio Discovery-59.jpg',
+                'media_path' => 'Middle fotos actuales/IMG_5867.JPG',
             ],
             'puntos' => ['Tres idiomas', 'Deporte diario', 'Liderazgo y proyectos'],
         ],
@@ -147,7 +153,7 @@ return [
             'imagen_default' => [
                 'titulo' => 'Oferta Educativa - Bachillerato',
                 'referencia' => 'Imagen destacada para Bachillerato en la vista Oferta Educativa.',
-                'media_path' => 'High (Prepa)/IMG_7346-scaled.jpg',
+                'media_path' => 'High fotos actuales/1234.jpg',
             ],
             'puntos' => ['Diploma IB', 'Orientacion vocacional', 'Becas universitarias'],
         ],
@@ -184,25 +190,25 @@ return [
 
     'protagonistas' => [
         'niveles' => [
-            ['titulo' => 'Preescolar', 'clave' => 'preescolar', 'color' => 'bg-lime-500', 'referencia' => 'Imagen para representar Preescolar dentro de Comunidad.', 'media_path' => 'Kinder/Colegio Discovery-15.jpg'],
-            ['titulo' => 'Primaria', 'clave' => 'primaria', 'color' => 'bg-red-600', 'referencia' => 'Imagen para representar Primaria dentro de Comunidad.', 'media_path' => 'Elementary (Primaria)/Colegio Discovery-66.jpg'],
-            ['titulo' => 'Secundaria', 'clave' => 'secundaria', 'color' => 'bg-blue-700', 'referencia' => 'Imagen para representar Secundaria dentro de Comunidad.', 'media_path' => 'Middle (Secundaria)/Colegio Discovery-61.jpg'],
-            ['titulo' => 'Bachillerato', 'clave' => 'bachillerato', 'color' => 'bg-green-600', 'referencia' => 'Imagen para representar Bachillerato dentro de Comunidad.', 'media_path' => 'Logos de niveles educativos/bachillerato.png'],
+            ['titulo' => 'Preescolar', 'clave' => 'preescolar', 'color' => 'bg-lime-500', 'referencia' => 'Imagen para representar Preescolar dentro de Comunidad.', 'media_path' => 'Kinder fotos actuales/IMG_5775.JPG'],
+            ['titulo' => 'Primaria', 'clave' => 'primaria', 'color' => 'bg-red-600', 'referencia' => 'Imagen para representar Primaria dentro de Comunidad.', 'media_path' => 'Elementary fotos actuales/IMG_5684.JPG'],
+            ['titulo' => 'Secundaria', 'clave' => 'secundaria', 'color' => 'bg-blue-700', 'referencia' => 'Imagen para representar Secundaria dentro de Comunidad.', 'media_path' => 'Middle fotos actuales/IMG_5867.JPG'],
+            ['titulo' => 'Bachillerato', 'clave' => 'bachillerato', 'color' => 'bg-green-600', 'referencia' => 'Imagen para representar Bachillerato dentro de Comunidad.', 'media_path' => 'High fotos actuales/1234.jpg'],
         ],
         'protagonistas' => [
-            'alumnos' => ['titulo' => 'Comunidad - Alumnos', 'color' => 'bg-red-600', 'referencia' => 'Imagen para representar a los alumnos en la seccion Quienes hacen viva nuestra comunidad.', 'media_path' => 'Elementary (Primaria)/Colegio Discovery-66.jpg'],
-            'docentes' => ['titulo' => 'Comunidad - Docentes', 'color' => 'bg-blue-700', 'referencia' => 'Imagen para representar a docentes en la seccion Quienes hacen viva nuestra comunidad.', 'media_path' => 'Middle (Secundaria)/Colegio Discovery-61.jpg'],
-            'padres' => ['titulo' => 'Comunidad - Familias', 'color' => 'bg-lime-500', 'referencia' => 'Imagen para representar a familias en la seccion Quienes hacen viva nuestra comunidad.', 'media_path' => 'Kinder/Colegio Discovery-15.jpg'],
-            'alumni' => ['titulo' => 'Comunidad - Alumni', 'color' => 'bg-green-600', 'referencia' => 'Imagen para representar a alumni en la seccion Quienes hacen viva nuestra comunidad.', 'media_path' => 'High (Prepa)/IMG_7346-scaled.jpg'],
+            'alumnos' => ['titulo' => 'Comunidad - Alumnos', 'color' => 'bg-red-600', 'referencia' => 'Imagen para representar a los alumnos en la seccion Quienes hacen viva nuestra comunidad.', 'media_path' => 'Elementary fotos actuales/IMG_5684.JPG', 'media_directory' => 'Elementary fotos actuales'],
+            'docentes' => ['titulo' => 'Comunidad - Docentes', 'color' => 'bg-blue-700', 'referencia' => 'Imagen para representar a docentes en la seccion Quienes hacen viva nuestra comunidad.', 'media_path' => 'Fotos Docentes/1.png', 'media_directory' => 'Fotos Docentes'],
+            'padres' => ['titulo' => 'Comunidad - Familias', 'color' => 'bg-lime-500', 'referencia' => 'Imagen para representar a familias en la seccion Quienes hacen viva nuestra comunidad.', 'media_path' => 'Fotos Padres de Familia/3.png', 'media_directory' => 'Fotos Padres de Familia'],
+            'alumni' => ['titulo' => 'Comunidad - Alumni', 'color' => 'bg-green-600', 'referencia' => 'Imagen para representar a alumni en la seccion Quienes hacen viva nuestra comunidad.', 'media_path' => 'Fotos Alumni/001.JPG', 'media_directory' => 'Fotos Alumni'],
         ],
     ],
 
     'niveles' => [
         'carpetas_galeria' => [
-            'preescolar' => 'Kinder',
-            'primaria' => 'Elementary (Primaria)',
-            'secundaria' => 'Middle (Secundaria)',
-            'bachillerato' => 'High (Prepa)',
+            'preescolar' => 'Kinder fotos actuales',
+            'primaria' => 'Elementary fotos actuales',
+            'secundaria' => 'Middle fotos actuales',
+            'bachillerato' => 'High fotos actuales',
         ],
         'definiciones' => [
             'preescolar' => [
@@ -327,12 +333,97 @@ return [
             ],
             'ib-en-discovery' => [
                 'titulo' => 'IB en Discovery',
-                'descripcion' => 'Una experiencia educativa con enfoque internacional y pensamiento critico.',
+                'descripcion' => 'Bachillerato Internacional en Discovery: habilidades, perfil de aprendizaje y Programa del Diploma con vision global.',
                 'logo_path' => 'Logos de niveles educativos/Logo IB cl.jpeg',
+                'usar_placeholder_hero' => true,
+                'informacion' => [
+                    'titulo' => 'Bachillerato Internacional en Discovery',
+                    'intro' => 'Nuestro modelo educativo potencia habilidades para que los alumnos vivan el aprendizaje como un proceso activo y dinamico. El enfoque IB los impulsa a aprender a aprender, plantear buenas preguntas, establecer metas, trabajar por sus aspiraciones y sostener la determinacion necesaria para cumplirlas.',
+                    'destacados' => [
+                        ['titulo' => 'Habilidades', 'texto' => 'Pensamiento, autogestion, comunicacion, investigacion y habilidades sociales para aprender con autonomia.'],
+                        ['titulo' => 'Perfil IB', 'texto' => 'Formacion de estudiantes con capacidades humanas que van mas alla del exito academico.'],
+                        ['titulo' => 'Programa del Diploma', 'texto' => 'Un programa riguroso y equilibrado para alumnos de 16 a 19 anos, reconocido por universidades del mundo.'],
+                    ],
+                    'puntos' => [
+                        'Desarrollo de pensamiento critico, pensamiento creativo y transferencia del aprendizaje.',
+                        'Autogestion con organizacion, manejo del tiempo, motivacion y habilidades afectivas.',
+                        'Comunicacion para expresar ideas, escuchar, colaborar y construir acuerdos.',
+                        'Investigacion para comparar, contrastar, validar y priorizar informacion.',
+                        'Habilidades sociales para relacionarse positivamente y resolver conflictos.',
+                    ],
+                    'secciones' => [
+                        ['titulo' => 'Perfil de la comunidad de aprendizaje IB', 'texto' => 'El perfil IB expresa capacidades y responsabilidades humanas que buscan formar alumnos respetuosos consigo mismos, con las demas personas y con el mundo que les rodea.'],
+                        ['titulo' => 'Programa del Diploma (PD)', 'texto' => 'Colegio Discovery esta acreditado por la Organizacion del Bachillerato Internacional para impartir el Programa del Diploma, una propuesta que favorece amplitud y profundidad academica junto con desarrollo fisico, intelectual, emocional y etico.'],
+                        ['titulo' => 'Que ofrece el PD al alumnado', 'texto' => 'El programa promueve excelencia academica, estudio de al menos dos lenguas, desarrollo integral y exploracion de la naturaleza del conocimiento mediante Teoria del Conocimiento.'],
+                        ['titulo' => 'Curriculo del Programa del Diploma', 'texto' => 'El curriculo se integra por el tronco comun del PD y seis grupos de asignaturas. Sus componentes troncales amplian la experiencia educativa y retan a los estudiantes a aplicar conocimientos y habilidades.'],
+                        ['titulo' => 'Perfil de nuestros egresados', 'texto' => 'Nuestros egresados se desenvuelven competitivamente en ingles y espanol, cuentan con preparacion academica para certificaciones, enfrentan desafios con mentalidad abierta y son ciudadanos globales con vision internacional.'],
+                    ],
+                    'imagenes_referencia' => [
+                        [
+                            'titulo' => 'Marco de habilidades del enfoque del aprendizaje',
+                            'referencia' => 'Referencia visual: marco de habilidades del enfoque del aprendizaje. Fuente: Organizacion del Bachillerato Internacional, 2014.',
+                        ],
+                        [
+                            'titulo' => 'Atributos del perfil de la comunidad IB',
+                            'referencia' => 'Referencia visual: atributos del perfil de la comunidad de aprendizaje del IB.',
+                        ],
+                        [
+                            'titulo' => 'Programa del Diploma del Bachillerato Internacional',
+                            'referencia' => 'Referencia visual: esquema o imagen introductoria del Programa del Diploma para alumnos de 16 a 19 anos.',
+                        ],
+                        [
+                            'titulo' => 'Curriculo del Programa del Diploma',
+                            'referencia' => 'Referencia visual: tronco comun del PD y seis grupos de asignaturas. Fuente: Organizacion del Bachillerato Internacional, 2018.',
+                        ],
+                    ],
+                    'experiencias' => ['Pensamiento critico', 'Teoria del Conocimiento', 'CAS', 'Investigacion', 'Dos lenguas', 'Mentalidad internacional'],
+                ],
             ],
             'certificacion-de-ingles' => [
                 'titulo' => 'Certificacion de Ingles',
-                'descripcion' => 'Desarrollo del idioma ingles con metas claras y acompanamiento academico.',
+                'descripcion' => 'Preparacion progresiva para certificar el dominio del ingles con metas claras, practica guiada y acompanamiento academico.',
+                'usar_placeholder_hero' => true,
+                'informacion' => [
+                    'titulo' => 'Certificacion de Ingles en Discovery',
+                    'intro' => 'La certificacion de ingles acompana a nuestros estudiantes para medir, fortalecer y demostrar sus habilidades comunicativas. El trabajo se enfoca en reading, writing, listening y speaking, con seguimiento academico para avanzar hacia evaluaciones reconocidas y oportunidades universitarias.',
+                    'destacados' => [
+                        ['titulo' => 'Metas claras', 'texto' => 'Los estudiantes conocen las habilidades que deben fortalecer y trabajan con objetivos medibles durante el ciclo escolar.'],
+                        ['titulo' => 'Practica integral', 'texto' => 'Reading, writing, listening y speaking se practican de forma constante para usar el idioma con seguridad.'],
+                        ['titulo' => 'Proyeccion academica', 'texto' => 'La preparacion ayuda a contar con evidencias de nivel de ingles para procesos escolares, universitarios y de movilidad.'],
+                    ],
+                    'puntos' => [
+                        'Preparacion para evaluaciones de ingles con validez academica.',
+                        'Practica guiada de comprension lectora, escritura, comprension auditiva y expresion oral.',
+                        'Seguimiento del avance individual para detectar fortalezas y areas de mejora.',
+                        'Trabajo con vocabulario, gramatica y comunicacion en contextos reales.',
+                        'Base para certificaciones como Cambridge, TOEFL u otros examenes de referencia internacional.',
+                    ],
+                    'secciones' => [
+                        ['titulo' => 'Evaluacion y diagnostico', 'texto' => 'El proceso permite identificar el nivel de cada estudiante y orientar la preparacion hacia metas alcanzables, de acuerdo con sus necesidades academicas.'],
+                        ['titulo' => 'Habilidades comunicativas', 'texto' => 'La preparacion integra lectura, escritura, escucha y expresion oral para que el alumno use el ingles con precision, fluidez y confianza.'],
+                        ['titulo' => 'Acompanamiento academico', 'texto' => 'Docentes y coordinacion dan seguimiento al progreso, proponen practica especifica y ayudan a que cada alumno llegue mejor preparado a sus evaluaciones.'],
+                        ['titulo' => 'Certificaciones para el futuro', 'texto' => 'Contar con una certificacion de ingles abre puertas en admisiones universitarias, intercambios, becas y experiencias academicas con enfoque internacional.'],
+                    ],
+                    'imagenes_referencia' => [
+                        [
+                            'titulo' => 'Certificacion de Ingles - Imagen principal',
+                            'referencia' => 'Referencia visual: estudiante o grupo realizando preparacion/evaluacion de ingles en Colegio Discovery.',
+                        ],
+                        [
+                            'titulo' => 'Habilidades de ingles',
+                            'referencia' => 'Referencia visual: lectura, escritura, escucha y expresion oral como cuatro habilidades del idioma.',
+                        ],
+                        [
+                            'titulo' => 'Preparacion para examenes',
+                            'referencia' => 'Referencia visual: material de practica, simulacro o acompanamiento docente para certificaciones Cambridge/TOEFL.',
+                        ],
+                        [
+                            'titulo' => 'Resultados y proyeccion internacional',
+                            'referencia' => 'Referencia visual: certificado, logro academico o admision universitaria vinculada al dominio del ingles.',
+                        ],
+                    ],
+                    'experiencias' => ['Reading', 'Writing', 'Listening', 'Speaking', 'Cambridge', 'TOEFL', 'Seguimiento academico'],
+                ],
             ],
         ],
     ],
@@ -385,6 +476,30 @@ return [
             'bar' => 'bg-green-500',
             'heroText' => 'text-white',
             'heroMuted' => 'text-green-50',
+        ],
+        'ib-en-discovery' => [
+            'hero' => 'bg-amber-500 text-black',
+            'heading' => 'text-yellow-500',
+            'eyebrow' => 'text-yellow-500',
+            'soft' => 'bg-amber-50 border-amber-500',
+            'dot' => 'bg-amber-500',
+            'button' => 'bg-amber-500 text-black hover:bg-amber-600',
+            'chip' => 'text-yellow-500',
+            'bar' => 'bg-amber-500',
+            'heroText' => 'text-black',
+            'heroMuted' => 'text-black',
+        ],
+        'certificacion-de-ingles' => [
+            'hero' => 'bg-sky-500 text-white',
+            'heading' => 'text-sky-500',
+            'eyebrow' => 'text-sky-500',
+            'soft' => 'bg-sky-50 border-sky-500',
+            'dot' => 'bg-sky-500',
+            'button' => 'bg-sky-500 text-white hover:bg-sky-600',
+            'chip' => 'text-sky-500',
+            'bar' => 'bg-sky-500',
+            'heroText' => 'text-white',
+            'heroMuted' => 'text-sky-50',
         ],
         'default' => [
             'hero' => 'bg-blue-700 text-white',

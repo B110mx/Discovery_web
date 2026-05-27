@@ -3,9 +3,10 @@
 namespace App\Filament\Resources\HitoHistorias\Tables;
 
 use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
-use Filament\Actions\ViewAction;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
@@ -21,10 +22,18 @@ class HitoHistoriasTable
                 TextColumn::make('titulo')
                     ->label('Hito')
                     ->searchable(),
-                TextColumn::make('imagen_url')
-                    ->label('Imagen')
+                TextColumn::make('texto')
+                    ->label('Descripcion')
+                    ->limit(70)
                     ->searchable(),
+                ImageColumn::make('imagen_url')
+                    ->label('Imagen principal')
+                    ->disk('public'),
+                ImageColumn::make('imagen_secundaria_url')
+                    ->label('Imagen secundaria')
+                    ->disk('public'),
                 TextColumn::make('orden')
+                    ->label('Orden')
                     ->numeric()
                     ->sortable(),
                 TextColumn::make('created_at')
@@ -41,8 +50,8 @@ class HitoHistoriasTable
             ])
             ->defaultSort('orden')
             ->recordActions([
-                ViewAction::make(),
                 EditAction::make(),
+                DeleteAction::make(),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

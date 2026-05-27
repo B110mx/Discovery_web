@@ -26,10 +26,10 @@
     <div class="bg-white rounded-xl overflow-hidden shadow-lg">
         <div class="grid lg:grid-cols-2">
             <div class="p-8 md:p-12 flex flex-col justify-center">
-                <p class="font-semibold uppercase tracking-wide text-sm text-blue-700">Conócenos</p>
-                <h1 class="text-4xl md:text-5xl font-bold mt-3 text-black">Colegio Discovery</h1>
+                <p class="font-semibold uppercase tracking-wide text-sm text-blue-700">{{ $paginaNosotros?->subtitulo ?? 'Conocenos' }}</p>
+                <h1 class="text-4xl md:text-5xl font-bold mt-3 text-black">{{ $paginaNosotros?->titulo ?? 'Colegio Discovery' }}</h1>
                 <p class="text-gray-600 text-lg mt-5 max-w-xl">
-                    Una comunidad educativa que acompaña a cada estudiante en su crecimiento académico, humano y social.
+                    {{ $paginaNosotros?->descripcion ?? 'Una comunidad educativa que acompana a cada estudiante en su crecimiento academico, humano y social.' }}
                 </p>
                 <div class="mt-8">
                     <a href="#historia" class="bg-blue-700 text-white px-6 py-3 rounded font-semibold hover:bg-blue-800 transition-colors">
@@ -40,7 +40,7 @@
             <x-imagen-seccion
                 :imagen="$imagenesNosotros['hero']"
                 alt="Colegio Discovery"
-                class="h-80 w-full object-cover lg:h-full"
+                class="h-80 w-full bg-white object-contain p-8 lg:h-full lg:p-10"
                 placeholder-class="h-80 lg:h-full"
             />
         </div>
@@ -99,6 +99,48 @@
         <div class="bg-green-500 text-white rounded-xl shadow-md p-8">
             <p class="font-semibold uppercase tracking-wide text-sm text-green-50">Visión</p>
             <h2 class="text-3xl font-bold mt-3">Ser una comunidad unida que empodera agentes de cambio que contribuyen a un mundo mejor.</h2>
+        </div>
+    </section>
+
+    <section class="bg-white rounded-xl shadow-md overflow-hidden">
+        <div class="grid lg:grid-cols-[.95fr_1.05fr]">
+            <div class="p-8 md:p-10 flex flex-col justify-center">
+                <p class="font-semibold uppercase tracking-wide text-sm text-blue-700">Proyeccion academica</p>
+                <h2 class="text-3xl md:text-4xl font-bold text-black mt-2">Vinculacion Universitaria</h2>
+                <p class="text-gray-700 leading-8 mt-5">
+                    Acompanamos a nuestros estudiantes en la construccion de su proyecto de vida, acercandolos a opciones universitarias, experiencias de orientacion vocacional y herramientas para tomar decisiones informadas sobre su futuro.
+                </p>
+
+                <div class="grid sm:grid-cols-3 gap-3 mt-7">
+                    <div class="rounded-lg border border-blue-100 bg-blue-50 p-4">
+                        <span class="block text-2xl font-extrabold text-blue-700">01</span>
+                        <p class="mt-2 text-sm font-semibold leading-6 text-blue-900">Orientacion para elegir camino profesional</p>
+                    </div>
+                    <div class="rounded-lg border border-green-100 bg-green-50 p-4">
+                        <span class="block text-2xl font-extrabold text-green-600">02</span>
+                        <p class="mt-2 text-sm font-semibold leading-6 text-green-900">Acercamiento con instituciones universitarias</p>
+                    </div>
+                    <div class="rounded-lg border border-red-100 bg-red-50 p-4">
+                        <span class="block text-2xl font-extrabold text-red-600">03</span>
+                        <p class="mt-2 text-sm font-semibold leading-6 text-red-900">Preparacion para nuevas etapas academicas</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-gray-100 p-4 md:p-6">
+                <div class="grid grid-cols-2 gap-3 sm:grid-cols-3">
+                    @foreach ($universidadesVinculacion as $universidad)
+                        <div class="flex h-28 items-center justify-center rounded-lg border border-gray-200 bg-white p-4 shadow-sm md:h-32">
+                            <img
+                                src="{{ $universidad['url'] }}"
+                                alt="{{ $universidad['nombre'] }}"
+                                class="max-h-20 w-full object-contain"
+                                loading="lazy"
+                            >
+                        </div>
+                    @endforeach
+                </div>
+            </div>
         </div>
     </section>
 

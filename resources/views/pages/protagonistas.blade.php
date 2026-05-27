@@ -51,10 +51,10 @@
     <div class="overflow-hidden rounded-xl bg-blue-700 text-white shadow-lg">
         <div class="grid lg:grid-cols-[.95fr_1.05fr]">
             <div class="p-8 md:p-12 lg:p-14">
-                <p class="font-semibold uppercase tracking-wide text-sm text-blue-100">Comunidad Discovery</p>
-                <h1 class="mt-3 text-4xl md:text-5xl font-extrabold">Protagonistas</h1>
+                <p class="font-semibold uppercase tracking-wide text-sm text-blue-100">{{ $paginaProtagonistas?->subtitulo ?? 'Comunidad Discovery' }}</p>
+                <h1 class="mt-3 text-4xl md:text-5xl font-extrabold">{{ $paginaProtagonistas?->titulo ?? 'Protagonistas' }}</h1>
                 <p class="mt-5 max-w-2xl text-lg leading-8 text-blue-50">
-                    En Discovery alumnos, padres de familia, docentes y alumni trabajamos en equipo para formar una comunidad de aprendizaje con mentalidad internacional.
+                    {{ $paginaProtagonistas?->descripcion ?? 'En Discovery alumnos, padres de familia, docentes y alumni trabajamos en equipo para formar una comunidad de aprendizaje con mentalidad internacional.' }}
                 </p>
                 <a href="#testimonios" class="mt-8 inline-flex w-fit items-center justify-center rounded bg-red-600 px-6 py-3 font-bold text-white hover:bg-red-700">
                     Ver testimonios
@@ -107,13 +107,23 @@
                     <article
                         class="{{ $loop->first ? '' : 'hidden' }} overflow-hidden rounded-lg bg-white shadow-sm transition duration-500 ease-out"
                         data-protagonista-image="{{ $clave }}"
+                        data-protagonista-images='@json($item['imagenes'] ?? [$item['imagen']])'
                     >
-                        <x-imagen-seccion
-                            :imagen="$item['imagen']"
-                            alt="{{ $item['titulo'] }} Discovery"
-                            class="h-72 w-full object-cover md:h-96"
-                            placeholder-class="h-72 md:h-96"
-                        />
+                        @if (! empty($item['imagen']['url']))
+                            <img
+                                src="{{ $item['imagen']['url'] }}"
+                                alt="{{ $item['titulo'] }} Discovery"
+                                class="h-72 w-full bg-gray-100 object-contain md:h-96"
+                                data-protagonista-photo
+                            >
+                        @else
+                            <x-imagen-seccion
+                                :imagen="$item['imagen']"
+                                alt="{{ $item['titulo'] }} Discovery"
+                                class="h-72 w-full object-cover md:h-96"
+                                placeholder-class="h-72 md:h-96"
+                            />
+                        @endif
                         <div class="border-t border-gray-100 p-4">
                             <span class="inline-flex h-2 w-12 rounded-full {{ $item['color'] }}"></span>
                             <h3 class="mt-3 text-xl font-extrabold text-black">{{ $item['titulo'] }}</h3>
@@ -180,24 +190,60 @@
         </div>
 
         @if (! empty($testimonios))
-            <div class="grid gap-5 p-6 md:grid-cols-2 md:p-8 xl:grid-cols-3">
-                @foreach ($testimonios as $video)
-                    <article class="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
-                        <div class="bg-black p-2">
-                            <video
-                                src="{{ $video['url'] }}"
-                                controls
-                                preload="metadata"
-                                playsinline
-                                class="w-full aspect-video rounded-lg bg-black"
-                            ></video>
-                        </div>
-                        <div class="p-5">
-                            <span class="inline-flex h-1.5 w-10 rounded-full bg-red-600"></span>
-                            <h3 class="mt-3 text-lg font-extrabold leading-snug text-black">{{ $video['titulo'] }}</h3>
-                        </div>
-                    </article>
-                @endforeach
+            <div class="p-6 md:p-8">
+                <div class="mb-6 flex justify-end gap-3">
+                    <button
+                        type="button"
+                        data-community-video-prev
+                        class="h-11 w-11 rounded-full bg-gray-100 font-bold text-blue-700 hover:bg-blue-100"
+                        aria-label="Video anterior"
+                    >
+                        &lt;
+                    </button>
+                    <button
+                        type="button"
+                        data-community-video-next
+                        class="h-11 w-11 rounded-full bg-blue-700 font-bold text-white hover:bg-blue-800"
+                        aria-label="Video siguiente"
+                    >
+                        &gt;
+                    </button>
+                </div>
+
+                <div class="overflow-hidden" data-community-video-carousel>
+                    <div class="flex transition-transform duration-500 ease-out" data-community-video-track>
+                        @foreach ($testimonios as $video)
+                            <article class="flex-shrink-0 w-full px-1 md:w-1/2 md:px-3 xl:w-1/3">
+                                <div class="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
+                                    <div class="bg-black p-2">
+                                        <video
+                                            src="{{ $video['url'] }}"
+                                            controls
+                                            preload="metadata"
+                                            playsinline
+                                            class="w-full aspect-video rounded-lg bg-black"
+                                        ></video>
+                                    </div>
+                                    <div class="p-5">
+                                        <span class="inline-flex h-1.5 w-10 rounded-full bg-red-600"></span>
+                                        <h3 class="mt-3 text-lg font-extrabold leading-snug text-black">{{ $video['titulo'] }}</h3>
+                                    </div>
+                                </div>
+                            </article>
+                        @endforeach
+                    </div>
+                </div>
+
+                <div class="mt-6 flex justify-center gap-2" data-community-video-dots>
+                    @foreach ($testimonios as $video)
+                        <button
+                            type="button"
+                            class="h-3 w-3 rounded-full bg-gray-300"
+                            aria-label="Ir al video {{ $loop->iteration }}"
+                            data-community-video-dot="{{ $loop->index }}"
+                        ></button>
+                    @endforeach
+                </div>
             </div>
         @else
             <div class="p-6 md:p-8">
@@ -215,6 +261,36 @@
         const panels = Array.from(document.querySelectorAll('[data-protagonista-panel]'));
         const images = Array.from(document.querySelectorAll('[data-protagonista-image]'));
 
+        const pickRandomPhoto = (imageCard) => {
+            const photo = imageCard.querySelector('[data-protagonista-photo]');
+
+            if (!photo) {
+                return;
+            }
+
+            let availableImages = [];
+
+            try {
+                availableImages = JSON.parse(imageCard.dataset.protagonistaImages || '[]');
+            } catch (error) {
+                availableImages = [];
+            }
+
+            const validImages = availableImages.filter((image) => image && image.url);
+
+            if (validImages.length === 0) {
+                return;
+            }
+
+            const currentSrc = photo.getAttribute('src');
+            const nextOptions = validImages.length > 1
+                ? validImages.filter((image) => image.url !== currentSrc)
+                : validImages;
+            const nextImage = nextOptions[Math.floor(Math.random() * nextOptions.length)];
+
+            photo.src = nextImage.url;
+        };
+
         tabs.forEach((tab) => {
             tab.addEventListener('click', () => {
                 const target = tab.dataset.protagonistaTab;
@@ -224,7 +300,13 @@
                 });
 
                 images.forEach((image) => {
-                    image.classList.toggle('hidden', image.dataset.protagonistaImage !== target);
+                    const isActive = image.dataset.protagonistaImage === target;
+
+                    image.classList.toggle('hidden', !isActive);
+
+                    if (isActive) {
+                        pickRandomPhoto(image);
+                    }
                 });
 
                 panels.forEach((panel) => {
@@ -248,6 +330,83 @@
                 });
             });
         });
+
+        const videoCarousel = document.querySelector('[data-community-video-carousel]');
+        const videoTrack = document.querySelector('[data-community-video-track]');
+        const videoSlides = videoTrack ? Array.from(videoTrack.children) : [];
+        const videoDots = Array.from(document.querySelectorAll('[data-community-video-dot]'));
+        const videos = Array.from(document.querySelectorAll('[data-community-video-track] video'));
+        let videoIndex = 0;
+
+        const setActiveVideoDot = () => {
+            videoDots.forEach((dot, dotIndex) => {
+                dot.className = dotIndex === videoIndex
+                    ? 'h-3 w-8 rounded-full bg-blue-700'
+                    : 'h-3 w-3 rounded-full bg-gray-300';
+            });
+        };
+
+        const getVideosPerView = () => {
+            if (!videoCarousel || videoSlides.length === 0 || videoSlides[0].offsetWidth === 0) {
+                return 1;
+            }
+
+            return Math.max(1, Math.round(videoCarousel.clientWidth / videoSlides[0].offsetWidth));
+        };
+
+        const getMaxVideoIndex = () => Math.max(0, videoSlides.length - getVideosPerView());
+
+        const pauseOtherVideos = (currentVideo) => {
+            videos.forEach((video) => {
+                if (video !== currentVideo && !video.paused) {
+                    video.pause();
+                }
+            });
+        };
+
+        const pauseAllVideos = () => {
+            videos.forEach((video) => {
+                if (!video.paused) {
+                    video.pause();
+                }
+            });
+        };
+
+        const showVideo = (index) => {
+            if (!videoTrack || videoSlides.length === 0) {
+                return;
+            }
+
+            videoIndex = Math.max(0, Math.min(index, getMaxVideoIndex()));
+            videoTrack.style.transform = `translateX(-${videoSlides[videoIndex].offsetLeft}px)`;
+            setActiveVideoDot();
+        };
+
+        document.querySelector('[data-community-video-prev]')?.addEventListener('click', () => {
+            pauseAllVideos();
+            showVideo(videoIndex - 1);
+        });
+
+        document.querySelector('[data-community-video-next]')?.addEventListener('click', () => {
+            pauseAllVideos();
+            showVideo(videoIndex + 1);
+        });
+
+        videoDots.forEach((dot) => {
+            dot.addEventListener('click', () => {
+                pauseAllVideos();
+                showVideo(Number(dot.dataset.communityVideoDot));
+            });
+        });
+
+        videos.forEach((video, index) => {
+            video.addEventListener('play', () => {
+                pauseOtherVideos(video);
+            });
+        });
+
+        window.addEventListener('resize', () => showVideo(videoIndex));
+        showVideo(0);
     });
 </script>
 

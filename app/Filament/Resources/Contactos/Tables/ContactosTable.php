@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Contactos\Tables;
 
 use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
@@ -21,10 +22,15 @@ class ContactosTable
                 TextColumn::make('email')
                     ->label('Correo electronico')
                     ->searchable(),
+                TextColumn::make('mensaje')
+                    ->label('Mensaje')
+                    ->limit(70)
+                    ->searchable(),
                 TextColumn::make('created_at')
+                    ->label('Recibido el')
                     ->dateTime()
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(),
                 TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()
@@ -37,6 +43,7 @@ class ContactosTable
             ->recordActions([
                 ViewAction::make(),
                 EditAction::make(),
+                DeleteAction::make(),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
