@@ -43,7 +43,17 @@
         </div>
     </div>
 
-    <div class="border-t border-black text-center text-gray-400 p-4">
-        Copyright Colegio Discovery
+    <div class="border-t border-gray-800 p-4 text-center text-gray-400">
+        <div class="flex flex-col items-center justify-center gap-2 text-sm md:flex-row md:gap-4">
+            <span>Copyright Colegio Discovery</span>
+            <a
+                href="{{ url('/media/Aviso%20de%20privacidad/' . rawurlencode('Aviso de Privacidad _ DISCOVERY.pdf')) }}"
+                target="_blank"
+                rel="noopener"
+                class="font-semibold text-gray-300 hover:text-white"
+            >
+                Aviso de privacidad
+            </a>
+        </div>
     </div>
 </footer>

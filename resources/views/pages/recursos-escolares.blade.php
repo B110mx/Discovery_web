@@ -92,13 +92,18 @@
                                         rel="noopener"
                                         data-recursos-card
                                         data-recursos-nivel="{{ Str::slug($nivel) }}"
-                                        data-recursos-text="{{ Str::lower($nivel . ' ' . $lista['grado'] . ' ' . $lista['titulo']) }}"
+                                        data-recursos-text="{{ Str::lower($nivel . ' ' . $lista['grado'] . ' ' . $lista['titulo'] . ' ' . ($lista['ciclo'] ?? '')) }}"
                                         class="group flex min-h-36 flex-col justify-between rounded-lg border border-gray-200 bg-gray-50 p-4 transition hover:-translate-y-1 hover:border-blue-600 hover:bg-blue-50 hover:shadow-md"
                                     >
                                         <div>
                                             <span class="inline-flex rounded-full bg-yellow-500 px-3 py-1 text-xs font-extrabold uppercase text-black">
                                                 {{ $lista['grado'] }}
                                             </span>
+                                            @if (! empty($lista['ciclo']))
+                                                <span class="ml-2 inline-flex rounded-full bg-white px-3 py-1 text-xs font-bold text-gray-600 ring-1 ring-gray-200">
+                                                    Ciclo {{ $lista['ciclo'] }}
+                                                </span>
+                                            @endif
                                             <h4 class="mt-4 text-lg font-extrabold leading-snug text-black">{{ $lista['titulo'] }}</h4>
                                         </div>
                                         <span class="mt-5 inline-flex items-center text-sm font-extrabold text-red-600 group-hover:underline">

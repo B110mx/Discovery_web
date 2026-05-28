@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Evento;
 use App\Models\HitoHistoria;
+use App\Models\ListaUtil;
 use App\Models\PaginaContenido;
 use App\Models\SeccionImagen;
 use App\Models\TestimonioVideo;
@@ -132,18 +133,13 @@ class PageController extends Controller
     public function recursosEscolares(): View
     {
         $listasUtiles = Cache::remember(SiteCache::key('recursos_listas_utiles'), SiteCache::ttl(), function () {
-            return $this->mediaFiles('Listas de útiles')
-                ->filter(fn (string $path) => strtolower(pathinfo($path, PATHINFO_EXTENSION)) === 'pdf')
-                ->map(fn ($file) => [
-                    'grado' => $this->obtenerGradoListaUtiles(basename($file)),
-                    'nivel' => $this->obtenerNivelListaUtiles(basename($file)),
-                    'titulo' => pathinfo($file, PATHINFO_FILENAME),
-                    'url' => $this->generarMediaUrl($file),
-                ])
-                ->sortBy(fn ($lista) => $this->ordenarListaUtiles($lista['grado']))
-                ->groupBy('nivel')
-                ->map(fn ($listas) => $listas->values()->all())
-                ->all();
+            $listasAdmin = $this->listasUtilesDesdeAdmin();
+
+            if (! empty($listasAdmin)) {
+                return $listasAdmin;
+            }
+
+            return $this->listasUtilesDesdeCarpeta();
         });
 
         $calendarioEscolarUrl = $this->generarMediaUrlDesdeRuta('Calendario Escolar/Calendario Escolar 2025-2026.jpg');
@@ -203,6 +199,7 @@ class PageController extends Controller
         });
 
         $nivelContenido = $niveles[$nivel];
+        $nivelContenido['slug'] = $nivel;
         $nivelContenido['tema'] = $this->obtenerTemaNivel($nivel);
         $nivelContenido['logo'] = isset($nivelContenido['logo_path'])
             ? $this->generarMediaUrlDesdeRuta($nivelContenido['logo_path'])
@@ -213,6 +210,15 @@ class PageController extends Controller
         $nivelContenido['modelo_academico_url'] = isset($nivelContenido['modelo_academico_path'])
             ? $this->generarMediaUrlDesdeRuta($nivelContenido['modelo_academico_path'])
             : null;
+        if (! empty($nivelContenido['informacion']['imagenes_referencia'])) {
+            $nivelContenido['informacion']['imagenes_referencia'] = collect($nivelContenido['informacion']['imagenes_referencia'])
+                ->map(function (array $imagen) {
+                    $imagen['url'] = $imagen['url'] ?? $this->mediaUrlIfExists($imagen['media_path'] ?? null);
+
+                    return $imagen;
+                })
+                ->all();
+        }
         $imagenGaleriaPrincipal = $galeria[0]['url'] ?? null;
         $mediaPathGaleriaPrincipal = isset($carpetas[$nivel], $imagenGaleriaPrincipal)
             ? $carpetas[$nivel] . '/' . basename($imagenGaleriaPrincipal)
@@ -563,6 +569,44 @@ class PageController extends Controller
                     'pendiente' => empty($imagen),
                 ];
             })
+            ->all();
+    }
+
+    private function listasUtilesDesdeAdmin(): array
+    {
+        return ListaUtil::query()
+            ->where('activo', true)
+            ->orderByDesc('ciclo_escolar')
+            ->orderBy('nivel')
+            ->orderBy('orden')
+            ->orderBy('grado')
+            ->get()
+            ->map(fn (ListaUtil $lista) => [
+                'grado' => $lista->grado,
+                'nivel' => $lista->nivel,
+                'titulo' => $lista->titulo,
+                'ciclo' => $lista->ciclo_escolar,
+                'url' => $this->publicUploadUrl($lista->archivo_pdf),
+            ])
+            ->filter(fn (array $lista) => ! empty($lista['url']))
+            ->groupBy('nivel')
+            ->map(fn ($listas) => $listas->values()->all())
+            ->all();
+    }
+
+    private function listasUtilesDesdeCarpeta(): array
+    {
+        return $this->mediaFiles('Listas de útiles')
+            ->filter(fn (string $path) => strtolower(pathinfo($path, PATHINFO_EXTENSION)) === 'pdf')
+            ->map(fn ($file) => [
+                'grado' => $this->obtenerGradoListaUtiles(basename($file)),
+                'nivel' => $this->obtenerNivelListaUtiles(basename($file)),
+                'titulo' => pathinfo($file, PATHINFO_FILENAME),
+                'url' => $this->generarMediaUrl($file),
+            ])
+            ->sortBy(fn ($lista) => $this->ordenarListaUtiles($lista['grado']))
+            ->groupBy('nivel')
+            ->map(fn ($listas) => $listas->values()->all())
             ->all();
     }
 

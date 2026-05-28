@@ -61,7 +61,64 @@
         @endforeach
     </div>
 
-    @if (! empty($nivel['informacion']))
+    @if (in_array($nivel['layout'] ?? null, ['ib', 'ingles'], true) && ! empty($nivel['informacion']))
+        <section class="mt-12 overflow-hidden rounded-xl bg-white shadow-md">
+            <div class="{{ $tema['hero'] }} p-6 md:p-10">
+                <div class="max-w-5xl">
+                    <p class="font-semibold uppercase tracking-wide text-sm {{ $tema['heroMuted'] }}">{{ $nivel['informacion']['eyebrow'] ?? 'Bachillerato Internacional' }}</p>
+                    <h2 class="mt-2 text-3xl font-extrabold md:text-4xl">{{ $nivel['informacion']['titulo'] }}</h2>
+                    <p class="mt-5 text-lg leading-8 {{ $tema['heroMuted'] }}">{{ $nivel['informacion']['intro'] }}</p>
+                </div>
+            </div>
+
+            <div class="p-6 md:p-8">
+                <div class="grid gap-8 lg:grid-cols-[.9fr_1.1fr]">
+                    <div class="rounded-xl bg-gray-50 p-6">
+                        <p class="text-sm font-bold uppercase tracking-wide {{ $tema['eyebrow'] }}">{{ $nivel['informacion']['eyebrow'] ?? 'Enfoques del aprendizaje' }}</p>
+                        <h3 class="mt-2 text-2xl font-extrabold text-black">{{ $nivel['informacion']['puntos_titulo'] ?? 'Cinco categorías de habilidades' }}</h3>
+                        <div class="mt-5 space-y-3">
+                            @foreach ($nivel['informacion']['puntos'] as $punto)
+                                <div class="flex gap-3 rounded-lg bg-white p-4 text-gray-700 shadow-sm">
+                                    <span class="mt-2 h-2.5 w-2.5 flex-shrink-0 rounded-full {{ $tema['dot'] }}"></span>
+                                    <span class="font-semibold leading-7">{{ $punto }}</span>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+
+                    <div class="space-y-4">
+                        @foreach ($nivel['informacion']['secciones'] as $seccion)
+                            <article class="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+                                <span class="inline-flex h-2 w-12 rounded-full {{ $tema['bar'] }}"></span>
+                                <h3 class="mt-4 text-xl font-extrabold text-black">{{ $seccion['titulo'] }}</h3>
+                                <p class="mt-3 leading-8 text-gray-600">{{ $seccion['texto'] }}</p>
+                            </article>
+                        @endforeach
+                    </div>
+                </div>
+
+                <div class="mt-10 rounded-xl bg-gray-50 p-6">
+                    <div class="grid gap-5 md:grid-cols-2">
+                        <div>
+                            <p class="text-sm font-bold uppercase tracking-wide {{ $tema['eyebrow'] }}">{{ $nivel['informacion']['eyebrow'] ?? 'Reconocimiento internacional' }}</p>
+                            <h3 class="mt-2 text-2xl font-extrabold text-black">{{ $nivel['informacion']['cierre']['titulo'] ?? 'Colegio acreditado para impartir el Programa del Diploma' }}</h3>
+                        </div>
+                        <p class="leading-8 text-gray-600">
+                            {{ $nivel['informacion']['cierre']['texto'] ?? 'El Programa del Diploma del IB permite que los estudiantes profundicen en sus conocimientos, fortalezcan dos lenguas, desarrollen criterio ético y construyan una visión internacional para su siguiente etapa académica.' }}
+                        </p>
+                    </div>
+                </div>
+
+                <div class="mt-8 flex flex-wrap gap-3">
+                    @foreach ($nivel['informacion']['experiencias'] ?? [] as $experiencia)
+                        <span class="rounded-full bg-white px-4 py-2 text-sm font-bold {{ $tema['chip'] }} shadow-sm">
+                            {{ $experiencia }}
+                        </span>
+                    @endforeach
+                </div>
+            </div>
+        </section>
+    @elseif (! empty($nivel['informacion']))
         <section class="mt-12 overflow-hidden rounded-xl bg-white shadow-md">
             <div class="{{ $tema['hero'] }} p-6 md:p-8">
                 <div class="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
@@ -156,7 +213,7 @@
         </section>
     @endif
 
-    @if (! empty($galeria))
+    @if (! ($nivel['ocultar_galeria'] ?? false) && ! empty($galeria))
         <section class="mt-12">
             <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-6">
                 <div>
@@ -181,7 +238,7 @@
                 @endforeach
             </div>
         </section>
-    @else
+    @elseif (! ($nivel['ocultar_galeria'] ?? false))
         <section class="mt-12 bg-white rounded-xl shadow-md p-8">
             <h2 class="text-2xl font-bold {{ $tema['heading'] }} mb-2">Galería en preparación</h2>
             <p class="text-gray-600">
