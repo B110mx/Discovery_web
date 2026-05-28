@@ -87,14 +87,14 @@
             <div>
                 <p class="text-sm font-bold uppercase tracking-wide text-blue-700">{{ $paginaOferta?->subtitulo ?? 'Oferta Educativa' }}</p>
                 <h1 class="mt-2 text-3xl font-extrabold leading-tight text-gray-950 md:text-4xl lg:text-[2.35rem]">
-                    {{ $paginaOferta?->titulo ?? 'Una ruta academica para cada etapa' }}
+                    {{ $paginaOferta?->titulo ?? 'Una ruta académica para cada etapa' }}
                 </h1>
                 <p class="mt-3 leading-7 text-gray-600 lg:text-sm lg:leading-6 xl:text-base xl:leading-7">
-                    {{ $paginaOferta?->descripcion ?? 'Explora niveles, enfoques y experiencias de aprendizaje para encontrar el programa que mejor acompana a tu familia.' }}
+                    {{ $paginaOferta?->descripcion ?? 'Explora niveles, enfoques y experiencias de aprendizaje para encontrar el programa que mejor acompaña a tu familia.' }}
                 </p>
             </div>
 
-            <div class="mt-4 grid gap-2 sm:grid-cols-2" role="tablist" aria-label="Niveles academicos">
+            <div class="mt-4 grid gap-2 sm:grid-cols-2" role="tablist" aria-label="Niveles académicos">
                 @foreach ($ofertaNiveles as $slug => $programa)
                     @php($color = $colores[$programa['color']] ?? $colores['blue'])
                     <button
@@ -173,23 +173,23 @@
             <p class="text-sm font-bold uppercase tracking-wide text-yellow-500">Continuidad</p>
             <h2 class="mt-3 text-2xl font-extrabold">De preescolar a bachillerato</h2>
             <p class="mt-4 leading-7 text-gray-200">
-                Una misma comunidad acompana el crecimiento academico, emocional y social en cada etapa.
+                Una misma comunidad acompaña el crecimiento académico, emocional y social en cada etapa.
             </p>
         </div>
 
         <div class="rounded-lg bg-blue-700 p-6 text-white shadow-md">
-            <p class="text-sm font-bold uppercase tracking-wide text-blue-100">Acompanamiento</p>
+            <p class="text-sm font-bold uppercase tracking-wide text-blue-100">Acompañamiento</p>
             <h2 class="mt-3 text-2xl font-extrabold">Grupos cercanos y seguimiento</h2>
             <p class="mt-4 leading-7 text-blue-50">
-                Las familias encuentran rutas claras, comunicacion constante y atencion personalizada.
+                Las familias encuentran rutas claras, comunicación constante y atención personalizada.
             </p>
         </div>
 
         <div class="rounded-lg bg-white p-6 shadow-md">
-            <p class="text-sm font-bold uppercase tracking-wide text-red-600">Vision internacional</p>
+            <p class="text-sm font-bold uppercase tracking-wide text-red-600">Visión internacional</p>
             <h2 class="mt-3 text-2xl font-extrabold text-gray-950">Idiomas, IB y proyectos</h2>
             <p class="mt-4 leading-7 text-gray-600">
-                Los programas integran pensamiento critico, colaboracion y experiencias conectadas con el mundo.
+                Los programas integran pensamiento crítico, colaboración y experiencias conectadas con el mundo.
             </p>
         </div>
     </section>
@@ -197,7 +197,7 @@
     <section>
         <div class="mb-6 flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
             <div>
-                <p class="text-sm font-bold uppercase tracking-wide text-blue-700">Comparativa rapida</p>
+                <p class="text-sm font-bold uppercase tracking-wide text-blue-700">Comparativa rápida</p>
                 <h2 class="mt-2 text-3xl font-extrabold text-gray-950">Explora por etapa</h2>
             </div>
             <a href="{{ route('contacto') }}" class="w-fit font-bold text-blue-700 underline decoration-blue-200 decoration-4 underline-offset-4 hover:text-blue-900">

@@ -8,7 +8,7 @@
                 loading="lazy"
             >
             <p class="text-gray-300">
-                Via Puebla #3611, Residencial Cinco Bosques, Tehuacan, Puebla C.P. 75855.
+                Vía Puebla #3611, Residencial Cinco Bosques, Tehuacán, Puebla C.P. 75855.
             </p>
             <p class="text-gray-300 mt-3">(238) 688 11 79</p>
             <p class="text-gray-300">(238) 102 18 17</p>
@@ -21,7 +21,7 @@
             <h3 class="text-xl font-bold mb-3">Secciones</h3>
             <ul class="space-y-2 text-gray-300">
                 <li><a href="{{ route('inicio') }}" class="hover:text-white">Inicio</a></li>
-                <li><a href="{{ route('nosotros') }}" class="hover:text-white">Conocenos</a></li>
+                <li><a href="{{ route('nosotros') }}" class="hover:text-white">Conócenos</a></li>
                 <li><a href="{{ route('oferta-academica') }}" class="hover:text-white">Oferta Educativa</a></li>
                 <li><a href="{{ route('protagonistas') }}" class="hover:text-white">Comunidad</a></li>
                 <li><a href="{{ route('recursos-escolares') }}" class="hover:text-white">Recursos escolares</a></li>
@@ -38,7 +38,7 @@
                 <li><a href="{{ route('nivel', 'secundaria') }}" class="hover:text-white">Secundaria</a></li>
                 <li><a href="{{ route('nivel', 'bachillerato') }}" class="hover:text-white">Bachillerato</a></li>
                 <li><a href="{{ route('nivel', 'ib-en-discovery') }}" class="hover:text-white">IB en Discovery</a></li>
-                <li><a href="{{ route('nivel', 'certificacion-de-ingles') }}" class="hover:text-white">Certificacion de Ingles</a></li>
+                <li><a href="{{ route('nivel', 'certificacion-de-ingles') }}" class="hover:text-white">Certificación de Inglés</a></li>
             </ul>
         </div>
     </div>

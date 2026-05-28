@@ -32,7 +32,7 @@
                 <a href="{{ route('inicio') }}" class="hover:text-blue-700 {{ request()->routeIs('inicio') ? 'text-blue-700' : '' }}">Inicio</a>
             </li>
             <li>
-                <a href="{{ route('nosotros') }}" class="hover:text-blue-700 {{ request()->routeIs('nosotros') ? 'text-blue-700' : '' }}">Conocenos</a>
+                <a href="{{ route('nosotros') }}" class="hover:text-blue-700 {{ request()->routeIs('nosotros') ? 'text-blue-700' : '' }}">Conócenos</a>
             </li>
             <li class="relative group">
                 <a href="{{ route('oferta-academica') }}" class="hover:text-blue-700 {{ request()->routeIs('oferta-academica') || request()->routeIs('nivel') ? 'text-blue-700' : '' }}">
@@ -44,7 +44,7 @@
                     <li><a href="{{ route('nivel', 'secundaria') }}" class="block px-4 py-2 hover:bg-blue-50">Secundaria</a></li>
                     <li><a href="{{ route('nivel', 'bachillerato') }}" class="block px-4 py-2 hover:bg-blue-50">Bachillerato</a></li>
                     <li><a href="{{ route('nivel', 'ib-en-discovery') }}" class="block px-4 py-2 hover:bg-blue-50">IB en Discovery</a></li>
-                    <li><a href="{{ route('nivel', 'certificacion-de-ingles') }}" class="block px-4 py-2 hover:bg-blue-50">Certificacion de Ingles</a></li>
+                    <li><a href="{{ route('nivel', 'certificacion-de-ingles') }}" class="block px-4 py-2 hover:bg-blue-50">Certificación de Inglés</a></li>
                 </ul>
             </li>
             <li>

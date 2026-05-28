@@ -5,7 +5,7 @@
 <section class="max-w-7xl mx-auto space-y-10">
     <div class="bg-blue-700 text-white rounded-xl shadow-lg p-8 md:p-12">
         <p class="font-semibold uppercase tracking-wide text-sm">Tienda escolar</p>
-        <h1 class="text-4xl md:text-5xl font-bold mt-3">Productos de listas de utiles</h1>
+        <h1 class="text-4xl md:text-5xl font-bold mt-3">Productos de listas de útiles</h1>
         <p class="text-blue-50 text-lg mt-5 max-w-3xl">
             Selecciona los materiales que necesitas y completa los datos del alumno y padre o tutor para registrar el pedido.
         </p>
@@ -87,13 +87,13 @@
                 </div>
 
                 <div>
-                    <label for="padre_telefono" class="block text-sm font-semibold text-gray-700 mb-1">Telefono</label>
+                    <label for="padre_telefono" class="block text-sm font-semibold text-gray-700 mb-1">Teléfono</label>
                     <input id="padre_telefono" name="padre_telefono" value="{{ old('padre_telefono') }}" class="w-full border border-gray-300 p-3 rounded" required>
                     @error('padre_telefono') <p class="text-red-600 text-sm mt-1">{{ $message }}</p> @enderror
                 </div>
 
                 <div>
-                    <label for="padre_email" class="block text-sm font-semibold text-gray-700 mb-1">Correo electronico</label>
+                    <label for="padre_email" class="block text-sm font-semibold text-gray-700 mb-1">Correo electrónico</label>
                     <input id="padre_email" type="email" name="padre_email" value="{{ old('padre_email') }}" class="w-full border border-gray-300 p-3 rounded">
                     @error('padre_email') <p class="text-red-600 text-sm mt-1">{{ $message }}</p> @enderror
                 </div>

@@ -8,11 +8,11 @@
     </h1>
 
     <p class="text-xl mb-6">
-        {{ $paginaInicio?->descripcion ?? 'Formando lideres del futuro con educacion de excelencia' }}
+        {{ $paginaInicio?->descripcion ?? 'Formando líderes del futuro con educación de excelencia' }}
     </p>
 
     <a href="{{ route('nosotros') }}" class="bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-200">
-        Conocer mas
+        Conocer más
     </a>
 </div>
 
@@ -21,7 +21,7 @@
         <div class="grid lg:grid-cols-[.85fr_1.15fr]">
             <div class="bg-blue-700 p-8 text-white md:p-10">
                 <p class="font-semibold uppercase tracking-wide text-sm text-blue-100">Agenda Discovery</p>
-                <h2 class="mt-3 text-4xl font-extrabold">Proximos eventos</h2>
+                <h2 class="mt-3 text-4xl font-extrabold">Próximos eventos</h2>
                 <p class="mt-5 leading-8 text-blue-50">
                     Consulta las actividades que vienen para nuestra comunidad escolar. Este carrusel muestra las fotos o carteles de los eventos activos.
                 </p>
@@ -77,7 +77,7 @@
                                     </div>
 
                                     <div class="flex flex-col justify-center p-6 md:p-8">
-                                        <p class="text-sm font-bold uppercase tracking-wide text-red-600">Evento proximo</p>
+                                        <p class="text-sm font-bold uppercase tracking-wide text-red-600">Evento próximo</p>
                                         <h3 class="mt-3 text-3xl font-extrabold text-blue-700">{{ $evento['titulo'] }}</h3>
                                         <p class="mt-4 leading-8 text-gray-600">{{ $evento['descripcion'] }}</p>
                                     </div>
@@ -102,14 +102,14 @@
             >
             <h2 class="text-xl font-extrabold text-center uppercase text-lime-400 mb-10">Preescolar</h2>
             <p class="text-gray-600 leading-7 flex-1">
-                <span class="text-sky-500">El mejor Kinder de Tehuacan.</span>
-                Nuestro modelo educativo se enfoca en el desarrollo integral del nino atendiendo sus necesidades
-                intelectuales, emocionales, fisicas, sociales y culturales, que permitira que logren enfrentarse
+                <span class="text-sky-500">El mejor Kinder de Tehuacán.</span>
+                Nuestro modelo educativo se enfoca en el desarrollo integral del niño atendiendo sus necesidades
+                intelectuales, emocionales, físicas, sociales y culturales, que permitirá que logren enfrentarse
                 a nuevos retos de aprendizaje con seguridad y confianza en
-                <span class="text-sky-500">El mejor colegio de Tehuacan</span>.
+                <span class="text-sky-500">El mejor colegio de Tehuacán</span>.
             </p>
             <a href="{{ route('nivel', 'preescolar') }}" class="mt-10 inline-flex w-fit items-center justify-center rounded bg-lime-400 px-6 py-3 font-bold text-white hover:bg-lime-500">
-                Descubre mas ->
+                Descubre más ->
             </a>
         </article>
 
@@ -122,13 +122,13 @@
             >
             <h2 class="text-xl font-extrabold text-center uppercase text-red-600 mb-10">Primaria</h2>
             <p class="text-gray-600 leading-7 flex-1">
-                <span class="text-sky-500">La mejor primaria de Tehuacan.</span>
-                En Discovery tenemos como mision brindar un modelo educativo de vanguardia, bilingue, holistico
-                y personalizado. Mision que comulga con el perfil de aprendizaje de los colegios del mundo en la
-                mejor escuela de Tehuacan.
+                <span class="text-sky-500">La mejor primaria de Tehuacán.</span>
+                En Discovery tenemos como misión brindar un modelo educativo de vanguardia, bilingüe, holístico
+                y personalizado. Misión que comulga con el perfil de aprendizaje de los colegios del mundo en la
+                mejor escuela de Tehuacán.
             </p>
             <a href="{{ route('nivel', 'primaria') }}" class="mt-10 inline-flex w-fit items-center justify-center rounded bg-red-600 px-6 py-3 font-bold text-white hover:bg-red-700">
-                Descubre mas ->
+                Descubre más ->
             </a>
         </article>
 
@@ -141,13 +141,13 @@
             >
             <h2 class="text-xl font-extrabold text-center uppercase text-blue-700 mb-10">Secundaria</h2>
             <p class="text-gray-600 leading-7 flex-1">
-                <span class="text-sky-500">La mejor Secundaria de Tehuacan.</span>
-                En Discovery fomentamos el desarrollo del pensamiento critico, creativo y reflexivo a traves del
+                <span class="text-sky-500">La mejor Secundaria de Tehuacán.</span>
+                En Discovery fomentamos el desarrollo del pensamiento crítico, creativo y reflexivo a través del
                 aprendizaje por proyectos interdisciplinarios en nuestras diferentes asignaturas, propiciando el
                 trabajo colaborativo y cooperativo.
             </p>
             <a href="{{ route('nivel', 'secundaria') }}" class="mt-10 inline-flex w-fit items-center justify-center rounded bg-blue-700 px-6 py-3 font-bold text-white hover:bg-blue-800">
-                Descubre mas ->
+                Descubre más ->
             </a>
         </article>
 
@@ -160,13 +160,13 @@
             >
             <h2 class="text-xl font-extrabold text-center uppercase text-green-500 mb-10">Bachillerato</h2>
             <p class="text-gray-600 leading-7 flex-1">
-                <span class="text-sky-500">El mejor Bachillerato de Tehuacan.</span>
-                Somos una Institucion Educativa en Nivel Medio Superior de calidad y a la vanguardia para establecer
-                nuevas oportunidades de aprendizaje holistico en nuestros alumnos en
-                <span class="text-sky-500">La mejor preparatoria de Tehuacan</span>.
+                <span class="text-sky-500">El mejor Bachillerato de Tehuacán.</span>
+                Somos una Institución Educativa en Nivel Medio Superior de calidad y a la vanguardia para establecer
+                nuevas oportunidades de aprendizaje holístico en nuestros alumnos en
+                <span class="text-sky-500">La mejor preparatoria de Tehuacán</span>.
             </p>
             <a href="{{ route('nivel', 'bachillerato') }}" class="mt-10 inline-flex w-fit items-center justify-center rounded bg-green-500 px-6 py-3 font-bold text-white hover:bg-green-600">
-                Descubre mas ->
+                Descubre más ->
             </a>
         </article>
     </div>
@@ -180,7 +180,7 @@
 
         <p class="text-gray-700 mb-4">
             En el Colegio Internacional Discovery nos enfocamos en brindar
-            una educacion integral que combine valores, tecnologia e innovacion.
+            una educación integral que combine valores, tecnología e innovación.
         </p>
 
         <p class="text-gray-700">

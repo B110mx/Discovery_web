@@ -10,26 +10,26 @@
         'alumnos' => [
             'titulo' => 'Alumnos',
             'subtitulo' => 'Explorers que aprenden, crean y participan.',
-            'texto' => 'Nuestros alumnos son el centro de la vida escolar. En cada proyecto, clase, presentacion y experiencia, desarrollan liderazgo, creatividad, pensamiento critico y mentalidad internacional.',
-            'puntos' => ['Proyectos interdisciplinarios', 'Arte, deporte y tecnologia', 'Acompanamiento academico y emocional'],
+            'texto' => 'Nuestros alumnos son el centro de la vida escolar. En cada proyecto, clase, presentación y experiencia, desarrollan liderazgo, creatividad, pensamiento crítico y mentalidad internacional.',
+            'puntos' => ['Proyectos interdisciplinarios', 'Arte, deporte y tecnología', 'Acompañamiento académico y emocional'],
         ],
         'docentes' => [
             'titulo' => 'Docentes',
-            'subtitulo' => 'Guias cercanos para cada etapa.',
-            'texto' => 'El equipo docente acompana a cada estudiante con planeacion, escucha y metodologias activas que conectan el aprendizaje con la vida real.',
+            'subtitulo' => 'Guías cercanos para cada etapa.',
+            'texto' => 'El equipo docente acompaña a cada estudiante con planeación, escucha y metodologías activas que conectan el aprendizaje con la vida real.',
             'puntos' => ['Profesores preparados', 'Seguimiento personalizado', 'Comunidad de aprendizaje'],
         ],
         'padres' => [
             'titulo' => 'Padres de familia',
             'subtitulo' => 'Familias que construyen comunidad.',
-            'texto' => 'La participacion de madres, padres y tutores fortalece el crecimiento de los alumnos. Trabajamos en equipo para formar una comunidad cercana, informada y comprometida.',
-            'puntos' => ['Comunicacion constante', 'Actividades para familias', 'Acompanamiento en el proceso educativo'],
+            'texto' => 'La participación de madres, padres y tutores fortalece el crecimiento de los alumnos. Trabajamos en equipo para formar una comunidad cercana, informada y comprometida.',
+            'puntos' => ['Comunicación constante', 'Actividades para familias', 'Acompañamiento en el proceso educativo'],
         ],
         'alumni' => [
             'titulo' => 'Alumni',
             'subtitulo' => 'Historias que siguen creciendo.',
-            'texto' => 'Nuestros egresados llevan el sello Discovery a nuevas etapas academicas y profesionales, manteniendo vivo el sentido de pertenencia a la comunidad.',
-            'puntos' => ['Generaciones Discovery', 'Testimonios de egresados', 'Vinculo con la comunidad escolar'],
+            'texto' => 'Nuestros egresados llevan el sello Discovery a nuevas etapas académicas y profesionales, manteniendo vivo el sentido de pertenencia a la comunidad.',
+            'puntos' => ['Generaciones Discovery', 'Testimonios de egresados', 'Vínculo con la comunidad escolar'],
         ],
     ];
 
@@ -64,12 +64,14 @@
             <div class="grid grid-cols-2 gap-3 bg-white p-4">
                 @foreach ($nivelVisual as $nivel)
                     <article class="relative overflow-hidden rounded-lg bg-gray-100">
-                        <x-imagen-seccion
-                            :imagen="$nivel['imagen']"
-                            alt="{{ $nivel['titulo'] }} Discovery"
-                            class="h-36 w-full object-contain p-2 md:h-40"
-                            placeholder-class="h-36 md:h-40"
-                        />
+                        <a href="{{ $nivel['imagen']['url'] }}" class="glightbox block" data-title="{{ $nivel['titulo'] }}">
+                            <x-imagen-seccion
+                                :imagen="$nivel['imagen']"
+                                alt="{{ $nivel['titulo'] }} Discovery"
+                                class="h-36 w-full object-contain p-2 md:h-40"
+                                placeholder-class="h-36 md:h-40"
+                            />
+                        </a>
                         <div class="absolute inset-x-0 bottom-0 flex items-center gap-2 bg-white/90 px-3 py-2">
                             <span class="h-2.5 w-8 rounded-full {{ $nivel['color'] }}"></span>
                             <span class="text-sm font-bold text-black">{{ $nivel['titulo'] }}</span>
@@ -160,10 +162,10 @@
                     <h2 class="mt-2 text-3xl font-extrabold text-black">Nos define lo que somos como esencia</h2>
                     <div class="mt-6 space-y-4 border-l-4 border-blue-700 pl-5">
                         <p class="leading-8 text-gray-700">
-                            En Discovery nuestros grupos reducidos aseguran una atencion personalizada, fundamental para el desarrollo de las facultades de cada alumno y para la adquisicion de habitos.
+                            En Discovery nuestros grupos reducidos aseguran una atención personalizada, fundamental para el desarrollo de las facultades de cada alumno y para la adquisición de hábitos.
                         </p>
                         <p class="leading-8 text-gray-700">
-                            Somos una institucion bilingue con programas de ingles impartidos por profesores internacionales y una comunidad que aprende de forma natural, cercana y sana.
+                            Somos una institución bilingüe con programas de inglés impartidos por profesores internacionales y una comunidad que aprende de forma natural, cercana y sana.
                         </p>
                     </div>
                 </div>

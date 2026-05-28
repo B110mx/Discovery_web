@@ -60,7 +60,7 @@
             @csrf
 
             <div class="mb-7 flex flex-col gap-2">
-                <p class="text-sm font-bold uppercase tracking-wide text-blue-700">Escribenos</p>
+                <p class="text-sm font-bold uppercase tracking-wide text-blue-700">Escríbenos</p>
                 <h2 class="text-3xl font-extrabold text-gray-950">Agenda informes o solicita admisiones</h2>
             </div>
 
@@ -72,7 +72,7 @@
                 </div>
 
                 <div>
-                    <label for="email" class="mb-2 block text-sm font-bold text-gray-700">Correo electronico</label>
+                    <label for="email" class="mb-2 block text-sm font-bold text-gray-700">Correo electrónico</label>
                     <input id="email" type="email" name="email" value="{{ old('email') }}" class="w-full rounded-lg border border-gray-300 p-3 outline-none focus:border-blue-700 focus:ring-4 focus:ring-blue-100" required>
                     @error('email') <p class="mt-1 text-sm font-semibold text-red-600">{{ $message }}</p> @enderror
                 </div>
@@ -96,16 +96,16 @@
 
         <aside class="space-y-6">
             <div class="rounded-lg bg-gray-950 p-6 text-white shadow-md">
-                <p class="text-sm font-bold uppercase tracking-wide text-yellow-500">Atencion directa</p>
+                <p class="text-sm font-bold uppercase tracking-wide text-yellow-500">Atención directa</p>
                 <h2 class="mt-2 text-2xl font-extrabold">Colegio Internacional Discovery</h2>
 
                 <div class="mt-6 space-y-5 text-sm leading-7 text-gray-200">
                     <div>
-                        <p class="font-bold text-white">Direccion</p>
+                        <p class="font-bold text-white">Dirección</p>
                         <p>{{ $direccion }}</p>
                     </div>
                     <div>
-                        <p class="font-bold text-white">Telefonos</p>
+                        <p class="font-bold text-white">Teléfonos</p>
                         <p>{{ $telefonoPrincipal }}</p>
                         <p>{{ $telefonoSecundario }}</p>
                     </div>
@@ -128,7 +128,7 @@
     <div class="overflow-hidden rounded-lg bg-white shadow-md">
         <div class="grid lg:grid-cols-[.75fr_1.25fr]">
             <div class="p-6 md:p-8">
-                <p class="text-sm font-bold uppercase tracking-wide text-blue-700">Ubicacion</p>
+                <p class="text-sm font-bold uppercase tracking-wide text-blue-700">Ubicación</p>
                 <h2 class="mt-2 text-3xl font-extrabold text-gray-950">Ven a conocernos</h2>
                 <p class="mt-4 leading-7 text-gray-600">{{ $direccion }}</p>
                 <div class="mt-6 flex flex-col gap-3">
@@ -143,7 +143,7 @@
 
             <iframe
                 src="{{ $mapaUrl }}"
-                title="Ubicacion Colegio Discovery en Google Maps"
+                title="Ubicación Colegio Discovery en Google Maps"
                 class="h-96 w-full border-0 lg:h-[500px]"
                 loading="lazy"
                 referrerpolicy="no-referrer-when-downgrade"

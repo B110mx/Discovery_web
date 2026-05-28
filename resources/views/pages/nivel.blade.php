@@ -11,16 +11,16 @@
     $tema = $nivel['tema'];
     $destacados = $nivel['informacion']['destacados'] ?? [
         [
-            'titulo' => 'Acompanamiento',
+            'titulo' => 'Acompañamiento',
             'texto' => 'Seguimiento cercano para que cada estudiante avance con confianza.',
         ],
         [
             'titulo' => 'Aprendizaje',
-            'texto' => 'Actividades academicas y proyectos que conectan conocimiento con experiencia.',
+            'texto' => 'Actividades académicas y proyectos que conectan conocimiento con experiencia.',
         ],
         [
             'titulo' => 'Comunidad',
-            'texto' => 'Una relacion cercana entre estudiantes, docentes y familias.',
+            'texto' => 'Una relación cercana entre estudiantes, docentes y familias.',
         ],
     ];
 @endphp
@@ -101,12 +101,12 @@
                     @if (! empty($nivel['modelo_academico_url']))
                         <aside class="rounded-xl border border-gray-200 bg-gray-50 p-4">
                             <div class="mb-4">
-                                <p class="text-sm font-bold uppercase tracking-wide {{ $tema['eyebrow'] }}">Modelo academico</p>
+                                <p class="text-sm font-bold uppercase tracking-wide {{ $tema['eyebrow'] }}">Modelo académico</p>
                                 <h3 class="mt-1 text-2xl font-bold text-black">{{ $nivel['titulo'] }}</h3>
                             </div>
                             <img
                                 src="{{ $nivel['modelo_academico_url'] }}"
-                                alt="Modelo academico {{ $nivel['titulo'] }}"
+                                alt="Modelo académico {{ $nivel['titulo'] }}"
                                 class="max-h-[420px] w-full rounded-lg bg-white object-contain p-3 shadow-sm"
                                 loading="lazy"
                             >
@@ -126,7 +126,7 @@
 
                 @if (! empty($nivel['informacion']['imagenes_referencia']))
                     <div class="mt-10">
-                        <h3 class="text-2xl font-bold {{ $tema['heading'] }}">Imagenes de referencia</h3>
+                        <h3 class="text-2xl font-bold {{ $tema['heading'] }}">Imágenes de referencia</h3>
                         <div class="mt-5 grid gap-5 md:grid-cols-2">
                             @foreach ($nivel['informacion']['imagenes_referencia'] as $imagenReferencia)
                                 <x-imagen-seccion
@@ -160,7 +160,7 @@
         <section class="mt-12">
             <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-6">
                 <div>
-                    <p class="font-semibold uppercase tracking-wide text-sm {{ $tema['eyebrow'] }}">Galeria</p>
+                    <p class="font-semibold uppercase tracking-wide text-sm {{ $tema['eyebrow'] }}">Galería</p>
                     <h2 class="text-3xl font-bold text-black mt-2">{{ $nivel['titulo'] }} en Discovery</h2>
                 </div>
                 <p class="text-gray-600 max-w-2xl">
@@ -170,20 +170,22 @@
 
             <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
                 @foreach ($galeria as $imagen)
-                    <img
-                        src="{{ $imagen['url'] }}"
-                        alt="{{ $imagen['alt'] }}"
-                        loading="lazy"
-                        class="w-full aspect-[4/3] object-cover rounded-xl shadow-md"
-                    >
+                    <a href="{{ $imagen['url'] }}" class="glightbox" data-gallery="gallery-nivel" data-title="{{ $imagen['alt'] }}">
+                        <img
+                            src="{{ $imagen['url'] }}"
+                            alt="{{ $imagen['alt'] }}"
+                            loading="lazy"
+                            class="w-full aspect-[4/3] object-cover rounded-xl shadow-md transition-transform hover:scale-[1.02]"
+                        >
+                    </a>
                 @endforeach
             </div>
         </section>
     @else
         <section class="mt-12 bg-white rounded-xl shadow-md p-8">
-            <h2 class="text-2xl font-bold {{ $tema['heading'] }} mb-2">Galeria en preparacion</h2>
+            <h2 class="text-2xl font-bold {{ $tema['heading'] }} mb-2">Galería en preparación</h2>
             <p class="text-gray-600">
-                Pronto agregaremos mas imagenes de este nivel educativo.
+                Pronto agregaremos más imágenes de este nivel educativo.
             </p>
         </section>
     @endif

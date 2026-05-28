@@ -12,7 +12,7 @@
         <div class="grid gap-8 p-8 md:p-12 lg:grid-cols-[1.1fr_.9fr] lg:items-end">
             <div>
                 <p class="text-sm font-bold uppercase tracking-wide text-blue-50">Recursos escolares</p>
-                <h1 class="mt-3 text-4xl font-extrabold md:text-5xl">Listas de utiles y calendario</h1>
+                <h1 class="mt-3 text-4xl font-extrabold md:text-5xl">Listas de útiles y calendario</h1>
                 <p class="mt-5 max-w-3xl text-lg leading-8 text-blue-50">
                     Encuentra la lista correspondiente por nivel o grado y consulta el calendario escolar vigente.
                 </p>
@@ -37,7 +37,7 @@
                 <div>
                     <p class="text-sm font-bold uppercase tracking-wide text-red-600">Listas en PDF</p>
                     <h2 class="mt-2 text-3xl font-extrabold text-black">Busca por nivel o grado</h2>
-                    <p class="mt-3 text-gray-600">Abre el PDF en una nueva pestana para consultarlo o descargarlo.</p>
+                    <p class="mt-3 text-gray-600">Abre el PDF en una nueva pestaña para consultarlo o descargarlo.</p>
                 </div>
 
                 <label class="block w-full md:max-w-xs">
@@ -116,7 +116,7 @@
                 </div>
             @else
                 <div class="mt-8 rounded-lg border border-dashed border-gray-300 p-6 text-gray-600">
-                    Aun no hay listas PDF disponibles.
+                    Aún no hay listas PDF disponibles.
                 </div>
             @endif
         </section>
@@ -145,7 +145,7 @@
             @endif
 
             <section class="rounded-xl bg-white p-6 shadow-md md:p-8">
-                <p class="text-sm font-bold uppercase tracking-wide text-blue-700">Como usarlo</p>
+                <p class="text-sm font-bold uppercase tracking-wide text-blue-700">Cómo usarlo</p>
                 <h2 class="mt-2 text-2xl font-extrabold text-black">Encuentra tu PDF en tres pasos</h2>
                 <div class="mt-6 space-y-4">
                     <div class="flex gap-3">

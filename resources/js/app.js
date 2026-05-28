@@ -1,4 +1,14 @@
+import GLightbox from 'glightbox';
+import 'glightbox/dist/css/glightbox.min.css';
+
 document.addEventListener('DOMContentLoaded', () => {
+    const lightbox = GLightbox({
+        selector: '.glightbox',
+        touchNavigation: true,
+        loop: true,
+        autoplayVideos: true
+    });
+
     const pausePlayingVideos = () => {
         document.querySelectorAll('video').forEach((video) => {
             if (!video.paused) {
