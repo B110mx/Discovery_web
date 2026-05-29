@@ -153,7 +153,7 @@ return [
             'imagen_default' => [
                 'titulo' => 'Oferta Educativa - Bachillerato',
                 'referencia' => 'Imagen destacada para Bachillerato en la vista Oferta Educativa.',
-                'media_path' => 'High fotos actuales/1234.jpg',
+                'media_path' => 'High (Prepa)/BACHILLERATO-MOSAICO-5-scaled.jpg',
             ],
             'puntos' => ['Diploma IB', 'Orientacion vocacional', 'Becas universitarias'],
         ],
@@ -183,6 +183,7 @@ return [
             'imagen_default' => [
                 'titulo' => 'Oferta Educativa - Certificacion de Ingles',
                 'referencia' => 'Imagen destacada para Certificacion de Ingles en la vista Oferta Educativa.',
+                'media_path' => 'Certificacion fotos/unicam.jpg',
             ],
             'puntos' => ['Practica guiada', 'Habilidades comunicativas', 'Seguimiento academico'],
         ],
@@ -336,6 +337,7 @@ return [
                 'descripcion' => 'Bachillerato Internacional en Discovery: habilidades, perfil de aprendizaje y Programa del Diploma con visión global.',
                 'logo_path' => 'Logos de niveles educativos/Logo IB cl.jpeg',
                 'usar_placeholder_hero' => true,
+                'hero_media_path' => 'Logos principales/IB Internacional.png',
                 'ocultar_galeria' => true,
                 'layout' => 'ib',
                 'informacion' => [
@@ -353,6 +355,11 @@ return [
                         'Investigación para comparar, contrastar, validar y priorizar información.',
                         'Habilidades sociales para relacionarse positivamente y resolver conflictos.',
                     ],
+                    'imagen_enfoque' => [
+                        'titulo' => 'Enfoque de aprendizaje Pacis',
+                        'referencia' => 'Imagen de apoyo para los enfoques de aprendizaje IB.',
+                        'media_path' => 'Enfoque de aprendizaje/Enfoque de aprendizaje Pacis.png',
+                    ],
                     'secciones' => [
                         ['titulo' => 'Perfil de la comunidad de aprendizaje IB', 'texto' => 'El perfil IB expresa capacidades y responsabilidades humanas que buscan formar alumnos respetuosos consigo mismos, con las demás personas y con el mundo que les rodea.'],
                         ['titulo' => 'Programa del Diploma (PD)', 'texto' => 'Colegio Discovery está acreditado por la Organización del Bachillerato Internacional para impartir el Programa del Diploma, una propuesta que favorece amplitud y profundidad académica junto con desarrollo físico, intelectual, emocional y ético.'],
@@ -367,6 +374,7 @@ return [
                 'titulo' => 'Certificación de Inglés',
                 'descripcion' => 'Preparación progresiva para certificar el dominio del inglés con metas claras, práctica guiada y acompañamiento académico.',
                 'usar_placeholder_hero' => true,
+                'hero_media_path' => 'Certificacion fotos/unicam.jpg',
                 'ocultar_galeria' => true,
                 'layout' => 'ingles',
                 'informacion' => [

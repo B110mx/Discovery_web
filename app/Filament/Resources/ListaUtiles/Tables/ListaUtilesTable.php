@@ -67,6 +67,7 @@ class ListaUtilesTable
                     ]),
             ])
             ->defaultSort('orden')
+            ->reorderable('orden')
             ->recordActions([
                 EditAction::make(),
                 DeleteAction::make(),

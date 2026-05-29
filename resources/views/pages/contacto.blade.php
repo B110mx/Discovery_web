@@ -64,23 +64,40 @@
                 <h2 class="text-3xl font-extrabold text-gray-950">Agenda informes o solicita admisiones</h2>
             </div>
 
-            <div class="grid gap-5 md:grid-cols-2">
+            <div class="grid gap-5">
                 <div>
-                    <label for="nombre" class="mb-2 block text-sm font-bold text-gray-700">Nombre</label>
-                    <input id="nombre" type="text" name="nombre" value="{{ old('nombre') }}" class="w-full rounded-lg border border-gray-300 p-3 outline-none focus:border-blue-700 focus:ring-4 focus:ring-blue-100" required>
-                    @error('nombre') <p class="mt-1 text-sm font-semibold text-red-600">{{ $message }}</p> @enderror
+                    <label for="aspirante_nombre" class="mb-2 block text-sm font-bold text-gray-700">Nombre completo del aspirante</label>
+                    <input id="aspirante_nombre" type="text" name="aspirante_nombre" value="{{ old('aspirante_nombre') }}" class="w-full rounded-lg border border-gray-300 p-3 outline-none focus:border-blue-700 focus:ring-4 focus:ring-blue-100" required>
+                    @error('aspirante_nombre') <p class="mt-1 text-sm font-semibold text-red-600">{{ $message }}</p> @enderror
                 </div>
 
                 <div>
-                    <label for="email" class="mb-2 block text-sm font-bold text-gray-700">Correo electrónico</label>
+                    <label for="tutor_nombre" class="mb-2 block text-sm font-bold text-gray-700">Nombre completo del tutor (a)</label>
+                    <input id="tutor_nombre" type="text" name="tutor_nombre" value="{{ old('tutor_nombre') }}" class="w-full rounded-lg border border-gray-300 p-3 outline-none focus:border-blue-700 focus:ring-4 focus:ring-blue-100" required>
+                    @error('tutor_nombre') <p class="mt-1 text-sm font-semibold text-red-600">{{ $message }}</p> @enderror
+                </div>
+
+                <div>
+                    <label for="email" class="mb-2 block text-sm font-bold text-gray-700">Email *</label>
                     <input id="email" type="email" name="email" value="{{ old('email') }}" class="w-full rounded-lg border border-gray-300 p-3 outline-none focus:border-blue-700 focus:ring-4 focus:ring-blue-100" required>
                     @error('email') <p class="mt-1 text-sm font-semibold text-red-600">{{ $message }}</p> @enderror
                 </div>
 
-                <div class="md:col-span-2">
-                    <label for="mensaje" class="mb-2 block text-sm font-bold text-gray-700">Mensaje</label>
-                    <textarea id="mensaje" name="mensaje" class="min-h-40 w-full rounded-lg border border-gray-300 p-3 outline-none focus:border-blue-700 focus:ring-4 focus:ring-blue-100" required>{{ old('mensaje') }}</textarea>
-                    @error('mensaje') <p class="mt-1 text-sm font-semibold text-red-600">{{ $message }}</p> @enderror
+                <div>
+                    <label for="telefono" class="mb-2 block text-sm font-bold text-gray-700">Telefono de contacto *</label>
+                    <input id="telefono" type="tel" name="telefono" value="{{ old('telefono') }}" class="w-full rounded-lg border border-gray-300 p-3 outline-none focus:border-blue-700 focus:ring-4 focus:ring-blue-100" required>
+                    @error('telefono') <p class="mt-1 text-sm font-semibold text-red-600">{{ $message }}</p> @enderror
+                </div>
+
+                <div>
+                    <label for="grado" class="mb-2 block text-sm font-bold text-gray-700">Grado al que aplica</label>
+                    <select id="grado" name="grado" class="w-full rounded-lg border border-gray-300 bg-white p-3 outline-none focus:border-blue-700 focus:ring-4 focus:ring-blue-100" required>
+                        <option value="">Selecciona una opcion</option>
+                        @foreach (['Preescolar', 'Primaria', 'Secundaria', 'Bachillerato', 'IB en Discovery', 'Certificacion de Ingles'] as $grado)
+                            <option value="{{ $grado }}" @selected(old('grado') === $grado)>{{ $grado }}</option>
+                        @endforeach
+                    </select>
+                    @error('grado') <p class="mt-1 text-sm font-semibold text-red-600">{{ $message }}</p> @enderror
                 </div>
             </div>
 

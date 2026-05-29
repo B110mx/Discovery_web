@@ -1,4 +1,4 @@
-<header class="bg-white shadow-md">
+<header class="sticky top-0 z-50 bg-white shadow-md">
     <div class="bg-blue-700 text-white text-sm">
         <div class="max-w-7xl mx-auto px-4 py-2 flex flex-col md:flex-row md:items-center md:justify-end gap-2 md:gap-6">
             <a href="mailto:informes@colegio-discovery.edu.mx" class="hover:underline">

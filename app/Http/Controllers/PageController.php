@@ -219,16 +219,31 @@ class PageController extends Controller
                 })
                 ->all();
         }
+        if (! empty($nivelContenido['informacion']['imagen_enfoque'])) {
+            $nivelContenido['informacion']['imagen_enfoque']['url'] = $nivelContenido['informacion']['imagen_enfoque']['url']
+                ?? $this->mediaUrlIfExists($nivelContenido['informacion']['imagen_enfoque']['media_path'] ?? null);
+        }
         $imagenGaleriaPrincipal = $galeria[0]['url'] ?? null;
-        $mediaPathGaleriaPrincipal = isset($carpetas[$nivel], $imagenGaleriaPrincipal)
+        $mediaPathGaleriaPrincipal = $nivelContenido['hero_media_path'] ?? (isset($carpetas[$nivel], $imagenGaleriaPrincipal)
             ? $carpetas[$nivel] . '/' . basename($imagenGaleriaPrincipal)
-            : ($nivelContenido['usar_placeholder_hero'] ?? false ? null : ($nivelContenido['logo_path'] ?? null));
-        $nivelContenido['imagen_principal'] = $this->imagenVista($nivel, 'hero', [
+            : ($nivelContenido['usar_placeholder_hero'] ?? false ? null : ($nivelContenido['logo_path'] ?? null)));
+        $imagenPrincipalDefault = [
             'titulo' => $nivelContenido['titulo'] . ' - Imagen principal',
             'referencia' => 'Imagen principal del encabezado del nivel ' . $nivelContenido['titulo'] . '.',
             'url' => $imagenGaleriaPrincipal,
             'media_path' => $mediaPathGaleriaPrincipal,
-        ]);
+        ];
+
+        if ($nivel === 'bachillerato') {
+            $ofertaBachillerato = config('colegio.oferta_academica.bachillerato', []);
+            $nivelContenido['imagen_principal'] = $this->imagenVista(
+                'oferta-academica',
+                $ofertaBachillerato['imagen_clave'] ?? 'bachillerato',
+                $this->defaultConMediaUrl($ofertaBachillerato['imagen_default'] ?? $imagenPrincipalDefault),
+            );
+        } else {
+            $nivelContenido['imagen_principal'] = $this->imagenVista($nivel, 'hero', $imagenPrincipalDefault);
+        }
 
         return view('pages.nivel', [
             'nivel' => $nivelContenido,
@@ -280,8 +295,14 @@ class PageController extends Controller
     private function generarMediaUrlDesdeRuta(string $relativePath): string
     {
         $relativePath = $this->normalizarMediaPath($relativePath);
+        $url = '/media/' . collect(explode('/', $relativePath))->map(fn ($segment) => rawurlencode($segment))->implode('/');
+        $disk = Storage::disk($this->mediaDisk());
 
-        return '/media/' . collect(explode('/', $relativePath))->map(fn ($segment) => rawurlencode($segment))->implode('/');
+        if ($disk->exists($relativePath)) {
+            return $url . '?v=' . $disk->lastModified($relativePath);
+        }
+
+        return $url;
     }
 
     private function mediaUrlIfExists(?string $relativePath): ?string
@@ -590,6 +611,7 @@ class PageController extends Controller
             ])
             ->filter(fn (array $lista) => ! empty($lista['url']))
             ->groupBy('nivel')
+            ->sortKeysUsing(fn (string $a, string $b) => $this->ordenarNivelListaUtiles($a) <=> $this->ordenarNivelListaUtiles($b))
             ->map(fn ($listas) => $listas->values()->all())
             ->all();
     }
@@ -606,8 +628,20 @@ class PageController extends Controller
             ])
             ->sortBy(fn ($lista) => $this->ordenarListaUtiles($lista['grado']))
             ->groupBy('nivel')
+            ->sortKeysUsing(fn (string $a, string $b) => $this->ordenarNivelListaUtiles($a) <=> $this->ordenarNivelListaUtiles($b))
             ->map(fn ($listas) => $listas->values()->all())
             ->all();
+    }
+
+    private function ordenarNivelListaUtiles(string $nivel): int
+    {
+        return [
+            'Preescolar' => 10,
+            'Primaria' => 20,
+            'Secundaria' => 30,
+            'Bachillerato' => 40,
+            'General' => 50,
+        ][$nivel] ?? 999;
     }
 
     private function obtenerGradoListaUtiles(string $filename): string

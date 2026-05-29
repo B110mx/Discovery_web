@@ -27,36 +27,36 @@
 
 <section class="max-w-6xl mx-auto">
     <div class="{{ $tema['hero'] }} rounded-xl shadow-lg overflow-hidden">
-        <div class="grid md:grid-cols-2">
-            <div class="p-8 md:p-12">
+        <div class="grid md:grid-cols-[.95fr_1.05fr] md:items-stretch">
+            <div class="flex flex-col justify-center p-6 md:p-8">
                 @if (! empty($nivel['logo']))
                     <img
                         src="{{ $nivel['logo'] }}"
                         alt="Logo {{ $nivel['titulo'] }}"
-                        class="mb-6 h-28 w-auto max-w-full rounded bg-white p-3 object-contain shadow-md"
+                        class="mb-4 h-16 w-auto max-w-full rounded bg-white p-2 object-contain shadow-md md:h-20"
                     >
                 @endif
 
-                <p class="font-semibold uppercase tracking-wide text-sm">Oferta Educativa</p>
-                <h1 class="text-4xl md:text-5xl font-bold mt-3">{{ $nivel['titulo'] }}</h1>
-                <p class="{{ $tema['heroMuted'] }} text-lg mt-5">{{ $nivel['descripcion'] }}</p>
+                <p class="font-semibold uppercase tracking-wide text-xs md:text-sm">Oferta Educativa</p>
+                <h1 class="mt-2 text-3xl font-extrabold md:text-4xl">{{ $nivel['titulo'] }}</h1>
+                <p class="{{ $tema['heroMuted'] }} mt-3 max-w-2xl text-base leading-7">{{ $nivel['descripcion'] }}</p>
             </div>
 
             <x-imagen-seccion
                 :imagen="$imagenPrincipal"
                 alt="{{ $nivel['titulo'] }}"
-                class="h-72 w-full object-cover md:h-full"
-                placeholder-class="h-72 md:h-full"
+                class="h-48 w-full {{ ($nivel['slug'] ?? null) === 'ib-en-discovery' ? 'bg-white object-contain p-4' : 'object-cover' }} sm:h-56 md:h-full md:max-h-72"
+                placeholder-class="h-48 sm:h-56 md:h-72"
             />
         </div>
     </div>
 
-    <div class="grid md:grid-cols-3 gap-6 mt-10">
+    <div class="grid gap-4 md:grid-cols-3 mt-6">
         @foreach ($destacados as $destacado)
-            <div class="bg-white p-6 rounded-xl shadow-md">
-                <span class="mb-4 inline-flex h-1.5 w-12 rounded-full {{ $tema['bar'] }}"></span>
-                <h2 class="text-2xl font-bold {{ $tema['heading'] }} mb-2">{{ $destacado['titulo'] }}</h2>
-                <p class="text-gray-600 leading-7">{{ $destacado['texto'] }}</p>
+            <div class="bg-white p-5 rounded-xl shadow-md">
+                <span class="mb-3 inline-flex h-1.5 w-10 rounded-full {{ $tema['bar'] }}"></span>
+                <h2 class="text-xl font-bold {{ $tema['heading'] }} mb-2">{{ $destacado['titulo'] }}</h2>
+                <p class="text-sm leading-6 text-gray-600">{{ $destacado['texto'] }}</p>
             </div>
         @endforeach
     </div>
@@ -84,6 +84,17 @@
                                 </div>
                             @endforeach
                         </div>
+
+                        @if (! empty($nivel['informacion']['imagen_enfoque']['url']))
+                            <div class="mt-6 overflow-hidden rounded-xl bg-white p-3 shadow-sm">
+                                <x-imagen-seccion
+                                    :imagen="$nivel['informacion']['imagen_enfoque']"
+                                    alt="{{ $nivel['informacion']['imagen_enfoque']['titulo'] }}"
+                                    class="w-full rounded-lg object-contain"
+                                    placeholder-class="aspect-[4/3] w-full"
+                                />
+                            </div>
+                        @endif
                     </div>
 
                     <div class="space-y-4">

@@ -57,9 +57,9 @@
     $primerSlug = array_key_first($ofertaNiveles);
 @endphp
 
-<section class="space-y-12">
-    <section class="grid overflow-hidden rounded-lg bg-white shadow-xl lg:min-h-[calc(100vh-12rem)] lg:grid-cols-[.9fr_1.1fr] xl:min-h-[calc(100vh-11rem)]">
-        <div class="relative min-h-72 bg-gray-100 lg:min-h-0">
+<section class="space-y-10">
+    <section id="oferta-hero" class="grid overflow-hidden rounded-lg bg-white shadow-xl lg:h-[640px] lg:grid-cols-[.85fr_1.15fr] xl:h-[620px]">
+        <div class="relative min-h-60 bg-gray-100 lg:min-h-0">
             @foreach ($ofertaNiveles as $slug => $programa)
                 @php($color = $colores[$programa['color']] ?? $colores['blue'])
                 <div
@@ -70,50 +70,50 @@
                     <x-imagen-seccion
                         :imagen="$programa['imagen']"
                         :alt="$programa['titulo']"
-                        class="h-72 w-full object-cover lg:h-full"
-                        placeholder-class="min-h-72 lg:h-full"
+                        class="h-60 w-full object-cover md:h-64 lg:h-full"
+                        placeholder-class="min-h-60 md:min-h-64 lg:h-full"
                     />
                     <span class="absolute left-5 top-5 inline-flex rounded-full px-3 py-1 text-xs font-bold shadow-sm {{ $color['chip'] }}">
                         {{ $programa['edad'] }}
                     </span>
-                    <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-gray-950/80 to-transparent p-6 text-white">
-                        <h2 class="text-3xl font-extrabold md:text-4xl">{{ $programa['titulo'] }}</h2>
+                    <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-gray-950/80 to-transparent p-5 text-white">
+                        <h2 class="text-2xl font-extrabold md:text-3xl">{{ $programa['titulo'] }}</h2>
                     </div>
                 </div>
             @endforeach
         </div>
 
-        <div class="flex flex-col justify-center p-5 md:p-6 lg:p-7">
+        <div class="flex min-h-0 flex-col justify-center p-5 md:p-6">
             <div>
-                <p class="text-sm font-bold uppercase tracking-wide text-blue-700">{{ $paginaOferta?->subtitulo ?? 'Oferta Educativa' }}</p>
-                <h1 class="mt-2 text-3xl font-extrabold leading-tight text-gray-950 md:text-4xl lg:text-[2.35rem]">
+                <p class="text-xs font-bold uppercase tracking-wide text-blue-700 md:text-sm">{{ $paginaOferta?->subtitulo ?? 'Oferta Educativa' }}</p>
+                <h1 class="mt-2 text-2xl font-extrabold leading-tight text-gray-950 md:text-3xl lg:text-[2rem]">
                     {{ $paginaOferta?->titulo ?? 'Una ruta académica para cada etapa' }}
                 </h1>
-                <p class="mt-3 leading-7 text-gray-600 lg:text-sm lg:leading-6 xl:text-base xl:leading-7">
+                <p class="mt-2 text-sm leading-6 text-gray-600 xl:text-[0.95rem]">
                     {{ $paginaOferta?->descripcion ?? 'Explora niveles, enfoques y experiencias de aprendizaje para encontrar el programa que mejor acompaña a tu familia.' }}
                 </p>
             </div>
 
-            <div class="mt-4 grid gap-2 sm:grid-cols-2" role="tablist" aria-label="Niveles académicos">
+            <div class="mt-3 grid auto-rows-[68px] gap-2 sm:grid-cols-2" role="tablist" aria-label="Niveles académicos">
                 @foreach ($ofertaNiveles as $slug => $programa)
                     @php($color = $colores[$programa['color']] ?? $colores['blue'])
                     <button
                         type="button"
-                        class="group rounded border border-gray-200 bg-white p-2.5 text-left shadow-sm transition duration-300 hover:border-blue-300 hover:shadow-md data-[active=true]:ring-4 {{ $color['ring'] }}"
+                        class="group flex h-[68px] flex-col justify-between overflow-hidden rounded border border-gray-200 bg-white p-2 text-left shadow-sm transition duration-300 hover:border-blue-300 hover:shadow-md data-[active=true]:ring-2 {{ $color['ring'] }}"
                         data-oferta-tab="{{ $slug }}"
                         data-color="{{ $programa['color'] }}"
                         data-active="{{ $loop->first ? 'true' : 'false' }}"
                         role="tab"
                         aria-selected="{{ $loop->first ? 'true' : 'false' }}"
                     >
-                        <span class="block h-1 w-10 rounded-full {{ $color['bar'] }}"></span>
-                        <span class="mt-2 block text-sm font-extrabold text-gray-950">{{ $programa['titulo'] }}</span>
-                        <span class="mt-1 block text-xs font-semibold text-gray-500">{{ $programa['edad'] }}</span>
+                        <span class="block h-1 w-9 shrink-0 rounded-full {{ $color['bar'] }}"></span>
+                        <span class="mt-1 block truncate text-[0.82rem] font-extrabold leading-4 text-gray-950">{{ $programa['titulo'] }}</span>
+                        <span class="block truncate text-[0.72rem] font-semibold leading-4 text-gray-500">{{ $programa['edad'] }}</span>
                     </button>
                 @endforeach
             </div>
 
-            <div class="mt-5 border-t border-gray-100 pt-5">
+            <div class="mt-4 min-h-[230px] border-t border-gray-100 pt-4">
                 @foreach ($ofertaNiveles as $slug => $programa)
                     @php($color = $colores[$programa['color']] ?? $colores['blue'])
                     <article
@@ -123,8 +123,8 @@
                     >
                     <div class="flex items-start justify-between gap-4">
                         <div>
-                            <p class="text-sm font-bold uppercase tracking-wide {{ $color['text'] }}">{{ $programa['edad'] }}</p>
-                            <h2 class="mt-1 text-2xl font-extrabold leading-tight text-gray-950 md:text-3xl lg:text-[1.7rem]">
+                            <p class="text-xs font-bold uppercase tracking-wide {{ $color['text'] }}">{{ $programa['edad'] }}</p>
+                            <h2 class="mt-1 text-2xl font-extrabold leading-tight text-gray-950 lg:text-[1.45rem]">
                                 {{ $programa['titulo'] }}
                             </h2>
                         </div>
@@ -133,32 +133,32 @@
                             <img
                                 src="{{ $programa['logo'] }}"
                                 alt="{{ $programa['titulo'] }}"
-                                class="h-12 w-16 shrink-0 object-contain md:h-14 md:w-20"
+                                class="h-10 w-14 shrink-0 object-contain md:h-12 md:w-16"
                                 loading="lazy"
                             >
                         @endif
                     </div>
 
-                    <p class="mt-3 text-lg font-extrabold leading-7 text-gray-800 lg:text-base lg:leading-6 xl:text-lg xl:leading-7">{{ $programa['subtitulo'] }}</p>
-                    <p class="mt-3 leading-7 text-gray-600 lg:text-sm lg:leading-6 xl:text-base xl:leading-7">{{ $programa['descripcion'] }}</p>
+                    <p class="mt-2 text-base font-extrabold leading-6 text-gray-800">{{ $programa['subtitulo'] }}</p>
+                    <p class="mt-2 text-sm leading-6 text-gray-600">{{ $programa['descripcion'] }}</p>
 
-                    <div class="mt-4 grid gap-2 sm:grid-cols-3">
+                    <div class="mt-3 grid gap-2 sm:grid-cols-3">
                         @foreach ($programa['puntos'] as $punto)
-                            <div class="flex items-center gap-2 rounded border px-3 py-2 {{ $color['soft'] }}">
-                                <span class="h-2.5 w-2.5 shrink-0 rounded-full {{ $color['bar'] }}"></span>
-                                <span class="text-xs font-bold leading-5 text-gray-800 md:text-sm">{{ $punto }}</span>
+                            <div class="flex items-center gap-2 rounded border px-2.5 py-2 {{ $color['soft'] }}">
+                                <span class="h-2 w-2 shrink-0 rounded-full {{ $color['bar'] }}"></span>
+                                <span class="text-xs font-bold leading-5 text-gray-800">{{ $punto }}</span>
                             </div>
                         @endforeach
                     </div>
 
-                    <div class="mt-5 flex flex-col gap-3 sm:flex-row">
+                    <div class="mt-4 flex flex-col gap-3 sm:flex-row">
                         <a
                             href="{{ $programa['ruta'] }}"
-                            class="inline-flex items-center justify-center rounded px-5 py-2.5 font-bold transition {{ $color['button'] }}"
+                            class="inline-flex items-center justify-center rounded px-4 py-2 text-sm font-bold transition {{ $color['button'] }}"
                         >
                             Ver programa
                         </a>
-                        <a href="{{ route('contacto') }}" class="inline-flex items-center justify-center rounded border border-blue-700 px-5 py-2.5 font-bold text-blue-700 transition hover:bg-blue-50">
+                        <a href="{{ route('contacto') }}" class="inline-flex items-center justify-center rounded border border-blue-700 px-4 py-2 text-sm font-bold text-blue-700 transition hover:bg-blue-50">
                             Solicitar informes
                         </a>
                     </div>
@@ -212,14 +212,25 @@
                     href="{{ $programa['ruta'] }}"
                     class="group overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-lg"
                 >
-                    <div class="grid grid-cols-[.42fr_.58fr]">
-                        <x-imagen-seccion
-                            :imagen="$programa['imagen']"
-                            :alt="$programa['titulo']"
-                            class="h-full min-h-40 w-full object-cover"
-                            placeholder-class="min-h-40"
-                        />
-                        <div class="p-5">
+                    <div class="grid grid-cols-[.42fr_.58fr] items-stretch">
+                        @if ($slug === 'ib-en-discovery')
+                            <div class="flex h-40 items-center justify-center bg-gray-50 p-5">
+                                <x-imagen-seccion
+                                    :imagen="$programa['imagen']"
+                                    :alt="$programa['titulo']"
+                                    class="max-h-24 w-full object-contain"
+                                    placeholder-class="h-28 w-full"
+                                />
+                            </div>
+                        @else
+                            <x-imagen-seccion
+                                :imagen="$programa['imagen']"
+                                :alt="$programa['titulo']"
+                                class="h-40 w-full object-cover"
+                                placeholder-class="h-40"
+                            />
+                        @endif
+                        <div class="flex min-h-40 flex-col justify-center p-5">
                             <span class="block h-1.5 w-14 rounded-full {{ $color['bar'] }}"></span>
                             <h3 class="mt-4 text-xl font-extrabold text-gray-950">{{ $programa['titulo'] }}</h3>
                             <p class="mt-2 text-sm font-semibold {{ $color['text'] }}">{{ $programa['edad'] }}</p>
@@ -252,6 +263,11 @@
 
                 panels.forEach((panel) => {
                     panel.classList.toggle('hidden', panel.dataset.ofertaPanel !== selected);
+                });
+
+                document.querySelector('#oferta-hero')?.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'center',
                 });
             });
         });

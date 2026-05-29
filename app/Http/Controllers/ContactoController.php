@@ -14,8 +14,19 @@ class ContactoController extends Controller
 
     public function store(StoreContactoRequest $request): RedirectResponse
     {
-        // El $request->validated() ya nos devuelve los datos limpios y seguros
-        $this->contactoService->registrarContacto($request->validated());
+        $datos = $request->validated();
+
+        $this->contactoService->registrarContacto([
+            'nombre' => $datos['tutor_nombre'],
+            'email' => $datos['email'],
+            'mensaje' => implode("\n", [
+                'Nombre completo del aspirante: ' . $datos['aspirante_nombre'],
+                'Nombre completo del tutor (a): ' . $datos['tutor_nombre'],
+                'Email: ' . $datos['email'],
+                'Telefono de contacto: ' . $datos['telefono'],
+                'Grado al que aplica: ' . $datos['grado'],
+            ]),
+        ]);
 
         return redirect()->back()->with('success', '¡Gracias por comunicarte con el Colegio Discovery! Te contactaremos a la brevedad.');
     }
