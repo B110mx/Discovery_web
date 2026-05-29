@@ -35,13 +35,12 @@ class PageController extends Controller
         // Caché de 12 horas para evitar consultas repetitivas a la BD
         $eventos = Cache::remember(SiteCache::key('inicio_eventos'), SiteCache::ttl(), function () {
             $eventosDefault = $this->eventosInicioDefault();
-            $imagenesCarrusel = $this->imagenesCarruselEventosInicio();
 
             $eventos = Evento::where('activo', true)
                 ->orderBy('orden')
                 ->get()
-                ->map(function (Evento $evento, int $index) use ($eventosDefault, $imagenesCarrusel) {
-                    $imagen = $imagenesCarrusel[$index] ?? ($eventosDefault[$index]['imagen'] ?? null);
+                ->map(function (Evento $evento, int $index) use ($eventosDefault) {
+                    $imagen = $eventosDefault[$index]['imagen'] ?? null;
                     $url = $this->publicUploadUrl($evento->imagen_url)
                         ?? $this->mediaUrlIfExists($evento->imagen_media_path);
 
@@ -347,44 +346,19 @@ class PageController extends Controller
 
     private function eventosInicioDefault(): array
     {
-        $imagenesCarrusel = $this->imagenesCarruselEventosInicio();
-
         return collect(config('colegio.inicio.eventos_default', []))
-            ->map(fn (array $evento, int $index) => [
+            ->map(fn (array $evento) => [
                 'titulo' => $evento['titulo'],
                 'descripcion' => $evento['descripcion'],
-                'url' => $imagenesCarrusel[$index]['url'] ?? null,
-                'imagen' => $imagenesCarrusel[$index] ?? [
-                    'url' => null,
+                'url' => $this->mediaUrlIfExists($evento['media_path'] ?? null),
+                'imagen' => [
+                    'url' => $this->mediaUrlIfExists($evento['media_path'] ?? null),
                     'titulo' => $evento['titulo'],
-                    'referencia' => 'Espacio pendiente para el carrusel de eventos en Inicio.',
-                    'pendiente' => true,
+                    'referencia' => 'Imagen default del carrusel de eventos en Inicio.',
+                    'pendiente' => false,
                 ],
             ])
             ->all();
-    }
-
-    private function imagenesCarruselEventosInicio(): array
-    {
-        return array_values($this->imagenesVista('carruseles', $this->defaultsCarruselEventosInicio()));
-    }
-
-    private function defaultsCarruselEventosInicio(): array
-    {
-        return [
-            'inicio_eventos_1' => [
-                'titulo' => 'Inicio - Carrusel de eventos - Slide 1',
-                'referencia' => 'Modulo del carrusel de eventos. Subir aqui la imagen definitiva desde el panel.',
-            ],
-            'inicio_eventos_2' => [
-                'titulo' => 'Inicio - Carrusel de eventos - Slide 2',
-                'referencia' => 'Modulo del carrusel de eventos. Subir aqui la imagen definitiva desde el panel.',
-            ],
-            'inicio_eventos_3' => [
-                'titulo' => 'Inicio - Carrusel de eventos - Slide 3',
-                'referencia' => 'Modulo del carrusel de eventos. Subir aqui la imagen definitiva desde el panel.',
-            ],
-        ];
     }
 
     private function testimoniosAlumni(): array
@@ -459,20 +433,6 @@ class PageController extends Controller
 
     private function prepararComunidadProtagonistas(): array
     {
-        $niveles = collect(config('colegio.protagonistas.niveles', []))
-            ->map(function (array $nivel) {
-                return [
-                    'titulo' => $nivel['titulo'],
-                    'imagen' => $this->imagenVista('protagonistas', $nivel['clave'], [
-                        'titulo' => 'Comunidad - ' . $nivel['titulo'],
-                        'referencia' => $nivel['referencia'],
-                        'media_path' => $nivel['media_path'],
-                    ]),
-                    'color' => $nivel['color'],
-                ];
-            })
-            ->all();
-
         $protagonistas = collect(config('colegio.protagonistas.protagonistas', []))
             ->map(fn (array $item, string $clave) => [
                 'imagenes' => $this->imagenesGrupoProtagonista($clave, [
@@ -495,7 +455,7 @@ class PageController extends Controller
             })
             ->all();
 
-        return compact('niveles', 'protagonistas');
+        return compact('protagonistas');
     }
 
     private function imagenesGrupoProtagonista(string $clave, array $default): array

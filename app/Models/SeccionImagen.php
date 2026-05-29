@@ -44,8 +44,5 @@ class SeccionImagen extends Model
             SiteCache::forget('nosotros_historia');
         }
 
-        if ($this->vista === 'carruseles') {
-            SiteCache::forget('inicio_eventos');
-        }
     }
 }

@@ -22,14 +22,12 @@ class SeccionImagenForm
                         ->label('Vista o pagina')
                         ->options([
                             'inicio' => 'Inicio',
-                            'carruseles' => 'Carruseles',
                             'nosotros' => 'Nosotros',
                             'oferta-academica' => 'Oferta Educativa',
                             'protagonistas' => 'Comunidad / Protagonistas',
                             'preescolar' => 'Nivel - Preescolar',
                             'primaria' => 'Nivel - Primaria',
                             'secundaria' => 'Nivel - Secundaria',
-                            'bachillerato' => 'Nivel - Bachillerato',
                             'contacto' => 'Contacto',
                         ])
                         ->searchable()
@@ -37,7 +35,7 @@ class SeccionImagenForm
 
                     TextInput::make('clave')
                         ->label('Parte exacta de la vista')
-                        ->helperText('Ejemplos: hero, sobre_nosotros, inicio_eventos_1, historia_2003, preescolar.')
+                        ->helperText('Ejemplos: hero, sobre_nosotros, historia_2003, preescolar, alumnos.')
                         ->required()
                         ->maxLength(255),
 
@@ -64,7 +62,7 @@ class SeccionImagenForm
                 ->schema([
                     Select::make('respaldo_media_path')
                         ->label('Imagen desde /videosyfotos')
-                        ->helperText('Recomendado para carruseles, linea del tiempo y fotos de vistas. No aplica para logos universitarios ni para el bloque aleatorio de Protagonistas.')
+                        ->helperText('Recomendado para linea del tiempo y fotos de vistas. No aplica para logos universitarios ni para el bloque aleatorio de Protagonistas.')
                         ->options(fn () => VideoFotoOptions::images())
                         ->searchable()
                         ->preload()

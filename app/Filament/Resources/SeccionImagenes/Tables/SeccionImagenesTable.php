@@ -29,14 +29,12 @@ class SeccionImagenesTable
                     ->label('Vista / pagina')
                     ->formatStateUsing(fn (string $state): string => match ($state) {
                         'inicio' => 'Inicio',
-                        'carruseles' => 'Carruseles',
                         'nosotros' => 'Conocenos / Nosotros',
                         'oferta-academica' => 'Oferta Educativa',
                         'protagonistas' => 'Comunidad / Protagonistas',
                         'preescolar' => 'Nivel - Preescolar',
                         'primaria' => 'Nivel - Primaria',
                         'secundaria' => 'Nivel - Secundaria',
-                        'bachillerato' => 'Nivel - Bachillerato',
                         'contacto' => 'Contacto',
                         default => $state,
                     })
@@ -65,14 +63,12 @@ class SeccionImagenesTable
                     ->label('Vista')
                     ->options([
                         'inicio' => 'Inicio',
-                        'carruseles' => 'Carruseles',
                         'nosotros' => 'Nosotros',
                         'oferta-academica' => 'Oferta Educativa',
                         'protagonistas' => 'Comunidad / Protagonistas',
                         'preescolar' => 'Nivel - Preescolar',
                         'primaria' => 'Nivel - Primaria',
                         'secundaria' => 'Nivel - Secundaria',
-                        'bachillerato' => 'Nivel - Bachillerato',
                         'contacto' => 'Contacto',
                     ]),
             ])
