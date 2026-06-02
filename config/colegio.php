@@ -44,32 +44,6 @@ return [
         'whatsapp_mensaje' => 'Hola, me gustaria recibir informacion sobre Colegio Discovery.',
     ],
 
-    'tienda' => [
-        'niveles' => [
-            'Preescolar' => 'Preescolar',
-            'Primaria' => 'Primaria',
-            'Secundaria' => 'Secundaria',
-            'Bachillerato' => 'Bachillerato',
-        ],
-        'estados_pedido' => [
-            'incompleto' => 'Incompleto',
-            'completado' => 'Completado',
-        ],
-        'productos' => [
-            'cuaderno-profesional' => ['nombre' => 'Cuaderno profesional', 'nivel' => 'Todos los niveles', 'precio' => 45],
-            'crayones-colores' => ['nombre' => 'Crayones y lapices de colores', 'nivel' => 'Preescolar y Primaria', 'precio' => 95],
-            'resistol-pegamento' => ['nombre' => 'Resistol y pegamento escolar', 'nivel' => 'Preescolar y Primaria', 'precio' => 35],
-            'hojas-folder' => ['nombre' => 'Hojas blancas y folder plastico', 'nivel' => 'Todos los niveles', 'precio' => 60],
-            'lapices-plumas' => ['nombre' => 'Lapices y plumas', 'nivel' => 'Primaria, Secundaria y Bachillerato', 'precio' => 55],
-            'tijeras' => ['nombre' => 'Tijeras escolares', 'nivel' => 'Preescolar y Primaria', 'precio' => 40],
-            'juego-geometria' => ['nombre' => 'Juego de geometria', 'nivel' => 'Primaria, Secundaria y Bachillerato', 'precio' => 70],
-            'diccionario' => ['nombre' => 'Diccionario escolar', 'nivel' => 'Primaria y Secundaria', 'precio' => 120],
-            'carpeta-argollas' => ['nombre' => 'Carpeta de argollas', 'nivel' => 'Secundaria y Bachillerato', 'precio' => 85],
-            'calculadora-cientifica' => ['nombre' => 'Calculadora cientifica', 'nivel' => 'Secundaria y Bachillerato', 'precio' => 280],
-            'memoria-usb' => ['nombre' => 'Memoria USB', 'nivel' => 'Secundaria y Bachillerato', 'precio' => 140],
-        ],
-    ],
-
     'inicio' => [
         'eventos_default' => [
             [
@@ -140,12 +114,12 @@ return [
                 'referencia' => 'Imagen destacada para Secundaria en la vista Oferta Educativa.',
                 'media_path' => 'Middle fotos actuales/IMG_5867.JPG',
             ],
-            'puntos' => ['Tres idiomas', 'Deporte diario', 'Liderazgo y proyectos'],
+            'puntos' => ['Tres idiomas', 'Deporte diario', 'Proyectos con impacto'],
         ],
         'bachillerato' => [
             'titulo' => 'Bachillerato',
             'subtitulo' => 'Preparacion universitaria con vision internacional.',
-            'descripcion' => 'Una etapa retadora con Programa del Diploma IB, orientacion vocacional, liderazgo y proyectos reales.',
+            'descripcion' => 'Una etapa retadora con Programa del Diploma IB, orientacion vocacional y proyectos reales.',
             'edad' => '10 a 12 grado',
             'color' => 'green',
             'logo_path' => 'Logos de niveles educativos/logo bachillerato.png',
@@ -197,7 +171,7 @@ return [
             ['titulo' => 'Bachillerato', 'clave' => 'bachillerato', 'color' => 'bg-green-600', 'referencia' => 'Imagen para representar Bachillerato dentro de Comunidad.', 'media_path' => 'High fotos actuales/1234.jpg'],
         ],
         'protagonistas' => [
-            'alumnos' => ['titulo' => 'Comunidad - Alumnos', 'color' => 'bg-red-600', 'referencia' => 'Imagen para representar a los alumnos en la seccion Quienes hacen viva nuestra comunidad.', 'media_path' => 'Elementary fotos actuales/IMG_5684.JPG', 'media_directory' => 'Elementary fotos actuales'],
+            'alumnos' => ['titulo' => 'Comunidad - Explorers', 'color' => 'bg-red-600', 'referencia' => 'Imagen para representar a los Explorers en la seccion Quienes hacen viva nuestra comunidad.', 'media_path' => 'Elementary fotos actuales/IMG_5684.JPG', 'media_directory' => 'Elementary fotos actuales'],
             'docentes' => ['titulo' => 'Comunidad - Docentes', 'color' => 'bg-blue-700', 'referencia' => 'Imagen para representar a docentes en la seccion Quienes hacen viva nuestra comunidad.', 'media_path' => 'Fotos Docentes/1.png', 'media_directory' => 'Fotos Docentes'],
             'padres' => ['titulo' => 'Comunidad - Familias', 'color' => 'bg-lime-500', 'referencia' => 'Imagen para representar a familias en la seccion Quienes hacen viva nuestra comunidad.', 'media_path' => 'Fotos Padres de Familia/3.png', 'media_directory' => 'Fotos Padres de Familia'],
             'alumni' => ['titulo' => 'Comunidad - Alumni', 'color' => 'bg-green-600', 'referencia' => 'Imagen para representar a alumni en la seccion Quienes hacen viva nuestra comunidad.', 'media_path' => 'Fotos Alumni/001.JPG', 'media_directory' => 'Fotos Alumni'],
@@ -222,7 +196,7 @@ return [
                     'titulo' => 'El kinder ideal para tus hijos',
                     'intro' => 'Una infancia feliz, segura y bilingue, con programas de neuroaprendizaje y bases solidas para Elementary.',
                     'destacados' => [
-                        ['titulo' => 'Acompanamiento', 'texto' => 'Grupos reducidos de 14 a 24 alumnos, bienestar emocional y seguimiento cercano en cada etapa.'],
+                        ['titulo' => 'Acompanamiento', 'texto' => 'Grupos reducidos de 14 a 24 Explorers, bienestar emocional y seguimiento cercano en cada etapa.'],
                         ['titulo' => 'Aprendizaje', 'texto' => 'Neuromotor, Audiomotor, Spark y Bancubi fortalecen lenguaje, pensamiento logico y madurez neurologica.'],
                         ['titulo' => 'Comunidad', 'texto' => 'Crecen en un entorno de amor, respeto y seguridad, con valores IB y mentalidad abierta.'],
                     ],
@@ -230,7 +204,7 @@ return [
                         'Programas de neuroaprendizaje: Neuromotor, Audiomotor y Spark.',
                         'Aprendizaje natural en ingles y espanol con estrategias multisensoriales.',
                         'Programas alineados al Bachillerato Internacional desde los primeros anos.',
-                        'Grupos reducidos de 14 a 24 alumnos con atencion personalizada.',
+                        'Grupos reducidos de 14 a 24 Explorers con atencion personalizada.',
                         'Bienestar emocional, expresion oral y acompanamiento cercano.',
                     ],
                     'secciones' => [
@@ -250,9 +224,9 @@ return [
                 'modelo_academico_path' => 'Modelos educativos/modelo educativo elementary.png',
                 'informacion' => [
                     'titulo' => 'La primaria para tus hijos',
-                    'intro' => 'Un entorno bilingue y trilingue donde los alumnos desarrollan mentalidad internacional, creatividad, tecnologia y bienestar emocional.',
+                    'intro' => 'Un entorno bilingue y trilingue donde los Explorers desarrollan mentalidad internacional, creatividad, tecnologia y bienestar emocional.',
                     'destacados' => [
-                        ['titulo' => 'Acompanamiento', 'texto' => 'Atencion academica y emocional para que cada alumno avance con confianza, curiosidad y autonomia.'],
+                        ['titulo' => 'Acompanamiento', 'texto' => 'Atencion academica y emocional para que cada Explorer avance con confianza, curiosidad y autonomia.'],
                         ['titulo' => 'Aprendizaje', 'texto' => 'Tres bloques diarios en ingles, frances desde 5 grado, tecnologia, arte y unidades de indagacion IB.'],
                         ['titulo' => 'Comunidad', 'texto' => 'Deporte diario, academias, mini olimpiadas y proyectos que fortalecen colaboracion y pertenencia.'],
                     ],
@@ -284,7 +258,7 @@ return [
                     'destacados' => [
                         ['titulo' => 'Acompanamiento', 'texto' => 'Preceptoria, bienestar emocional y habilidades de autogestion para una etapa de cambios importantes.'],
                         ['titulo' => 'Aprendizaje', 'texto' => 'Ingles, espanol y frances, proyectos interdisciplinarios y enfoques de aprendizaje para pensar e investigar mejor.'],
-                        ['titulo' => 'Comunidad', 'texto' => 'Deporte diario, DKMUN, WASP, arte y clanes para desarrollar liderazgo, identidad y trabajo en equipo.'],
+                        ['titulo' => 'Comunidad', 'texto' => 'Deporte diario, DKMUN, WASP, arte y clanes para desarrollar iniciativa, identidad y trabajo en equipo.'],
                     ],
                     'puntos' => [
                         'Ingles, espanol y frances con mas de 15 bloques a la semana.',
@@ -296,7 +270,7 @@ return [
                     'secciones' => [
                         ['titulo' => 'Idiomas para comunicarse con el mundo', 'texto' => 'Viven el ingles todos los dias, incorporan frances y se preparan para certificaciones como Cambridge y Lengua B del Programa Diploma.'],
                         ['titulo' => 'Deporte diario', 'texto' => 'La practica deportiva fortalece salud fisica, disciplina, autoestima, trabajo en equipo y habitos saludables.'],
-                        ['titulo' => 'Liderazgo y proyectos globales', 'texto' => 'Programas como DKMun y WASP desarrollan investigacion, debate, diplomacia y liderazgo desde edades tempranas.'],
+                        ['titulo' => 'Proyectos globales', 'texto' => 'Programas como DKMun y WASP desarrollan investigacion, debate, diplomacia e iniciativa desde edades tempranas.'],
                         ['titulo' => 'Talentos y pasiones', 'texto' => 'Exploran arte, ciencia, ferias escolares y experiencias que conectan lo aprendido con el mundo real.'],
                     ],
                     'experiencias' => ['Dia del Arte', 'Deportes', 'Aniversario', 'Clanes', 'Presentaciones'],
@@ -310,11 +284,11 @@ return [
                 'modelo_academico_path' => 'Modelos educativos/modelo educativo high.png',
                 'informacion' => [
                     'titulo' => 'Un bachillerato que te reta, forma y tambien se disfruta',
-                    'intro' => 'Preparacion universitaria con Programa del Diploma IB, orientacion vocacional, idiomas, liderazgo y proyectos reales.',
+                    'intro' => 'Preparacion universitaria con Programa del Diploma IB, orientacion vocacional, idiomas y proyectos reales.',
                     'destacados' => [
                         ['titulo' => 'Acompanamiento', 'texto' => 'Orientacion vocacional, asesoria para admisiones y seguimiento individual rumbo a universidad.'],
                         ['titulo' => 'Aprendizaje', 'texto' => 'Programa del Diploma IB, Teoria del Conocimiento, CAS, idiomas y pensamiento critico aplicado.'],
-                        ['titulo' => 'Comunidad', 'texto' => 'DKMUN, proyectos IB, arte, deporte diario e impacto social para fortalecer liderazgo y expresion.'],
+                        ['titulo' => 'Comunidad', 'texto' => 'DKMUN, proyectos IB, arte, deporte diario e impacto social para fortalecer iniciativa y expresion.'],
                     ],
                     'puntos' => [
                         'Bachillerato IB oficial con validez internacional.',
@@ -326,10 +300,10 @@ return [
                     'secciones' => [
                         ['titulo' => 'Pensamiento global', 'texto' => 'Teoria del Conocimiento y CAS fortalecen pensamiento critico, vision internacional y capacidad de tomar decisiones.'],
                         ['titulo' => 'Certificaciones e idiomas', 'texto' => 'La formacion en ingles y frances prepara para comunicar argumentos, escribir ensayos y abrir puertas universitarias.'],
-                        ['titulo' => 'Debates y liderazgo', 'texto' => 'DKMUN permite negociar, argumentar, proponer soluciones y representar paises en asuntos internacionales.'],
-                        ['titulo' => 'Impacto social y expresion', 'texto' => 'CAS, arte y deporte diario hacen que cada estudiante participe en proyectos culturales, sociales, ambientales o deportivos.'],
+                        ['titulo' => 'Debates y diplomacia', 'texto' => 'DKMUN permite negociar, argumentar, proponer soluciones y representar paises en asuntos internacionales.'],
+                        ['titulo' => 'Impacto social y expresion', 'texto' => 'CAS, arte y deporte diario hacen que cada Explorer participe en proyectos culturales, sociales, ambientales o deportivos.'],
                     ],
-                    'experiencias' => ['Expo Arte', 'Graduacion', 'Dia del Estudiante', 'DKMUN', 'Proyectos IB'],
+                    'experiencias' => ['Expo Arte', 'Graduacion', 'Dia del Explorer', 'DKMUN', 'Proyectos IB'],
                 ],
             ],
             'ib-en-discovery' => [
@@ -342,11 +316,11 @@ return [
                 'layout' => 'ib',
                 'informacion' => [
                     'titulo' => 'Bachillerato Internacional en Discovery',
-                    'intro' => 'Nuestro modelo educativo potencia habilidades para que los alumnos vivan el aprendizaje como un proceso activo y dinámico. El enfoque IB los impulsa a aprender a aprender, plantear buenas preguntas, establecer metas, trabajar por sus aspiraciones y sostener la determinación necesaria para cumplirlas.',
+                    'intro' => 'Nuestro modelo educativo potencia habilidades para que los Explorers vivan el aprendizaje como un proceso activo y dinámico. El enfoque IB los impulsa a aprender a aprender, plantear buenas preguntas, establecer metas, trabajar por sus aspiraciones y sostener la determinación necesaria para cumplirlas.',
                     'destacados' => [
                         ['titulo' => 'Habilidades', 'texto' => 'Pensamiento, autogestión, comunicación, investigación y habilidades sociales para aprender con autonomía.'],
-                        ['titulo' => 'Perfil IB', 'texto' => 'Formación de estudiantes con capacidades humanas que van más allá del éxito académico.'],
-                        ['titulo' => 'Programa del Diploma', 'texto' => 'Un programa riguroso y equilibrado para alumnos de 16 a 19 años, reconocido por universidades del mundo.'],
+                        ['titulo' => 'Perfil IB', 'texto' => 'Formación de Explorers con capacidades humanas que van más allá del éxito académico.'],
+                        ['titulo' => 'Programa del Diploma', 'texto' => 'Un programa riguroso y equilibrado para Explorers de 16 a 19 años, reconocido por universidades del mundo.'],
                     ],
                     'puntos' => [
                         'Desarrollo de pensamiento crítico, pensamiento creativo y transferencia del aprendizaje.',
@@ -361,10 +335,10 @@ return [
                         'media_path' => 'Enfoque de aprendizaje/Enfoque de aprendizaje Pacis.png',
                     ],
                     'secciones' => [
-                        ['titulo' => 'Perfil de la comunidad de aprendizaje IB', 'texto' => 'El perfil IB expresa capacidades y responsabilidades humanas que buscan formar alumnos respetuosos consigo mismos, con las demás personas y con el mundo que les rodea.'],
+                        ['titulo' => 'Perfil de la comunidad de aprendizaje IB', 'texto' => 'El perfil IB expresa capacidades y responsabilidades humanas que buscan formar Explorers respetuosos consigo mismos, con las demás personas y con el mundo que les rodea.'],
                         ['titulo' => 'Programa del Diploma (PD)', 'texto' => 'Colegio Discovery está acreditado por la Organización del Bachillerato Internacional para impartir el Programa del Diploma, una propuesta que favorece amplitud y profundidad académica junto con desarrollo físico, intelectual, emocional y ético.'],
-                        ['titulo' => 'Qué ofrece el PD al alumnado', 'texto' => 'El programa promueve excelencia académica, estudio de al menos dos lenguas, desarrollo integral y exploración de la naturaleza del conocimiento mediante Teoría del Conocimiento.'],
-                        ['titulo' => 'Currículo del Programa del Diploma', 'texto' => 'El currículo se integra por el tronco común del PD y seis grupos de asignaturas. Sus componentes troncales amplían la experiencia educativa y retan a los estudiantes a aplicar conocimientos y habilidades.'],
+                        ['titulo' => 'Qué ofrece el PD a los Explorers', 'texto' => 'El programa promueve excelencia académica, estudio de al menos dos lenguas, desarrollo integral y exploración de la naturaleza del conocimiento mediante Teoría del Conocimiento.'],
+                        ['titulo' => 'Currículo del Programa del Diploma', 'texto' => 'El currículo se integra por el tronco común del PD y seis grupos de asignaturas. Sus componentes troncales amplían la experiencia educativa y retan a los Explorers a aplicar conocimientos y habilidades.'],
                         ['titulo' => 'Perfil de nuestros egresados', 'texto' => 'Nuestros egresados se desenvuelven competitivamente en inglés y español, cuentan con preparación académica para certificaciones, enfrentan desafíos con mentalidad abierta y son ciudadanos globales con visión internacional.'],
                     ],
                     'experiencias' => ['Pensamiento crítico', 'Teoría del Conocimiento', 'CAS', 'Investigación', 'Dos lenguas', 'Mentalidad internacional'],
@@ -379,11 +353,11 @@ return [
                 'layout' => 'ingles',
                 'informacion' => [
                     'titulo' => 'Certificación de Inglés en Discovery',
-                    'intro' => 'La certificación de inglés acompaña a nuestros estudiantes para medir, fortalecer y demostrar sus habilidades comunicativas. El trabajo se enfoca en reading, writing, listening y speaking, con seguimiento académico para avanzar hacia evaluaciones reconocidas y oportunidades universitarias.',
+                    'intro' => 'La certificación de inglés acompaña a nuestros Explorers para medir, fortalecer y demostrar sus habilidades comunicativas. El trabajo se enfoca en reading, writing, listening y speaking, con seguimiento académico para avanzar hacia evaluaciones reconocidas y oportunidades universitarias.',
                     'eyebrow' => 'Certificación de Inglés',
                     'puntos_titulo' => 'Preparación integral por habilidades',
                     'destacados' => [
-                        ['titulo' => 'Metas claras', 'texto' => 'Los estudiantes conocen las habilidades que deben fortalecer y trabajan con objetivos medibles durante el ciclo escolar.'],
+                        ['titulo' => 'Metas claras', 'texto' => 'Los Explorers conocen las habilidades que deben fortalecer y trabajan con objetivos medibles durante el ciclo escolar.'],
                         ['titulo' => 'Práctica integral', 'texto' => 'Reading, writing, listening y speaking se practican de forma constante para usar el idioma con seguridad.'],
                         ['titulo' => 'Proyección académica', 'texto' => 'La preparación ayuda a contar con evidencias de nivel de inglés para procesos escolares, universitarios y de movilidad.'],
                     ],
@@ -395,14 +369,14 @@ return [
                         'Base para certificaciones como Cambridge, TOEFL u otros exámenes de referencia internacional.',
                     ],
                     'secciones' => [
-                        ['titulo' => 'Evaluación y diagnóstico', 'texto' => 'El proceso permite identificar el nivel de cada estudiante y orientar la preparación hacia metas alcanzables, de acuerdo con sus necesidades académicas.'],
-                        ['titulo' => 'Habilidades comunicativas', 'texto' => 'La preparación integra lectura, escritura, escucha y expresión oral para que el alumno use el inglés con precisión, fluidez y confianza.'],
-                        ['titulo' => 'Acompañamiento académico', 'texto' => 'Docentes y coordinación dan seguimiento al progreso, proponen práctica específica y ayudan a que cada alumno llegue mejor preparado a sus evaluaciones.'],
+                        ['titulo' => 'Evaluación y diagnóstico', 'texto' => 'El proceso permite identificar el nivel de cada Explorer y orientar la preparación hacia metas alcanzables, de acuerdo con sus necesidades académicas.'],
+                        ['titulo' => 'Habilidades comunicativas', 'texto' => 'La preparación integra lectura, escritura, escucha y expresión oral para que cada Explorer use el inglés con precisión, fluidez y confianza.'],
+                        ['titulo' => 'Acompañamiento académico', 'texto' => 'Docentes y coordinación dan seguimiento al progreso, proponen práctica específica y ayudan a que cada Explorer llegue mejor preparado a sus evaluaciones.'],
                         ['titulo' => 'Certificaciones para el futuro', 'texto' => 'Contar con una certificación de inglés abre puertas en admisiones universitarias, intercambios, becas y experiencias académicas con enfoque internacional.'],
                     ],
                     'cierre' => [
                         'titulo' => 'Evidencias de dominio para nuevas oportunidades',
-                        'texto' => 'La certificación permite demostrar el nivel de inglés con mayor claridad y fortalece el perfil académico de los estudiantes para procesos universitarios, becas, movilidad e intercambios.',
+                        'texto' => 'La certificación permite demostrar el nivel de inglés con mayor claridad y fortalece el perfil académico de los Explorers para procesos universitarios, becas, movilidad e intercambios.',
                     ],
                     'experiencias' => ['Reading', 'Writing', 'Listening', 'Speaking', 'Cambridge', 'TOEFL', 'Seguimiento académico'],
                 ],

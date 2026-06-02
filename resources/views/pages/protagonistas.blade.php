@@ -7,21 +7,21 @@
 
     $protagonistas = [
         'alumnos' => [
-            'titulo' => 'Alumnos',
+            'titulo' => 'Explorers',
             'subtitulo' => 'Explorers que aprenden, crean y participan.',
-            'texto' => 'Nuestros alumnos son el centro de la vida escolar. En cada proyecto, clase, presentación y experiencia, desarrollan liderazgo, creatividad, pensamiento crítico y mentalidad internacional.',
+            'texto' => 'Nuestros Explorers son el centro de la vida escolar. En cada proyecto, clase, presentación y experiencia, desarrollan creatividad, pensamiento crítico y mentalidad internacional.',
             'puntos' => ['Proyectos interdisciplinarios', 'Arte, deporte y tecnología', 'Acompañamiento académico y emocional'],
         ],
         'docentes' => [
             'titulo' => 'Docentes',
             'subtitulo' => 'Guías cercanos para cada etapa.',
-            'texto' => 'El equipo docente acompaña a cada estudiante con planeación, escucha y metodologías activas que conectan el aprendizaje con la vida real.',
+            'texto' => 'El equipo docente acompaña a cada Explorer con planeación, escucha y metodologías activas que conectan el aprendizaje con la vida real.',
             'puntos' => ['Profesores preparados', 'Seguimiento personalizado', 'Comunidad de aprendizaje'],
         ],
         'padres' => [
             'titulo' => 'Padres de familia',
             'subtitulo' => 'Familias que construyen comunidad.',
-            'texto' => 'La participación de madres, padres y tutores fortalece el crecimiento de los alumnos. Trabajamos en equipo para formar una comunidad cercana, informada y comprometida.',
+            'texto' => 'La participación de madres, padres y tutores fortalece el crecimiento de los Explorers. Trabajamos en equipo para formar una comunidad cercana, informada y comprometida.',
             'puntos' => ['Comunicación constante', 'Actividades para familias', 'Acompañamiento en el proceso educativo'],
         ],
         'alumni' => [
@@ -44,6 +44,7 @@
             return $item;
         })
         ->all();
+
 @endphp
 
 <section class="space-y-12">
@@ -53,7 +54,7 @@
                 <p class="font-semibold uppercase tracking-wide text-sm text-blue-100">{{ $paginaProtagonistas?->subtitulo ?? 'Comunidad Discovery' }}</p>
                 <h1 class="mt-3 text-4xl md:text-5xl font-extrabold">{{ $paginaProtagonistas?->titulo ?? 'Protagonistas' }}</h1>
                 <p class="mt-5 max-w-2xl text-lg leading-8 text-blue-50">
-                    {{ $paginaProtagonistas?->descripcion ?? 'En Discovery alumnos, padres de familia, docentes y alumni trabajamos en equipo para formar una comunidad de aprendizaje con mentalidad internacional.' }}
+                    {{ $paginaProtagonistas?->descripcion ?? 'En Discovery Explorers, padres de familia, docentes y alumni trabajamos en equipo para formar una comunidad de aprendizaje con mentalidad internacional.' }}
                 </p>
                 <a href="#testimonios" class="mt-8 inline-flex w-fit items-center justify-center rounded bg-red-600 px-6 py-3 font-bold text-white hover:bg-red-700">
                     Ver testimonios
@@ -168,7 +169,7 @@
                             <h2 class="text-2xl font-extrabold leading-snug text-black md:text-3xl">Nos define lo que somos como esencia.</h2>
                             <div class="mt-5 space-y-4 text-base leading-8 text-gray-700">
                                 <p>
-                                    En Discovery nuestros grupos reducidos aseguran una atención personalizada, fundamental para el desarrollo de las facultades de cada alumno y para la adquisición de hábitos.
+                                    En Discovery nuestros grupos reducidos aseguran una atención personalizada, fundamental para el desarrollo de las facultades de cada Explorer y para la adquisición de hábitos.
                                 </p>
                                 <p>
                                     Somos una institución bilingüe con programas de inglés impartidos por profesores internacionales y una comunidad que aprende de forma natural, cercana y sana.
@@ -216,15 +217,27 @@
                                     @foreach ($testimonios as $video)
                                         <article class="min-w-full flex-shrink-0">
                                             <div class="overflow-hidden rounded-lg border border-white/20 bg-white shadow-lg">
-                                                <div class="bg-black p-2">
+                                                <div class="relative w-full bg-white" style="height: 350px;">
                                                     <video
                                                         src="{{ $video['url'] }}"
                                                         controls
-                                                        preload="metadata"
+                                                        preload="none"
                                                         playsinline
-                                                        class="h-44 w-full rounded bg-black object-contain md:h-52"
-                                                        style="height: 350px !important; width: 100% !important; object-fit: contain !important;"
+                                                        class="block h-full w-full bg-white object-contain"
                                                     ></video>
+                                                    <button
+                                                        type="button"
+                                                        class="absolute inset-0 flex items-center justify-center bg-white p-10 transition-opacity"
+                                                        data-community-video-poster
+                                                        aria-label="Reproducir {{ $video['titulo'] }}"
+                                                    >
+                                                        <img
+                                                            src="{{ url('/media/Logos%20principales/' . rawurlencode('LOGO DISCOVERY PNG.png')) }}"
+                                                            alt=""
+                                                            class="max-h-44 max-w-[78%] object-contain"
+                                                            loading="lazy"
+                                                        >
+                                                    </button>
                                                 </div>
                                                 <div class="p-3">
                                                     <span class="inline-flex h-1.5 w-10 rounded-full bg-red-600"></span>
@@ -401,9 +414,24 @@
             });
         });
 
-        videos.forEach((video, index) => {
+        videos.forEach((video) => {
+            const poster = video.parentElement?.querySelector('[data-community-video-poster]');
+
+            poster?.addEventListener('click', () => {
+                video.play();
+            });
+
             video.addEventListener('play', () => {
+                poster?.classList.add('opacity-0', 'pointer-events-none');
                 pauseOtherVideos(video);
+            });
+
+            video.addEventListener('pause', () => {
+                poster?.classList.remove('opacity-0', 'pointer-events-none');
+            });
+
+            video.addEventListener('ended', () => {
+                poster?.classList.remove('opacity-0', 'pointer-events-none');
             });
         });
 

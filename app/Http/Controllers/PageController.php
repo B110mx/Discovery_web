@@ -72,6 +72,11 @@ class PageController extends Controller
         $testimonios = Cache::remember(SiteCache::key('inicio_testimonios'), SiteCache::ttl(), fn () => $this->testimoniosAlumni());
 
         $logosNiveles = $this->mapearMediaPaths(config('colegio.inicio.logos_niveles', []));
+        $bannerInicio = [
+            'url' => $this->mediaUrlIfExists('Banner de inicio/Banner de bienvenida.png'),
+            'titulo' => 'Banner de bienvenida',
+            'referencia' => 'Banner principal de la vista de inicio.',
+        ];
         $imagenesInicio = $this->imagenesVista('inicio', [
             'sobre_nosotros' => [
                 'titulo' => 'Inicio - Sobre Nosotros',
@@ -81,7 +86,7 @@ class PageController extends Controller
             ],
         ]);
 
-        return view('pages.inicio', compact('eventos', 'testimonios', 'logosNiveles', 'imagenesInicio', 'paginaInicio'));
+        return view('pages.inicio', compact('eventos', 'testimonios', 'logosNiveles', 'imagenesInicio', 'paginaInicio', 'bannerInicio'));
     }
 
     public function nosotros(): View
@@ -127,6 +132,13 @@ class PageController extends Controller
         $comunidad = $this->prepararComunidadProtagonistas();
 
         return view('pages.protagonistas', compact('testimonios', 'comunidad', 'paginaProtagonistas'));
+    }
+
+    public function academiasVespertinas(): View
+    {
+        $mediaAcademias = $this->mediaAcademiasVespertinas();
+
+        return view('pages.academias-vespertinas', compact('mediaAcademias'));
     }
 
     public function recursosEscolares(): View
@@ -391,6 +403,35 @@ class PageController extends Controller
             ])
             ->values()
             ->all();
+    }
+
+    private function mediaAcademiasVespertinas(): array
+    {
+        $imageExtensions = config('colegio.media.image_extensions', []);
+        $videoExtensions = config('colegio.media.video_extensions', []);
+
+        $media = $this->mediaFiles('Academias vespertinas')
+            ->sort()
+            ->map(function (string $path) use ($imageExtensions, $videoExtensions) {
+                $extension = strtolower(pathinfo($path, PATHINFO_EXTENSION));
+
+                if (! in_array($extension, array_merge($imageExtensions, $videoExtensions))) {
+                    return null;
+                }
+
+                return [
+                    'titulo' => str_replace(['-', '_'], ' ', pathinfo($path, PATHINFO_FILENAME)),
+                    'url' => $this->generarMediaUrl($path),
+                    'tipo' => in_array($extension, $videoExtensions) ? 'video' : 'imagen',
+                ];
+            })
+            ->filter()
+            ->values();
+
+        return [
+            'imagenes' => $media->where('tipo', 'imagen')->values()->all(),
+            'videos' => $media->where('tipo', 'video')->values()->all(),
+        ];
     }
 
     private function mapearMediaPaths(array $paths): array
@@ -718,10 +759,10 @@ class PageController extends Controller
             ['anio' => '2003', 'titulo' => 'Discovery Kinder', 'texto' => 'Nace Discovery Kinder, el inicio de un sueno educativo porque los primeros pasos trascienden.', 'imagenes' => [$imagenesHistoria['historia_2003'], $imagenesHistoria['historia_2003_2']]],
             ['anio' => '2005', 'titulo' => 'Discovery Primaria', 'texto' => 'Inauguracion de Discovery Primaria, creciendo con pasos firmes.', 'imagenes' => [$imagenesHistoria['historia_2005'], $imagenesHistoria['historia_2005_2']]],
             ['anio' => '2011', 'titulo' => 'Discovery Secundaria', 'texto' => 'Se suma Discovery Secundaria, ampliando horizontes.', 'imagenes' => [$imagenesHistoria['historia_2011']]],
-            ['anio' => '2016', 'titulo' => 'Discovery Bachillerato', 'texto' => 'Llega Discovery Bachillerato, preparando grandes lideres y descubriendo su potencial.', 'imagenes' => [$imagenesHistoria['historia_2016']]],
+            ['anio' => '2016', 'titulo' => 'Discovery Bachillerato', 'texto' => 'Llega Discovery Bachillerato, preparando grandes Explorers y descubriendo su potencial.', 'imagenes' => [$imagenesHistoria['historia_2016']]],
             ['anio' => '2018', 'titulo' => 'Colegio del Mundo', 'texto' => 'Nos convertimos en Colegio del Mundo IB, abrazando la educacion internacional.', 'imagenes' => [$imagenesHistoria['historia_2018']]],
             ['anio' => '2019', 'titulo' => 'Nuevas instalaciones', 'texto' => 'Estrenamos nuevas instalaciones para seguir innovando.', 'imagenes' => [$imagenesHistoria['historia_2019'], $imagenesHistoria['historia_2019_2']]],
-            ['anio' => '2023', 'titulo' => 'DKMUN primera edicion', 'texto' => 'Realizamos nuestra primera edicion DKMUN, un espacio para el liderazgo y la diplomacia.', 'imagenes' => [$imagenesHistoria['historia_2023'], $imagenesHistoria['historia_2023_2']]],
+            ['anio' => '2023', 'titulo' => 'DKMUN primera edicion', 'texto' => 'Realizamos nuestra primera edicion DKMUN, un espacio para el debate y la diplomacia.', 'imagenes' => [$imagenesHistoria['historia_2023'], $imagenesHistoria['historia_2023_2']]],
             ['anio' => '2025', 'titulo' => 'Actualmente', 'texto' => 'Seguimos escribiendo nuestra historia, creciendo y evolucionando juntos.', 'imagenes' => [$imagenesHistoria['historia_2025']]],
         ];
 

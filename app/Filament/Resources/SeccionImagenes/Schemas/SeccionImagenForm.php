@@ -35,7 +35,7 @@ class SeccionImagenForm
 
                     TextInput::make('clave')
                         ->label('Parte exacta de la vista')
-                        ->helperText('Ejemplos: hero, sobre_nosotros, historia_2003, preescolar, alumnos.')
+                        ->helperText('Ejemplos: hero, sobre_nosotros, historia_2003, preescolar, explorers.')
                         ->required()
                         ->maxLength(255),
 

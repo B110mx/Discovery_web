@@ -29,7 +29,7 @@
                 <p class="font-semibold uppercase tracking-wide text-sm text-blue-700">{{ $paginaNosotros?->subtitulo ?? 'Conócenos' }}</p>
                 <h1 class="text-4xl md:text-5xl font-bold mt-3 text-black">{{ $paginaNosotros?->titulo ?? 'Colegio Discovery' }}</h1>
                 <p class="text-gray-600 text-lg mt-5 max-w-xl">
-                    {{ $paginaNosotros?->descripcion ?? 'Una comunidad educativa que acompaña a cada estudiante en su crecimiento académico, humano y social.' }}
+                    {{ $paginaNosotros?->descripcion ?? 'Una comunidad educativa que acompaña a cada Explorer en su crecimiento académico, humano y social.' }}
                 </p>
                 <div class="mt-8">
                     <a href="#historia" class="bg-blue-700 text-white px-6 py-3 rounded font-semibold hover:bg-blue-800 transition-colors">
@@ -54,7 +54,7 @@
                 En Discovery formamos en valores, actitudes y virtudes que impactan en el crecimiento personal y social del individuo.
             </p>
             <p class="text-gray-700 leading-7 mt-4">
-                Nuestros estudiantes desarrollan herramientas para liderar, participar responsablemente y aportar a un mundo mejor.
+                Nuestros Explorers desarrollan herramientas para participar responsablemente y aportar a un mundo mejor.
             </p>
         </section>
 
@@ -80,7 +80,7 @@
                 <p class="font-semibold uppercase tracking-wide text-sm text-blue-700">Modelo Educativo</p>
                 <h2 class="text-3xl font-bold text-black mt-2">Planeación estratégica para el futuro</h2>
                 <p class="text-gray-700 leading-7 mt-5">
-                    Trabajamos con una planeación que enfoca los recursos en las necesidades futuras de nuestros alumnos.
+                    Trabajamos con una planeación que enfoca los recursos en las necesidades futuras de nuestros Explorers.
                 </p>
                 <div class="grid sm:grid-cols-2 gap-4 mt-7">
                     @foreach ($areas as $area)
@@ -108,7 +108,7 @@
                 <p class="font-semibold uppercase tracking-wide text-sm text-blue-700">Proyección académica</p>
                 <h2 class="text-3xl md:text-4xl font-bold text-black mt-2">Vinculación Universitaria</h2>
                 <p class="text-gray-700 leading-8 mt-5">
-                    Acompañamos a nuestros estudiantes en la construcción de su proyecto de vida, acercándolos a opciones universitarias, experiencias de orientación vocacional y herramientas para tomar decisiones informadas sobre su futuro.
+                    Acompañamos a nuestros Explorers en la construcción de su proyecto de vida, acercándolos a opciones universitarias, experiencias de orientación vocacional y herramientas para tomar decisiones informadas sobre su futuro.
                 </p>
 
                 <div class="grid sm:grid-cols-3 gap-3 mt-7">

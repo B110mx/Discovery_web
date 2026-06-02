@@ -12,11 +12,6 @@ return new class extends Migration
             $table->index(['activo', 'orden']);
         });
 
-        Schema::table('pedidos', function (Blueprint $table) {
-            $table->index('estado');
-            $table->index('created_at');
-        });
-
         Schema::table('contactos', function (Blueprint $table) {
             $table->index('created_at');
         });
@@ -30,11 +25,6 @@ return new class extends Migration
     {
         Schema::table('eventos', function (Blueprint $table) {
             $table->dropIndex(['activo', 'orden']);
-        });
-
-        Schema::table('pedidos', function (Blueprint $table) {
-            $table->dropIndex(['estado']);
-            $table->dropIndex(['created_at']);
         });
 
         Schema::table('contactos', function (Blueprint $table) {

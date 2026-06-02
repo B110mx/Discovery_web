@@ -12,7 +12,7 @@
     $destacados = $nivel['informacion']['destacados'] ?? [
         [
             'titulo' => 'Acompañamiento',
-            'texto' => 'Seguimiento cercano para que cada estudiante avance con confianza.',
+            'texto' => 'Seguimiento cercano para que cada Explorer avance con confianza.',
         ],
         [
             'titulo' => 'Aprendizaje',
@@ -20,9 +20,162 @@
         ],
         [
             'titulo' => 'Comunidad',
-            'texto' => 'Una relación cercana entre estudiantes, docentes y familias.',
+            'texto' => 'Una relación cercana entre Explorers, docentes y familias.',
         ],
     ];
+    $kinderIdeal = [
+        [
+            'icono' => 'feet',
+            'titulo' => 'Programas de neuroaprendizaje',
+            'texto' => 'Neuromotor, audiomotor y Spark.',
+        ],
+        [
+            'icono' => 'language',
+            'titulo' => 'Educacion Bilingue y Trilingue',
+            'texto' => 'Ingles, Espanol y desde 5 de Primaria se incorpora Frances.',
+        ],
+        [
+            'icono' => 'ib',
+            'titulo' => 'Perfil IB',
+            'texto' => 'Nuestros programas estan alineados a la Organizacion del Bachillerato Internacional (IB), incluso desde los primeros anos.',
+        ],
+        [
+            'icono' => 'academias',
+            'titulo' => 'Academias Vespertinas',
+            'texto' => 'Futbol, Basquetbol, Ajedrez, Origami, Atletismo y UrbanKids. Para padres: Club de conversacion en Ingles, Flamenco y Musica.',
+        ],
+        [
+            'icono' => 'atencion',
+            'titulo' => 'Atencion personalizada',
+            'texto' => 'Grupos reducidos de 14 a 24 Explorers.',
+        ],
+        [
+            'icono' => 'bienestar',
+            'titulo' => 'Bienestar emocional y preceptoria',
+            'texto' => 'Los acompanamos en su desarrollo emocional y academico.',
+        ],
+    ];
+    $primariaIdeal = [
+        [
+            'icono' => 'language',
+            'titulo' => 'Educacion Bilingue y Trilingue',
+            'texto' => 'Ingles, Espanol y desde 5 de Primaria se incorpora Frances.',
+        ],
+        [
+            'icono' => 'ib',
+            'titulo' => 'Perfil IB',
+            'texto' => 'Nuestros explorers desarrollan una mentalidad internacional a traves de Unidades de Indagacion.',
+        ],
+        [
+            'icono' => 'arts',
+            'titulo' => 'Artes y Deportes integrados',
+            'texto' => 'Danza, Teatro, Musica, Artes Visuales y deporte diario.',
+        ],
+        [
+            'icono' => 'academias',
+            'titulo' => 'Academias Vespertinas',
+            'texto' => 'Futbol, Basquetbol, Ajedrez, Origami, Atletismo y UrbanKids. Para padres: Club de conversacion en Ingles, Flamenco y Musica.',
+        ],
+        [
+            'icono' => 'atencion',
+            'titulo' => 'Atencion personalizada',
+            'texto' => 'Grupos reducidos de 14 a 24 Explorers. Esto permite acompanamiento individualizado en lo academico y emocional.',
+        ],
+        [
+            'icono' => 'bienestar',
+            'titulo' => 'Bienestar emocional y preceptoria',
+            'texto' => 'Los acompanamos en su desarrollo emocional y academico con sesiones que fortalecen su autoestima, empatia y habilidades sociales.',
+        ],
+    ];
+    $secundariaIdeal = [
+        [
+            'icono' => 'language',
+            'titulo' => 'Educacion Bilingue y Trilingue',
+            'texto' => 'Ingles, Espanol y desde 5 de Primaria se incorpora Frances. Ingles, Espanol y Frances con mas de 15 bloques a la semana.',
+        ],
+        [
+            'icono' => 'skills',
+            'titulo' => 'Habilidades del Siglo XXI',
+            'texto' => 'Enfoques de aprendizaje de pensamiento, autogestion, comunicacion, investigacion y sociales.',
+        ],
+        [
+            'icono' => 'ib',
+            'titulo' => 'Perfil IB',
+            'texto' => 'Nuestros explorers desarrollan una mentalidad internacional a traves de Proyectos Interdisciplinarios.',
+        ],
+        [
+            'icono' => 'arts',
+            'titulo' => 'Artes y Deportes integrados',
+            'texto' => 'Deporte diario: Futbol, Basquetbol, Voleibol y Tenis, Danza, Teatro, Musica y Artes Visuales. Equipos de Voleibol y Basquetbol que compiten en ligas.',
+        ],
+        [
+            'icono' => 'academias',
+            'titulo' => 'Academias Vespertinas',
+            'texto' => 'Futbol, Basquetbol, Ajedrez, Origami, Atletismo y UrbanKids. Para padres: Club de conversacion en Ingles, Flamenco y Musica.',
+        ],
+        [
+            'icono' => 'bienestar-head',
+            'titulo' => 'Bienestar emocional y preceptoria',
+            'texto' => 'Programa de bienestar emocional y preceptoria hasta el ultimo ano.',
+        ],
+    ];
+    $bachilleratoIdeal = [
+        [
+            'icono' => 'language',
+            'titulo' => 'Educacion Bilingue y Trilingue',
+            'texto' => 'Ingles, Espanol y Frances. 15 bloques a la semana en Ingles.',
+        ],
+        [
+            'icono' => 'graduation',
+            'titulo' => 'Becas universitarios',
+            'texto' => 'Mas del 70% de nuestros egresados obtienen becas en las mejores universidades del pais y en el extranjero.',
+        ],
+        [
+            'icono' => 'ib',
+            'titulo' => 'Perfil IB',
+            'texto' => 'Somos Bachillerato IB oficial con validez Internacional. Programa del Diploma y desarrollo del perfil IB.',
+        ],
+        [
+            'icono' => 'arts',
+            'titulo' => 'Artes y Deportes integrados',
+            'texto' => 'Formacion artistica y deportiva, que favorecen tu desarrollo fisico y emocional.',
+        ],
+        [
+            'icono' => 'vocation',
+            'titulo' => 'Orientacion vocacional personalizada',
+            'texto' => 'Te acompanamos con orientacion vocacional, asesoria para admisiones y seguimiento individual.',
+        ],
+        [
+            'icono' => 'bienestar-head',
+            'titulo' => 'Bienestar emocional y preceptoria',
+            'texto' => 'Programa de bienestar emocional y preceptoria hasta el ultimo ano.',
+        ],
+        [
+            'icono' => 'skills',
+            'titulo' => 'Habilidades del Siglo XXI',
+            'texto' => 'Enfoques de aprendizaje de pensamiento, autogestion, comunicacion, investigacion y sociales.',
+        ],
+    ];
+    $bloqueIdeal = match ($nivel['slug'] ?? null) {
+        'preescolar' => [
+            'titulo' => '¿Por qué somos el kinder ideal para tus hijos?',
+            'items' => $kinderIdeal,
+        ],
+        'primaria' => [
+            'titulo' => '¿Por qué somos la primaria para tus hijos?',
+            'items' => $primariaIdeal,
+        ],
+        'secundaria' => [
+            'titulo' => '¿Por qué somos la secundaria que más ayudará a tus hijos a convertirse en su mejor versión?',
+            'items' => $secundariaIdeal,
+        ],
+        'bachillerato' => [
+            'titulo' => '¿Por qué somos la mejor prepa?',
+            'items' => $bachilleratoIdeal,
+        ],
+        default => null,
+    };
+    $bloqueIdealGrid = $bloqueIdeal && count($bloqueIdeal['items']) === 7 ? 'xl:grid-cols-7' : 'xl:grid-cols-6';
 @endphp
 
 <section class="max-w-6xl mx-auto">
@@ -115,7 +268,7 @@
                             <h3 class="mt-2 text-2xl font-extrabold text-black">{{ $nivel['informacion']['cierre']['titulo'] ?? 'Colegio acreditado para impartir el Programa del Diploma' }}</h3>
                         </div>
                         <p class="leading-8 text-gray-600">
-                            {{ $nivel['informacion']['cierre']['texto'] ?? 'El Programa del Diploma del IB permite que los estudiantes profundicen en sus conocimientos, fortalezcan dos lenguas, desarrollen criterio ético y construyan una visión internacional para su siguiente etapa académica.' }}
+                            {{ $nivel['informacion']['cierre']['texto'] ?? 'El Programa del Diploma del IB permite que los Explorers profundicen en sus conocimientos, fortalezcan dos lenguas, desarrollen criterio ético y construyan una visión internacional para su siguiente etapa académica.' }}
                         </p>
                     </div>
                 </div>
@@ -130,6 +283,131 @@
             </div>
         </section>
     @elseif (! empty($nivel['informacion']))
+        @if ($bloqueIdeal)
+            <section class="mt-12 rounded-xl border px-5 py-10 shadow-md {{ $tema['soft'] }} md:px-8 lg:px-10">
+                <h2 class="text-center text-3xl font-extrabold uppercase {{ $tema['heading'] }} md:text-4xl">
+                    {{ $bloqueIdeal['titulo'] }}
+                </h2>
+
+                <div class="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-3 {{ $bloqueIdealGrid }}">
+                    @foreach ($bloqueIdeal['items'] as $item)
+                        <article class="flex flex-col items-center text-center">
+                            <div class="flex h-20 items-center justify-center {{ $tema['heading'] }}">
+                                @switch($item['icono'])
+                                    @case('feet')
+                                        <svg class="h-16 w-16" viewBox="0 0 64 64" fill="currentColor" aria-hidden="true">
+                                            <path d="M19.5 30.5c6.1 0 10.5 6 10.5 13.2 0 7.8-4.5 13.3-10.2 13.3-6.5 0-11.4-7.4-11.4-15 0-6.5 4.1-11.5 11.1-11.5z"></path>
+                                            <path d="M43.7 22.2c5.2.8 8.5 6.5 7.5 12.6-1.1 6.8-5.8 11-10.7 10.2-5.7-.9-8.9-7.9-7.8-14.5 1-5.9 4.9-9.2 11-8.3z"></path>
+                                            <circle cx="9.9" cy="26" r="2.2"></circle>
+                                            <circle cx="15.1" cy="21" r="2.1"></circle>
+                                            <circle cx="21.4" cy="18.4" r="2"></circle>
+                                            <circle cx="28" cy="18.6" r="1.9"></circle>
+                                            <circle cx="50.4" cy="16.3" r="1.9"></circle>
+                                            <circle cx="45.4" cy="12.6" r="1.8"></circle>
+                                            <circle cx="39.6" cy="10.9" r="1.7"></circle>
+                                            <circle cx="33.9" cy="11.7" r="1.6"></circle>
+                                        </svg>
+                                        @break
+                                    @case('language')
+                                        <svg class="h-16 w-16" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
+                                            <circle cx="32" cy="32" r="23"></circle>
+                                            <path d="M10 32h44M32 9c-8 8-10 34 0 46M32 9c8 8 10 34 0 46"></path>
+                                            <path d="M17 20h30M17 44h30"></path>
+                                            <rect x="35" y="13" width="21" height="16" rx="5" fill="#f3f4f6"></rect>
+                                            <path d="M41 21h9M41 25h6"></path>
+                                            <rect x="8" y="36" width="20" height="16" rx="5" fill="#f3f4f6"></rect>
+                                            <path d="M14 44h8M14 48h6"></path>
+                                        </svg>
+                                        @break
+                                    @case('ib')
+                                        <svg class="h-16 w-16" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+                                            <circle cx="32" cy="32" r="24" fill="#fff" stroke="currentColor" stroke-width="3"></circle>
+                                            <text x="32" y="42" text-anchor="middle" font-size="28" font-weight="800" fill="currentColor" font-family="Georgia, serif">ib</text>
+                                            <circle cx="32" cy="32" r="29" stroke="currentColor" stroke-width="1" stroke-dasharray="2 3"></circle>
+                                        </svg>
+                                        @break
+                                    @case('skills')
+                                        <svg class="h-16 w-16" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
+                                            <rect x="8" y="12" width="16" height="14" rx="4"></rect>
+                                            <rect x="40" y="12" width="16" height="14" rx="4"></rect>
+                                            <rect x="8" y="38" width="16" height="14" rx="4"></rect>
+                                            <rect x="40" y="38" width="16" height="14" rx="4"></rect>
+                                            <circle cx="32" cy="32" r="8"></circle>
+                                            <path d="M24 19h8v5M40 19h-8v5M24 45h8v-5M40 45h-8v-5"></path>
+                                            <path d="M29 32h6M32 29v6"></path>
+                                        </svg>
+                                        @break
+                                    @case('graduation')
+                                        <svg class="h-16 w-16" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
+                                            <path d="M8 23 32 11l24 12-24 12L8 23z"></path>
+                                            <path d="M18 30v11c7 7 21 7 28 0V30"></path>
+                                            <path d="M48 27v16"></path>
+                                            <path d="M22 51h20"></path>
+                                            <path d="M28 42h8v9h-8z"></path>
+                                        </svg>
+                                        @break
+                                    @case('academias')
+                                        <svg class="h-16 w-16" viewBox="0 0 64 64" fill="currentColor" aria-hidden="true">
+                                            <circle cx="20" cy="20" r="5"></circle>
+                                            <circle cx="43" cy="19" r="5"></circle>
+                                            <path d="M15 29c-3 2-5 6-5 11h7v14h7V40h5v14h7V39c0-6-4-10-10-10H15z"></path>
+                                            <path d="M40 29c-5 0-9 4-9 9v3h6v13h7V41h4v13h7V40c0-7-5-11-15-11z"></path>
+                                            <path d="M25 27c4 4 10 4 14 0" fill="none" stroke="#f3f4f6" stroke-width="3" stroke-linecap="round"></path>
+                                        </svg>
+                                        @break
+                                    @case('arts')
+                                        <svg class="h-16 w-16" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
+                                            <path d="M13 15c8-4 19-1 25 6-1 11-9 20-20 21-6-5-9-17-5-27z"></path>
+                                            <path d="M18 24c2 2 5 2 7 0M31 25c2 1 4 1 6-1M22 34c4 3 9 2 12-2"></path>
+                                            <circle cx="47" cy="36" r="12"></circle>
+                                            <path d="M35 36h24M47 24c5 6 5 18 0 24M47 24c-5 6-5 18 0 24"></path>
+                                            <path d="M11 44c6-4 13-3 17 1 4-4 11-5 17-1-3 6-9 10-17 10s-14-4-17-10z"></path>
+                                        </svg>
+                                        @break
+                                    @case('atencion')
+                                        <svg class="h-16 w-16" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
+                                            <path d="M17 54c5-8 14-9 23-8 7 1 12-3 14-10"></path>
+                                            <path d="M18 42c4-8 12-10 20-8 6 1 10-1 14-6"></path>
+                                            <circle cx="32" cy="23" r="8"></circle>
+                                            <path d="M18 32c-2-6 2-14 10-17M46 32c4-5 1-14-7-17M25 24h14"></path>
+                                            <path d="M21 17c-5 2-8 7-8 13M43 17c5 2 8 7 8 13"></path>
+                                        </svg>
+                                        @break
+                                    @case('bienestar-head')
+                                        <svg class="h-16 w-16" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
+                                            <path d="M25 54H14V36c0-12 9-22 22-22 11 0 20 8 20 19 0 7-3 12-8 16v5H36"></path>
+                                            <path d="M39 27c-4-4-9-1-9 4 0 6 9 11 9 11s9-5 9-11c0-5-5-8-9-4z"></path>
+                                            <path d="M18 38h10M18 45h13"></path>
+                                        </svg>
+                                        @break
+                                    @case('vocation')
+                                        <svg class="h-16 w-16" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
+                                            <path d="M9 42h12l10 7h14c5 0 9-4 10-9"></path>
+                                            <path d="M9 31h13l10 7h9c3 0 5-2 5-5"></path>
+                                            <path d="M14 30V14h16v14"></path>
+                                            <path d="M18 14v-4h8v4"></path>
+                                            <circle cx="47" cy="17" r="7"></circle>
+                                            <path d="M47 24v12M39 38h16"></path>
+                                            <path d="M43 18l3 3 6-7"></path>
+                                        </svg>
+                                        @break
+                                    @default
+                                        <svg class="h-16 w-16" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
+                                            <path d="M20 35c-6-6-12-2-12 4 0 8 12 15 12 15s12-7 12-15c0-6-6-10-12-4z"></path>
+                                            <path d="M44 35c-6-6-12-2-12 4 0 8 12 15 12 15s12-7 12-15c0-6-6-10-12-4z"></path>
+                                            <path d="M17 26 34 9c4-4 11 2 7 7L28 29"></path>
+                                            <path d="M39 29 51 17c4-4 11 2 7 7L44 38"></path>
+                                        </svg>
+                                @endswitch
+                            </div>
+                            <h3 class="mt-4 text-lg font-extrabold leading-6 {{ $tema['heading'] }}">{{ $item['titulo'] }}</h3>
+                            <p class="mt-5 text-base leading-7 text-black">{{ $item['texto'] }}</p>
+                        </article>
+                    @endforeach
+                </div>
+            </section>
+        @endif
+
         <section class="mt-12 overflow-hidden rounded-xl bg-white shadow-md">
             <div class="{{ $tema['hero'] }} p-6 md:p-8">
                 <div class="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">

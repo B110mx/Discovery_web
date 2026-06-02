@@ -17,6 +17,7 @@
 
     @include('components.footer')
 
+    <x-explorer-help-button />
     <x-whatsapp-button />
 
 </body>

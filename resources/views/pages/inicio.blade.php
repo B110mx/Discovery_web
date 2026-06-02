@@ -2,19 +2,26 @@
 
 @section('content')
 
-<div class="bg-blue-600 text-white py-20 text-center rounded-xl shadow-lg">
-    <h1 class="text-5xl font-bold mb-6">
-        {{ $paginaInicio?->titulo ?? 'Colegio Internacional Discovery' }}
-    </h1>
-
-    <p class="text-xl mb-6">
-        {{ $paginaInicio?->descripcion ?? 'Formando líderes del futuro con educación de excelencia' }}
-    </p>
-
-    <a href="{{ route('nosotros') }}" class="bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-200">
-        Conocer más
+<section class="relative overflow-hidden rounded-xl bg-white shadow-lg">
+    <a href="{{ route('nosotros') }}" class="block" aria-label="Conocer mas sobre Colegio Discovery">
+        <x-imagen-seccion
+            :imagen="$bannerInicio"
+            alt="{{ $paginaInicio?->titulo ?? 'Colegio Internacional Discovery' }}"
+            class="aspect-[1916/821] w-full bg-white object-contain"
+            placeholder-class="aspect-[1916/821] w-full"
+            loading="eager"
+            fetchpriority="high"
+        />
     </a>
-</div>
+
+    <a
+        href="{{ route('nosotros') }}"
+        class="absolute right-4 top-4 inline-flex items-center justify-center rounded bg-white px-5 py-2.5 text-sm font-extrabold text-blue-700 shadow-md transition hover:bg-blue-50 md:right-6 md:top-6 md:text-base"
+    >
+        Saber más
+    </a>
+</section>
+
 
 @if (! empty($eventos))
     <section class="mt-16 overflow-hidden rounded-xl bg-white shadow-lg animate-on-scroll">
@@ -162,7 +169,7 @@
             <p class="text-gray-600 leading-7 flex-1">
                 <span class="text-sky-500">El mejor Bachillerato de Tehuacán.</span>
                 Somos una Institución Educativa en Nivel Medio Superior de calidad y a la vanguardia para establecer
-                nuevas oportunidades de aprendizaje holístico en nuestros alumnos en
+                nuevas oportunidades de aprendizaje holístico en nuestros Explorers en
                 <span class="text-sky-500">La mejor preparatoria de Tehuacán</span>.
             </p>
             <a href="{{ route('nivel', 'bachillerato') }}" class="mt-10 inline-flex w-fit items-center justify-center rounded bg-green-500 px-6 py-3 font-bold text-white hover:bg-green-600">
@@ -184,8 +191,8 @@
         </p>
 
         <p class="text-gray-700">
-            Nuestro objetivo es formar estudiantes preparados para enfrentar
-            los retos del futuro con confianza y liderazgo.
+            Nuestro objetivo es formar Explorers preparados para enfrentar
+            los retos del futuro con confianza.
         </p>
     </div>
 
@@ -231,14 +238,27 @@
             <div class="flex transition-transform duration-500 ease-out" data-video-track>
                 @foreach ($testimonios as $video)
                     <article class="flex-shrink-0 w-full sm:w-1/2 lg:w-1/3 px-1 md:px-3">
-                        <div class="bg-gray-100 rounded-lg overflow-hidden shadow-sm">
+                        <div class="relative aspect-video overflow-hidden rounded-lg bg-white shadow-sm">
                             <video
                                 src="{{ $video['url'] }}"
                                 controls
-                                preload="metadata"
+                                preload="none"
                                 playsinline
-                                class="w-full aspect-video bg-black"
+                                class="block h-full w-full bg-white object-contain"
                             ></video>
+                            <button
+                                type="button"
+                                class="absolute inset-0 flex items-center justify-center bg-white p-8 transition-opacity"
+                                data-home-video-poster
+                                aria-label="Reproducir {{ $video['titulo'] }}"
+                            >
+                                <img
+                                    src="{{ url('/media/Logos%20principales/' . rawurlencode('LOGO DISCOVERY PNG.png')) }}"
+                                    alt=""
+                                    class="max-h-32 max-w-[78%] object-contain"
+                                    loading="lazy"
+                                >
+                            </button>
                         </div>
                         <h3 class="text-xl font-bold text-black mt-4">{{ $video['titulo'] }}</h3>
                     </article>
@@ -352,7 +372,7 @@
             }
 
             videoIndex = Math.max(0, Math.min(index, getMaxVideoIndex()));
-            videoTrack.style.transform = `translateX(-${videoSlides[videoIndex].offsetLeft}px)`;
+            videoTrack.style.transform = `translateX(-${videoIndex === 0 ? 0 : videoSlides[videoIndex].offsetLeft}px)`;
             activateDots(videoDots, videoIndex, 'h-3 w-8 rounded-full bg-blue-700', 'h-3 w-3 rounded-full bg-gray-300');
         };
 
@@ -372,9 +392,24 @@
             });
         });
 
-        videos.forEach((video, index) => {
+        videos.forEach((video) => {
+            const poster = video.parentElement?.querySelector('[data-home-video-poster]');
+
+            poster?.addEventListener('click', () => {
+                video.play();
+            });
+
             video.addEventListener('play', () => {
+                poster?.classList.add('opacity-0', 'pointer-events-none');
                 pauseOtherVideos(video);
+            });
+
+            video.addEventListener('pause', () => {
+                poster?.classList.remove('opacity-0', 'pointer-events-none');
+            });
+
+            video.addEventListener('ended', () => {
+                poster?.classList.remove('opacity-0', 'pointer-events-none');
             });
         });
 

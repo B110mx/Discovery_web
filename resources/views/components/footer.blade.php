@@ -25,7 +25,6 @@
                 <li><a href="{{ route('oferta-academica') }}" class="hover:text-white">Oferta Educativa</a></li>
                 <li><a href="{{ route('protagonistas') }}" class="hover:text-white">Comunidad</a></li>
                 <li><a href="{{ route('recursos-escolares') }}" class="hover:text-white">Recursos escolares</a></li>
-                <li><a href="{{ route('tienda') }}" class="hover:text-white">Tienda</a></li>
                 <li><a href="{{ route('contacto') }}" class="hover:text-white">Contacto</a></li>
             </ul>
         </div>
