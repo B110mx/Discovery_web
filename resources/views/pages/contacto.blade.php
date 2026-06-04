@@ -55,6 +55,12 @@
         </div>
     @endif
 
+    @if (session('error'))
+        <div class="rounded-lg border border-red-200 bg-red-50 p-4 font-semibold text-red-800">
+            {{ session('error') }}
+        </div>
+    @endif
+
     <div class="grid gap-8 lg:grid-cols-[1.15fr_.85fr]">
         <form action="{{ route('contacto.store') }}" method="POST" class="rounded-lg bg-white p-6 shadow-md md:p-8">
             @csrf

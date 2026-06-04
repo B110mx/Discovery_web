@@ -127,6 +127,35 @@
         </section>
 
         <aside class="space-y-6">
+            <section class="overflow-hidden rounded-xl bg-white shadow-md">
+                <div class="bg-[#5263ff] p-5">
+                    <img
+                        src="{{ asset('images/cometa-logo.svg') }}"
+                        alt="Cometa"
+                        class="h-14 w-auto"
+                        loading="lazy"
+                    >
+                </div>
+                <div class="p-6 md:p-8">
+                    <p class="text-sm font-bold uppercase tracking-wide text-blue-700">Portal de pagos</p>
+                    <h2 class="mt-2 text-2xl font-extrabold text-black">Acceso a Cometa</h2>
+                    <p class="mt-3 text-sm font-semibold leading-6 text-gray-700">
+                        Para realizar el pedido y pago de los utiles escolares ingresa a:
+                    </p>
+                    <a
+                        href="https://portal.getcometa.com/"
+                        target="_blank"
+                        rel="noopener"
+                        class="mt-5 inline-flex rounded bg-red-600 px-5 py-3 text-sm font-extrabold text-white hover:bg-red-700"
+                    >
+                        Abrir Cometa
+                    </a>
+                    <div class="mt-4 rounded-lg border border-yellow-300 bg-yellow-50 p-4 text-sm font-semibold leading-6 text-yellow-900">
+                        Si eres padre de familia o tutor de nuevo ingreso, comunicate con Cobranza antes de acceder para que puedan habilitarte sin problema.
+                    </div>
+                </div>
+            </section>
+
             @if (! empty($calendarioEscolarUrl))
                 <section class="overflow-hidden rounded-xl bg-white shadow-md">
                     <div class="p-6 md:p-8">

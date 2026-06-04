@@ -10,9 +10,11 @@ use App\Models\SeccionImagen;
 use App\Models\TestimonioVideo;
 use App\Support\SiteCache;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Throwable;
 
 class PageController extends Controller
 {
@@ -77,6 +79,22 @@ class PageController extends Controller
             'titulo' => 'Banner de bienvenida',
             'referencia' => 'Banner principal de la vista de inicio.',
         ];
+        $bannerInicioSlides = $this->mediaFiles('Banner de inicio')
+            ->filter(fn (string $path) => in_array(strtolower(pathinfo($path, PATHINFO_EXTENSION)), config('colegio.media.image_extensions', []), true))
+            ->sortBy(fn (string $path) => str_starts_with(strtolower(pathinfo($path, PATHINFO_FILENAME)), 'banner de bienvenida') ? '000-' . $path : '100-' . $path)
+            ->map(fn (string $path) => [
+                'url' => $this->generarMediaUrl($path),
+                'titulo' => pathinfo($path, PATHINFO_FILENAME),
+                'referencia' => 'Banner principal de la vista de inicio.',
+                'pendiente' => false,
+            ])
+            ->values()
+            ->all();
+
+        if (empty($bannerInicioSlides)) {
+            $bannerInicioSlides = [$bannerInicio];
+        }
+
         $imagenesInicio = $this->imagenesVista('inicio', [
             'sobre_nosotros' => [
                 'titulo' => 'Inicio - Sobre Nosotros',
@@ -86,7 +104,7 @@ class PageController extends Controller
             ],
         ]);
 
-        return view('pages.inicio', compact('eventos', 'testimonios', 'logosNiveles', 'imagenesInicio', 'paginaInicio', 'bannerInicio'));
+        return view('pages.inicio', compact('eventos', 'testimonios', 'logosNiveles', 'imagenesInicio', 'paginaInicio', 'bannerInicio', 'bannerInicioSlides'));
     }
 
     public function nosotros(): View
@@ -213,7 +231,10 @@ class PageController extends Controller
         $nivelContenido['slug'] = $nivel;
         $nivelContenido['tema'] = $this->obtenerTemaNivel($nivel);
         $nivelContenido['logo'] = isset($nivelContenido['logo_path'])
-            ? $this->generarMediaUrlDesdeRuta($nivelContenido['logo_path'])
+            ? $this->mediaUrlIfExists($nivelContenido['logo_path'])
+            : null;
+        $nivelContenido['logo_extendido'] = isset($nivelContenido['logo_extendido_path'])
+            ? $this->mediaUrlIfExists($nivelContenido['logo_extendido_path'])
             : null;
         $nivelContenido['hoja_informativa_url'] = isset($nivelContenido['hoja_informativa_path'])
             ? $this->generarMediaUrlDesdeRuta($nivelContenido['hoja_informativa_path'])
@@ -268,13 +289,29 @@ class PageController extends Controller
     public function serveMedia(string $path): BinaryFileResponse
     {
         $path = $this->normalizarMediaPath($path);
-        $disk = Storage::disk($this->mediaDisk());
+        $filePath = null;
 
-        abort_unless($path && $disk->exists($path), 404);
+        if (! $path) {
+            abort(404);
+        }
 
-        $filePath = $disk->path($path);
+        try {
+            $disk = Storage::disk($this->mediaDisk());
 
-        abort_unless(is_file($filePath), 404);
+            if ($disk->exists($path)) {
+                $filePath = $disk->path($path);
+            }
+        } catch (Throwable $exception) {
+            Log::warning('No se pudo servir el archivo multimedia.', [
+                'path' => $path,
+                'disk' => $this->mediaDisk(),
+                'error' => $exception->getMessage(),
+            ]);
+
+            abort(404);
+        }
+
+        abort_unless($filePath && is_file($filePath), 404);
 
         return response()->file($filePath);
     }

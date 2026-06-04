@@ -52,20 +52,22 @@ class HitoHistoriaForm
                             ->schema([
                                 FileUpload::make('imagen_url')
                                     ->label('Imagen principal')
-                                    ->helperText('Foto principal del momento.')
+                                    ->helperText('Foto principal del momento. Maximo 6 MB.')
                                     ->image()
+                                    ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])
                                     ->disk('public')
                                     ->directory('historia')
                                     ->visibility('public')
-                                    ->maxSize(8192),
+                                    ->maxSize(6144),
                                 FileUpload::make('imagen_secundaria_url')
                                     ->label('Imagen secundaria')
-                                    ->helperText('Opcional. Sirve para mostrar una segunda foto del mismo momento.')
+                                    ->helperText('Opcional. Sirve para mostrar una segunda foto del mismo momento. Maximo 6 MB.')
                                     ->image()
+                                    ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])
                                     ->disk('public')
                                     ->directory('historia')
                                     ->visibility('public')
-                                    ->maxSize(8192),
+                                    ->maxSize(6144),
                             ]),
                     ]),
             ]);

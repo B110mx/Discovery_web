@@ -182,12 +182,18 @@
     <div class="{{ $tema['hero'] }} rounded-xl shadow-lg overflow-hidden">
         <div class="grid md:grid-cols-[.95fr_1.05fr] md:items-stretch">
             <div class="flex flex-col justify-center p-6 md:p-8">
-                @if (! empty($nivel['logo']))
-                    <img
-                        src="{{ $nivel['logo'] }}"
-                        alt="Logo {{ $nivel['titulo'] }}"
-                        class="mb-4 h-16 w-auto max-w-full rounded bg-white p-2 object-contain shadow-md md:h-20"
-                    >
+                @if (! empty($nivel['logo_extendido'] ?? $nivel['logo']))
+                    @php
+                        $logoHero = $nivel['logo_extendido'] ?? $nivel['logo'];
+                        $usaLogoExtendido = ! empty($nivel['logo_extendido']);
+                    @endphp
+                    <div class="{{ $usaLogoExtendido ? 'aspect-[3/1] w-80 overflow-hidden md:w-[26rem]' : 'flex h-16 w-fit items-center p-2 md:h-20' }} mx-auto mb-4 max-w-full rounded bg-white shadow-md">
+                        <img
+                            src="{{ $logoHero }}"
+                            alt="Logo {{ $nivel['titulo'] }}"
+                            class="{{ $usaLogoExtendido ? 'h-full w-full object-cover' : 'h-full w-auto max-w-full object-contain' }}"
+                        >
+                    </div>
                 @endif
 
                 <p class="font-semibold uppercase tracking-wide text-xs md:text-sm">Oferta Educativa</p>
@@ -198,8 +204,8 @@
             <x-imagen-seccion
                 :imagen="$imagenPrincipal"
                 alt="{{ $nivel['titulo'] }}"
-                class="h-48 w-full {{ ($nivel['slug'] ?? null) === 'ib-en-discovery' ? 'bg-white object-contain p-4' : 'object-cover' }} sm:h-56 md:h-full md:max-h-72"
-                placeholder-class="h-48 sm:h-56 md:h-72"
+                class="h-48 w-full {{ ($nivel['slug'] ?? null) === 'ib-en-discovery' ? 'bg-white object-contain p-4' : 'object-cover' }} sm:h-56 md:h-[26rem]"
+                placeholder-class="h-48 sm:h-56 md:h-[26rem]"
             />
         </div>
     </div>

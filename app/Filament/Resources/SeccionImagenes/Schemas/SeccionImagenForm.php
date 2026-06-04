@@ -71,12 +71,13 @@ class SeccionImagenForm
 
                     FileUpload::make('imagen')
                         ->label('Subir imagen manualmente')
-                        ->helperText('Opcional. Usalo solo si la imagen no existe en /videosyfotos.')
+                        ->helperText('Opcional. Usalo solo si la imagen no existe en /videosyfotos. Maximo 6 MB.')
                         ->image()
+                        ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])
                         ->disk('public')
                         ->directory('secciones')
                         ->visibility('public')
-                        ->maxSize(8192)
+                        ->maxSize(6144)
                         ->columnSpanFull(),
 
                     Toggle::make('activo')

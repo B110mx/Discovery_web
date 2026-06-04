@@ -58,12 +58,13 @@ class EventoForm
 
                         FileUpload::make('imagen_url')
                             ->label('O subir imagen nueva')
-                            ->helperText('Usalo solo si la imagen no existe en /videosyfotos. Formato recomendado: horizontal o cartel legible.')
+                            ->helperText('Usalo solo si la imagen no existe en /videosyfotos. Maximo 6 MB. Formato recomendado: horizontal o cartel legible.')
                             ->image()
+                            ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])
                             ->disk('public')
                             ->directory('eventos')
                             ->visibility('public')
-                            ->maxSize(8192)
+                            ->maxSize(6144)
                             ->columnSpanFull(),
                     ]),
             ]);

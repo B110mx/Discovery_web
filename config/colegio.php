@@ -171,7 +171,7 @@ return [
             ['titulo' => 'Bachillerato', 'clave' => 'bachillerato', 'color' => 'bg-green-600', 'referencia' => 'Imagen para representar Bachillerato dentro de Comunidad.', 'media_path' => 'High fotos actuales/1234.jpg'],
         ],
         'protagonistas' => [
-            'alumnos' => ['titulo' => 'Comunidad - Explorers', 'color' => 'bg-red-600', 'referencia' => 'Imagen para representar a los Explorers en la seccion Quienes hacen viva nuestra comunidad.', 'media_path' => 'Elementary fotos actuales/IMG_5684.JPG', 'media_directory' => 'Elementary fotos actuales'],
+            'alumnos' => ['titulo' => 'Comunidad - Explorers', 'color' => 'bg-red-600', 'referencia' => 'Imagen para representar a los Explorers en la seccion Quienes hacen viva nuestra comunidad.', 'media_path' => 'Comunidad Explorers/1234.jpg', 'media_directory' => 'Comunidad Explorers'],
             'docentes' => ['titulo' => 'Comunidad - Docentes', 'color' => 'bg-blue-700', 'referencia' => 'Imagen para representar a docentes en la seccion Quienes hacen viva nuestra comunidad.', 'media_path' => 'Fotos Docentes/1.png', 'media_directory' => 'Fotos Docentes'],
             'padres' => ['titulo' => 'Comunidad - Familias', 'color' => 'bg-lime-500', 'referencia' => 'Imagen para representar a familias en la seccion Quienes hacen viva nuestra comunidad.', 'media_path' => 'Fotos Padres de Familia/3.png', 'media_directory' => 'Fotos Padres de Familia'],
             'alumni' => ['titulo' => 'Comunidad - Alumni', 'color' => 'bg-green-600', 'referencia' => 'Imagen para representar a alumni en la seccion Quienes hacen viva nuestra comunidad.', 'media_path' => 'Fotos Alumni/001.JPG', 'media_directory' => 'Fotos Alumni'],
@@ -190,6 +190,7 @@ return [
                 'titulo' => 'Preescolar',
                 'descripcion' => 'Un entorno cercano para iniciar el aprendizaje con seguridad, creatividad y acompanamiento.',
                 'logo_path' => 'Logos de niveles educativos/logo preescolar.png',
+                'logo_extendido_path' => 'Logos de niveles educativos/Preescolar extendido.jpeg',
                 'hoja_informativa_path' => 'Hojas informativas/Kinder _ hoja informativa.pdf.pdf',
                 'modelo_academico_path' => 'Modelos educativos/modelo educativo kínder.png',
                 'informacion' => [
@@ -220,6 +221,7 @@ return [
                 'titulo' => 'Primaria',
                 'descripcion' => 'Bases academicas solidas, valores y experiencias que despiertan la curiosidad.',
                 'logo_path' => 'Logos de niveles educativos/logo primaria.png',
+                'logo_extendido_path' => 'Logos de niveles educativos/Primaria extendido.jpeg',
                 'hoja_informativa_path' => 'Hojas informativas/Elementary _hoja informativa.pdf',
                 'modelo_academico_path' => 'Modelos educativos/modelo educativo elementary.png',
                 'informacion' => [
@@ -250,6 +252,7 @@ return [
                 'titulo' => 'Secundaria',
                 'descripcion' => 'Formacion integral con tecnologia, proyectos y desarrollo personal.',
                 'logo_path' => 'Logos de niveles educativos/logo secundaria.png',
+                'logo_extendido_path' => 'Logos de niveles educativos/Secundaria extendido.jpeg',
                 'hoja_informativa_path' => 'Hojas informativas/Secundaria _hoja informativa.pdf.pdf',
                 'modelo_academico_path' => 'Modelos educativos/modelo educativo middle.png',
                 'informacion' => [
@@ -280,6 +283,7 @@ return [
                 'titulo' => 'Bachillerato',
                 'descripcion' => 'Preparacion para la universidad con orientacion vocacional y alto nivel academico.',
                 'logo_path' => 'Logos de niveles educativos/logo bachillerato.png',
+                'logo_extendido_path' => 'Logos de niveles educativos/Bachillerato extendido.jpeg',
                 'hoja_informativa_path' => 'Hojas informativas/High school _ hoja informativa.pdf.pdf',
                 'modelo_academico_path' => 'Modelos educativos/modelo educativo high.png',
                 'informacion' => [

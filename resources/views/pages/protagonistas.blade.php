@@ -39,6 +39,7 @@
                 'titulo' => $item['titulo'],
                 'referencia' => 'Imagen para ' . $item['titulo'] . ' en Comunidad.',
             ];
+            $item['imagenes'] = $imagenesProtagonistas[$clave]['imagenes'] ?? [$item['imagen']];
             $item['color'] = $imagenesProtagonistas[$clave]['color'] ?? 'bg-blue-700';
 
             return $item;
@@ -63,13 +64,18 @@
 
             <div class="grid grid-cols-2 gap-3 bg-white p-4">
                 @foreach ($protagonistas as $protagonista)
-                    <article class="relative overflow-hidden rounded-lg bg-gray-100">
-                        <a href="{{ $protagonista['imagen']['url'] }}" class="glightbox block" data-title="{{ $protagonista['titulo'] }}">
+                    <article
+                        class="relative overflow-hidden rounded-lg bg-gray-100"
+                        data-community-hero-card
+                        data-community-hero-images='@json($protagonista['imagenes'] ?? [$protagonista['imagen']])'
+                    >
+                        <a href="{{ $protagonista['imagen']['url'] }}" class="glightbox block" data-title="{{ $protagonista['titulo'] }}" data-community-hero-link>
                             <x-imagen-seccion
                                 :imagen="$protagonista['imagen']"
                                 alt="{{ $protagonista['titulo'] }} Discovery"
                                 class="h-36 w-full object-contain p-2 md:h-40"
                                 placeholder-class="h-36 md:h-40"
+                                data-community-hero-photo
                             />
                         </a>
                         <div class="absolute inset-x-0 bottom-0 flex items-center gap-2 bg-white/90 px-3 py-2">
@@ -275,6 +281,45 @@
         const tabs = Array.from(document.querySelectorAll('[data-protagonista-tab]'));
         const panels = Array.from(document.querySelectorAll('[data-protagonista-panel]'));
         const images = Array.from(document.querySelectorAll('[data-protagonista-image]'));
+        const heroCards = Array.from(document.querySelectorAll('[data-community-hero-card]'));
+
+        const imageListFromDataset = (element, datasetKey) => {
+            try {
+                return JSON.parse(element.dataset[datasetKey] || '[]').filter((image) => image && image.url);
+            } catch (error) {
+                return [];
+            }
+        };
+
+        const nextImageFrom = (availableImages, currentSrc) => {
+            const nextOptions = availableImages.length > 1
+                ? availableImages.filter((image) => image.url !== currentSrc)
+                : availableImages;
+
+            return nextOptions[Math.floor(Math.random() * nextOptions.length)];
+        };
+
+        const rotateHeroPhoto = (heroCard) => {
+            const photo = heroCard.querySelector('[data-community-hero-photo]');
+            const link = heroCard.querySelector('[data-community-hero-link]');
+            const validImages = imageListFromDataset(heroCard, 'communityHeroImages');
+
+            if (!photo || validImages.length === 0) {
+                return;
+            }
+
+            const nextImage = nextImageFrom(validImages, photo.getAttribute('src'));
+
+            if (!nextImage?.url) {
+                return;
+            }
+
+            photo.src = nextImage.url;
+
+            if (link) {
+                link.href = nextImage.url;
+            }
+        };
 
         const pickRandomPhoto = (imageCard) => {
             const photo = imageCard.querySelector('[data-protagonista-photo]');
@@ -283,28 +328,22 @@
                 return;
             }
 
-            let availableImages = [];
-
-            try {
-                availableImages = JSON.parse(imageCard.dataset.protagonistaImages || '[]');
-            } catch (error) {
-                availableImages = [];
-            }
-
-            const validImages = availableImages.filter((image) => image && image.url);
+            const validImages = imageListFromDataset(imageCard, 'protagonistaImages');
 
             if (validImages.length === 0) {
                 return;
             }
 
-            const currentSrc = photo.getAttribute('src');
-            const nextOptions = validImages.length > 1
-                ? validImages.filter((image) => image.url !== currentSrc)
-                : validImages;
-            const nextImage = nextOptions[Math.floor(Math.random() * nextOptions.length)];
+            const nextImage = nextImageFrom(validImages, photo.getAttribute('src'));
 
             photo.src = nextImage.url;
         };
+
+        if (heroCards.length > 0) {
+            window.setInterval(() => {
+                heroCards.forEach(rotateHeroPhoto);
+            }, 5000);
+        }
 
         tabs.forEach((tab) => {
             tab.addEventListener('click', () => {

@@ -45,6 +45,8 @@ class ContactoService
                 'contacto_id' => $contacto->id,
                 'error' => $exception->getMessage(),
             ]);
+
+            throw $exception;
         }
     }
 

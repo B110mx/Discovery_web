@@ -29,10 +29,6 @@ class PaginaContenido extends Model
 
     public function forgetSiteCache(): void
     {
-        if ($this->slug === 'contacto') {
-            SiteCache::forget('contacto_pagina_id');
-        }
-
         SiteCache::forget("pagina_contenido.{$this->slug}");
     }
 

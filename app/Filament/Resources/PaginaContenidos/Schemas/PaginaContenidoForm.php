@@ -60,20 +60,22 @@ class PaginaContenidoForm
                         ->label('Imagen principal')
                         ->helperText('Imagen destacada o de apoyo principal de esta pagina.')
                         ->image()
+                        ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])
                         ->disk('public')
                         ->directory('paginas')
                         ->visibility('public')
-                        ->maxSize(8192)
+                        ->maxSize(6144)
                         ->columnSpanFull(),
 
                     FileUpload::make('imagen_secundaria')
                         ->label('Imagen secundaria')
                         ->helperText('Imagen adicional de apoyo, si la pagina la utiliza.')
                         ->image()
+                        ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])
                         ->disk('public')
                         ->directory('paginas')
                         ->visibility('public')
-                        ->maxSize(8192)
+                        ->maxSize(6144)
                         ->columnSpanFull(),
                 ]),
 

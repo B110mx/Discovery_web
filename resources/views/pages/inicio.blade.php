@@ -2,17 +2,23 @@
 
 @section('content')
 
-<section class="relative overflow-hidden rounded-xl bg-white shadow-lg">
-    <a href="{{ route('nosotros') }}" class="block" aria-label="Conocer mas sobre Colegio Discovery">
-        <x-imagen-seccion
-            :imagen="$bannerInicio"
-            alt="{{ $paginaInicio?->titulo ?? 'Colegio Internacional Discovery' }}"
-            class="aspect-[1916/821] w-full bg-white object-contain"
-            placeholder-class="aspect-[1916/821] w-full"
-            loading="eager"
-            fetchpriority="high"
-        />
-    </a>
+<section class="relative overflow-hidden rounded-xl bg-white shadow-lg" data-home-hero-carousel>
+    <div class="overflow-hidden">
+        <div class="flex transition-transform duration-700 ease-out" data-home-hero-track>
+            @foreach ($bannerInicioSlides ?? [$bannerInicio] as $banner)
+                <a href="{{ route('nosotros') }}" class="block min-w-full" aria-label="Conocer mas sobre Colegio Discovery">
+                    <x-imagen-seccion
+                        :imagen="$banner"
+                        alt="{{ $banner['titulo'] ?? ($paginaInicio?->titulo ?? 'Colegio Internacional Discovery') }}"
+                        class="aspect-[1916/657] w-full bg-white object-contain"
+                        placeholder-class="aspect-[1916/657] w-full"
+                        loading="{{ $loop->first ? 'eager' : 'lazy' }}"
+                        fetchpriority="{{ $loop->first ? 'high' : 'auto' }}"
+                    />
+                </a>
+            @endforeach
+        </div>
+    </div>
 
     <a
         href="{{ route('nosotros') }}"
@@ -20,6 +26,18 @@
     >
         Saber más
     </a>
+    @if (count($bannerInicioSlides ?? []) > 1)
+        <div class="absolute inset-x-0 bottom-4 flex justify-center gap-2" data-home-hero-dots>
+            @foreach ($bannerInicioSlides as $banner)
+                <button
+                    type="button"
+                    class="h-3 w-3 rounded-full bg-white/70 shadow"
+                    aria-label="Ir al banner {{ $loop->iteration }}"
+                    data-home-hero-dot="{{ $loop->index }}"
+                ></button>
+            @endforeach
+        </div>
+    @endif
 </section>
 
 
@@ -286,6 +304,42 @@
                 dot.className = dotIndex === index ? activeClasses : inactiveClasses;
             });
         };
+
+        const heroTrack = document.querySelector('[data-home-hero-track]');
+        const heroSlides = heroTrack ? Array.from(heroTrack.children) : [];
+        const heroDots = Array.from(document.querySelectorAll('[data-home-hero-dot]'));
+        let heroIndex = 0;
+        let heroTimer = null;
+
+        const showHero = (index) => {
+            if (!heroTrack || heroSlides.length === 0) {
+                return;
+            }
+
+            heroIndex = (index + heroSlides.length) % heroSlides.length;
+            heroTrack.style.transform = `translateX(-${heroIndex * 100}%)`;
+            activateDots(heroDots, heroIndex, 'h-3 w-8 rounded-full bg-red-600 shadow', 'h-3 w-3 rounded-full bg-white/70 shadow');
+        };
+
+        const restartHeroTimer = () => {
+            if (heroTimer) {
+                clearInterval(heroTimer);
+            }
+
+            if (heroSlides.length > 1) {
+                heroTimer = setInterval(() => showHero(heroIndex + 1), 5000);
+            }
+        };
+
+        heroDots.forEach((dot) => {
+            dot.addEventListener('click', () => {
+                showHero(Number(dot.dataset.homeHeroDot));
+                restartHeroTimer();
+            });
+        });
+
+        showHero(0);
+        restartHeroTimer();
 
         const eventTrack = document.querySelector('[data-event-track]');
         const eventSlides = eventTrack ? Array.from(eventTrack.children) : [];
