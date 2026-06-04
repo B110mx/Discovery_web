@@ -31,7 +31,7 @@ class HitoHistoriaResource extends Resource
 
     protected static ?string $modelLabel = 'hito de historia';
 
-    protected static ?string $pluralModelLabel = 'linea del tiempo de Nosotros';
+    protected static ?string $pluralModelLabel = 'línea del tiempo de Nosotros';
 
     protected static ?string $recordTitleAttribute = 'titulo';
 

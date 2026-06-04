@@ -16,18 +16,18 @@ class SeccionImagenForm
     public static function configure(Schema $schema): Schema
     {
         return $schema->components([
-            Section::make('Donde se usara esta imagen')
+            Section::make('Dónde se usará esta imagen')
                 ->schema([
                     Select::make('vista')
-                        ->label('Vista o pagina')
+                        ->label('Vista o página')
                         ->options([
                             'inicio' => 'Inicio',
                             'nosotros' => 'Nosotros',
                             'oferta-academica' => 'Oferta Educativa',
                             'protagonistas' => 'Comunidad / Protagonistas',
-                            'preescolar' => 'Nivel - Preescolar',
-                            'primaria' => 'Nivel - Primaria',
-                            'secundaria' => 'Nivel - Secundaria',
+                            'preescolar' => 'Nivel - Kinder',
+                            'primaria' => 'Nivel - Elementary',
+                            'secundaria' => 'Nivel - Middle',
                             'contacto' => 'Contacto',
                         ])
                         ->searchable()
@@ -50,7 +50,7 @@ class SeccionImagenForm
                         ->default(0),
                 ])->columns(2),
 
-            Section::make('Guia para saber que imagen subir')
+            Section::make('Guía para saber qué imagen subir')
                 ->schema([
                     Textarea::make('referencia')
                         ->label('Referencia visible cuando falta la imagen')
@@ -58,11 +58,11 @@ class SeccionImagenForm
                         ->columnSpanFull(),
                 ]),
 
-            Section::make('Archivo que se mostrara en el sitio')
+            Section::make('Archivo que se mostrará en el sitio')
                 ->schema([
                     Select::make('respaldo_media_path')
                         ->label('Imagen desde /videosyfotos')
-                        ->helperText('Recomendado para linea del tiempo y fotos de vistas. No aplica para logos universitarios ni para el bloque aleatorio de Protagonistas.')
+                        ->helperText('Recomendado para línea del tiempo y fotos de vistas. No aplica para logos universitarios ni para el bloque aleatorio de Protagonistas.')
                         ->options(fn () => VideoFotoOptions::images())
                         ->searchable()
                         ->preload()
@@ -71,7 +71,7 @@ class SeccionImagenForm
 
                     FileUpload::make('imagen')
                         ->label('Subir imagen manualmente')
-                        ->helperText('Opcional. Usalo solo si la imagen no existe en /videosyfotos. Maximo 6 MB.')
+                        ->helperText('Opcional. Úsalo solo si la imagen no existe en /videosyfotos. Máximo 6 MB.')
                         ->image()
                         ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])
                         ->disk('public')

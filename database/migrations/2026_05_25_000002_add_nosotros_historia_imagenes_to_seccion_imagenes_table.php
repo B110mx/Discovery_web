@@ -10,10 +10,10 @@ return new class extends Migration
         $now = now();
 
         $imagenes = [
-            ['clave' => 'historia_2003', 'titulo' => 'Nosotros - Historia 2003', 'referencia' => 'Imagen para el hito Discovery Kinder en la linea del tiempo de Nosotros.', 'orden' => 30],
-            ['clave' => 'historia_2005', 'titulo' => 'Nosotros - Historia 2005', 'referencia' => 'Imagen para el hito Discovery Primaria en la linea del tiempo de Nosotros.', 'orden' => 40],
-            ['clave' => 'historia_2011', 'titulo' => 'Nosotros - Historia 2011', 'referencia' => 'Imagen para el hito Discovery Secundaria en la linea del tiempo de Nosotros.', 'orden' => 50],
-            ['clave' => 'historia_2016', 'titulo' => 'Nosotros - Historia 2016', 'referencia' => 'Imagen para el hito Discovery Bachillerato en la linea del tiempo de Nosotros.', 'orden' => 60],
+            ['clave' => 'historia_2003', 'titulo' => 'Nosotros - Historia 2003', 'referencia' => 'Imagen para el hito Discovery® Kinder en la linea del tiempo de Nosotros.', 'orden' => 30],
+            ['clave' => 'historia_2005', 'titulo' => 'Nosotros - Historia 2005', 'referencia' => 'Imagen para el hito Discovery® Elementary en la linea del tiempo de Nosotros.', 'orden' => 40],
+            ['clave' => 'historia_2011', 'titulo' => 'Nosotros - Historia 2011', 'referencia' => 'Imagen para el hito Discovery® Middle en la linea del tiempo de Nosotros.', 'orden' => 50],
+            ['clave' => 'historia_2016', 'titulo' => 'Nosotros - Historia 2016', 'referencia' => 'Imagen para el hito Discovery® High en la linea del tiempo de Nosotros.', 'orden' => 60],
             ['clave' => 'historia_2018', 'titulo' => 'Nosotros - Historia 2018', 'referencia' => 'Imagen para el hito Colegio del Mundo IB en la linea del tiempo de Nosotros.', 'orden' => 70],
             ['clave' => 'historia_2019', 'titulo' => 'Nosotros - Historia 2019', 'referencia' => 'Imagen para el hito Nuevas instalaciones en la linea del tiempo de Nosotros.', 'orden' => 80],
             ['clave' => 'historia_2023', 'titulo' => 'Nosotros - Historia 2023', 'referencia' => 'Imagen para el hito DKMUN primera edicion en la linea del tiempo de Nosotros.', 'orden' => 90],

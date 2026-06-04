@@ -22,13 +22,13 @@ class TestimonioVideoForm
                     Grid::make(2)
                         ->schema([
                             TextInput::make('titulo')
-                                ->label('Titulo visible del video')
+                                ->label('Título visible del video')
                                 ->helperText('Ejemplo: Testimonio Alumni 2024.')
                                 ->required()
                                 ->maxLength(255),
                             TextInput::make('orden')
-                                ->label('Orden de aparicion')
-                                ->helperText('Numero menor aparece primero.')
+                                ->label('Orden de aparición')
+                                ->helperText('Número menor aparece primero.')
                                 ->numeric()
                                 ->default(0),
                         ]),
@@ -43,7 +43,7 @@ class TestimonioVideoForm
 
                     FileUpload::make('video')
                         ->label('O subir video nuevo')
-                        ->helperText('Si subes un archivo nuevo, ese video tendra prioridad.')
+                        ->helperText('Si subes un archivo nuevo, ese video tendrá prioridad.')
                         ->acceptedFileTypes(['video/mp4', 'video/webm', 'video/ogg', 'video/quicktime'])
                         ->disk('public')
                         ->directory('testimonios')

@@ -6,10 +6,10 @@
     <div class="overflow-hidden">
         <div class="flex transition-transform duration-700 ease-out" data-home-hero-track>
             @foreach ($bannerInicioSlides ?? [$bannerInicio] as $banner)
-                <a href="{{ route('nosotros') }}" class="block min-w-full" aria-label="Conocer mas sobre Colegio Discovery">
+                <a href="{{ route('nosotros') }}" class="block min-w-full" aria-label="Conocer mas sobre Colegio Discovery®">
                     <x-imagen-seccion
                         :imagen="$banner"
-                        alt="{{ $banner['titulo'] ?? ($paginaInicio?->titulo ?? 'Colegio Internacional Discovery') }}"
+                        alt="{{ $banner['titulo'] ?? ($paginaInicio?->titulo ?? 'Colegio Internacional Discovery®') }}"
                         class="aspect-[1916/657] w-full bg-white object-contain"
                         placeholder-class="aspect-[1916/657] w-full"
                         loading="{{ $loop->first ? 'eager' : 'lazy' }}"
@@ -45,7 +45,7 @@
     <section class="mt-16 overflow-hidden rounded-xl bg-white shadow-lg animate-on-scroll">
         <div class="grid lg:grid-cols-[.85fr_1.15fr]">
             <div class="bg-blue-700 p-8 text-white md:p-10">
-                <p class="font-semibold uppercase tracking-wide text-sm text-blue-100">Agenda Discovery</p>
+                <p class="font-semibold uppercase tracking-wide text-sm text-blue-100">Agenda Discovery®</p>
                 <h2 class="mt-3 text-4xl font-extrabold">Próximos eventos</h2>
                 <p class="mt-5 leading-8 text-blue-50">
                     Consulta las actividades que vienen para nuestra comunidad escolar. Este carrusel muestra las fotos o carteles de los eventos activos.
@@ -121,11 +121,11 @@
         <article class="flex flex-col animate-on-scroll" style="transition-delay: 100ms;">
             <img
                 src="{{ $logosNiveles['preescolar'] ?? '' }}"
-                alt="Preescolar Discovery"
+                alt="Kinder Discovery®"
                 class="mx-auto mb-5 h-24 w-auto object-contain"
                 loading="lazy"
             >
-            <h2 class="text-xl font-extrabold text-center uppercase text-lime-400 mb-10">Preescolar</h2>
+            <h2 class="text-xl font-extrabold text-center uppercase text-lime-400 mb-10">Kinder</h2>
             <p class="text-gray-600 leading-7 flex-1">
                 <span class="text-sky-500">El mejor Kinder de Tehuacán.</span>
                 Nuestro modelo educativo se enfoca en el desarrollo integral del niño atendiendo sus necesidades
@@ -141,14 +141,14 @@
         <article class="flex flex-col animate-on-scroll" style="transition-delay: 200ms;">
             <img
                 src="{{ $logosNiveles['primaria'] ?? '' }}"
-                alt="Primaria Discovery"
+                alt="Elementary Discovery®"
                 class="mx-auto mb-5 h-24 w-auto object-contain"
                 loading="lazy"
             >
-            <h2 class="text-xl font-extrabold text-center uppercase text-red-600 mb-10">Primaria</h2>
+            <h2 class="text-xl font-extrabold text-center uppercase text-red-600 mb-10">Elementary</h2>
             <p class="text-gray-600 leading-7 flex-1">
-                <span class="text-sky-500">La mejor primaria de Tehuacán.</span>
-                En Discovery tenemos como misión brindar un modelo educativo de vanguardia, bilingüe, holístico
+                <span class="text-sky-500">El mejor Elementary de Tehuacán.</span>
+                En Discovery® tenemos como misión brindar un modelo educativo de vanguardia, bilingüe, holístico
                 y personalizado. Misión que comulga con el perfil de aprendizaje de los colegios del mundo en la
                 mejor escuela de Tehuacán.
             </p>
@@ -160,14 +160,14 @@
         <article class="flex flex-col animate-on-scroll" style="transition-delay: 300ms;">
             <img
                 src="{{ $logosNiveles['secundaria'] ?? '' }}"
-                alt="Secundaria Discovery"
+                alt="Middle Discovery®"
                 class="mx-auto mb-5 h-24 w-auto object-contain"
                 loading="lazy"
             >
-            <h2 class="text-xl font-extrabold text-center uppercase text-blue-700 mb-10">Secundaria</h2>
+            <h2 class="text-xl font-extrabold text-center uppercase text-blue-700 mb-10">Middle</h2>
             <p class="text-gray-600 leading-7 flex-1">
-                <span class="text-sky-500">La mejor Secundaria de Tehuacán.</span>
-                En Discovery fomentamos el desarrollo del pensamiento crítico, creativo y reflexivo a través del
+                <span class="text-sky-500">El mejor Middle de Tehuacán.</span>
+                En Discovery® fomentamos el desarrollo del pensamiento crítico, creativo y reflexivo a través del
                 aprendizaje por proyectos interdisciplinarios en nuestras diferentes asignaturas, propiciando el
                 trabajo colaborativo y cooperativo.
             </p>
@@ -179,16 +179,16 @@
         <article class="flex flex-col animate-on-scroll" style="transition-delay: 400ms;">
             <img
                 src="{{ $logosNiveles['bachillerato'] ?? '' }}"
-                alt="Bachillerato Discovery"
+                alt="High Discovery®"
                 class="mx-auto mb-5 h-24 w-auto object-contain"
                 loading="lazy"
             >
-            <h2 class="text-xl font-extrabold text-center uppercase text-green-500 mb-10">Bachillerato</h2>
+            <h2 class="text-xl font-extrabold text-center uppercase text-green-500 mb-10">High</h2>
             <p class="text-gray-600 leading-7 flex-1">
-                <span class="text-sky-500">El mejor Bachillerato de Tehuacán.</span>
+                <span class="text-sky-500">El mejor High de Tehuacán.</span>
                 Somos una Institución Educativa en Nivel Medio Superior de calidad y a la vanguardia para establecer
                 nuevas oportunidades de aprendizaje holístico en nuestros Explorers en
-                <span class="text-sky-500">La mejor preparatoria de Tehuacán</span>.
+                <span class="text-sky-500">El mejor High de Tehuacán</span>.
             </p>
             <a href="{{ route('nivel', 'bachillerato') }}" class="mt-10 inline-flex w-fit items-center justify-center rounded bg-green-500 px-6 py-3 font-bold text-white hover:bg-green-600">
                 Descubre más ->
@@ -204,7 +204,7 @@
         </h2>
 
         <p class="text-gray-700 mb-4">
-            En el Colegio Internacional Discovery nos enfocamos en brindar
+            En el Colegio Internacional Discovery® nos enfocamos en brindar
             una educación integral que combine valores, tecnología e innovación.
         </p>
 

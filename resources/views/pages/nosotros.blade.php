@@ -5,10 +5,10 @@
 @php
     $incorporaciones = [
         'Maternal: 21PDI0093H',
-        'Preescolar: 21PJN0912U',
-        'Primaria: 21PPR0078B',
-        'Secundaria: 21PES0097J',
-        'Bachillerato: 21PBH0513D',
+        'Kinder: 21PJN0912U',
+        'Elementary: 21PPR0078B',
+        'Middle: 21PES0097J',
+        'High: 21PBH0513D',
     ];
 
     $areas = [
@@ -27,7 +27,7 @@
         <div class="grid lg:grid-cols-2">
             <div class="p-8 md:p-12 flex flex-col justify-center">
                 <p class="font-semibold uppercase tracking-wide text-sm text-blue-700">{{ $paginaNosotros?->subtitulo ?? 'Conócenos' }}</p>
-                <h1 class="text-4xl md:text-5xl font-bold mt-3 text-black">{{ $paginaNosotros?->titulo ?? 'Colegio Discovery' }}</h1>
+                <h1 class="text-4xl md:text-5xl font-bold mt-3 text-black">{{ $paginaNosotros?->titulo ?? 'Colegio Discovery®' }}</h1>
                 <p class="text-gray-600 text-lg mt-5 max-w-xl">
                     {{ $paginaNosotros?->descripcion ?? 'Una comunidad educativa que acompaña a cada Explorer en su crecimiento académico, humano y social.' }}
                 </p>
@@ -39,7 +39,7 @@
             </div>
             <x-imagen-seccion
                 :imagen="$imagenesNosotros['hero']"
-                alt="Colegio Discovery"
+                alt="Colegio Discovery®"
                 class="h-80 w-full bg-white object-contain p-8 lg:h-full lg:p-10"
                 placeholder-class="h-80 lg:h-full"
             />
@@ -51,7 +51,7 @@
             <p class="font-semibold uppercase tracking-wide text-sm text-blue-700">Bienvenidos</p>
             <h2 class="text-3xl font-bold text-black mt-2">Una comunidad que forma para trascender</h2>
             <p class="text-gray-700 leading-7 mt-5">
-                En Discovery formamos en valores, actitudes y virtudes que impactan en el crecimiento personal y social del individuo.
+                En Discovery® formamos en valores, actitudes y virtudes que impactan en el crecimiento personal y social del individuo.
             </p>
             <p class="text-gray-700 leading-7 mt-4">
                 Nuestros Explorers desarrollan herramientas para participar responsablemente y aportar a un mundo mejor.
@@ -72,7 +72,7 @@
         <div class="grid lg:grid-cols-2">
             <x-imagen-seccion
                 :imagen="$imagenesNosotros['modelo']"
-                alt="Modelo educativo Colegio Discovery"
+                alt="Modelo educativo Colegio Discovery®"
                 class="h-72 w-full object-cover lg:h-full"
                 placeholder-class="h-72 lg:h-full"
             />
@@ -149,7 +149,7 @@
             <p class="font-semibold uppercase tracking-wide text-sm text-blue-700">Línea temporal</p>
             <h2 class="text-3xl md:text-4xl font-bold text-black mt-2">Nuestra Historia</h2>
             <p class="text-gray-600 mt-4 text-lg">
-                Un recorrido por los momentos que han construido a Colegio Discovery como una comunidad educativa en constante crecimiento.
+                Un recorrido por los momentos que han construido a Colegio Discovery® como una comunidad educativa en constante crecimiento.
             </p>
         </div>
 

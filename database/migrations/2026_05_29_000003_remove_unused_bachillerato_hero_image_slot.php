@@ -15,6 +15,6 @@ return new class extends Migration
 
     public function down(): void
     {
-        // Bachillerato toma su hero desde oferta-academica/bachillerato.
+        // High toma su hero desde oferta-academica/bachillerato.
     }
 };

@@ -42,7 +42,7 @@
 
             <x-imagen-seccion
                 :imagen="$imagenesContacto['hero']"
-                alt="Colegio Discovery contacto"
+                alt="Colegio Discovery® contacto"
                 class="h-72 w-full bg-white object-contain p-8 lg:h-full lg:p-10"
                 placeholder-class="h-72 lg:h-full"
             />
@@ -98,8 +98,8 @@
                 <div>
                     <label for="grado" class="mb-2 block text-sm font-bold text-gray-700">Grado al que aplica</label>
                     <select id="grado" name="grado" class="w-full rounded-lg border border-gray-300 bg-white p-3 outline-none focus:border-blue-700 focus:ring-4 focus:ring-blue-100" required>
-                        <option value="">Selecciona una opcion</option>
-                        @foreach (['Preescolar', 'Primaria', 'Secundaria', 'Bachillerato', 'IB en Discovery', 'Certificacion de Ingles'] as $grado)
+                        <option value="">Selecciona una opción</option>
+                        @foreach (['Kinder', 'Elementary', 'Middle', 'High'] as $grado)
                             <option value="{{ $grado }}" @selected(old('grado') === $grado)>{{ $grado }}</option>
                         @endforeach
                     </select>
@@ -120,7 +120,7 @@
         <aside class="space-y-6">
             <div class="rounded-lg bg-gray-950 p-6 text-white shadow-md">
                 <p class="text-sm font-bold uppercase tracking-wide text-yellow-500">Atención directa</p>
-                <h2 class="mt-2 text-2xl font-extrabold">Colegio Internacional Discovery</h2>
+                <h2 class="mt-2 text-2xl font-extrabold">Colegio Internacional Discovery®</h2>
 
                 <div class="mt-6 space-y-5 text-sm leading-7 text-gray-200">
                     <div>
@@ -141,7 +141,7 @@
 
             <x-imagen-seccion
                 :imagen="$imagenesContacto['secundaria']"
-                alt="Comunidad Colegio Discovery"
+                alt="Comunidad Colegio Discovery®"
                 class="h-72 w-full rounded-lg object-cover shadow-md"
                 placeholder-class="h-72"
             />
@@ -166,7 +166,7 @@
 
             <iframe
                 src="{{ $mapaUrl }}"
-                title="Ubicación Colegio Discovery en Google Maps"
+                title="Ubicación Colegio Discovery® en Google Maps"
                 class="h-96 w-full border-0 lg:h-[500px]"
                 loading="lazy"
                 referrerpolicy="no-referrer-when-downgrade"

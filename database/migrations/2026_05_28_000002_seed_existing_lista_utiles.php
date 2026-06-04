@@ -76,13 +76,13 @@ return new class extends Migration
         }
 
         if ($grado <= 6) {
-            return 'Primaria';
+            return 'Elementary';
         }
 
         if ($grado <= 9) {
-            return 'Secundaria';
+            return 'Middle';
         }
 
-        return 'Bachillerato';
+        return 'High';
     }
 };

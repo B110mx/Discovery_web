@@ -29,7 +29,7 @@ return new class extends Migration
             'slug' => 'contacto',
             'titulo' => 'Contacto',
             'subtitulo' => 'Informes y admisiones',
-            'descripcion' => 'Compartenos tus datos y nos pondremos en contacto contigo para darte mas informacion sobre Colegio Discovery.',
+            'descripcion' => 'Compartenos tus datos y nos pondremos en contacto contigo para darte mas informacion sobre Colegio Discovery®.',
             'direccion' => 'Via Puebla #3611, Residencial Cinco Bosques, Tehuacan, Puebla C.P. 75855.',
             'telefono_principal' => '(238) 688 11 79',
             'telefono_secundario' => '(238) 102 18 17',

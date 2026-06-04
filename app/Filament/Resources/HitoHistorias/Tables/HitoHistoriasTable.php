@@ -17,13 +17,13 @@ class HitoHistoriasTable
         return $table
             ->columns([
                 TextColumn::make('anio')
-                    ->label('Ano')
+                    ->label('Año')
                     ->searchable(),
                 TextColumn::make('titulo')
                     ->label('Hito')
                     ->searchable(),
                 TextColumn::make('texto')
-                    ->label('Descripcion')
+                    ->label('Descripción')
                     ->limit(70)
                     ->searchable(),
                 ImageColumn::make('imagen_url')

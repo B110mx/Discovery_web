@@ -171,7 +171,7 @@
     <section class="grid gap-5 lg:grid-cols-3">
         <div class="rounded-lg bg-gray-950 p-6 text-white shadow-md">
             <p class="text-sm font-bold uppercase tracking-wide text-yellow-500">Continuidad</p>
-            <h2 class="mt-3 text-2xl font-extrabold">De preescolar a bachillerato</h2>
+            <h2 class="mt-3 text-2xl font-extrabold">De Kinder a High</h2>
             <p class="mt-4 leading-7 text-gray-200">
                 Una misma comunidad acompaña el crecimiento académico, emocional y social en cada etapa.
             </p>

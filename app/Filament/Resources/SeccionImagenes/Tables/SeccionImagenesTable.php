@@ -26,15 +26,15 @@ class SeccionImagenesTable
                     ->height(56)
                     ->width(72),
                 TextColumn::make('vista')
-                    ->label('Vista / pagina')
+                    ->label('Vista / página')
                     ->formatStateUsing(fn (string $state): string => match ($state) {
                         'inicio' => 'Inicio',
-                        'nosotros' => 'Conocenos / Nosotros',
+                        'nosotros' => 'Conócenos / Nosotros',
                         'oferta-academica' => 'Oferta Educativa',
                         'protagonistas' => 'Comunidad / Protagonistas',
-                        'preescolar' => 'Nivel - Preescolar',
-                        'primaria' => 'Nivel - Primaria',
-                        'secundaria' => 'Nivel - Secundaria',
+                        'preescolar' => 'Nivel - Kinder',
+                        'primaria' => 'Nivel - Elementary',
+                        'secundaria' => 'Nivel - Middle',
                         'contacto' => 'Contacto',
                         default => $state,
                     })
@@ -66,9 +66,9 @@ class SeccionImagenesTable
                         'nosotros' => 'Nosotros',
                         'oferta-academica' => 'Oferta Educativa',
                         'protagonistas' => 'Comunidad / Protagonistas',
-                        'preescolar' => 'Nivel - Preescolar',
-                        'primaria' => 'Nivel - Primaria',
-                        'secundaria' => 'Nivel - Secundaria',
+                        'preescolar' => 'Nivel - Kinder',
+                        'primaria' => 'Nivel - Elementary',
+                        'secundaria' => 'Nivel - Middle',
                         'contacto' => 'Contacto',
                     ]),
             ])

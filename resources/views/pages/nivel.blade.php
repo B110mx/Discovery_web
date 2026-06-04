@@ -31,129 +31,129 @@
         ],
         [
             'icono' => 'language',
-            'titulo' => 'Educacion Bilingue y Trilingue',
-            'texto' => 'Ingles, Espanol y desde 5 de Primaria se incorpora Frances.',
+            'titulo' => 'Educación Bilingüe y Trilingüe',
+            'texto' => 'Inglés, Español y desde 5 de Elementary se incorpora Francés.',
         ],
         [
             'icono' => 'ib',
             'titulo' => 'Perfil IB',
-            'texto' => 'Nuestros programas estan alineados a la Organizacion del Bachillerato Internacional (IB), incluso desde los primeros anos.',
+            'texto' => 'Nuestros programas están alineados a la Organización del Bachillerato Internacional (IB), incluso desde los primeros años.',
         ],
         [
             'icono' => 'academias',
             'titulo' => 'Academias Vespertinas',
-            'texto' => 'Futbol, Basquetbol, Ajedrez, Origami, Atletismo y UrbanKids. Para padres: Club de conversacion en Ingles, Flamenco y Musica.',
+            'texto' => 'Fútbol, Básquetbol, Ajedrez, Origami, Atletismo y UrbanKids. Para padres: Club de conversación en Inglés, Flamenco y Música.',
         ],
         [
             'icono' => 'atencion',
-            'titulo' => 'Atencion personalizada',
+            'titulo' => 'Atención personalizada',
             'texto' => 'Grupos reducidos de 14 a 24 Explorers.',
         ],
         [
             'icono' => 'bienestar',
             'titulo' => 'Bienestar emocional y preceptoria',
-            'texto' => 'Los acompanamos en su desarrollo emocional y academico.',
+            'texto' => 'Los acompañamos en su desarrollo emocional y académico.',
         ],
     ];
     $primariaIdeal = [
         [
             'icono' => 'language',
-            'titulo' => 'Educacion Bilingue y Trilingue',
-            'texto' => 'Ingles, Espanol y desde 5 de Primaria se incorpora Frances.',
+            'titulo' => 'Educación Bilingüe y Trilingüe',
+            'texto' => 'Inglés, Español y desde 5 de Elementary se incorpora Francés.',
         ],
         [
             'icono' => 'ib',
             'titulo' => 'Perfil IB',
-            'texto' => 'Nuestros explorers desarrollan una mentalidad internacional a traves de Unidades de Indagacion.',
+            'texto' => 'Nuestros explorers desarrollan una mentalidad internacional a través de Unidades de Indagación.',
         ],
         [
             'icono' => 'arts',
             'titulo' => 'Artes y Deportes integrados',
-            'texto' => 'Danza, Teatro, Musica, Artes Visuales y deporte diario.',
+            'texto' => 'Danza, Teatro, Música, Artes Visuales y deporte diario.',
         ],
         [
             'icono' => 'academias',
             'titulo' => 'Academias Vespertinas',
-            'texto' => 'Futbol, Basquetbol, Ajedrez, Origami, Atletismo y UrbanKids. Para padres: Club de conversacion en Ingles, Flamenco y Musica.',
+            'texto' => 'Fútbol, Básquetbol, Ajedrez, Origami, Atletismo y UrbanKids. Para padres: Club de conversación en Inglés, Flamenco y Música.',
         ],
         [
             'icono' => 'atencion',
-            'titulo' => 'Atencion personalizada',
-            'texto' => 'Grupos reducidos de 14 a 24 Explorers. Esto permite acompanamiento individualizado en lo academico y emocional.',
+            'titulo' => 'Atención personalizada',
+            'texto' => 'Grupos reducidos de 14 a 24 Explorers. Esto permite acompañamiento individualizado en lo académico y emocional.',
         ],
         [
             'icono' => 'bienestar',
             'titulo' => 'Bienestar emocional y preceptoria',
-            'texto' => 'Los acompanamos en su desarrollo emocional y academico con sesiones que fortalecen su autoestima, empatia y habilidades sociales.',
+            'texto' => 'Los acompañamos en su desarrollo emocional y académico con sesiones que fortalecen su autoestima, empatía y habilidades sociales.',
         ],
     ];
     $secundariaIdeal = [
         [
             'icono' => 'language',
-            'titulo' => 'Educacion Bilingue y Trilingue',
-            'texto' => 'Ingles, Espanol y desde 5 de Primaria se incorpora Frances. Ingles, Espanol y Frances con mas de 15 bloques a la semana.',
+            'titulo' => 'Educación Bilingüe y Trilingüe',
+            'texto' => 'Inglés, Español y desde 5 de Elementary se incorpora Francés. Inglés, Español y Francés con más de 15 bloques a la semana.',
         ],
         [
             'icono' => 'skills',
             'titulo' => 'Habilidades del Siglo XXI',
-            'texto' => 'Enfoques de aprendizaje de pensamiento, autogestion, comunicacion, investigacion y sociales.',
+            'texto' => 'Enfoques de aprendizaje de pensamiento, autogestión, comunicación, investigación y sociales.',
         ],
         [
             'icono' => 'ib',
             'titulo' => 'Perfil IB',
-            'texto' => 'Nuestros explorers desarrollan una mentalidad internacional a traves de Proyectos Interdisciplinarios.',
+            'texto' => 'Nuestros explorers desarrollan una mentalidad internacional a través de Proyectos Interdisciplinarios.',
         ],
         [
             'icono' => 'arts',
             'titulo' => 'Artes y Deportes integrados',
-            'texto' => 'Deporte diario: Futbol, Basquetbol, Voleibol y Tenis, Danza, Teatro, Musica y Artes Visuales. Equipos de Voleibol y Basquetbol que compiten en ligas.',
+            'texto' => 'Deporte diario: Fútbol, Básquetbol, Voleibol y Tenis, Danza, Teatro, Música y Artes Visuales. Equipos de Voleibol y Básquetbol que compiten en ligas.',
         ],
         [
             'icono' => 'academias',
             'titulo' => 'Academias Vespertinas',
-            'texto' => 'Futbol, Basquetbol, Ajedrez, Origami, Atletismo y UrbanKids. Para padres: Club de conversacion en Ingles, Flamenco y Musica.',
+            'texto' => 'Fútbol, Básquetbol, Ajedrez, Origami, Atletismo y UrbanKids. Para padres: Club de conversación en Inglés, Flamenco y Música.',
         ],
         [
             'icono' => 'bienestar-head',
             'titulo' => 'Bienestar emocional y preceptoria',
-            'texto' => 'Programa de bienestar emocional y preceptoria hasta el ultimo ano.',
+            'texto' => 'Programa de bienestar emocional y preceptoría hasta el último año.',
         ],
     ];
     $bachilleratoIdeal = [
         [
             'icono' => 'language',
-            'titulo' => 'Educacion Bilingue y Trilingue',
-            'texto' => 'Ingles, Espanol y Frances. 15 bloques a la semana en Ingles.',
+            'titulo' => 'Educación Bilingüe y Trilingüe',
+            'texto' => 'Inglés, Español y Francés. 15 bloques a la semana en Inglés.',
         ],
         [
             'icono' => 'graduation',
             'titulo' => 'Becas universitarios',
-            'texto' => 'Mas del 70% de nuestros egresados obtienen becas en las mejores universidades del pais y en el extranjero.',
+            'texto' => 'Más del 70% de nuestros egresados obtienen becas en las mejores universidades del país y en el extranjero.',
         ],
         [
             'icono' => 'ib',
             'titulo' => 'Perfil IB',
-            'texto' => 'Somos Bachillerato IB oficial con validez Internacional. Programa del Diploma y desarrollo del perfil IB.',
+            'texto' => 'Somos High con Programa IB oficial y validez internacional. Programa del Diploma y desarrollo del perfil IB.',
         ],
         [
             'icono' => 'arts',
             'titulo' => 'Artes y Deportes integrados',
-            'texto' => 'Formacion artistica y deportiva, que favorecen tu desarrollo fisico y emocional.',
+            'texto' => 'Formación artística y deportiva, que favorecen tu desarrollo físico y emocional.',
         ],
         [
             'icono' => 'vocation',
-            'titulo' => 'Orientacion vocacional personalizada',
-            'texto' => 'Te acompanamos con orientacion vocacional, asesoria para admisiones y seguimiento individual.',
+            'titulo' => 'Orientación vocacional personalizada',
+            'texto' => 'Te acompañamos con orientación vocacional, asesoría para admisiones y seguimiento individual.',
         ],
         [
             'icono' => 'bienestar-head',
             'titulo' => 'Bienestar emocional y preceptoria',
-            'texto' => 'Programa de bienestar emocional y preceptoria hasta el ultimo ano.',
+            'texto' => 'Programa de bienestar emocional y preceptoría hasta el último año.',
         ],
         [
             'icono' => 'skills',
             'titulo' => 'Habilidades del Siglo XXI',
-            'texto' => 'Enfoques de aprendizaje de pensamiento, autogestion, comunicacion, investigacion y sociales.',
+            'texto' => 'Enfoques de aprendizaje de pensamiento, autogestión, comunicación, investigación y sociales.',
         ],
     ];
     $bloqueIdeal = match ($nivel['slug'] ?? null) {
@@ -162,15 +162,15 @@
             'items' => $kinderIdeal,
         ],
         'primaria' => [
-            'titulo' => '¿Por qué somos la primaria para tus hijos?',
+            'titulo' => '¿Por qué somos Elementary para tus hijos?',
             'items' => $primariaIdeal,
         ],
         'secundaria' => [
-            'titulo' => '¿Por qué somos la secundaria que más ayudará a tus hijos a convertirse en su mejor versión?',
+            'titulo' => '¿Por qué Middle ayudará a tus hijos a convertirse en su mejor versión?',
             'items' => $secundariaIdeal,
         ],
         'bachillerato' => [
-            'titulo' => '¿Por qué somos la mejor prepa?',
+            'titulo' => '¿Por qué somos el mejor High?',
             'items' => $bachilleratoIdeal,
         ],
         default => null,
@@ -513,7 +513,7 @@
             <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-6">
                 <div>
                     <p class="font-semibold uppercase tracking-wide text-sm {{ $tema['eyebrow'] }}">Galería</p>
-                    <h2 class="text-3xl font-bold text-black mt-2">{{ $nivel['titulo'] }} en Discovery</h2>
+                    <h2 class="text-3xl font-bold text-black mt-2">{{ $nivel['titulo'] }} en Discovery®</h2>
                 </div>
                 <p class="text-gray-600 max-w-2xl">
                     Momentos reales de nuestra comunidad educativa en este nivel.

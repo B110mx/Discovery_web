@@ -11,27 +11,27 @@ return new class extends Migration
         $paginas = [
             [
                 'slug' => 'inicio',
-                'titulo' => 'Colegio Internacional Discovery',
+                'titulo' => 'Colegio Internacional Discovery®',
                 'subtitulo' => 'Inicio',
-                'descripcion' => 'Formando lideres del futuro con educacion de excelencia',
+                'descripcion' => 'Formando líderes del futuro con educación de excelencia',
             ],
             [
                 'slug' => 'nosotros',
-                'titulo' => 'Colegio Discovery',
-                'subtitulo' => 'Conocenos',
-                'descripcion' => 'Una comunidad educativa que acompana a cada estudiante en su crecimiento academico, humano y social.',
+                'titulo' => 'Colegio Discovery®',
+                'subtitulo' => 'Conócenos',
+                'descripcion' => 'Una comunidad educativa que acompaña a cada estudiante en su crecimiento académico, humano y social.',
             ],
             [
                 'slug' => 'oferta-academica',
-                'titulo' => 'Una ruta academica para cada etapa',
+                'titulo' => 'Una ruta académica para cada etapa',
                 'subtitulo' => 'Oferta Educativa',
-                'descripcion' => 'Explora niveles, enfoques y experiencias de aprendizaje para encontrar el programa que mejor acompana a tu familia.',
+                'descripcion' => 'Explora niveles, enfoques y experiencias de aprendizaje para encontrar el programa que mejor acompaña a tu familia.',
             ],
             [
                 'slug' => 'protagonistas',
                 'titulo' => 'Protagonistas',
-                'subtitulo' => 'Comunidad Discovery',
-                'descripcion' => 'En Discovery alumnos, padres de familia, docentes y alumni trabajamos en equipo para formar una comunidad de aprendizaje con mentalidad internacional.',
+                'subtitulo' => 'Comunidad Discovery®',
+                'descripcion' => 'En Discovery® alumnos, padres de familia, docentes y alumni trabajamos en equipo para formar una comunidad de aprendizaje con mentalidad internacional.',
             ],
         ];
 

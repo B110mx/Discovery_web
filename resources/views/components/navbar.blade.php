@@ -5,13 +5,13 @@
                 informes@colegio-discovery.edu.mx
             </a>
             <span>(238) 688 11 79, (238) 102 18 17</span>
-            <div class="flex w-fit items-center gap-2" aria-label="Redes sociales de Colegio Discovery">
+            <div class="flex w-fit items-center gap-2" aria-label="Redes sociales de Colegio Discovery®">
                 <a
                     href="https://www.instagram.com/colegio_discoveryth/"
                     target="_blank"
                     rel="noopener noreferrer"
                     class="inline-flex h-8 w-8 items-center justify-center rounded bg-white text-blue-700 transition-colors hover:bg-blue-50"
-                    aria-label="Abrir Instagram de Colegio Discovery"
+                    aria-label="Abrir Instagram de Colegio Discovery®"
                     title="Instagram"
                 >
                     <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
@@ -26,7 +26,7 @@
                     target="_blank"
                     rel="noopener noreferrer"
                     class="inline-flex h-8 w-8 items-center justify-center rounded bg-white text-blue-700 transition-colors hover:bg-blue-50"
-                    aria-label="Abrir Facebook de Colegio Discovery"
+                    aria-label="Abrir Facebook de Colegio Discovery®"
                     title="Facebook"
                 >
                     <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -39,7 +39,7 @@
                     target="_blank"
                     rel="noopener noreferrer"
                     class="inline-flex h-8 w-8 items-center justify-center rounded bg-white text-blue-700 transition-colors hover:bg-blue-50"
-                    aria-label="Abrir TikTok de Colegio Discovery"
+                    aria-label="Abrir TikTok de Colegio Discovery®"
                     title="TikTok"
                 >
                     <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -56,10 +56,10 @@
             <a href="{{ route('inicio') }}" class="flex min-w-0 items-center gap-3">
                 <img
                     src="{{ url('/media/Logos%20principales/' . rawurlencode('logo-ib-y-discovery-principal-1024x342.png')) }}"
-                    alt="Colegio Discovery"
+                    alt="Colegio Discovery®"
                     class="h-12 w-auto max-w-[220px] object-contain sm:h-14 sm:max-w-none"
                 >
-                <span class="sr-only">Colegio Discovery</span>
+                <span class="sr-only">Colegio Discovery®</span>
             </a>
 
             <button
@@ -88,11 +88,11 @@
             <li class="relative group">
                 <a href="{{ route('oferta-academica') }}" class="hover:text-blue-700 {{ request()->routeIs('oferta-academica') || request()->routeIs('nivel') ? 'text-blue-700' : '' }}">Oferta Educativa</a>
                 <ul class="absolute left-0 top-full z-20 hidden w-56 rounded-md bg-white py-2 shadow-lg group-hover:block group-focus-within:block">
-                    <li><a href="{{ route('nivel', 'preescolar') }}" class="block px-4 py-2 hover:bg-blue-50">Preescolar</a></li>
-                    <li><a href="{{ route('nivel', 'primaria') }}" class="block px-4 py-2 hover:bg-blue-50">Primaria</a></li>
-                    <li><a href="{{ route('nivel', 'secundaria') }}" class="block px-4 py-2 hover:bg-blue-50">Secundaria</a></li>
-                    <li><a href="{{ route('nivel', 'bachillerato') }}" class="block px-4 py-2 hover:bg-blue-50">Bachillerato</a></li>
-                    <li><a href="{{ route('nivel', 'ib-en-discovery') }}" class="block px-4 py-2 hover:bg-blue-50">IB en Discovery</a></li>
+                    <li><a href="{{ route('nivel', 'preescolar') }}" class="block px-4 py-2 hover:bg-blue-50">Kinder</a></li>
+                    <li><a href="{{ route('nivel', 'primaria') }}" class="block px-4 py-2 hover:bg-blue-50">Elementary</a></li>
+                    <li><a href="{{ route('nivel', 'secundaria') }}" class="block px-4 py-2 hover:bg-blue-50">Middle</a></li>
+                    <li><a href="{{ route('nivel', 'bachillerato') }}" class="block px-4 py-2 hover:bg-blue-50">High</a></li>
+                    <li><a href="{{ route('nivel', 'ib-en-discovery') }}" class="block px-4 py-2 hover:bg-blue-50">IB en Discovery®</a></li>
                     <li><a href="{{ route('nivel', 'certificacion-de-ingles') }}" class="block px-4 py-2 hover:bg-blue-50">Certificación de Inglés</a></li>
                 </ul>
             </li>
@@ -118,11 +118,11 @@
                     </button>
                     <ul class="{{ request()->routeIs('oferta-academica') || request()->routeIs('nivel') ? '' : 'hidden' }} mt-1 space-y-1 pl-4" data-mobile-submenu>
                         <li><a href="{{ route('oferta-academica') }}" class="block rounded-lg px-4 py-2 text-sm font-semibold hover:bg-blue-50">Oferta Educativa</a></li>
-                        <li><a href="{{ route('nivel', 'preescolar') }}" class="block rounded-lg px-4 py-2 text-sm font-semibold hover:bg-blue-50">Preescolar</a></li>
-                        <li><a href="{{ route('nivel', 'primaria') }}" class="block rounded-lg px-4 py-2 text-sm font-semibold hover:bg-blue-50">Primaria</a></li>
-                        <li><a href="{{ route('nivel', 'secundaria') }}" class="block rounded-lg px-4 py-2 text-sm font-semibold hover:bg-blue-50">Secundaria</a></li>
-                        <li><a href="{{ route('nivel', 'bachillerato') }}" class="block rounded-lg px-4 py-2 text-sm font-semibold hover:bg-blue-50">Bachillerato</a></li>
-                        <li><a href="{{ route('nivel', 'ib-en-discovery') }}" class="block rounded-lg px-4 py-2 text-sm font-semibold hover:bg-blue-50">IB en Discovery</a></li>
+                        <li><a href="{{ route('nivel', 'preescolar') }}" class="block rounded-lg px-4 py-2 text-sm font-semibold hover:bg-blue-50">Kinder</a></li>
+                        <li><a href="{{ route('nivel', 'primaria') }}" class="block rounded-lg px-4 py-2 text-sm font-semibold hover:bg-blue-50">Elementary</a></li>
+                        <li><a href="{{ route('nivel', 'secundaria') }}" class="block rounded-lg px-4 py-2 text-sm font-semibold hover:bg-blue-50">Middle</a></li>
+                        <li><a href="{{ route('nivel', 'bachillerato') }}" class="block rounded-lg px-4 py-2 text-sm font-semibold hover:bg-blue-50">High</a></li>
+                        <li><a href="{{ route('nivel', 'ib-en-discovery') }}" class="block rounded-lg px-4 py-2 text-sm font-semibold hover:bg-blue-50">IB en Discovery®</a></li>
                         <li><a href="{{ route('nivel', 'certificacion-de-ingles') }}" class="block rounded-lg px-4 py-2 text-sm font-semibold hover:bg-blue-50">Certificación de Inglés</a></li>
                     </ul>
                 </li>

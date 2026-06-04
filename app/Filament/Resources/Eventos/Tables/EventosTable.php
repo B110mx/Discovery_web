@@ -29,7 +29,7 @@ class EventosTable
                     ->height(56)
                     ->width(72),
                 TextColumn::make('descripcion')
-                    ->label('Descripcion')
+                    ->label('Descripción')
                     ->limit(60)
                     ->searchable(),
                 TextColumn::make('imagen_media_path')

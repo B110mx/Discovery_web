@@ -11,7 +11,7 @@ class NosotrosResource extends BasePaginaResource
 
     protected static ?int $navigationSort = 20;
 
-    protected static ?string $navigationLabel = 'Conocenos / Nosotros';
+    protected static ?string $navigationLabel = 'Conócenos / Nosotros';
 
     protected static string $pageSlug = 'nosotros';
 

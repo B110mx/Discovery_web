@@ -16,11 +16,11 @@ class PaginaContenidosTable
         return $table
             ->columns([
                 TextColumn::make('slug')
-                    ->label('Pagina')
+                    ->label('Página')
                     ->badge()
                     ->formatStateUsing(fn (string $state): string => match ($state) {
                         'inicio' => 'Inicio',
-                        'nosotros' => 'Conocenos / Nosotros',
+                        'nosotros' => 'Conócenos / Nosotros',
                         'oferta-academica' => 'Oferta Educativa',
                         'protagonistas' => 'Comunidad',
                         'contacto' => 'Contacto',
@@ -28,10 +28,10 @@ class PaginaContenidosTable
                     })
                     ->searchable(),
                 TextColumn::make('titulo')
-                    ->label('Titulo principal')
+                    ->label('Título principal')
                     ->searchable(),
                 TextColumn::make('descripcion')
-                    ->label('Descripcion')
+                    ->label('Descripción')
                     ->limit(70)
                     ->searchable(),
                 TextColumn::make('updated_at')

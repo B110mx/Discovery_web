@@ -35,6 +35,6 @@ class ContactoController extends Controller
                 ->with('error', 'No pudimos enviar tu mensaje en este momento. Por favor intenta nuevamente o comunicate directamente con el colegio.');
         }
 
-        return redirect()->back()->with('success', 'Gracias por comunicarte con el Colegio Discovery. Te contactaremos a la brevedad.');
+        return redirect()->back()->with('success', 'Gracias por comunicarte con el Colegio Discovery®. Te contactaremos a la brevedad.');
     }
 }

@@ -118,7 +118,7 @@
     <div class="overflow-hidden rounded-xl bg-blue-700 text-white shadow-lg">
         <div class="grid lg:grid-cols-[.9fr_1.1fr]">
             <div class="p-8 md:p-12 lg:p-14">
-                <p class="font-semibold uppercase tracking-wide text-sm text-blue-100">Comunidad Discovery</p>
+                <p class="font-semibold uppercase tracking-wide text-sm text-blue-100">Comunidad Discovery®</p>
                 <h1 class="mt-3 text-4xl font-extrabold md:text-5xl">Academias Vespertinas</h1>
                 <div class="mt-5 max-w-3xl space-y-4 text-lg leading-8 text-blue-50">
                     <p>
@@ -160,7 +160,7 @@
                     <h2 class="mt-2 text-3xl font-extrabold text-black">Academias en acción</h2>
                 </div>
                 <p class="max-w-xl leading-7 text-gray-600">
-                    Momentos de nuestras academias vespertinas, donde la comunidad Discovery se mueve, crea, aprende y convive.
+                    Momentos de nuestras academias vespertinas, donde la comunidad Discovery® se mueve, crea, aprende y convive.
                 </p>
             </div>
 
@@ -171,7 +171,7 @@
                             <a href="{{ $imagen['url'] }}" class="glightbox block" data-title="{{ $imagen['titulo'] }}">
                                 <img
                                     src="{{ $imagen['url'] }}"
-                                    alt="{{ $imagen['titulo'] }} en Academias Vespertinas Discovery"
+                                    alt="{{ $imagen['titulo'] }} en Academias Vespertinas Discovery®"
                                     class="h-60 w-full object-cover"
                                     loading="lazy"
                                 >
@@ -229,7 +229,7 @@
         <div class="rounded-xl bg-white p-6 shadow-md md:p-8">
             <div class="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
                 <div>
-                    <p class="text-sm font-bold uppercase tracking-wide text-red-600">Oferta Discovery</p>
+                    <p class="text-sm font-bold uppercase tracking-wide text-red-600">Oferta Discovery®</p>
                     <h2 class="mt-2 text-3xl font-extrabold text-black">Academias disponibles</h2>
                 </div>
                 <span class="inline-flex w-fit rounded-full bg-yellow-100 px-4 py-2 text-sm font-bold text-yellow-800">Para Explorers y familias</span>
@@ -252,10 +252,10 @@
 
     <section class="rounded-xl border-l-4 border-blue-700 bg-blue-50 p-6 shadow-sm md:p-8">
         <p class="text-lg font-semibold leading-8 text-blue-900">
-            Cada academia vespertina Discovery representa una oportunidad para descubrir talentos, fortalecer habilidades y construir una comunidad más activa, creativa y unida.
+            Cada academia vespertina Discovery® representa una oportunidad para descubrir talentos, fortalecer habilidades y construir una comunidad más activa, creativa y unida.
         </p>
         <p class="mt-3 leading-8 text-gray-700">
-            En Discovery, creemos que el aprendizaje también sucede cuando nos movemos, creamos, pensamos, convivimos y compartimos experiencias que impulsan el desarrollo integral de nuestros Explorers y sus familias.
+            En Discovery®, creemos que el aprendizaje también sucede cuando nos movemos, creamos, pensamos, convivimos y compartimos experiencias que impulsan el desarrollo integral de nuestros Explorers y sus familias.
         </p>
     </section>
 </section>

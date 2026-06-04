@@ -3,7 +3,7 @@
         <div>
             <img
                 src="{{ url('/media/Logos%20principales/' . rawurlencode('logo-ib-y-discovery-Footer-1024x342.png')) }}"
-                alt="Colegio Discovery"
+                alt="Colegio Discovery®"
                 class="mb-4 h-16 w-auto object-contain"
                 loading="lazy"
             >
@@ -32,11 +32,11 @@
         <div>
             <h3 class="text-xl font-bold mb-3">Niveles</h3>
             <ul class="space-y-2 text-gray-300">
-                <li><a href="{{ route('nivel', 'preescolar') }}" class="hover:text-white">Preescolar</a></li>
-                <li><a href="{{ route('nivel', 'primaria') }}" class="hover:text-white">Primaria</a></li>
-                <li><a href="{{ route('nivel', 'secundaria') }}" class="hover:text-white">Secundaria</a></li>
-                <li><a href="{{ route('nivel', 'bachillerato') }}" class="hover:text-white">Bachillerato</a></li>
-                <li><a href="{{ route('nivel', 'ib-en-discovery') }}" class="hover:text-white">IB en Discovery</a></li>
+                <li><a href="{{ route('nivel', 'preescolar') }}" class="hover:text-white">Kinder</a></li>
+                <li><a href="{{ route('nivel', 'primaria') }}" class="hover:text-white">Elementary</a></li>
+                <li><a href="{{ route('nivel', 'secundaria') }}" class="hover:text-white">Middle</a></li>
+                <li><a href="{{ route('nivel', 'bachillerato') }}" class="hover:text-white">High</a></li>
+                <li><a href="{{ route('nivel', 'ib-en-discovery') }}" class="hover:text-white">IB en Discovery®</a></li>
                 <li><a href="{{ route('nivel', 'certificacion-de-ingles') }}" class="hover:text-white">Certificación de Inglés</a></li>
             </ul>
         </div>
@@ -44,7 +44,7 @@
 
     <div class="border-t border-gray-800 p-4 text-center text-gray-400">
         <div class="flex flex-col items-center justify-center gap-2 text-sm md:flex-row md:gap-4">
-            <span>Copyright Colegio Discovery</span>
+            <span>Copyright Colegio Discovery®</span>
             <a
                 href="{{ url('/media/Aviso%20de%20privacidad/' . rawurlencode('Aviso de Privacidad _ DISCOVERY.pdf')) }}"
                 target="_blank"

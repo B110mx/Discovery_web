@@ -10,8 +10,8 @@ return new class extends Migration
         $now = now();
 
         $imagenes = [
-            ['clave' => 'historia_2003_2', 'titulo' => 'Nosotros - Historia 2003 - Imagen secundaria', 'referencia' => 'Imagen secundaria para el hito Discovery Kinder en la linea del tiempo de Nosotros.', 'orden' => 31],
-            ['clave' => 'historia_2005_2', 'titulo' => 'Nosotros - Historia 2005 - Imagen secundaria', 'referencia' => 'Imagen secundaria para el hito Discovery Primaria en la linea del tiempo de Nosotros.', 'orden' => 41],
+            ['clave' => 'historia_2003_2', 'titulo' => 'Nosotros - Historia 2003 - Imagen secundaria', 'referencia' => 'Imagen secundaria para el hito Discovery® Kinder en la linea del tiempo de Nosotros.', 'orden' => 31],
+            ['clave' => 'historia_2005_2', 'titulo' => 'Nosotros - Historia 2005 - Imagen secundaria', 'referencia' => 'Imagen secundaria para el hito Discovery® Elementary en la linea del tiempo de Nosotros.', 'orden' => 41],
             ['clave' => 'historia_2019_2', 'titulo' => 'Nosotros - Historia 2019 - Imagen secundaria', 'referencia' => 'Imagen secundaria para el hito Nuevas instalaciones en la linea del tiempo de Nosotros.', 'orden' => 81],
             ['clave' => 'historia_2023_2', 'titulo' => 'Nosotros - Historia 2023 - Imagen secundaria', 'referencia' => 'Imagen secundaria para el hito DKMUN primera edicion en la linea del tiempo de Nosotros.', 'orden' => 91],
         ];

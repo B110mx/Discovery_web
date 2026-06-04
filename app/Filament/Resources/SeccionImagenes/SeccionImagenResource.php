@@ -27,11 +27,11 @@ class SeccionImagenResource extends Resource
 
     protected static ?int $navigationSort = 20;
 
-    protected static ?string $navigationLabel = 'Imagenes del sitio';
+    protected static ?string $navigationLabel = 'Imágenes del sitio';
 
     protected static ?string $modelLabel = 'imagen del sitio';
 
-    protected static ?string $pluralModelLabel = 'imagenes del sitio';
+    protected static ?string $pluralModelLabel = 'imágenes del sitio';
 
     public static function form(Schema $schema): Schema
     {

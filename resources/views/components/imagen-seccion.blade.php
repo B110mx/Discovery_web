@@ -1,6 +1,6 @@
 @props([
     'imagen',
-    'alt' => 'Imagen de seccion',
+    'alt' => 'Imagen de sección',
     'class' => 'w-full h-full object-cover',
     'placeholderClass' => 'min-h-64',
 ])

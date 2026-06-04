@@ -56,14 +56,14 @@ class ContactoService
             Mail::raw(
                 implode("\n\n", [
                     'Hola ' . $contacto->nombre . ',',
-                    'Gracias por contactar a Colegio Discovery. Hemos recibido tu informacion y nuestro equipo se pondra en contacto contigo a la brevedad.',
+                    'Gracias por contactar a Colegio Discovery®. Hemos recibido tu información y nuestro equipo se pondrá en contacto contigo a la brevedad.',
                     'Saludos,',
-                    'Colegio Internacional Discovery',
+                    'Colegio Internacional Discovery®',
                 ]),
                 function ($message) use ($contacto) {
                     $message
                         ->to($contacto->email, $contacto->nombre)
-                        ->subject('Gracias por contactar a Colegio Discovery');
+                        ->subject('Gracias por contactar a Colegio Discovery®');
                 }
             );
         } catch (Throwable $exception) {

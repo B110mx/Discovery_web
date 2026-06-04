@@ -25,11 +25,11 @@ class PaginaContenidoResource extends Resource
 
     protected static ?int $navigationSort = 30;
 
-    protected static ?string $navigationLabel = 'Contenido de paginas';
+    protected static ?string $navigationLabel = 'Contenido de páginas';
 
-    protected static ?string $modelLabel = 'contenido de pagina';
+    protected static ?string $modelLabel = 'contenido de página';
 
-    protected static ?string $pluralModelLabel = 'contenidos editables de paginas';
+    protected static ?string $pluralModelLabel = 'contenidos editables de páginas';
 
     protected static bool $shouldRegisterNavigation = false;
 

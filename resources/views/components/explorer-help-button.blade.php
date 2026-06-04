@@ -11,7 +11,7 @@
         <div class="overflow-hidden rounded-xl bg-white shadow-2xl ring-1 ring-gray-200">
             <div class="flex items-start justify-between gap-4 bg-blue-700 px-5 py-4 text-white">
                 <div>
-                    <p class="text-xs font-bold uppercase tracking-wide text-blue-100">Discovery Tehuacán</p>
+                    <p class="text-xs font-bold uppercase tracking-wide text-blue-100">Discovery® Tehuacán</p>
                     <h2 class="mt-1 text-xl font-extrabold">¿Qué es un Explorer?</h2>
                 </div>
                 <button
@@ -26,7 +26,7 @@
 
             <div class="space-y-4 p-5">
                 <p class="text-sm leading-7 text-gray-700">
-                    En Discovery Tehuacán, un Explorer es un estudiante que emprende un viaje de aprendizaje holístico, desarrollando habilidades lingüísticas, cognitivas y sociales a través de un enfoque inmersivo y basado en la indagación.
+                    En Discovery® Tehuacán, un Explorer es un estudiante que emprende un viaje de aprendizaje holístico, desarrollando habilidades lingüísticas, cognitivas y sociales a través de un enfoque inmersivo y basado en la indagación.
                 </p>
                 <div class="grid grid-cols-3 gap-2 text-center text-xs font-bold text-gray-700">
                     <span class="rounded bg-blue-50 px-2 py-2 text-blue-700">Indaga</span>

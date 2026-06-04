@@ -57,7 +57,7 @@ class PageController extends Controller
 
                     return [
                         'titulo' => $evento->titulo,
-                        'descripcion' => $evento->descripcion ?? 'Proximo evento de la comunidad Discovery.',
+                        'descripcion' => $evento->descripcion ?? 'Próximo evento de la comunidad Discovery®.',
                         'url' => $imagen['url'] ?? null,
                         'imagen' => $imagen,
                     ];
@@ -98,7 +98,7 @@ class PageController extends Controller
         $imagenesInicio = $this->imagenesVista('inicio', [
             'sobre_nosotros' => [
                 'titulo' => 'Inicio - Sobre Nosotros',
-                'referencia' => 'Imagen lateral de la seccion Sobre Nosotros en la pagina de inicio.',
+                'referencia' => 'Imagen lateral de la sección Sobre Nosotros en la página de inicio.',
                 'url' => $this->publicUploadUrl($paginaInicio?->imagen_principal),
                 'media_path' => 'Kinder fotos actuales/IMG_5775.JPG',
             ],
@@ -114,13 +114,13 @@ class PageController extends Controller
         $imagenesNosotros = $this->imagenesVista('nosotros', [
             'hero' => [
                 'titulo' => 'Nosotros - Imagen principal',
-                'referencia' => 'Imagen grande del encabezado de la pagina Nosotros.',
+                'referencia' => 'Imagen grande del encabezado de la página Nosotros.',
                 'url' => $this->publicUploadUrl($paginaNosotros?->imagen_principal),
                 'media_path' => 'Logos principales/LOGO DISCOVERY PNG.png',
             ],
             'modelo' => [
                 'titulo' => 'Nosotros - Modelo educativo',
-                'referencia' => 'Imagen de apoyo para la seccion de modelo educativo.',
+                'referencia' => 'Imagen de apoyo para la sección de modelo educativo.',
                 'url' => $this->publicUploadUrl($paginaNosotros?->imagen_secundaria),
                 'media_path' => 'Modelos educativos/modelo-educativo-Principal.png',
             ],
@@ -267,11 +267,11 @@ class PageController extends Controller
         ];
 
         if ($nivel === 'bachillerato') {
-            $ofertaBachillerato = config('colegio.oferta_academica.bachillerato', []);
+            $ofertaHigh = config('colegio.oferta_academica.bachillerato', []);
             $nivelContenido['imagen_principal'] = $this->imagenVista(
                 'oferta-academica',
-                $ofertaBachillerato['imagen_clave'] ?? 'bachillerato',
-                $this->defaultConMediaUrl($ofertaBachillerato['imagen_default'] ?? $imagenPrincipalDefault),
+                $ofertaHigh['imagen_clave'] ?? 'bachillerato',
+                $this->defaultConMediaUrl($ofertaHigh['imagen_default'] ?? $imagenPrincipalDefault),
             );
         } else {
             $nivelContenido['imagen_principal'] = $this->imagenVista($nivel, 'hero', $imagenPrincipalDefault);
@@ -524,8 +524,8 @@ class PageController extends Controller
             ->map(function (array $item) {
                 $item['imagen'] = $item['imagenes'][array_rand($item['imagenes'])] ?? [
                     'url' => null,
-                    'titulo' => 'Comunidad Discovery',
-                    'referencia' => 'Imagen para la seccion Quienes hacen viva nuestra comunidad.',
+                    'titulo' => 'Comunidad Discovery®',
+                    'referencia' => 'Imagen para la sección Quienes hacen viva nuestra comunidad.',
                     'pendiente' => true,
                 ];
 
@@ -642,7 +642,7 @@ class PageController extends Controller
             ->get()
             ->map(fn (ListaUtil $lista) => [
                 'grado' => $lista->grado,
-                'nivel' => $lista->nivel,
+                'nivel' => $this->nombreNivelListaUtiles($lista->nivel),
                 'titulo' => $lista->titulo,
                 'ciclo' => $lista->ciclo_escolar,
                 'url' => $this->publicUploadUrl($lista->archivo_pdf),
@@ -674,12 +674,26 @@ class PageController extends Controller
     private function ordenarNivelListaUtiles(string $nivel): int
     {
         return [
+            'Kinder' => 10,
             'Preescolar' => 10,
+            'Elementary' => 20,
             'Primaria' => 20,
+            'Middle' => 30,
             'Secundaria' => 30,
+            'High' => 40,
             'Bachillerato' => 40,
             'General' => 50,
         ][$nivel] ?? 999;
+    }
+
+    private function nombreNivelListaUtiles(string $nivel): string
+    {
+        return [
+            'Preescolar' => 'Kinder',
+            'Primaria' => 'Elementary',
+            'Secundaria' => 'Middle',
+            'Bachillerato' => 'High',
+        ][$nivel] ?? $nivel;
     }
 
     private function obtenerGradoListaUtiles(string $filename): string
@@ -694,15 +708,15 @@ class PageController extends Controller
     private function obtenerNivelListaUtiles(string $filename): string
     {
         if (preg_match('/\b(1|2|3|4|5|6)\s*[º°]/u', $filename)) {
-            return 'Primaria';
+            return 'Elementary';
         }
 
         if (preg_match('/\b(7|8|9)\s*[º°]/u', $filename)) {
-            return 'Secundaria';
+            return 'Middle';
         }
 
         if (preg_match('/\b(10|11|12)\s*[º°]/u', $filename)) {
-            return 'Bachillerato';
+            return 'High';
         }
 
         return 'General';
@@ -732,74 +746,74 @@ class PageController extends Controller
         $imagenesHistoria = $this->imagenesVista('nosotros', [
             'historia_2003' => [
                 'titulo' => 'Nosotros - Historia 2003',
-                'referencia' => 'Imagen para el hito Discovery Kinder en la linea del tiempo de Nosotros.',
+                'referencia' => 'Imagen para el hito Discovery® Kinder en la línea del tiempo de Nosotros.',
                 'media_path' => 'Linea del tiempo/2003-1.jpg',
             ],
             'historia_2003_2' => [
                 'titulo' => 'Nosotros - Historia 2003 - Imagen secundaria',
-                'referencia' => 'Imagen secundaria para el hito Discovery Kinder en la linea del tiempo de Nosotros.',
+                'referencia' => 'Imagen secundaria para el hito Discovery® Kinder en la línea del tiempo de Nosotros.',
                 'media_path' => 'Linea del tiempo/2003-2.jpg',
             ],
             'historia_2005' => [
                 'titulo' => 'Nosotros - Historia 2005',
-                'referencia' => 'Imagen para el hito Discovery Primaria en la linea del tiempo de Nosotros.',
+                'referencia' => 'Imagen para el hito Discovery® Elementary en la línea del tiempo de Nosotros.',
                 'media_path' => 'Linea del tiempo/2005-1.jpg',
             ],
             'historia_2005_2' => [
                 'titulo' => 'Nosotros - Historia 2005 - Imagen secundaria',
-                'referencia' => 'Imagen secundaria para el hito Discovery Primaria en la linea del tiempo de Nosotros.',
+                'referencia' => 'Imagen secundaria para el hito Discovery® Elementary en la línea del tiempo de Nosotros.',
                 'media_path' => 'Linea del tiempo/2005-2.jpg',
             ],
             'historia_2011' => [
                 'titulo' => 'Nosotros - Historia 2011',
-                'referencia' => 'Imagen para el hito Discovery Secundaria en la linea del tiempo de Nosotros.',
+                'referencia' => 'Imagen para el hito Discovery® Middle en la línea del tiempo de Nosotros.',
                 'media_path' => 'Linea del tiempo/2011-1.jpg',
             ],
             'historia_2016' => [
                 'titulo' => 'Nosotros - Historia 2016',
-                'referencia' => 'Imagen para el hito Discovery Bachillerato en la linea del tiempo de Nosotros.',
+                'referencia' => 'Imagen para el hito Discovery® High en la línea del tiempo de Nosotros.',
                 'media_path' => 'Linea del tiempo/2016-1.jpg',
             ],
             'historia_2018' => [
                 'titulo' => 'Nosotros - Historia 2018',
-                'referencia' => 'Imagen para el hito Colegio del Mundo IB en la linea del tiempo de Nosotros.',
+                'referencia' => 'Imagen para el hito Colegio del Mundo IB en la línea del tiempo de Nosotros.',
                 'media_path' => 'Linea del tiempo/2018-1.jpg',
             ],
             'historia_2019' => [
                 'titulo' => 'Nosotros - Historia 2019',
-                'referencia' => 'Imagen para el hito Nuevas instalaciones en la linea del tiempo de Nosotros.',
+                'referencia' => 'Imagen para el hito Nuevas instalaciones en la línea del tiempo de Nosotros.',
                 'media_path' => 'Linea del tiempo/2019-1.jpg',
             ],
             'historia_2019_2' => [
                 'titulo' => 'Nosotros - Historia 2019 - Imagen secundaria',
-                'referencia' => 'Imagen secundaria para el hito Nuevas instalaciones en la linea del tiempo de Nosotros.',
+                'referencia' => 'Imagen secundaria para el hito Nuevas instalaciones en la línea del tiempo de Nosotros.',
                 'media_path' => 'Linea del tiempo/2019-2.jpg',
             ],
             'historia_2023' => [
                 'titulo' => 'Nosotros - Historia 2023',
-                'referencia' => 'Imagen para el hito DKMUN primera edicion en la linea del tiempo de Nosotros.',
+                'referencia' => 'Imagen para el hito DKMUN primera edición en la línea del tiempo de Nosotros.',
                 'media_path' => 'Linea del tiempo/2023-1.jpg',
             ],
             'historia_2023_2' => [
                 'titulo' => 'Nosotros - Historia 2023 - Imagen secundaria',
-                'referencia' => 'Imagen secundaria para el hito DKMUN primera edicion en la linea del tiempo de Nosotros.',
+                'referencia' => 'Imagen secundaria para el hito DKMUN primera edición en la línea del tiempo de Nosotros.',
                 'media_path' => 'Linea del tiempo/2023-2.jpg',
             ],
             'historia_2025' => [
                 'titulo' => 'Nosotros - Historia 2025',
-                'referencia' => 'Imagen para el hito Actualmente en la linea del tiempo de Nosotros.',
+                'referencia' => 'Imagen para el hito Actualmente en la línea del tiempo de Nosotros.',
                 'media_path' => 'Linea del tiempo/2025-1.jpg',
             ],
         ]);
 
         $historiaDefault = [
-            ['anio' => '2003', 'titulo' => 'Discovery Kinder', 'texto' => 'Nace Discovery Kinder, el inicio de un sueno educativo porque los primeros pasos trascienden.', 'imagenes' => [$imagenesHistoria['historia_2003'], $imagenesHistoria['historia_2003_2']]],
-            ['anio' => '2005', 'titulo' => 'Discovery Primaria', 'texto' => 'Inauguracion de Discovery Primaria, creciendo con pasos firmes.', 'imagenes' => [$imagenesHistoria['historia_2005'], $imagenesHistoria['historia_2005_2']]],
-            ['anio' => '2011', 'titulo' => 'Discovery Secundaria', 'texto' => 'Se suma Discovery Secundaria, ampliando horizontes.', 'imagenes' => [$imagenesHistoria['historia_2011']]],
-            ['anio' => '2016', 'titulo' => 'Discovery Bachillerato', 'texto' => 'Llega Discovery Bachillerato, preparando grandes Explorers y descubriendo su potencial.', 'imagenes' => [$imagenesHistoria['historia_2016']]],
-            ['anio' => '2018', 'titulo' => 'Colegio del Mundo', 'texto' => 'Nos convertimos en Colegio del Mundo IB, abrazando la educacion internacional.', 'imagenes' => [$imagenesHistoria['historia_2018']]],
+            ['anio' => '2003', 'titulo' => 'Discovery® Kinder', 'texto' => 'Nace Discovery® Kinder, el inicio de un sueño educativo porque los primeros pasos trascienden.', 'imagenes' => [$imagenesHistoria['historia_2003'], $imagenesHistoria['historia_2003_2']]],
+            ['anio' => '2005', 'titulo' => 'Discovery® Elementary', 'texto' => 'Inauguración de Discovery® Elementary, creciendo con pasos firmes.', 'imagenes' => [$imagenesHistoria['historia_2005'], $imagenesHistoria['historia_2005_2']]],
+            ['anio' => '2011', 'titulo' => 'Discovery® Middle', 'texto' => 'Se suma Discovery® Middle, ampliando horizontes.', 'imagenes' => [$imagenesHistoria['historia_2011']]],
+            ['anio' => '2016', 'titulo' => 'Discovery® High', 'texto' => 'Llega Discovery® High, preparando grandes Explorers y descubriendo su potencial.', 'imagenes' => [$imagenesHistoria['historia_2016']]],
+            ['anio' => '2018', 'titulo' => 'Colegio del Mundo', 'texto' => 'Nos convertimos en Colegio del Mundo IB, abrazando la educación internacional.', 'imagenes' => [$imagenesHistoria['historia_2018']]],
             ['anio' => '2019', 'titulo' => 'Nuevas instalaciones', 'texto' => 'Estrenamos nuevas instalaciones para seguir innovando.', 'imagenes' => [$imagenesHistoria['historia_2019'], $imagenesHistoria['historia_2019_2']]],
-            ['anio' => '2023', 'titulo' => 'DKMUN primera edicion', 'texto' => 'Realizamos nuestra primera edicion DKMUN, un espacio para el debate y la diplomacia.', 'imagenes' => [$imagenesHistoria['historia_2023'], $imagenesHistoria['historia_2023_2']]],
+            ['anio' => '2023', 'titulo' => 'DKMUN primera edición', 'texto' => 'Realizamos nuestra primera edición DKMUN, un espacio para el debate y la diplomacia.', 'imagenes' => [$imagenesHistoria['historia_2023'], $imagenesHistoria['historia_2023_2']]],
             ['anio' => '2025', 'titulo' => 'Actualmente', 'texto' => 'Seguimos escribiendo nuestra historia, creciendo y evolucionando juntos.', 'imagenes' => [$imagenesHistoria['historia_2025']]],
         ];
 

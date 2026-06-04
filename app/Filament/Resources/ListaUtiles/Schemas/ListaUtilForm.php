@@ -15,7 +15,7 @@ class ListaUtilForm
     public static function configure(Schema $schema): Schema
     {
         return $schema->components([
-            Section::make('Datos que vera la familia')
+            Section::make('Datos que verá la familia')
                 ->description('Captura el ciclo escolar, nivel y grado para que la lista aparezca ordenada en Recursos escolares.')
                 ->schema([
                     Grid::make(2)
@@ -28,10 +28,10 @@ class ListaUtilForm
                             Select::make('nivel')
                                 ->label('Nivel')
                                 ->options([
-                                    'Preescolar' => 'Preescolar',
-                                    'Primaria' => 'Primaria',
-                                    'Secundaria' => 'Secundaria',
-                                    'Bachillerato' => 'Bachillerato',
+                                    'Kinder' => 'Kinder',
+                                    'Elementary' => 'Elementary',
+                                    'Middle' => 'Middle',
+                                    'High' => 'High',
                                     'General' => 'General',
                                 ])
                                 ->searchable()
@@ -44,7 +44,7 @@ class ListaUtilForm
                                 ->maxLength(120),
                             TextInput::make('titulo')
                                 ->label('Nombre de la lista')
-                                ->helperText('Ejemplo: Lista de utiles Primaria 1 grado.')
+                                ->helperText('Ejemplo: Lista de útiles Elementary 1 grado.')
                                 ->required()
                                 ->maxLength(255),
                         ]),
@@ -55,7 +55,7 @@ class ListaUtilForm
                 ->schema([
                     FileUpload::make('archivo_pdf')
                         ->label('Archivo PDF')
-                        ->helperText('Solo PDF. Al guardar, este sera el archivo que podran abrir las familias.')
+                        ->helperText('Solo PDF. Al guardar, este será el archivo que podrán abrir las familias.')
                         ->disk('public')
                         ->directory('listas-utiles')
                         ->visibility('public')
@@ -68,13 +68,13 @@ class ListaUtilForm
                     Grid::make(2)
                         ->schema([
                             TextInput::make('orden')
-                                ->label('Orden de aparicion')
-                                ->helperText('Numero menor aparece primero.')
+                                ->label('Orden de aparición')
+                                ->helperText('Número menor aparece primero.')
                                 ->numeric()
                                 ->default(0),
                             Toggle::make('activo')
                                 ->label('Mostrar esta lista en el sitio')
-                                ->helperText('Apagalo para ocultar listas de ciclos anteriores sin borrarlas.')
+                                ->helperText('Apágalo para ocultar listas de ciclos anteriores sin borrarlas.')
                                 ->default(true),
                         ]),
                 ]),

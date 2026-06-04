@@ -27,8 +27,8 @@
         'alumni' => [
             'titulo' => 'Alumni',
             'subtitulo' => 'Historias que siguen creciendo.',
-            'texto' => 'Nuestros egresados llevan el sello Discovery a nuevas etapas académicas y profesionales, manteniendo vivo el sentido de pertenencia a la comunidad.',
-            'puntos' => ['Generaciones Discovery', 'Testimonios de egresados', 'Vínculo con la comunidad escolar'],
+            'texto' => 'Nuestros egresados llevan el sello Discovery® a nuevas etapas académicas y profesionales, manteniendo vivo el sentido de pertenencia a la comunidad.',
+            'puntos' => ['Generaciones Discovery®', 'Testimonios de egresados', 'Vínculo con la comunidad escolar'],
         ],
     ];
 
@@ -52,10 +52,10 @@
     <div class="overflow-hidden rounded-xl bg-blue-700 text-white shadow-lg">
         <div class="grid lg:grid-cols-[.95fr_1.05fr]">
             <div class="p-8 md:p-12 lg:p-14">
-                <p class="font-semibold uppercase tracking-wide text-sm text-blue-100">{{ $paginaProtagonistas?->subtitulo ?? 'Comunidad Discovery' }}</p>
+                <p class="font-semibold uppercase tracking-wide text-sm text-blue-100">{{ $paginaProtagonistas?->subtitulo ?? 'Comunidad Discovery®' }}</p>
                 <h1 class="mt-3 text-4xl md:text-5xl font-extrabold">{{ $paginaProtagonistas?->titulo ?? 'Protagonistas' }}</h1>
                 <p class="mt-5 max-w-2xl text-lg leading-8 text-blue-50">
-                    {{ $paginaProtagonistas?->descripcion ?? 'En Discovery Explorers, padres de familia, docentes y alumni trabajamos en equipo para formar una comunidad de aprendizaje con mentalidad internacional.' }}
+                    {{ $paginaProtagonistas?->descripcion ?? 'En Discovery® Explorers, padres de familia, docentes y alumni trabajamos en equipo para formar una comunidad de aprendizaje con mentalidad internacional.' }}
                 </p>
                 <a href="#testimonios" class="mt-8 inline-flex w-fit items-center justify-center rounded bg-red-600 px-6 py-3 font-bold text-white hover:bg-red-700">
                     Ver testimonios
@@ -72,7 +72,7 @@
                         <a href="{{ $protagonista['imagen']['url'] }}" class="glightbox block" data-title="{{ $protagonista['titulo'] }}" data-community-hero-link>
                             <x-imagen-seccion
                                 :imagen="$protagonista['imagen']"
-                                alt="{{ $protagonista['titulo'] }} Discovery"
+                                alt="{{ $protagonista['titulo'] }} Discovery®"
                                 class="h-36 w-full object-contain p-2 md:h-40"
                                 placeholder-class="h-36 md:h-40"
                                 data-community-hero-photo
@@ -120,14 +120,14 @@
                         @if (! empty($item['imagen']['url']))
                             <img
                                 src="{{ $item['imagen']['url'] }}"
-                                alt="{{ $item['titulo'] }} Discovery"
+                                alt="{{ $item['titulo'] }} Discovery®"
                                 class="h-72 w-full bg-gray-100 object-contain md:h-96"
                                 data-protagonista-photo
                             >
                         @else
                             <x-imagen-seccion
                                 :imagen="$item['imagen']"
-                                alt="{{ $item['titulo'] }} Discovery"
+                                alt="{{ $item['titulo'] }} Discovery®"
                                 class="h-72 w-full object-cover md:h-96"
                                 placeholder-class="h-72 md:h-96"
                             />
@@ -175,7 +175,7 @@
                             <h2 class="text-2xl font-extrabold leading-snug text-black md:text-3xl">Nos define lo que somos como esencia.</h2>
                             <div class="mt-5 space-y-4 text-base leading-8 text-gray-700">
                                 <p>
-                                    En Discovery nuestros grupos reducidos aseguran una atención personalizada, fundamental para el desarrollo de las facultades de cada Explorer y para la adquisición de hábitos.
+                                    En Discovery® nuestros grupos reducidos aseguran una atención personalizada, fundamental para el desarrollo de las facultades de cada Explorer y para la adquisición de hábitos.
                                 </p>
                                 <p>
                                     Somos una institución bilingüe con programas de inglés impartidos por profesores internacionales y una comunidad que aprende de forma natural, cercana y sana.
@@ -201,7 +201,7 @@
 
             <div class="flex flex-col bg-blue-700 p-6 text-white md:p-8">
                 <p class="font-semibold uppercase tracking-wide text-sm text-blue-100">Videos testimoniales</p>
-                <h2 class="mt-2 text-3xl font-extrabold md:text-4xl">Historias Discovery</h2>
+                <h2 class="mt-2 text-3xl font-extrabold md:text-4xl">Historias Discovery®</h2>
                 <p class="mt-4 max-w-2xl leading-8 text-blue-50">
                     Alumni y familias comparten lo que significa crecer dentro de nuestra comunidad.
                 </p>

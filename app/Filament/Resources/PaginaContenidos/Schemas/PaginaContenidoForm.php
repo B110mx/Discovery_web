@@ -16,17 +16,17 @@ class PaginaContenidoForm
     public static function configure(Schema $schema, ?string $fixedSlug = null): Schema
     {
         return $schema->components([
-            Section::make('Texto principal de la pagina')
-                ->description('Edita los titulos y textos visibles. Las imagenes se cambian en Imagenes del sitio.')
+            Section::make('Texto principal de la página')
+                ->description('Edita los títulos y textos visibles. Las imágenes se cambian en Imágenes del sitio.')
                 ->schema([
                     $fixedSlug
                         ? Hidden::make('slug')->default($fixedSlug)->dehydrated()
                         : Select::make('slug')
-                            ->label('Pagina')
-                            ->helperText('Selecciona la vista donde se mostrara este contenido.')
+                            ->label('Página')
+                            ->helperText('Selecciona la vista donde se mostrará este contenido.')
                             ->options([
                                 'inicio' => 'Inicio',
-                                'nosotros' => 'Conocenos / Nosotros',
+                                'nosotros' => 'Conócenos / Nosotros',
                                 'oferta-academica' => 'Oferta Educativa',
                                 'protagonistas' => 'Comunidad / Protagonistas',
                                 'contacto' => 'Contacto',
@@ -37,28 +37,28 @@ class PaginaContenidoForm
                             ->unique(ignoreRecord: true),
 
                     TextInput::make('subtitulo')
-                        ->label('Etiqueta pequena')
-                        ->helperText('Texto corto que aparece arriba del titulo. Ejemplo: Conocenos.'),
+                        ->label('Etiqueta pequeña')
+                        ->helperText('Texto corto que aparece arriba del título. Ejemplo: Conócenos.'),
 
                     TextInput::make('titulo')
-                        ->label('Titulo principal')
-                        ->helperText('Encabezado grande de la pagina.')
+                        ->label('Título principal')
+                        ->helperText('Encabezado grande de la página.')
                         ->required()
                         ->columnSpanFull(),
 
                     Textarea::make('descripcion')
-                        ->label('Descripcion principal')
-                        ->helperText('Parrafo introductorio que acompana el titulo.')
+                        ->label('Descripción principal')
+                        ->helperText('Párrafo introductorio que acompaña el título.')
                         ->rows(4)
                         ->columnSpanFull(),
                 ])->columns(2),
 
-            Section::make('Imagenes principales de esta pagina')
-                ->description('Usa estos campos para las imagenes principales de la vista. Carruseles, linea del tiempo y videos se editan en sus propios apartados.')
+            Section::make('Imágenes principales de esta página')
+                ->description('Usa estos campos para las imágenes principales de la vista. Carruseles, línea del tiempo y videos se editan en sus propios apartados.')
                 ->schema([
                     FileUpload::make('imagen_principal')
                         ->label('Imagen principal')
-                        ->helperText('Imagen destacada o de apoyo principal de esta pagina.')
+                        ->helperText('Imagen destacada o de apoyo principal de esta página.')
                         ->image()
                         ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])
                         ->disk('public')
@@ -69,7 +69,7 @@ class PaginaContenidoForm
 
                     FileUpload::make('imagen_secundaria')
                         ->label('Imagen secundaria')
-                        ->helperText('Imagen adicional de apoyo, si la pagina la utiliza.')
+                        ->helperText('Imagen adicional de apoyo, si la página la utiliza.')
                         ->image()
                         ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])
                         ->disk('public')
@@ -80,10 +80,10 @@ class PaginaContenidoForm
                 ]),
 
             Section::make('Datos de contacto')
-                ->description('Estos campos solo se usan en la pagina Contacto.')
+                ->description('Estos campos solo se usan en la página Contacto.')
                 ->schema([
                     TextInput::make('direccion')
-                        ->label('Direccion')
+                        ->label('Dirección')
                         ->columnSpanFull(),
 
                     Grid::make(3)

@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreContactoRequest extends FormRequest
 {
@@ -28,7 +29,7 @@ class StoreContactoRequest extends FormRequest
             'tutor_nombre' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:255'],
             'telefono' => ['required', 'string', 'max:20'],
-            'grado' => ['required', 'string', 'max:120'],
+            'grado' => ['required', 'string', 'max:120', Rule::in(['Kinder', 'Elementary', 'Middle', 'High'])],
         ];
     }
 

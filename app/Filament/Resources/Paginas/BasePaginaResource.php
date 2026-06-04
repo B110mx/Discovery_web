@@ -19,11 +19,11 @@ abstract class BasePaginaResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedDocumentText;
 
-    protected static string|UnitEnum|null $navigationGroup = 'Paginas del sitio';
+    protected static string|UnitEnum|null $navigationGroup = 'Páginas del sitio';
 
-    protected static ?string $modelLabel = 'pagina del sitio';
+    protected static ?string $modelLabel = 'página del sitio';
 
-    protected static ?string $pluralModelLabel = 'pagina del sitio';
+    protected static ?string $pluralModelLabel = 'página del sitio';
 
     protected static ?string $recordTitleAttribute = 'titulo';
 

@@ -19,24 +19,24 @@ class EventoForm
         return $schema
             ->components([
                 Section::make('Texto del evento en Inicio')
-                    ->description('Edita el texto que aparece en el carrusel de la pagina de inicio.')
+                    ->description('Edita el texto que aparece en el carrusel de la página de inicio.')
                     ->schema([
                         Grid::make(2)
                             ->schema([
                                 TextInput::make('titulo')
-                                    ->label('Titulo que ve el visitante')
-                                    ->helperText('Ejemplo: Evento Preescolar, Feria de universidades, DKMUN.')
+                                    ->label('Título que ve el visitante')
+                                    ->helperText('Ejemplo: Evento Kinder, Feria de universidades, DKMUN.')
                                     ->required()
                                     ->maxLength(255),
                                 TextInput::make('orden')
-                                    ->label('Orden de aparicion')
-                                    ->helperText('Numero menor aparece primero.')
+                                    ->label('Orden de aparición')
+                                    ->helperText('Número menor aparece primero.')
                                     ->numeric()
                                     ->default(0),
                             ]),
                         Textarea::make('descripcion')
-                            ->label('Descripcion breve')
-                            ->helperText('Texto corto que acompana el evento en la pagina de inicio.')
+                            ->label('Descripción breve')
+                            ->helperText('Texto corto que acompaña el evento en la página de inicio.')
                             ->rows(4)
                             ->maxLength(500),
                         Toggle::make('activo')
@@ -49,7 +49,7 @@ class EventoForm
                     ->schema([
                         Select::make('imagen_media_path')
                             ->label('Elegir imagen desde /videosyfotos')
-                            ->helperText('Recomendado: usa esta opcion si la imagen ya esta en la carpeta videosyfotos.')
+                            ->helperText('Recomendado: usa esta opción si la imagen ya está en la carpeta videosyfotos.')
                             ->options(fn () => VideoFotoOptions::images())
                             ->searchable()
                             ->preload()
@@ -58,7 +58,7 @@ class EventoForm
 
                         FileUpload::make('imagen_url')
                             ->label('O subir imagen nueva')
-                            ->helperText('Usalo solo si la imagen no existe en /videosyfotos. Maximo 6 MB. Formato recomendado: horizontal o cartel legible.')
+                            ->helperText('Úsalo solo si la imagen no existe en /videosyfotos. Máximo 6 MB. Formato recomendado: horizontal o cartel legible.')
                             ->image()
                             ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])
                             ->disk('public')
