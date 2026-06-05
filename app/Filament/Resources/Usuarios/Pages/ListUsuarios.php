@@ -14,7 +14,8 @@ class ListUsuarios extends ListRecords
     {
         return [
             CreateAction::make()
-                ->label('Agregar credencial'),
+                ->label('Nueva credencial')
+                ->visible(fn (): bool => UsuarioResource::canCreate()),
         ];
     }
 }

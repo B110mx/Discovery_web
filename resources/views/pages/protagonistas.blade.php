@@ -183,25 +183,25 @@
         </div>
     </section>
 
-    <section id="testimonios" class="overflow-hidden rounded-xl bg-white shadow-lg">
-        <div class="grid lg:grid-cols-[.9fr_1.1fr]">
-            <div class="bg-gray-50 p-6 md:p-8">
-                <div class="flex h-full flex-col justify-between rounded-xl border border-blue-100 bg-white p-6 shadow-sm md:p-8">
+    <section id="testimonios" class="w-full max-w-full overflow-hidden rounded-xl bg-white shadow-lg">
+        <div class="grid min-w-0 lg:grid-cols-[.9fr_1.1fr]">
+            <div class="min-w-0 bg-gray-50 p-4 md:p-8">
+                <div class="flex h-full min-w-0 flex-col justify-between rounded-xl border border-blue-100 bg-white p-4 shadow-sm md:p-8">
                     <div>
-                        <div class="flex items-center gap-3">
-                            <span class="inline-flex h-12 w-12 items-center justify-center rounded-full bg-blue-700 text-xl font-extrabold text-white">D</span>
-                            <div>
-                                <p class="text-sm font-bold uppercase tracking-wide text-blue-700">Mensaje de nuestra fundadora</p>
+                        <div class="flex min-w-0 items-center gap-3">
+                            <span class="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-blue-700 text-xl font-extrabold text-white">D</span>
+                            <div class="min-w-0">
+                                <p class="text-xs font-bold uppercase tracking-wide text-blue-700 sm:text-sm">Mensaje de nuestra fundadora</p>
                                 <p class="mt-1 text-sm font-semibold text-gray-500">Una comunidad que deja huella</p>
                             </div>
                         </div>
-                        <blockquote class="mt-8 border-l-4 border-red-600 pl-5">
-                            <h2 class="text-2xl font-extrabold leading-snug text-black md:text-3xl">Nos define lo que somos como esencia.</h2>
+                        <blockquote class="mt-8 min-w-0 border-l-4 border-red-600 pl-4 md:pl-5">
+                            <h2 class="break-words text-xl font-extrabold leading-snug text-black sm:text-2xl md:text-3xl">Nos define lo que somos como esencia.</h2>
                             <div class="mt-5 space-y-4 text-base leading-8 text-gray-700">
-                                <p>
+                                <p class="break-words">
                                     En Discovery® nuestros grupos reducidos aseguran una atención personalizada, fundamental para el desarrollo de las facultades de cada Explorer y para la adquisición de hábitos.
                                 </p>
-                                <p>
+                                <p class="break-words">
                                     Somos una institución bilingüe con programas de inglés impartidos por profesores internacionales y una comunidad que aprende de forma natural, cercana y sana.
                                 </p>
                             </div>
@@ -223,7 +223,7 @@
                 </div>
             </div>
 
-            <div class="flex flex-col bg-blue-700 p-6 text-white md:p-8">
+            <div class="flex min-w-0 flex-col bg-blue-700 p-4 text-white md:p-8">
                 <p class="font-semibold uppercase tracking-wide text-sm text-blue-100">Videos testimoniales</p>
                 <h2 class="mt-2 text-3xl font-extrabold md:text-4xl">Historias Discovery®</h2>
                 <p class="mt-4 max-w-2xl leading-8 text-blue-50">
@@ -324,6 +324,38 @@
         const panels = Array.from(document.querySelectorAll('[data-protagonista-panel]'));
         const images = Array.from(document.querySelectorAll('[data-protagonista-image]'));
         const heroCards = Array.from(document.querySelectorAll('[data-community-hero-card]'));
+
+        const enableTouchSwipe = (element, onPrevious, onNext) => {
+            if (!element) {
+                return;
+            }
+
+            let startX = 0;
+            let startY = 0;
+
+            element.addEventListener('touchstart', (event) => {
+                const touch = event.touches[0];
+
+                startX = touch.clientX;
+                startY = touch.clientY;
+            }, { passive: true });
+
+            element.addEventListener('touchend', (event) => {
+                const touch = event.changedTouches[0];
+                const deltaX = touch.clientX - startX;
+                const deltaY = touch.clientY - startY;
+
+                if (Math.abs(deltaX) < 45 || Math.abs(deltaX) < Math.abs(deltaY) * 1.2) {
+                    return;
+                }
+
+                if (deltaX < 0) {
+                    onNext();
+                } else {
+                    onPrevious();
+                }
+            }, { passive: true });
+        };
 
         const imageListFromDataset = (element, datasetKey) => {
             try {
@@ -493,6 +525,18 @@
             pauseAllVideos();
             showVideo(videoIndex + 1);
         }));
+
+        enableTouchSwipe(
+            videoCarousel,
+            () => {
+                pauseAllVideos();
+                showVideo(videoIndex - 1);
+            },
+            () => {
+                pauseAllVideos();
+                showVideo(videoIndex + 1);
+            },
+        );
 
         videoDots.forEach((dot) => {
             dot.addEventListener('click', () => {

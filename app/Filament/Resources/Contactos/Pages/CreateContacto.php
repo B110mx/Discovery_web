@@ -3,7 +3,7 @@
 namespace App\Filament\Resources\Contactos\Pages;
 
 use App\Filament\Resources\Contactos\ContactoResource;
-use Filament\Resources\Pages\CreateRecord;
+use App\Filament\Resources\Pages\CreateRecord;
 
 class CreateContacto extends CreateRecord
 {

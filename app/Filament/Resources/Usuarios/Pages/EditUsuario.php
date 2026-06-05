@@ -5,7 +5,7 @@ namespace App\Filament\Resources\Usuarios\Pages;
 use App\Filament\Resources\Usuarios\UsuarioResource;
 use App\Models\User;
 use Filament\Actions\DeleteAction;
-use Filament\Resources\Pages\EditRecord;
+use App\Filament\Resources\Pages\EditRecord;
 
 class EditUsuario extends EditRecord
 {
@@ -20,6 +20,10 @@ class EditUsuario extends EditRecord
 
                     if (! ($user?->isSuperAdmin() ?? false) || auth()->id() === $record->id) {
                         return false;
+                    }
+
+                    if ($record->role === 'super_admin') {
+                        return $user->isPrimarySuperAdmin();
                     }
 
                     return ! $record->isPrimarySuperAdmin() || $user->isPrimarySuperAdmin();

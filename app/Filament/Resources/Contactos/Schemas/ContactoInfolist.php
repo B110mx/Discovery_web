@@ -13,7 +13,7 @@ class ContactoInfolist
             ->components([
                 TextEntry::make('nombre'),
                 TextEntry::make('email')
-                    ->label('Correo electronico'),
+                    ->label('Correo electrónico'),
                 TextEntry::make('mensaje')
                     ->columnSpanFull(),
                 TextEntry::make('created_at')

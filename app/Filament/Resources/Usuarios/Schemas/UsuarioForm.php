@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Usuarios\Schemas;
 
+use App\Models\User;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Section;
@@ -29,26 +30,50 @@ class UsuarioForm
 
                     Select::make('role')
                         ->label('Tipo de acceso')
-                        ->options([
-                            'admin' => 'Admin',
-                            'super_admin' => 'Super admin',
-                        ])
+                        ->options(fn (): array => auth()->user()?->isPrimarySuperAdmin()
+                            ? [
+                                'admin' => 'Admin',
+                                'super_admin' => 'Super admin',
+                            ]
+                            : [
+                                'admin' => 'Admin',
+                            ])
                         ->default('admin')
                         ->required()
                         ->native(false)
-                        ->helperText('Solo un super admin puede crear, editar o borrar credenciales.'),
+                        ->helperText('Solo el super admin principal puede crear o asignar cuentas super admin.'),
 
                     TextInput::make('password')
-                        ->label('Contraseña')
+                        ->label('Nueva contraseña')
                         ->password()
                         ->revealable()
                         ->required(fn (string $operation): bool => $operation === 'create')
                         ->minLength(8)
                         ->maxLength(255)
                         ->dehydrated(fn (?string $state): bool => filled($state))
-                        ->helperText('Déjala vacía al editar si no quieres cambiarla.'),
+                        ->visible(fn (?User $record): bool => self::canChangePassword($record))
+                        ->helperText('No se puede ver la contraseña actual. Escribe una nueva solo si necesitas restablecerla.'),
                 ])
                 ->columns(2),
         ]);
+    }
+
+    private static function canChangePassword(?User $record): bool
+    {
+        $user = auth()->user();
+
+        if (! ($user?->isSuperAdmin() ?? false)) {
+            return false;
+        }
+
+        if (! $record) {
+            return true;
+        }
+
+        if ($record->role === 'super_admin') {
+            return $user->isPrimarySuperAdmin();
+        }
+
+        return ! $record->isPrimarySuperAdmin() || $user->isPrimarySuperAdmin();
     }
 }

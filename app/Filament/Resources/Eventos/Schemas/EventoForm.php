@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Eventos\Schemas;
 
 use App\Support\VideoFotoOptions;
+use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -34,6 +35,10 @@ class EventoForm
                                     ->numeric()
                                     ->default(0),
                             ]),
+                        DatePicker::make('fecha_evento')
+                            ->label('Fecha del evento')
+                            ->helperText('Si capturas fecha, se ocultará automáticamente del carrusel después de las 3:00 pm de ese día.')
+                            ->native(false),
                         Textarea::make('descripcion')
                             ->label('Descripción breve')
                             ->helperText('Texto corto que acompaña el evento en la página de inicio.')

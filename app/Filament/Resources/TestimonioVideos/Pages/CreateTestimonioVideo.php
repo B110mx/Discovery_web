@@ -3,7 +3,7 @@
 namespace App\Filament\Resources\TestimonioVideos\Pages;
 
 use App\Filament\Resources\TestimonioVideos\TestimonioVideoResource;
-use Filament\Resources\Pages\CreateRecord;
+use App\Filament\Resources\Pages\CreateRecord;
 
 class CreateTestimonioVideo extends CreateRecord
 {

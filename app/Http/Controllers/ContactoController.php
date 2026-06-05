@@ -25,14 +25,14 @@ class ContactoController extends Controller
                     'Nombre completo del aspirante: ' . $datos['aspirante_nombre'],
                     'Nombre completo del tutor (a): ' . $datos['tutor_nombre'],
                     'Email: ' . $datos['email'],
-                    'Telefono de contacto: ' . $datos['telefono'],
+                    'Teléfono de contacto: ' . $datos['telefono'],
                     'Grado al que aplica: ' . $datos['grado'],
                 ]),
             ]);
         } catch (Throwable) {
             return redirect()->back()
                 ->withInput()
-                ->with('error', 'No pudimos enviar tu mensaje en este momento. Por favor intenta nuevamente o comunicate directamente con el colegio.');
+                ->with('error', 'No pudimos enviar tu mensaje en este momento. Por favor intenta nuevamente o comunícate directamente con el colegio.');
         }
 
         return redirect()->back()->with('success', 'Gracias por comunicarte con el Colegio Discovery®. Te contactaremos a la brevedad.');

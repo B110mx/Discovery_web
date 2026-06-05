@@ -3,7 +3,7 @@
 namespace App\Filament\Resources\Paginas\NosotrosResource\Pages;
 
 use App\Filament\Resources\Paginas\NosotrosResource;
-use Filament\Resources\Pages\EditRecord;
+use App\Filament\Resources\Pages\EditRecord;
 
 class EditNosotros extends EditRecord
 {

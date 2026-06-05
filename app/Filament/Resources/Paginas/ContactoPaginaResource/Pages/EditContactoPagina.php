@@ -3,7 +3,7 @@
 namespace App\Filament\Resources\Paginas\ContactoPaginaResource\Pages;
 
 use App\Filament\Resources\Paginas\ContactoPaginaResource;
-use Filament\Resources\Pages\EditRecord;
+use App\Filament\Resources\Pages\EditRecord;
 
 class EditContactoPagina extends EditRecord
 {

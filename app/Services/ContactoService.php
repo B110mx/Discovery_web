@@ -17,7 +17,6 @@ class ContactoService
         $contacto = Contacto::create($datos);
 
         $this->notificarNuevoContacto($contacto);
-        $this->enviarAgradecimiento($contacto);
 
         return $contacto;
     }
@@ -27,11 +26,14 @@ class ContactoService
         try {
             Mail::raw(
                 implode("\n\n", [
-                    'Se recibio un nuevo mensaje desde el formulario de contacto.',
+                    'Se recibió una nueva solicitud desde el formulario de contacto del sitio web.',
+                    'Datos del tutor:',
                     'Nombre: ' . $contacto->nombre,
-                    'Email: ' . $contacto->email,
+                    'Correo: ' . $contacto->email,
+                    'Fecha de envío: ' . $contacto->created_at?->timezone(config('app.timezone'))->format('d/m/Y H:i'),
                     'Datos enviados:',
                     $contacto->mensaje,
+                    'Puedes responder directamente a este correo para contactar a la familia.',
                 ]),
                 function ($message) use ($contacto) {
                     $message
@@ -47,30 +49,6 @@ class ContactoService
             ]);
 
             throw $exception;
-        }
-    }
-
-    private function enviarAgradecimiento(Contacto $contacto): void
-    {
-        try {
-            Mail::raw(
-                implode("\n\n", [
-                    'Hola ' . $contacto->nombre . ',',
-                    'Gracias por contactar a Colegio Discovery®. Hemos recibido tu información y nuestro equipo se pondrá en contacto contigo a la brevedad.',
-                    'Saludos,',
-                    'Colegio Internacional Discovery®',
-                ]),
-                function ($message) use ($contacto) {
-                    $message
-                        ->to($contacto->email, $contacto->nombre)
-                        ->subject('Gracias por contactar a Colegio Discovery®');
-                }
-            );
-        } catch (Throwable $exception) {
-            Log::warning('No se pudo enviar el correo de agradecimiento de contacto.', [
-                'contacto_id' => $contacto->id,
-                'error' => $exception->getMessage(),
-            ]);
         }
     }
 }

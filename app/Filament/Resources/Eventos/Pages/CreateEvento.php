@@ -3,7 +3,7 @@
 namespace App\Filament\Resources\Eventos\Pages;
 
 use App\Filament\Resources\Eventos\EventoResource;
-use Filament\Resources\Pages\CreateRecord;
+use App\Filament\Resources\Pages\CreateRecord;
 
 class CreateEvento extends CreateRecord
 {

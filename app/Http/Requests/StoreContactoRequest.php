@@ -38,8 +38,8 @@ class StoreContactoRequest extends FormRequest
         return [
             'aspirante_nombre.required' => 'El nombre del aspirante es obligatorio.',
             'tutor_nombre.required' => 'El nombre del tutor es obligatorio.',
-            'email.required' => 'Necesitamos un correo electronico valido.',
-            'telefono.required' => 'Necesitamos un telefono de contacto.',
+            'email.required' => 'Necesitamos un correo electrónico válido.',
+            'telefono.required' => 'Necesitamos un teléfono de contacto.',
             'grado.required' => 'Selecciona el grado al que aplica.',
         ];
     }

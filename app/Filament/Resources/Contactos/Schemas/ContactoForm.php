@@ -20,7 +20,7 @@ class ContactoForm
                         ->required(),
 
                     TextInput::make('email')
-                        ->label('Correo electronico')
+                        ->label('Correo electrónico')
                         ->email()
                         ->required(),
 

@@ -14,7 +14,7 @@ class ListSeccionImagenes extends ListRecords
     {
         return [
             CreateAction::make()
-                ->label('Agregar imagen del sitio'),
+                ->label('Nueva imagen del sitio'),
         ];
     }
 }

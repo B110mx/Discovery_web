@@ -9,9 +9,11 @@ use App\Models\PaginaContenido;
 use App\Models\SeccionImagen;
 use App\Models\TestimonioVideo;
 use App\Support\SiteCache;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Carbon;
 use Illuminate\View\View;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Throwable;
@@ -35,10 +37,22 @@ class PageController extends Controller
         $paginaInicio = $this->paginaContenido('inicio');
 
         // Caché de 12 horas para evitar consultas repetitivas a la BD
-        $eventos = Cache::remember(SiteCache::key('inicio_eventos'), SiteCache::ttl(), function () {
+        $eventos = Cache::remember(SiteCache::key('inicio_eventos'), $this->eventosInicioCacheTtl(), function () {
             $eventosDefault = $this->eventosInicioDefault();
+            $hayEventosAdmin = Evento::where('activo', true)->exists();
+            $ahora = now();
+            $hoy = $ahora->toDateString();
+            $horaCorte = $ahora->copy()->setTime(15, 0);
 
             $eventos = Evento::where('activo', true)
+                ->where(function (Builder $query) use ($ahora, $hoy, $horaCorte) {
+                    $query->whereNull('fecha_evento')
+                        ->orWhereDate('fecha_evento', '>', $hoy);
+
+                    if ($ahora->lt($horaCorte)) {
+                        $query->orWhereDate('fecha_evento', $hoy);
+                    }
+                })
                 ->orderBy('orden')
                 ->get()
                 ->map(function (Evento $evento, int $index) use ($eventosDefault) {
@@ -65,6 +79,10 @@ class PageController extends Controller
 
             if (!empty($eventos)) {
                 return $eventos;
+            }
+
+            if ($hayEventosAdmin) {
+                return [];
             }
 
             return $eventosDefault;
@@ -105,6 +123,33 @@ class PageController extends Controller
         ]);
 
         return view('pages.inicio', compact('eventos', 'testimonios', 'logosNiveles', 'imagenesInicio', 'paginaInicio', 'bannerInicio', 'bannerInicioSlides'));
+    }
+
+    private function eventosInicioCacheTtl()
+    {
+        $ttlDefault = SiteCache::ttl();
+        $ahora = now();
+        $hoy = $ahora->toDateString();
+
+        $proximaFechaEvento = Evento::where('activo', true)
+            ->whereNotNull('fecha_evento')
+            ->where(function (Builder $query) use ($ahora, $hoy) {
+                $query->whereDate('fecha_evento', '>', $hoy);
+
+                if ($ahora->lt($ahora->copy()->setTime(15, 0))) {
+                    $query->orWhereDate('fecha_evento', $hoy);
+                }
+            })
+            ->orderBy('fecha_evento')
+            ->value('fecha_evento');
+
+        if (! $proximaFechaEvento) {
+            return $ttlDefault;
+        }
+
+        $proximoCorte = Carbon::parse($proximaFechaEvento)->setTime(15, 0);
+
+        return $proximoCorte->lt($ttlDefault) ? $proximoCorte : $ttlDefault;
     }
 
     public function nosotros(): View

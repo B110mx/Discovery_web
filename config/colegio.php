@@ -37,7 +37,7 @@ return [
         'direccion' => 'C. Vía Puebla 3611, José Garci-crespo, Residencial Cinco Bosques, 75855 Tehuacán, Pue., México',
         'telefono_principal' => '(238) 688 11 79',
         'telefono_secundario' => '(238) 102 18 17',
-        'correo' => 'informes@colegio-discovery.edu.mx',
+        'correo' => env('CONTACTO_CORREO', 'informes@colegio-discovery.edu.mx'),
         'mapa_embed_url' => 'https://www.google.com/maps?q=Colegio%20Discovery%20Tehuacan%4018.4847219%2C-97.4150801&z=17&output=embed',
         'mapa_url' => 'https://www.google.com/maps/place/Colegio+Discovery+Tehuacan/@18.484529,-97.417467,17z/data=!4m6!3m5!1s0x85c5a32ab4097387:0x64c0781c4b44b94c!8m2!3d18.4847219!4d-97.4150801!16s%2Fg%2F1tcxk2pr?hl=es-US&entry=ttu&g_ep=EgoyMDI2MDUyMC4wIKXMDSoASAFQAw%3D%3D',
         'whatsapp_numero' => '+52 238 102 1817',
@@ -313,7 +313,8 @@ return [
             'ib-en-discovery' => [
                 'titulo' => 'IB en Discovery®',
                 'descripcion' => 'Bachillerato Internacional en Discovery®: habilidades, perfil de aprendizaje y Programa del Diploma con visión global.',
-                'logo_path' => 'Logos de niveles educativos/Logo IB cl.jpeg',
+                'logo_path' => 'Logos principales/logo-ib-y-discovery-principal-1024x342.png',
+                'logo_extendido_path' => 'Logos principales/logo-ib-y-discovery-principal-1024x342.png',
                 'usar_placeholder_hero' => true,
                 'hero_media_path' => 'Logos principales/IB Internacional.png',
                 'ocultar_galeria' => true,

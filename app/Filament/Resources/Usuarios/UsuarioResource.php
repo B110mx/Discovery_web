@@ -64,6 +64,10 @@ class UsuarioResource extends Resource
             return false;
         }
 
+        if ($record->role === 'super_admin') {
+            return $user->isPrimarySuperAdmin();
+        }
+
         return ! $record->isPrimarySuperAdmin() || $user->isPrimarySuperAdmin();
     }
 
@@ -73,6 +77,10 @@ class UsuarioResource extends Resource
 
         if (! ($user?->isSuperAdmin() ?? false) || auth()->id() === $record->id) {
             return false;
+        }
+
+        if ($record->role === 'super_admin') {
+            return $user->isPrimarySuperAdmin();
         }
 
         return ! $record->isPrimarySuperAdmin() || $user->isPrimarySuperAdmin();

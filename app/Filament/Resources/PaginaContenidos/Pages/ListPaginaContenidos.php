@@ -14,7 +14,7 @@ class ListPaginaContenidos extends ListRecords
     {
         return [
             CreateAction::make()
-                ->label('Agregar contenido de página'),
+                ->label('Nuevo contenido de página'),
         ];
     }
 }

@@ -305,6 +305,38 @@
             });
         };
 
+        const enableTouchSwipe = (element, onPrevious, onNext) => {
+            if (!element) {
+                return;
+            }
+
+            let startX = 0;
+            let startY = 0;
+
+            element.addEventListener('touchstart', (event) => {
+                const touch = event.touches[0];
+
+                startX = touch.clientX;
+                startY = touch.clientY;
+            }, { passive: true });
+
+            element.addEventListener('touchend', (event) => {
+                const touch = event.changedTouches[0];
+                const deltaX = touch.clientX - startX;
+                const deltaY = touch.clientY - startY;
+
+                if (Math.abs(deltaX) < 45 || Math.abs(deltaX) < Math.abs(deltaY) * 1.2) {
+                    return;
+                }
+
+                if (deltaX < 0) {
+                    onNext();
+                } else {
+                    onPrevious();
+                }
+            }, { passive: true });
+        };
+
         const heroTrack = document.querySelector('[data-home-hero-track]');
         const heroSlides = heroTrack ? Array.from(heroTrack.children) : [];
         const heroDots = Array.from(document.querySelectorAll('[data-home-hero-dot]'));
@@ -337,6 +369,18 @@
                 restartHeroTimer();
             });
         });
+
+        enableTouchSwipe(
+            document.querySelector('[data-home-hero-carousel]'),
+            () => {
+                showHero(heroIndex - 1);
+                restartHeroTimer();
+            },
+            () => {
+                showHero(heroIndex + 1);
+                restartHeroTimer();
+            },
+        );
 
         showHero(0);
         restartHeroTimer();
@@ -383,6 +427,18 @@
                 restartEventTimer();
             });
         });
+
+        enableTouchSwipe(
+            document.querySelector('[data-event-carousel]'),
+            () => {
+                showEvent(eventIndex - 1);
+                restartEventTimer();
+            },
+            () => {
+                showEvent(eventIndex + 1);
+                restartEventTimer();
+            },
+        );
 
         showEvent(0);
         restartEventTimer();
@@ -445,6 +501,18 @@
                 showVideo(Number(dot.dataset.videoDot));
             });
         });
+
+        enableTouchSwipe(
+            videoCarousel,
+            () => {
+                pauseAllVideos();
+                showVideo(videoIndex - 1);
+            },
+            () => {
+                pauseAllVideos();
+                showVideo(videoIndex + 1);
+            },
+        );
 
         videos.forEach((video) => {
             const poster = video.parentElement?.querySelector('[data-home-video-poster]');

@@ -14,7 +14,7 @@ class ListTestimonioVideos extends ListRecords
     {
         return [
             CreateAction::make()
-                ->label('Agregar video'),
+                ->label('Nuevo video'),
         ];
     }
 }

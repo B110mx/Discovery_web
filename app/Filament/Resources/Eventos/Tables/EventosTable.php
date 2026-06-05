@@ -4,12 +4,12 @@ namespace App\Filament\Resources\Eventos\Tables;
 
 use App\Models\Evento;
 use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
-use Filament\Actions\DeleteAction;
+use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Table;
 use Illuminate\Support\Facades\Storage;
 
@@ -32,6 +32,10 @@ class EventosTable
                     ->label('Descripción')
                     ->limit(60)
                     ->searchable(),
+                TextColumn::make('fecha_evento')
+                    ->label('Fecha del evento')
+                    ->date('Y-m-d')
+                    ->sortable(),
                 TextColumn::make('imagen_media_path')
                     ->label('/videosyfotos')
                     ->limit(36)

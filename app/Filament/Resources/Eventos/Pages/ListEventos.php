@@ -14,7 +14,7 @@ class ListEventos extends ListRecords
     {
         return [
             CreateAction::make()
-                ->label('Agregar evento'),
+                ->label('Nuevo evento'),
         ];
     }
 }

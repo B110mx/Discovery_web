@@ -62,7 +62,7 @@
     @endif
 
     <div class="grid gap-8 lg:grid-cols-[1.15fr_.85fr]">
-        <form action="{{ route('contacto.store') }}" method="POST" class="rounded-lg bg-white p-6 shadow-md md:p-8">
+        <form action="{{ route('contacto.store', [], false) }}" method="POST" class="rounded-lg bg-white p-6 shadow-md md:p-8">
             @csrf
 
             <div class="mb-7 flex flex-col gap-2">

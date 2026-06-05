@@ -20,7 +20,7 @@ class ContactosTable
                     ->label('Nombre')
                     ->searchable(),
                 TextColumn::make('email')
-                    ->label('Correo electronico')
+                    ->label('Correo electrónico')
                     ->searchable(),
                 TextColumn::make('mensaje')
                     ->label('Mensaje')

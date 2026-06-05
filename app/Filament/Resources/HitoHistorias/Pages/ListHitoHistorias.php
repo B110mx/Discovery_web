@@ -14,7 +14,7 @@ class ListHitoHistorias extends ListRecords
     {
         return [
             CreateAction::make()
-                ->label('Agregar nuevo momento'),
+                ->label('Nuevo momento'),
         ];
     }
 }

@@ -14,7 +14,7 @@ class ListListaUtiles extends ListRecords
     {
         return [
             CreateAction::make()
-                ->label('Agregar lista'),
+                ->label('Nueva lista'),
         ];
     }
 }
