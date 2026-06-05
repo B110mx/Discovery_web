@@ -2,26 +2,25 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Database\Factories\UserFactory;
-use Filament\Models\Contracts\FilamentUser; // 🔥 Importación de seguridad de Filament
-use Filament\Panel;                         // 🔥 Importación del Panel de Filament
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Panel;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-#[Fillable(['name', 'email', 'password'])]
+#[Fillable(['name', 'email', 'password', 'role'])]
 #[Hidden(['password', 'remember_token'])]
-class User extends Authenticatable implements FilamentUser // 🔥 Agregamos la implementación aquí
+class User extends Authenticatable implements FilamentUser
 {
+    public const PRIMARY_SUPER_ADMIN_EMAIL = 'wuicho.bryan@gmail.com';
+
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
 
     /**
-     * Get the attributes that should be cast.
-     *
      * @return array<string, string>
      */
     protected function casts(): array
@@ -32,18 +31,18 @@ class User extends Authenticatable implements FilamentUser // 🔥 Agregamos la 
         ];
     }
 
-    /**
-     * 🔥 SEGURIDAD: Determina si el usuario puede entrar al panel /admin
-     */
     public function canAccessPanel(Panel $panel): bool
     {
-        // ⚠️ IMPORTANTE: Agrega aquí el correo con el que inicias sesión actualmente.
-        // Si no lo pones, ¡el sistema te dejará fuera a ti también!
-        $correosPermitidos = [
-            'admin@colegiodiscovery.edu',
-            'wuicho.bryan@gmail.com', 
-        ];
+        return in_array($this->role, ['admin', 'super_admin'], true);
+    }
 
-        return in_array($this->email, $correosPermitidos);
+    public function isSuperAdmin(): bool
+    {
+        return $this->role === 'super_admin';
+    }
+
+    public function isPrimarySuperAdmin(): bool
+    {
+        return $this->email === self::PRIMARY_SUPER_ADMIN_EMAIL;
     }
 }

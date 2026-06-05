@@ -46,6 +46,25 @@
         })
         ->all();
 
+    $tabColors = [
+        'bg-red-600' => [
+            'active' => 'border-red-600 bg-red-600 text-white',
+            'inactive' => 'border-gray-200 text-gray-700 hover:border-red-600 hover:text-red-700',
+        ],
+        'bg-blue-700' => [
+            'active' => 'border-blue-700 bg-blue-700 text-white',
+            'inactive' => 'border-gray-200 text-gray-700 hover:border-blue-700 hover:text-blue-700',
+        ],
+        'bg-lime-500' => [
+            'active' => 'border-lime-500 bg-lime-500 text-black',
+            'inactive' => 'border-gray-200 text-gray-700 hover:border-lime-500 hover:text-lime-700',
+        ],
+        'bg-green-600' => [
+            'active' => 'border-green-600 bg-green-600 text-white',
+            'inactive' => 'border-gray-200 text-gray-700 hover:border-green-600 hover:text-green-700',
+        ],
+    ];
+
 @endphp
 
 <section class="space-y-12">
@@ -97,10 +116,15 @@
 
             <div class="grid grid-cols-2 gap-2 md:flex" role="tablist" aria-label="Grupos de protagonistas">
                 @foreach ($protagonistas as $clave => $item)
+                    @php
+                        $tabColor = $tabColors[$item['color']] ?? $tabColors['bg-blue-700'];
+                    @endphp
                     <button
                         type="button"
-                        class="rounded border border-gray-200 px-4 py-2 text-sm font-bold text-gray-700 transition hover:border-blue-600 hover:text-blue-700 data-[active=true]:border-blue-700 data-[active=true]:bg-blue-700 data-[active=true]:text-white"
+                        class="rounded border px-4 py-2 text-sm font-bold transition {{ $loop->first ? $tabColor['active'] : $tabColor['inactive'] }}"
                         data-protagonista-tab="{{ $clave }}"
+                        data-active-classes="{{ $tabColor['active'] }}"
+                        data-inactive-classes="{{ $tabColor['inactive'] }}"
                         data-active="{{ $loop->first ? 'true' : 'false' }}"
                     >
                         {{ $item['titulo'] }}
@@ -207,12 +231,12 @@
                 </p>
 
                 @if (! empty($testimonios))
-                    <div class="mt-8 flex justify-center">
-                        <div class="relative" style="width: 650px; max-width: calc(100% - 88px);">
+                    <div class="mt-8">
+                        <div class="relative mx-auto w-full max-w-[650px]">
                             <button
                                 type="button"
                                 data-community-video-prev
-                                class="absolute -left-12 top-1/2 z-10 h-10 w-10 -translate-y-1/2 rounded-full bg-white font-bold text-blue-700 shadow-lg transition hover:bg-blue-50"
+                                class="hidden absolute -left-12 top-1/2 z-10 h-10 w-10 -translate-y-1/2 rounded-full bg-white font-bold text-blue-700 shadow-lg transition hover:bg-blue-50 md:block"
                                 aria-label="Video anterior"
                             >
                                 &lt;
@@ -223,7 +247,7 @@
                                     @foreach ($testimonios as $video)
                                         <article class="min-w-full flex-shrink-0">
                                             <div class="overflow-hidden rounded-lg border border-white/20 bg-white shadow-lg">
-                                                <div class="relative w-full bg-white" style="height: 350px;">
+                                                <div class="relative aspect-video w-full bg-white md:h-[350px]">
                                                     <video
                                                         src="{{ $video['url'] }}"
                                                         controls
@@ -258,12 +282,30 @@
                             <button
                                 type="button"
                                 data-community-video-next
-                                class="absolute -right-12 top-1/2 z-10 h-10 w-10 -translate-y-1/2 rounded-full bg-red-600 font-bold text-white shadow-lg transition hover:bg-red-700"
+                                class="hidden absolute -right-12 top-1/2 z-10 h-10 w-10 -translate-y-1/2 rounded-full bg-red-600 font-bold text-white shadow-lg transition hover:bg-red-700 md:block"
                                 aria-label="Video siguiente"
                             >
                                 &gt;
                             </button>
+                        </div>
 
+                        <div class="mt-4 flex justify-center gap-3 md:hidden">
+                            <button
+                                type="button"
+                                data-community-video-prev
+                                class="h-10 w-10 rounded-full bg-white font-bold text-blue-700 shadow-lg transition hover:bg-blue-50"
+                                aria-label="Video anterior"
+                            >
+                                &lt;
+                            </button>
+                            <button
+                                type="button"
+                                data-community-video-next
+                                class="h-10 w-10 rounded-full bg-red-600 font-bold text-white shadow-lg transition hover:bg-red-700"
+                                aria-label="Video siguiente"
+                            >
+                                &gt;
+                            </button>
                         </div>
                     </div>
                 @else
@@ -350,7 +392,13 @@
                 const target = tab.dataset.protagonistaTab;
 
                 tabs.forEach((currentTab) => {
-                    currentTab.dataset.active = currentTab === tab ? 'true' : 'false';
+                    const isCurrentTab = currentTab === tab;
+                    const activeClasses = (currentTab.dataset.activeClasses || '').split(' ').filter(Boolean);
+                    const inactiveClasses = (currentTab.dataset.inactiveClasses || '').split(' ').filter(Boolean);
+
+                    currentTab.classList.remove(...activeClasses, ...inactiveClasses);
+                    currentTab.classList.add(...(isCurrentTab ? activeClasses : inactiveClasses));
+                    currentTab.dataset.active = isCurrentTab ? 'true' : 'false';
                 });
 
                 images.forEach((image) => {
@@ -436,15 +484,15 @@
             setActiveVideoDot();
         };
 
-        document.querySelector('[data-community-video-prev]')?.addEventListener('click', () => {
+        document.querySelectorAll('[data-community-video-prev]').forEach((button) => button.addEventListener('click', () => {
             pauseAllVideos();
             showVideo(videoIndex - 1);
-        });
+        }));
 
-        document.querySelector('[data-community-video-next]')?.addEventListener('click', () => {
+        document.querySelectorAll('[data-community-video-next]').forEach((button) => button.addEventListener('click', () => {
             pauseAllVideos();
             showVideo(videoIndex + 1);
-        });
+        }));
 
         videoDots.forEach((dot) => {
             dot.addEventListener('click', () => {
