@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    {{-- Layout público compartido. Vite compila Tailwind y las interacciones globales. --}}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Colegio Discovery®</title>
@@ -8,7 +9,14 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="bg-gray-100">
+    {{-- Los administradores pueden previsualizar una vista cerrada al público. --}}
+    @if (! empty($vistaEnPrevisualizacion ?? null))
+        <div class="bg-amber-500 px-4 py-2 text-center text-sm font-bold text-black">
+            Vista administrativa: “{{ $vistaEnPrevisualizacion }}” está en mantenimiento y no es visible para el público.
+        </div>
+    @endif
 
+    {{-- Navegación y pie se mantienen como componentes para todas las páginas. --}}
     @include('components.navbar')
 
     <main class="p-6">

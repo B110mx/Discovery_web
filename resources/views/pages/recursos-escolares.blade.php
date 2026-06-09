@@ -2,6 +2,7 @@
 
 @section('content')
 
+{{-- $listasUtiles ya llega agrupado por nivel desde el panel o desde la carpeta. --}}
 <section
     class="mx-auto max-w-7xl space-y-10"
     data-recursos
@@ -156,22 +157,22 @@
                 </div>
             </section>
 
-            @if (! empty($calendarioEscolarUrl))
+            @if (! empty($calendarioEscolar['url']))
                 <section class="overflow-hidden rounded-xl bg-white shadow-md">
                     <div class="p-6 md:p-8">
                         <p class="text-sm font-bold uppercase tracking-wide text-blue-700">Calendario 2025-2026</p>
                         <h2 class="mt-2 text-2xl font-extrabold text-black">Consulta el calendario escolar</h2>
                     </div>
-                    <a href="{{ $calendarioEscolarUrl }}" target="_blank" rel="noopener" class="block bg-gray-50 p-3">
+                    <a href="{{ $calendarioEscolar['url'] }}" target="_blank" rel="noopener" class="block bg-gray-50 p-3">
                         <img
-                            src="{{ $calendarioEscolarUrl }}"
+                            src="{{ $calendarioEscolar['url'] }}"
                             alt="Calendario escolar 2025-2026"
                             class="max-h-[520px] w-full rounded-lg object-contain"
                             loading="lazy"
                         >
                     </a>
                     <div class="px-6 pb-6 md:px-8">
-                        <a href="{{ $calendarioEscolarUrl }}" target="_blank" rel="noopener" class="inline-flex rounded bg-red-600 px-5 py-3 text-sm font-extrabold text-white hover:bg-red-700">
+                        <a href="{{ $calendarioEscolar['url'] }}" target="_blank" rel="noopener" class="inline-flex rounded bg-red-600 px-5 py-3 text-sm font-extrabold text-white hover:bg-red-700">
                             Abrir calendario
                         </a>
                     </div>

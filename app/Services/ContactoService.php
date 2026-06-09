@@ -7,6 +7,12 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Throwable;
 
+/**
+ * Persiste solicitudes de contacto y envía la notificación interna.
+ *
+ * Si el correo falla se relanza la excepción para que el controlador informe
+ * al visitante; el log conserva el detalle técnico.
+ */
 class ContactoService
 {
     /**

@@ -13,6 +13,12 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use UnitEnum;
 
+/**
+ * Base de los editores individuales de "Páginas del sitio".
+ *
+ * Cada subclase define pageSlug y reutiliza el mismo formulario y tabla,
+ * limitando la consulta para que nunca edite accidentalmente otra página.
+ */
 abstract class BasePaginaResource extends Resource
 {
     protected static ?string $model = PaginaContenido::class;

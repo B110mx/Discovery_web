@@ -2,6 +2,7 @@
 
 @section('content')
 
+{{-- La base de datos tiene prioridad y config/colegio.php funciona como respaldo. --}}
 @php
     $titulo = $pagina?->titulo ?? config('colegio.contacto.titulo');
     $subtitulo = $pagina?->subtitulo ?? config('colegio.contacto.subtitulo');

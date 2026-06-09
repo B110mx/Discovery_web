@@ -13,7 +13,7 @@ class PopIbPageTest extends TestCase
     public function test_pop_ib_page_and_image_slots_are_available(): void
     {
         $this->assertSame(
-            6,
+            7,
             SeccionImagen::query()->where('vista', 'pop-del-ib')->count(),
         );
 

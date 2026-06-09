@@ -1,58 +1,85 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Discovery Web
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Sitio institucional del Colegio Internacional Discovery®, desarrollado con Laravel, Filament, Blade, Tailwind CSS y Vite.
 
-## About Laravel
+## Documentación
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Antes de modificar el proyecto, consulta [docs/MANTENIMIENTO.md](docs/MANTENIMIENTO.md). Ahí se explica:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- qué archivo controla cada página;
+- dónde se administran textos, imágenes, videos y documentos;
+- cómo funciona el modo mantenimiento por vista;
+- cómo se resuelven los archivos de `videosyfotos`;
+- qué cachés deben invalidarse;
+- cómo verificar un cambio antes de publicarlo.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Los comentarios dentro del código describen responsabilidades, prioridades de datos y decisiones que no son evidentes. No se comenta cada instrucción individual porque el código y el comentario podrían dejar de coincidir; se documentan módulos, contratos y bloques con comportamiento especial.
 
-## Learning Laravel
+## Requisitos
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- PHP 8.3 o compatible
+- Composer
+- Node.js y npm
+- MySQL o la base configurada en `.env`
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
-
-## Agentic Development
-
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+## Instalación local
 
 ```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+composer install
+npm install
+copy .env.example .env
+php artisan key:generate
+php artisan migrate
+npm run build
+php artisan serve
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+En Laragon, el proyecto se encuentra normalmente en:
 
-## Contributing
+```text
+C:\laragon\www\discovery-web
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## Comandos frecuentes
 
-## Code of Conduct
+```bash
+# Servidor de desarrollo con Vite
+npm run dev
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+# Compilar CSS y JavaScript para producción
+npm run build
 
-## Security Vulnerabilities
+# Ejecutar todas las pruebas
+php artisan test
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+# Limpiar cachés después de cambios en configuración o vistas
+php artisan optimize:clear
 
-## License
+# Aplicar cambios de base de datos
+php artisan migrate --force
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Estructura principal
+
+```text
+app/Http/Controllers/PageController.php  Prepara todas las páginas públicas.
+app/Filament/                            Panel administrativo.
+app/Models/                              Datos editables y limpieza de caché.
+app/Support/                             Utilidades de caché y multimedia.
+config/colegio.php                       Contenido estructural y rutas multimedia.
+config/publicacion.php                   Vistas que pueden ponerse en mantenimiento.
+resources/views/pages/                   Plantillas públicas.
+resources/js/app.js                      Interacciones globales del sitio.
+videosyfotos/                            Biblioteca multimedia local.
+tests/Feature/                           Pruebas de los flujos principales.
+```
+
+## Regla de contenido
+
+- Textos de páginas: `Páginas del sitio`.
+- Imágenes de secciones: `Imágenes del sitio`.
+- Línea del tiempo: `Nosotros - Línea del tiempo`.
+- Banners de Inicio: carpeta `videosyfotos/Banner de inicio`.
+- Eventos, videos y listas: sus módulos específicos de Filament.
+
+Evita crear una segunda fuente para el mismo contenido. La guía de mantenimiento detalla las excepciones y respaldos.

@@ -2,6 +2,11 @@
 
 @section('content')
 
+{{--
+    Plantilla compartida por Kinder, Elementary, Middle, High, IB, POP e Inglés.
+    El arreglo $nivel define tema, layout y contenido; evita condicionar por URL
+    fuera de los bloques de layout ya previstos.
+--}}
 @php
     $imagenPrincipal = $nivel['imagen_principal'] ?? [
         'url' => $galeria[0]['url'] ?? null,
@@ -596,18 +601,20 @@
                         </div>
                     </div>
 
-                    @if (! empty($nivel['modelo_academico_url']))
+                    @if (! empty($nivel['modelo_academico']['url']))
                         <aside class="rounded-xl border border-gray-200 bg-gray-50 p-4">
                             <div class="mb-4">
                                 <p class="text-sm font-bold uppercase tracking-wide {{ $tema['eyebrow'] }}">Modelo académico</p>
                                 <h3 class="mt-1 text-2xl font-bold text-black">{{ $nivel['titulo'] }}</h3>
                             </div>
-                            <img
-                                src="{{ $nivel['modelo_academico_url'] }}"
-                                alt="Modelo académico {{ $nivel['titulo'] }}"
-                                class="max-h-[420px] w-full rounded-lg bg-white object-contain p-3 shadow-sm"
-                                loading="lazy"
-                            >
+                            <a href="{{ $nivel['modelo_academico']['url'] }}" class="glightbox block" data-gallery="modelo-academico-{{ $nivel['slug'] }}" data-title="Modelo académico {{ $nivel['titulo'] }}">
+                                <x-imagen-seccion
+                                    :imagen="$nivel['modelo_academico']"
+                                    alt="Modelo académico {{ $nivel['titulo'] }}"
+                                    class="max-h-[420px] w-full rounded-lg bg-white object-contain p-3 shadow-sm transition-transform hover:scale-[1.02]"
+                                    placeholder-class="min-h-80 w-full"
+                                />
+                            </a>
                         </aside>
                     @endif
                 </div>

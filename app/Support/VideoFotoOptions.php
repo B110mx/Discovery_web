@@ -4,6 +4,9 @@ namespace App\Support;
 
 use Illuminate\Support\Facades\Storage;
 
+/**
+ * Genera opciones para selectores de Filament leyendo el disco videosyfotos.
+ */
 class VideoFotoOptions
 {
     public static function images(): array

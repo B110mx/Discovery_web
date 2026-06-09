@@ -2,6 +2,8 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Widgets\DashboardStatsOverview;
+use App\Filament\Widgets\VistaPublicacionWidget;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -18,6 +20,9 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 
+/**
+ * Configuración del panel /admin: recursos, widgets, color y middleware.
+ */
 class BryanPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
@@ -38,6 +43,9 @@ class BryanPanelProvider extends PanelProvider
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\Filament\Widgets')
             ->widgets([
                 AccountWidget::class,
+                DashboardStatsOverview::class,
+                // Debe cargarse en el dashboard para controlar mantenimiento.
+                VistaPublicacionWidget::class,
             ])
             ->middleware([
                 EncryptCookies::class,

@@ -2,6 +2,7 @@
 
 @section('content')
 
+{{-- Colores reutilizados por pestañas, ficha activa y tarjetas comparativas. --}}
 @php
     $colores = [
         'lime' => [
@@ -58,6 +59,11 @@
 @endphp
 
 <section class="space-y-10">
+    {{--
+        Selector principal de niveles.
+        En escritorio la altura es deliberadamente compacta para mostrar imagen,
+        pestañas, información y botones sin desplazar la página.
+    --}}
     <section id="oferta-hero" class="grid overflow-hidden rounded-lg bg-white shadow-xl lg:h-[640px] lg:grid-cols-[.85fr_1.15fr] xl:h-[620px]">
         <div class="relative min-h-60 bg-gray-100 lg:min-h-0">
             @foreach ($ofertaNiveles as $slug => $programa)
@@ -83,23 +89,23 @@
             @endforeach
         </div>
 
-        <div class="flex min-h-0 flex-col justify-center p-5 md:p-6">
+        <div class="flex min-h-0 flex-col justify-center p-4 md:p-5">
             <div>
                 <p class="text-xs font-bold uppercase tracking-wide text-blue-700 md:text-sm">{{ $paginaOferta?->subtitulo ?? 'Oferta Educativa' }}</p>
-                <h1 class="mt-2 text-2xl font-extrabold leading-tight text-gray-950 md:text-3xl lg:text-[2rem]">
+                <h1 class="mt-1 text-2xl font-extrabold leading-tight text-gray-950 md:text-3xl lg:text-[2rem]">
                     {{ $paginaOferta?->titulo ?? 'Una ruta académica para cada etapa' }}
                 </h1>
-                <p class="mt-2 text-sm leading-6 text-gray-600 xl:text-[0.95rem]">
+                <p class="mt-1 text-sm leading-5 text-gray-600 xl:text-[0.95rem]">
                     {{ $paginaOferta?->descripcion ?? 'Explora niveles, enfoques y experiencias de aprendizaje para encontrar el programa que mejor acompaña a tu familia.' }}
                 </p>
             </div>
 
-            <div class="mt-3 grid auto-rows-[68px] gap-2 sm:grid-cols-2" role="tablist" aria-label="Niveles académicos">
+            <div class="mt-2 grid auto-rows-[56px] gap-2 sm:grid-cols-2" role="tablist" aria-label="Niveles académicos">
                 @foreach ($ofertaNiveles as $slug => $programa)
                     @php($color = $colores[$programa['color']] ?? $colores['blue'])
                     <button
                         type="button"
-                        class="group flex h-[68px] flex-col justify-between overflow-hidden rounded border border-gray-200 bg-white p-2 text-left shadow-sm transition duration-300 hover:border-blue-300 hover:shadow-md data-[active=true]:ring-2 {{ $color['ring'] }}"
+                        class="group flex h-14 flex-col justify-between overflow-hidden rounded border border-gray-200 bg-white px-2 py-1.5 text-left shadow-sm transition duration-300 hover:border-blue-300 hover:shadow-md data-[active=true]:ring-2 {{ $color['ring'] }}"
                         data-oferta-tab="{{ $slug }}"
                         data-color="{{ $programa['color'] }}"
                         data-active="{{ $loop->first ? 'true' : 'false' }}"
@@ -107,13 +113,13 @@
                         aria-selected="{{ $loop->first ? 'true' : 'false' }}"
                     >
                         <span class="block h-1 w-9 shrink-0 rounded-full {{ $color['bar'] }}"></span>
-                        <span class="mt-1 block truncate text-[0.82rem] font-extrabold leading-4 text-gray-950">{{ $programa['titulo'] }}</span>
-                        <span class="block truncate text-[0.72rem] font-semibold leading-4 text-gray-500">{{ $programa['edad'] }}</span>
+                        <span class="block truncate text-[0.8rem] font-extrabold leading-4 text-gray-950">{{ $programa['titulo'] }}</span>
+                        <span class="block truncate text-[0.68rem] font-semibold leading-3 text-gray-500">{{ $programa['edad'] }}</span>
                     </button>
                 @endforeach
             </div>
 
-            <div class="mt-4 min-h-[230px] border-t border-gray-100 pt-4">
+            <div class="mt-3 min-h-0 border-t border-gray-100 pt-3">
                 @foreach ($ofertaNiveles as $slug => $programa)
                     @php($color = $colores[$programa['color']] ?? $colores['blue'])
                     <article
@@ -124,7 +130,7 @@
                     <div class="flex items-start justify-between gap-4">
                         <div>
                             <p class="text-xs font-bold uppercase tracking-wide {{ $color['text'] }}">{{ $programa['edad'] }}</p>
-                            <h2 class="mt-1 text-2xl font-extrabold leading-tight text-gray-950 lg:text-[1.45rem]">
+                            <h2 class="text-2xl font-extrabold leading-tight text-gray-950 lg:text-[1.4rem]">
                                 {{ $programa['titulo'] }}
                             </h2>
                         </div>
@@ -139,19 +145,19 @@
                         @endif
                     </div>
 
-                    <p class="mt-2 text-base font-extrabold leading-6 text-gray-800">{{ $programa['subtitulo'] }}</p>
-                    <p class="mt-2 text-sm leading-6 text-gray-600">{{ $programa['descripcion'] }}</p>
+                    <p class="mt-1 text-sm font-extrabold leading-5 text-gray-800">{{ $programa['subtitulo'] }}</p>
+                    <p class="mt-1 text-sm leading-5 text-gray-600">{{ $programa['descripcion'] }}</p>
 
-                    <div class="mt-3 grid gap-2 sm:grid-cols-3">
+                    <div class="mt-2 grid gap-2 sm:grid-cols-3">
                         @foreach ($programa['puntos'] as $punto)
-                            <div class="flex items-center gap-2 rounded border px-2.5 py-2 {{ $color['soft'] }}">
+                            <div class="flex items-center gap-2 rounded border px-2.5 py-1.5 {{ $color['soft'] }}">
                                 <span class="h-2 w-2 shrink-0 rounded-full {{ $color['bar'] }}"></span>
-                                <span class="text-xs font-bold leading-5 text-gray-800">{{ $punto }}</span>
+                                <span class="text-xs font-bold leading-4 text-gray-800">{{ $punto }}</span>
                             </div>
                         @endforeach
                     </div>
 
-                    <div class="mt-4 flex flex-col gap-3 sm:flex-row">
+                    <div class="mt-3 flex flex-col gap-2 sm:flex-row">
                         <a
                             href="{{ $programa['ruta'] }}"
                             class="inline-flex items-center justify-center rounded px-4 py-2 text-sm font-bold transition {{ $color['button'] }}"
@@ -247,6 +253,8 @@
 </section>
 
 <script>
+    // Sincroniza los dos paneles que comparten data-oferta-panel:
+    // la imagen izquierda y la ficha descriptiva derecha.
     document.addEventListener('DOMContentLoaded', () => {
         const tabs = Array.from(document.querySelectorAll('[data-oferta-tab]'));
         const panels = Array.from(document.querySelectorAll('[data-oferta-panel]'));

@@ -5,6 +5,9 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
+/**
+ * Sanitiza y valida la solicitud de informes antes de enviarla al servicio.
+ */
 class StoreContactoRequest extends FormRequest
 {
     public function authorize(): bool
@@ -14,6 +17,8 @@ class StoreContactoRequest extends FormRequest
 
     protected function prepareForValidation(): void
     {
+        // Blade escapa la salida, pero retirar etiquetas evita almacenar HTML
+        // innecesario en mensajes que también se envían por correo.
         $this->merge([
             'aspirante_nombre' => is_string($this->aspirante_nombre) ? strip_tags($this->aspirante_nombre) : $this->aspirante_nombre,
             'tutor_nombre' => is_string($this->tutor_nombre) ? strip_tags($this->tutor_nombre) : $this->tutor_nombre,
@@ -29,6 +34,7 @@ class StoreContactoRequest extends FormRequest
             'tutor_nombre' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:255'],
             'telefono' => ['required', 'string', 'max:20'],
+            // Mantener esta lista sincronizada con las opciones del formulario.
             'grado' => ['required', 'string', 'max:120', Rule::in(['Kinder', 'Elementary', 'Middle', 'High'])],
         ];
     }

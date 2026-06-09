@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Support\SiteCache;
 use Illuminate\Database\Eloquent\Model;
 
+/** Evento administrable que alimenta el carrusel de la página de Inicio. */
 class Evento extends Model
 {
     protected $fillable = [

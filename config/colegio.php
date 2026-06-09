@@ -1,6 +1,15 @@
 <?php
 
 return [
+    /*
+    |--------------------------------------------------------------------------
+    | Caché público
+    |--------------------------------------------------------------------------
+    |
+    | SiteCache usa estos alias. Cambiar el valor de una clave también sirve
+    | para invalidar datos antiguos después de modificar su estructura.
+    |
+    */
     'cache' => [
         'hours' => 12,
         'keys' => [
@@ -24,12 +33,21 @@ return [
         ],
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Biblioteca multimedia
+    |--------------------------------------------------------------------------
+    |
+    | El disco se declara en config/filesystems.php y apunta a videosyfotos.
+    |
+    */
     'media' => [
         'disk' => 'videosyfotos',
         'video_extensions' => ['mp4', 'mov', 'webm', 'm4v'],
         'image_extensions' => ['jpg', 'jpeg', 'png', 'webp'],
     ],
 
+    // Valores de respaldo cuando la página Contacto aún no está en la BD.
     'contacto' => [
         'titulo' => 'Contacto',
         'subtitulo' => 'Informes y admisiones',
@@ -44,12 +62,13 @@ return [
         'whatsapp_mensaje' => 'Hola, me gustaria recibir informacion sobre Colegio Discovery®.',
     ],
 
+    // Contenido estructural de Inicio que no se edita como PaginaContenido.
     'inicio' => [
         'eventos_default' => [
             [
                 'titulo' => 'Evento Kinder',
                 'descripcion' => 'Actividades próximas para nuestras familias de Kinder.',
-                'media_path' => 'Kinder fotos actuales/IMG_5775.JPG',
+                'media_path' => 'Portadas/IMG_5775.JPG',
             ],
             [
                 'titulo' => 'Evento Elementary',
@@ -82,7 +101,7 @@ return [
             'imagen_default' => [
                 'titulo' => 'Oferta Educativa - Kinder',
                 'referencia' => 'Imagen destacada para Kinder en la vista Oferta Educativa.',
-                'media_path' => 'Kinder fotos actuales/IMG_5775.JPG',
+                'media_path' => 'Portadas/IMG_5775.JPG',
             ],
             'puntos' => ['Neuroaprendizaje', 'Inglés natural', 'Grupos reducidos'],
         ],
@@ -179,7 +198,7 @@ return [
 
     'protagonistas' => [
         'niveles' => [
-            ['titulo' => 'Kinder', 'clave' => 'preescolar', 'color' => 'bg-lime-500', 'referencia' => 'Imagen para representar Kinder dentro de Comunidad.', 'media_path' => 'Kinder fotos actuales/IMG_5775.JPG'],
+            ['titulo' => 'Kinder', 'clave' => 'preescolar', 'color' => 'bg-lime-500', 'referencia' => 'Imagen para representar Kinder dentro de Comunidad.', 'media_path' => 'Portadas/IMG_5775.JPG'],
             ['titulo' => 'Elementary', 'clave' => 'primaria', 'color' => 'bg-red-600', 'referencia' => 'Imagen para representar Elementary dentro de Comunidad.', 'media_path' => 'Elementary fotos actuales/IMG_5684.JPG'],
             ['titulo' => 'Middle', 'clave' => 'secundaria', 'color' => 'bg-blue-700', 'referencia' => 'Imagen para representar Middle dentro de Comunidad.', 'media_path' => 'Middle fotos actuales/IMG_5867.JPG'],
             ['titulo' => 'High', 'clave' => 'bachillerato', 'color' => 'bg-green-600', 'referencia' => 'Imagen para representar High dentro de Comunidad.', 'media_path' => 'High fotos actuales/1234.jpg'],

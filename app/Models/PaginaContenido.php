@@ -5,6 +5,12 @@ namespace App\Models;
 use App\Support\SiteCache;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Textos editables y datos generales de una página pública.
+ *
+ * Las imágenes históricas de este modelo se conservan como respaldo; las
+ * posiciones visuales nuevas deben administrarse mediante SeccionImagen.
+ */
 class PaginaContenido extends Model
 {
     protected $fillable = [
@@ -40,6 +46,8 @@ class PaginaContenido extends Model
             return config('colegio.contacto.mapa_embed_url');
         }
 
+        // Filament acepta tanto la URL como el iframe completo copiado desde
+        // Google Maps; la vista solo necesita el valor de src.
         if (preg_match('/src=["\']([^"\']+)["\']/i', $mapa, $matches)) {
             return $matches[1];
         }

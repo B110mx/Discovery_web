@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Support\SiteCache;
 use Illuminate\Database\Eloquent\Model;
 
+/** Video de testimonio que sustituye los archivos automáticos cuando está activo. */
 class TestimonioVideo extends Model
 {
     protected $fillable = [

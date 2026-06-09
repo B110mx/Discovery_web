@@ -2,6 +2,7 @@
 
 @section('content')
 
+{{-- Hero: cada archivo de videosyfotos/Banner de inicio es una diapositiva. --}}
 <section class="relative overflow-hidden rounded-xl bg-white shadow-lg" data-home-hero-carousel>
     <div class="overflow-hidden">
         <div class="flex transition-transform duration-700 ease-out" data-home-hero-track>
@@ -120,7 +121,7 @@
     <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
         <article class="flex flex-col animate-on-scroll" style="transition-delay: 100ms;">
             <img
-                src="{{ $logosNiveles['preescolar'] ?? '' }}"
+                src="{{ $logosNiveles['logo_preescolar']['url'] ?? '' }}"
                 alt="Kinder Discovery®"
                 class="mx-auto mb-5 h-24 w-auto object-contain"
                 loading="lazy"
@@ -140,7 +141,7 @@
 
         <article class="flex flex-col animate-on-scroll" style="transition-delay: 200ms;">
             <img
-                src="{{ $logosNiveles['primaria'] ?? '' }}"
+                src="{{ $logosNiveles['logo_primaria']['url'] ?? '' }}"
                 alt="Elementary Discovery®"
                 class="mx-auto mb-5 h-24 w-auto object-contain"
                 loading="lazy"
@@ -159,7 +160,7 @@
 
         <article class="flex flex-col animate-on-scroll" style="transition-delay: 300ms;">
             <img
-                src="{{ $logosNiveles['secundaria'] ?? '' }}"
+                src="{{ $logosNiveles['logo_secundaria']['url'] ?? '' }}"
                 alt="Middle Discovery®"
                 class="mx-auto mb-5 h-24 w-auto object-contain"
                 loading="lazy"
@@ -178,7 +179,7 @@
 
         <article class="flex flex-col animate-on-scroll" style="transition-delay: 400ms;">
             <img
-                src="{{ $logosNiveles['bachillerato'] ?? '' }}"
+                src="{{ $logosNiveles['logo_bachillerato']['url'] ?? '' }}"
                 alt="High Discovery®"
                 class="mx-auto mb-5 h-24 w-auto object-contain"
                 loading="lazy"
@@ -199,18 +200,18 @@
 
 <div class="mt-20 grid md:grid-cols-2 gap-10 items-center animate-on-scroll">
     <div>
+        @if ($paginaInicio?->subtitulo)
+            <p class="mb-2 text-sm font-semibold uppercase tracking-wide text-sky-600">
+                {{ $paginaInicio->subtitulo }}
+            </p>
+        @endif
+
         <h2 class="text-3xl font-bold text-blue-600 mb-4">
-            Sobre Nosotros
+            {{ $paginaInicio?->titulo ?? 'Sobre Nosotros' }}
         </h2>
 
-        <p class="text-gray-700 mb-4">
-            En el Colegio Internacional Discovery® nos enfocamos en brindar
-            una educación integral que combine valores, tecnología e innovación.
-        </p>
-
-        <p class="text-gray-700">
-            Nuestro objetivo es formar Explorers preparados para enfrentar
-            los retos del futuro con confianza.
+        <p class="whitespace-pre-line text-gray-700">
+            {{ $paginaInicio?->descripcion ?? 'En el Colegio Internacional Discovery® nos enfocamos en brindar una educación integral que combine valores, tecnología e innovación. Nuestro objetivo es formar Explorers preparados para enfrentar los retos del futuro con confianza.' }}
         </p>
     </div>
 

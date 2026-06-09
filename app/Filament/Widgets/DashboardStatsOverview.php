@@ -7,6 +7,7 @@ use App\Models\Evento;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
 
+/** Resumen de registros operativos mostrado en el dashboard administrativo. */
 class DashboardStatsOverview extends BaseWidget
 {
     protected static ?int $sort = -1;

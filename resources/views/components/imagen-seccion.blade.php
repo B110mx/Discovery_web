@@ -5,6 +5,12 @@
     'placeholderClass' => 'min-h-64',
 ])
 
+{{--
+    Contrato de imagen compartido:
+    - url: archivo resuelto por PageController;
+    - titulo/referencia: contexto mostrado cuando aún falta el archivo.
+    Mantener el placeholder permite publicar una sección antes de cargar su imagen.
+--}}
 @if (! empty($imagen['url']))
     <img
         src="{{ $imagen['url'] }}"

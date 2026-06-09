@@ -18,8 +18,19 @@ use Illuminate\View\View;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Throwable;
 
+/**
+ * Prepara los datos de todas las páginas públicas.
+ *
+ * Este controlador funciona como capa de composición: combina registros del
+ * panel, configuración estática y archivos de videosyfotos antes de entregar
+ * arreglos simples a las vistas Blade.
+ */
 class PageController extends Controller
 {
+    /**
+     * Recupera contenido editable sin almacenar un modelo Eloquent completo
+     * en caché. Guardar solo el ID evita serializaciones y datos obsoletos.
+     */
     private function paginaContenido(string $slug): ?PaginaContenido
     {
         $paginaId = Cache::remember(SiteCache::key("pagina_contenido.{$slug}"), SiteCache::ttl(), function () use ($slug) {
@@ -36,7 +47,8 @@ class PageController extends Controller
     {
         $paginaInicio = $this->paginaContenido('inicio');
 
-        // Caché de 12 horas para evitar consultas repetitivas a la BD
+        // Los eventos del panel tienen prioridad. Los defaults solo aparecen
+        // cuando nunca se ha configurado contenido administrativo.
         $eventos = Cache::remember(SiteCache::key('inicio_eventos'), $this->eventosInicioCacheTtl(), function () {
             $eventosDefault = $this->eventosInicioDefault();
             $hayEventosAdmin = Evento::where('activo', true)->exists();
@@ -88,15 +100,25 @@ class PageController extends Controller
             return $eventosDefault;
         });
 
-        // Caché para la lectura del disco duro (evita latencia de I/O)
+        // La lectura de videos del disco es costosa; se reutiliza entre visitas.
         $testimonios = Cache::remember(SiteCache::key('inicio_testimonios'), SiteCache::ttl(), fn () => $this->testimoniosAlumni());
 
-        $logosNiveles = $this->mapearMediaPaths(config('colegio.inicio.logos_niveles', []));
+        $logosNiveles = $this->imagenesVista('inicio', collect(config('colegio.inicio.logos_niveles', []))
+            ->mapWithKeys(fn (string $path, string $nivel) => [
+                "logo_{$nivel}" => [
+                    'titulo' => 'Inicio - Logo ' . ucfirst($nivel),
+                    'referencia' => 'Logo mostrado en la tarjeta del nivel dentro de Inicio.',
+                    'media_path' => $path,
+                ],
+            ])
+            ->all());
         $bannerInicio = [
             'url' => $this->mediaUrlIfExists('Banner de inicio/Banner de bienvenida.png'),
             'titulo' => 'Banner de bienvenida',
             'referencia' => 'Banner principal de la vista de inicio.',
         ];
+        // El hero no se administra como PaginaContenido: cada imagen de esta
+        // carpeta se convierte en una diapositiva, ordenando primero bienvenida.
         $bannerInicioSlides = $this->mediaFiles('Banner de inicio')
             ->filter(fn (string $path) => in_array(strtolower(pathinfo($path, PATHINFO_EXTENSION)), config('colegio.media.image_extensions', []), true))
             ->sortBy(fn (string $path) => str_starts_with(strtolower(pathinfo($path, PATHINFO_FILENAME)), 'banner de bienvenida') ? '000-' . $path : '100-' . $path)
@@ -147,6 +169,8 @@ class PageController extends Controller
             return $ttlDefault;
         }
 
+        // Un evento del día deja de mostrarse a las 15:00. El caché nunca debe
+        // sobrevivir más allá de ese corte aunque el TTL general sea mayor.
         $proximoCorte = Carbon::parse($proximaFechaEvento)->setTime(15, 0);
 
         return $proximoCorte->lt($ttlDefault) ? $proximoCorte : $ttlDefault;
@@ -181,6 +205,8 @@ class PageController extends Controller
     {
         $paginaOferta = $this->paginaContenido('oferta-academica');
 
+        // La estructura de los niveles vive en configuración; aquí se agregan
+        // rutas públicas y las imágenes reemplazables desde Filament.
         $ofertaNiveles = collect(config('colegio.oferta_academica', []))
             ->map(fn (array $nivel, string $slug) => $this->prepararNivelOferta($slug, $nivel))
             ->all();
@@ -209,6 +235,8 @@ class PageController extends Controller
         $listasUtiles = Cache::remember(SiteCache::key('recursos_listas_utiles'), SiteCache::ttl(), function () {
             $listasAdmin = $this->listasUtilesDesdeAdmin();
 
+            // Una vez que el panel tiene listas activas, estas sustituyen por
+            // completo la lectura automática de PDFs desde videosyfotos.
             if (! empty($listasAdmin)) {
                 return $listasAdmin;
             }
@@ -216,22 +244,23 @@ class PageController extends Controller
             return $this->listasUtilesDesdeCarpeta();
         });
 
-        $calendarioEscolarUrl = $this->generarMediaUrlDesdeRuta('Calendario Escolar/Calendario Escolar 2025-2026.jpg');
+        $calendarioEscolar = $this->imagenVista('recursos-escolares', 'calendario', [
+            'titulo' => 'Recursos escolares - Calendario escolar',
+            'referencia' => 'Imagen del calendario escolar mostrada en Recursos escolares.',
+            'media_path' => 'Calendario Escolar/Calendario Escolar 2025-2026.jpg',
+        ]);
 
-        return view('pages.recursos-escolares', compact('listasUtiles', 'calendarioEscolarUrl'));
+        return view('pages.recursos-escolares', compact('listasUtiles', 'calendarioEscolar'));
     }
 
     public function contacto(): View
     {
-        // 🔥 CAMBIO IMPORTANTE:
-        // Antes guardabas el modelo completo en caché (ESO ROMPE Laravel)
-        // Ahora guardamos SOLO el ID
-
+        // Igual que paginaContenido(), se almacena el ID y se recupera un
+        // modelo fresco para evitar serializar Eloquent dentro del caché.
         $paginaId = Cache::remember(SiteCache::key('pagina_contenido.contacto'), SiteCache::ttl(), function () {
             return PaginaContenido::where('slug', 'contacto')->value('id');
         });
 
-        // 🔥 Recuperamos el modelo limpio desde la BD
         $pagina = $paginaId ? PaginaContenido::find($paginaId) : null;
         $imagenesContacto = $this->imagenesVista('contacto', [
             'hero' => [
@@ -254,6 +283,8 @@ class PageController extends Controller
      */
     public function nivel(string $nivel): View
     {
+        // Los slugs permitidos se definen en config/colegio.php. No se acepta
+        // cualquier valor de URL porque después se usa para buscar multimedia.
         $niveles = $this->obtenerDefinicionNiveles();
         abort_unless(isset($niveles[$nivel]), 404);
 
@@ -275,17 +306,22 @@ class PageController extends Controller
         $nivelContenido = $niveles[$nivel];
         $nivelContenido['slug'] = $nivel;
         $nivelContenido['tema'] = $this->obtenerTemaNivel($nivel);
-        $nivelContenido['logo'] = isset($nivelContenido['logo_path'])
-            ? $this->mediaUrlIfExists($nivelContenido['logo_path'])
-            : null;
-        $nivelContenido['logo_extendido'] = isset($nivelContenido['logo_extendido_path'])
-            ? $this->mediaUrlIfExists($nivelContenido['logo_extendido_path'])
-            : null;
+        $logoNivel = $this->imagenVista($nivel, 'logo', [
+            'titulo' => $nivelContenido['titulo'] . ' - Logo del encabezado',
+            'referencia' => 'Logo mostrado sobre el título en el encabezado del nivel.',
+            'media_path' => $nivelContenido['logo_extendido_path'] ?? $nivelContenido['logo_path'] ?? null,
+        ]);
+        $nivelContenido['logo'] = $logoNivel['url'];
+        $nivelContenido['logo_extendido'] = $logoNivel['url'];
         $nivelContenido['hoja_informativa_url'] = isset($nivelContenido['hoja_informativa_path'])
             ? $this->generarMediaUrlDesdeRuta($nivelContenido['hoja_informativa_path'])
             : null;
-        $nivelContenido['modelo_academico_url'] = isset($nivelContenido['modelo_academico_path'])
-            ? $this->generarMediaUrlDesdeRuta($nivelContenido['modelo_academico_path'])
+        $nivelContenido['modelo_academico'] = ! empty($nivelContenido['modelo_academico_path'])
+            ? $this->imagenVista($nivel, 'modelo_academico', [
+                'titulo' => $nivelContenido['titulo'] . ' - Modelo académico',
+                'referencia' => 'Infografía del modelo académico mostrada en la página del nivel.',
+                'media_path' => $nivelContenido['modelo_academico_path'],
+            ])
             : null;
         if (! empty($nivelContenido['informacion']['imagenes_referencia'])) {
             $nivelContenido['informacion']['imagenes_referencia'] = collect($nivelContenido['informacion']['imagenes_referencia'])
@@ -297,9 +333,14 @@ class PageController extends Controller
                 ->all();
         }
         if (! empty($nivelContenido['informacion']['imagen_enfoque'])) {
-            $nivelContenido['informacion']['imagen_enfoque']['url'] = $nivelContenido['informacion']['imagen_enfoque']['url']
-                ?? $this->mediaUrlIfExists($nivelContenido['informacion']['imagen_enfoque']['media_path'] ?? null);
+            $nivelContenido['informacion']['imagen_enfoque'] = $this->imagenVista(
+                $nivel,
+                'imagen_enfoque',
+                $nivelContenido['informacion']['imagen_enfoque'],
+            );
         }
+        // POP usa posiciones de imagen administrables propias; los demás
+        // layouts resuelven sus imágenes mediante las claves generales.
         if (($nivelContenido['layout'] ?? null) === 'pop' && ! empty($nivelContenido['informacion']['imagenes'])) {
             $nivelContenido['informacion']['imagenes'] = $this->imagenesVista(
                 'pop-del-ib',
@@ -317,6 +358,8 @@ class PageController extends Controller
             'media_path' => $mediaPathGaleriaPrincipal,
         ];
 
+        // High comparte la imagen promocional de Oferta Educativa. El resto de
+        // niveles administra su hero bajo su propia vista y la clave "hero".
         if ($nivel === 'bachillerato') {
             $ofertaHigh = config('colegio.oferta_academica.bachillerato', []);
             $nivelContenido['imagen_principal'] = $this->imagenVista(
@@ -367,9 +410,9 @@ class PageController extends Controller
         return response()->file($filePath);
     }
 
-    /**
-     * --- MÉTODOS PRIVADOS (Helpers) ---
-     */
+    // ---------------------------------------------------------------------
+    // Helpers de multimedia
+    // ---------------------------------------------------------------------
     private function mediaDisk(): string
     {
         return config('colegio.media.disk', 'videosyfotos');
@@ -397,6 +440,8 @@ class PageController extends Controller
         $url = '/media/' . collect(explode('/', $relativePath))->map(fn ($segment) => rawurlencode($segment))->implode('/');
         $disk = Storage::disk($this->mediaDisk());
 
+        // La versión basada en lastModified fuerza al navegador a descargar un
+        // archivo reemplazado aunque conserve el mismo nombre.
         if ($disk->exists($relativePath)) {
             return $url . '?v=' . $disk->lastModified($relativePath);
         }
@@ -439,6 +484,7 @@ class PageController extends Controller
         $path = trim(str_replace('\\', '/', $path), '/');
         $segments = array_filter(explode('/', $path), fn (string $segment) => $segment !== '' && $segment !== '.');
 
+        // Impide salir del disco configurado mediante path traversal.
         abort_if(collect($segments)->contains('..'), 404);
 
         return implode('/', $segments);
@@ -463,6 +509,8 @@ class PageController extends Controller
 
     private function testimoniosAlumni(): array
     {
+        // Los registros del panel tienen prioridad sobre los videos descubiertos
+        // automáticamente en la carpeta Testimonios Alumni.
         $testimonios = TestimonioVideo::where('activo', true)
             ->orderBy('orden')
             ->get()
@@ -498,27 +546,43 @@ class PageController extends Controller
         $imageExtensions = config('colegio.media.image_extensions', []);
         $videoExtensions = config('colegio.media.video_extensions', []);
 
-        $media = $this->mediaFiles('Academias vespertinas')
-            ->sort()
-            ->map(function (string $path) use ($imageExtensions, $videoExtensions) {
-                $extension = strtolower(pathinfo($path, PATHINFO_EXTENSION));
+        $archivos = $this->mediaFiles('Academias vespertinas')->sort();
 
-                if (! in_array($extension, array_merge($imageExtensions, $videoExtensions))) {
-                    return null;
-                }
+        $imagenesDefault = $archivos
+            ->filter(fn (string $path) => in_array(strtolower(pathinfo($path, PATHINFO_EXTENSION)), $imageExtensions, true))
+            ->mapWithKeys(function (string $path): array {
+                $nombre = pathinfo($path, PATHINFO_FILENAME);
+                $clave = 'academia_' . str($nombre)->slug('_');
 
-                return [
-                    'titulo' => str_replace(['-', '_'], ' ', pathinfo($path, PATHINFO_FILENAME)),
-                    'url' => $this->generarMediaUrl($path),
-                    'tipo' => in_array($extension, $videoExtensions) ? 'video' : 'imagen',
-                ];
+                return [$clave => [
+                    'titulo' => str_replace(['-', '_'], ' ', $nombre),
+                    'referencia' => 'Imagen de la academia ' . str_replace(['-', '_'], ' ', $nombre) . ' en la vista Academias Vespertinas.',
+                    'media_path' => $path,
+                ]];
             })
-            ->filter()
-            ->values();
+            ->all();
+
+        // Los archivos actuales sirven como respaldo, pero cada posición puede
+        // reemplazarse desde Imágenes del sitio.
+        $imagenes = collect($this->imagenesVista('academias-vespertinas', $imagenesDefault))
+            ->values()
+            ->all();
+
+        // Los videos siguen leyéndose desde la carpeta porque este recurso
+        // administrativo está destinado únicamente a imágenes.
+        $videos = $archivos
+            ->filter(fn (string $path) => in_array(strtolower(pathinfo($path, PATHINFO_EXTENSION)), $videoExtensions, true))
+            ->map(fn (string $path) => [
+                'titulo' => str_replace(['-', '_'], ' ', pathinfo($path, PATHINFO_FILENAME)),
+                'url' => $this->generarMediaUrl($path),
+                'tipo' => 'video',
+            ])
+            ->values()
+            ->all();
 
         return [
-            'imagenes' => $media->where('tipo', 'imagen')->values()->all(),
-            'videos' => $media->where('tipo', 'video')->values()->all(),
+            'imagenes' => $imagenes,
+            'videos' => $videos,
         ];
     }
 
@@ -551,11 +615,22 @@ class PageController extends Controller
     private function prepararNivelOferta(string $slug, array $nivel): array
     {
         $default = $this->defaultConMediaUrl($nivel['imagen_default'] ?? []);
+        $definicionNivel = config("colegio.niveles.definiciones.{$slug}", []);
+        $logoDefault = $definicionNivel['logo_extendido_path']
+            ?? $definicionNivel['logo_path']
+            ?? $nivel['logo_path']
+            ?? null;
 
         return [
             ...$nivel,
             'ruta' => route('nivel', $slug),
-            'logo' => ! empty($nivel['logo_path']) ? $this->mediaUrlIfExists($nivel['logo_path']) : null,
+            'logo' => $logoDefault
+                ? $this->imagenVista($slug, 'logo', [
+                    'titulo' => $nivel['titulo'] . ' - Logo',
+                    'referencia' => 'Logo mostrado en Oferta Educativa y en el encabezado del nivel.',
+                    'media_path' => $logoDefault,
+                ])['url']
+                : null,
             'imagen' => $this->imagenVista('oferta-academica', $nivel['imagen_clave'], $default),
         ];
     }
@@ -573,6 +648,8 @@ class PageController extends Controller
                 'color' => $item['color'],
             ])
             ->map(function (array $item) {
+                // Se elige una imagen distinta por petición para dar variedad al
+                // mosaico, siempre dentro del grupo correspondiente.
                 $item['imagen'] = $item['imagenes'][array_rand($item['imagenes'])] ?? [
                     'url' => null,
                     'titulo' => 'Comunidad Discovery®',
@@ -601,6 +678,8 @@ class PageController extends Controller
 
         $imagenesDirectorio = collect();
 
+        // Una carpeta configurada representa un grupo completo. Si está vacía,
+        // se usan registros individuales del panel y finalmente el default.
         if (! empty($default['media_directory'])) {
             $imagenesDirectorio = $this->mediaFiles($default['media_directory'])
                 ->filter(fn (string $path) => in_array(strtolower(pathinfo($path, PATHINFO_EXTENSION)), config('colegio.media.image_extensions', []), true))
@@ -656,6 +735,12 @@ class PageController extends Controller
         return $this->imagenesVista($vista, [$clave => $default])[$clave];
     }
 
+    /**
+     * Resuelve las posiciones visuales de una página.
+     *
+     * Prioridad: carga del panel, respaldo del panel, URL default, archivo
+     * default de videosyfotos y finalmente un marcador pendiente.
+     */
     private function imagenesVista(string $vista, array $defaults): array
     {
         $registros = SeccionImagen::where('vista', $vista)
@@ -794,6 +879,8 @@ class PageController extends Controller
 
     private function obtenerHistoriaNosotros(): array
     {
+        // Estas definiciones mantienen la página funcional en instalaciones
+        // nuevas. Cuando existen hitos en Filament, ellos son la fuente oficial.
         $imagenesHistoria = collect([
             'historia_2003' => [
                 'titulo' => 'Nosotros - Historia 2003',

@@ -11,6 +11,9 @@ use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 
+/**
+ * Fuente única para textos e imágenes de la línea del tiempo de Nosotros.
+ */
 class HitoHistoriaForm
 {
     public static function configure(Schema $schema): Schema

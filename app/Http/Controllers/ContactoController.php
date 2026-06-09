@@ -7,6 +7,9 @@ use App\Services\ContactoService;
 use Illuminate\Http\RedirectResponse;
 use Throwable;
 
+/**
+ * Recibe el formulario público y delega persistencia/notificación al servicio.
+ */
 class ContactoController extends Controller
 {
     public function __construct(
@@ -18,6 +21,8 @@ class ContactoController extends Controller
         $datos = $request->validated();
 
         try {
+            // Contacto conserva un formato histórico de nombre, email y mensaje;
+            // aquí se agrupan los campos detallados sin cambiar esa tabla.
             $this->contactoService->registrarContacto([
                 'nombre' => $datos['tutor_nombre'],
                 'email' => $datos['email'],
@@ -30,6 +35,8 @@ class ContactoController extends Controller
                 ]),
             ]);
         } catch (Throwable) {
+            // El servicio ya registra el error técnico. Al visitante solo se le
+            // muestra un mensaje útil y se conservan los campos capturados.
             return redirect()->back()
                 ->withInput()
                 ->with('error', 'No pudimos enviar tu mensaje en este momento. Por favor intenta nuevamente o comunícate directamente con el colegio.');

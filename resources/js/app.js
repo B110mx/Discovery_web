@@ -1,6 +1,12 @@
 import GLightbox from 'glightbox';
 import 'glightbox/dist/css/glightbox.min.css';
 
+/**
+ * Ejecuta una acción una sola vez tanto con mouse como con pantalla táctil.
+ *
+ * Algunos navegadores emiten pointerup y después click para el mismo toque;
+ * la ventana de 400 ms evita abrir y cerrar inmediatamente un control.
+ */
 const onPress = (element, handler) => {
     let lastPointerPress = 0;
 
@@ -23,6 +29,7 @@ const onPress = (element, handler) => {
 };
 
 const initSiteInteractions = () => {
+    // Galerías y enlaces con la clase .glightbox.
     try {
         GLightbox({
             selector: '.glightbox',
@@ -34,6 +41,8 @@ const initSiteInteractions = () => {
         console.warn('No se pudo iniciar la galeria de imagenes.', error);
     }
 
+    // Pausar antes de una navegación interna evita que el audio continúe
+    // durante la transición o al reutilizar una página desde caché.
     const pausePlayingVideos = () => {
         document.querySelectorAll('video').forEach((video) => {
             if (!video.paused) {
@@ -81,36 +90,59 @@ const initSiteInteractions = () => {
         window.location.assign(url.href);
     }, true);
 
-    const animatedElements = document.querySelectorAll('.animate-on-scroll');
+    /*
+     * Animación global al hacer scroll.
+     *
+     * Además de los elementos marcados manualmente, se incluyen las secciones
+     * y artículos dentro de <main>. data-no-scroll-animation permite excluir
+     * un bloque concreto si una futura interacción necesita posición estable.
+     */
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const animatedElements = Array.from(document.querySelectorAll(
+        '.animate-on-scroll, [data-scroll-reveal], main section, main article'
+    )).filter((element, index, elements) => (
+        !element.closest('[data-no-scroll-animation]')
+        && elements.indexOf(element) === index
+    ));
 
-    if ('IntersectionObserver' in window) {
+    animatedElements.forEach((element) => {
+        element.classList.add('scroll-reveal');
+
+        // Escalona hasta cinco hermanos para que las cuadrículas aparezcan de
+        // forma progresiva sin retrasar demasiado el último elemento.
+        const siblings = Array.from(element.parentElement?.children ?? [])
+            .filter((sibling) => animatedElements.includes(sibling));
+        const siblingIndex = siblings.indexOf(element);
+
+        if (siblingIndex > 0) {
+            element.style.setProperty('--scroll-reveal-delay', `${Math.min(siblingIndex, 4) * 90}ms`);
+        }
+    });
+
+    if (prefersReducedMotion || !('IntersectionObserver' in window)) {
+        animatedElements.forEach((element) => element.classList.add('is-revealed'));
+    } else {
         const observerOptions = {
             root: null,
-            rootMargin: '0px',
-            threshold: 0.1
+            // Activa ligeramente antes de que el bloque entre por completo.
+            rootMargin: '0px 0px -8% 0px',
+            threshold: 0.08
         };
 
         const observer = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.classList.add('opacity-100', 'translate-y-0');
-                    entry.target.classList.remove('opacity-0', 'translate-y-10');
+                    entry.target.classList.add('is-revealed');
                     observer.unobserve(entry.target);
                 }
             });
         }, observerOptions);
 
-        animatedElements.forEach(el => {
-            el.classList.add('opacity-0', 'translate-y-10', 'transition-all', 'duration-700', 'ease-out');
-            observer.observe(el);
-        });
-    } else {
-        animatedElements.forEach(el => {
-            el.classList.add('opacity-100', 'translate-y-0');
-            el.classList.remove('opacity-0', 'translate-y-10');
-        });
+        animatedElements.forEach((element) => observer.observe(element));
     }
 
+    // Menú móvil y submenús. Los atributos data-* forman el contrato con
+    // resources/views/components/navbar.blade.php.
     const siteNav = document.querySelector('[data-site-nav]');
     const mobileMenuToggle = document.querySelector('[data-mobile-menu-toggle]');
     const mobileMenu = document.querySelector('[data-mobile-menu]');
@@ -159,6 +191,7 @@ const initSiteInteractions = () => {
         });
     }
 
+    // Burbuja de ayuda flotante. Se cierra con botón, clic exterior o Escape.
     const explorerHelp = document.querySelector('[data-explorer-help]');
     const explorerHelpToggle = document.querySelector('[data-explorer-help-toggle]');
     const explorerHelpBubble = document.querySelector('[data-explorer-help-bubble]');
@@ -211,6 +244,7 @@ const initSiteInteractions = () => {
     }
 };
 
+// Vite puede cargar este archivo antes o después de DOMContentLoaded.
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initSiteInteractions, { once: true });
 } else {

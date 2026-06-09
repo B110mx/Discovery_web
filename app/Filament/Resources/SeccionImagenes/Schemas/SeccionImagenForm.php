@@ -11,6 +11,11 @@ use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 
+/**
+ * Editor central de posiciones de imagen del sitio.
+ *
+ * "vista + clave" debe coincidir con lo solicitado por PageController.
+ */
 class SeccionImagenForm
 {
     public static function configure(Schema $schema): Schema
@@ -24,11 +29,15 @@ class SeccionImagenForm
                             'inicio' => 'Inicio',
                             'nosotros' => 'Nosotros',
                             'oferta-academica' => 'Oferta Educativa',
-                            'protagonistas' => 'Comunidad / Protagonistas',
                             'preescolar' => 'Nivel - Kinder',
                             'primaria' => 'Nivel - Elementary',
                             'secundaria' => 'Nivel - Middle',
+                            'bachillerato' => 'Nivel - High',
+                            'ib-en-discovery' => 'Nivel - IB en Discovery®',
                             'pop-del-ib' => 'POP del IB',
+                            'certificacion-de-ingles' => 'Certificación de Inglés',
+                            'academias-vespertinas' => 'Academias Vespertinas',
+                            'recursos-escolares' => 'Recursos escolares',
                             'contacto' => 'Contacto',
                         ])
                         ->searchable()
@@ -36,7 +45,7 @@ class SeccionImagenForm
 
                     TextInput::make('clave')
                         ->label('Parte exacta de la vista')
-                        ->helperText('Ejemplos: hero, sobre_nosotros, preescolar, explorers. La línea del tiempo se administra en su propia sección.')
+                        ->helperText('Ejemplos: hero, logo, modelo_academico o sobre_nosotros. Carruseles, galerías, línea del tiempo, banners de Inicio y el hero dinámico de Protagonistas se administran fuera de este módulo.')
                         ->required()
                         ->maxLength(255),
 
@@ -63,7 +72,7 @@ class SeccionImagenForm
                 ->schema([
                     Select::make('respaldo_media_path')
                         ->label('Imagen desde /videosyfotos')
-                        ->helperText('Recomendado para línea del tiempo y fotos de vistas. No aplica para logos universitarios ni para el bloque aleatorio de Protagonistas.')
+                        ->helperText('Selecciona el archivo actual de respaldo. No aplica para carruseles, galerías, línea del tiempo, banners de Inicio ni el hero dinámico de Protagonistas.')
                         ->options(fn () => VideoFotoOptions::images())
                         ->searchable()
                         ->preload()
@@ -72,6 +81,8 @@ class SeccionImagenForm
 
                     FileUpload::make('imagen')
                         ->label('Subir imagen manualmente')
+                        // PageController da prioridad a este archivo sobre el
+                        // respaldo seleccionado en videosyfotos.
                         ->helperText('Opcional. Úsalo solo si la imagen no existe en /videosyfotos. Máximo 6 MB.')
                         ->image()
                         ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])

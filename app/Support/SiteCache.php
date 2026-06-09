@@ -4,6 +4,9 @@ namespace App\Support;
 
 use Illuminate\Support\Facades\Cache;
 
+/**
+ * Punto único para nombres, duración e invalidación del caché público.
+ */
 class SiteCache
 {
     public static function ttl()
@@ -30,6 +33,9 @@ class SiteCache
 
     public static function forgetPattern(string $pattern): void
     {
+        // Solo se recorren claves declaradas en configuración; este método no
+        // intenta enumerar el backend de caché, por lo que funciona con drivers
+        // que no soportan búsqueda global de claves.
         foreach (array_keys(config('colegio.cache.keys', [])) as $name) {
             if (str($name)->is($pattern)) {
                 self::forget($name);

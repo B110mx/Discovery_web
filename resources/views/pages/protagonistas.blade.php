@@ -2,6 +2,7 @@
 
 @section('content')
 
+{{-- El controlador resuelve grupos de imágenes; aquí se agrega el texto editorial. --}}
 @php
     $imagenesProtagonistas = $comunidad['protagonistas'] ?? [];
 

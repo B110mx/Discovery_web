@@ -2,6 +2,7 @@
 
 @section('content')
 
+{{-- Datos institucionales fijos. Los textos del hero e imágenes llegan del controlador. --}}
 @php
     $incorporaciones = [
         'Maternal: 21PDI0093H',
@@ -70,12 +71,14 @@
 
     <section class="bg-white rounded-xl shadow-md overflow-hidden">
         <div class="grid lg:grid-cols-2">
-            <x-imagen-seccion
-                :imagen="$imagenesNosotros['modelo']"
-                alt="Modelo educativo Colegio Discovery®"
-                class="h-72 w-full object-cover lg:h-full"
-                placeholder-class="h-72 lg:h-full"
-            />
+            <a href="{{ $imagenesNosotros['modelo']['url'] }}" class="glightbox block" data-gallery="modelo-educativo" data-title="Modelo educativo Colegio Discovery®">
+                <x-imagen-seccion
+                    :imagen="$imagenesNosotros['modelo']"
+                    alt="Modelo educativo Colegio Discovery®"
+                    class="h-72 w-full object-cover lg:h-full transition-transform hover:scale-[1.02]"
+                    placeholder-class="h-72 lg:h-full"
+                />
+            </a>
             <div class="p-8 md:p-10">
                 <p class="font-semibold uppercase tracking-wide text-sm text-blue-700">Modelo Educativo</p>
                 <h2 class="text-3xl font-bold text-black mt-2">Planeación estratégica para el futuro</h2>
@@ -110,6 +113,13 @@
                 <p class="text-gray-700 leading-8 mt-5">
                     Acompañamos a nuestros Explorers en la construcción de su proyecto de vida, acercándolos a opciones universitarias, experiencias de orientación vocacional y herramientas para tomar decisiones informadas sobre su futuro.
                 </p>
+
+                <div class="mt-6 flex items-center gap-4 rounded-xl border border-yellow-200 bg-yellow-50 p-5">
+                    <span class="shrink-0 text-3xl font-extrabold text-yellow-600">+70%</span>
+                    <p class="font-semibold leading-6 text-gray-800">
+                        Más del 70% de nuestros alumni obtiene becas en universidades de México y el extranjero.
+                    </p>
+                </div>
 
                 <div class="grid sm:grid-cols-3 gap-3 mt-7">
                     <div class="rounded-lg border border-blue-100 bg-blue-50 p-4">

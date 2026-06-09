@@ -1,3 +1,7 @@
+{{--
+    Los atributos data-* de este componente son utilizados por resources/js/app.js.
+    Si se renombra uno, debe actualizarse también el selector JavaScript asociado.
+--}}
 <header class="sticky top-0 z-50 bg-white shadow-md">
     <div class="bg-blue-700 text-white text-sm">
         <div class="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-2 md:flex-row md:items-center md:justify-end md:gap-6">

@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Support\SiteCache;
 use Illuminate\Database\Eloquent\Model;
 
+/** PDF de lista de útiles agrupado por nivel, grado y ciclo escolar. */
 class ListaUtil extends Model
 {
     protected $table = 'lista_utiles';

@@ -2,6 +2,7 @@
 
 @section('content')
 
+{{-- Horarios editoriales y multimedia descubierta en videosyfotos/Academias vespertinas. --}}
 @php
     $horariosAcademias = [
         [

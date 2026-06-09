@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Support\SiteCache;
 use Illuminate\Database\Eloquent\Model;
 
+/** Momento histórico, con hasta dos imágenes, mostrado en la línea del tiempo. */
 class HitoHistoria extends Model
 {
     protected $fillable = [
