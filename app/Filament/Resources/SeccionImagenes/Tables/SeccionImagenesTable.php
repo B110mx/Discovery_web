@@ -35,6 +35,7 @@ class SeccionImagenesTable
                         'preescolar' => 'Nivel - Kinder',
                         'primaria' => 'Nivel - Elementary',
                         'secundaria' => 'Nivel - Middle',
+                        'pop-del-ib' => 'POP del IB',
                         'contacto' => 'Contacto',
                         default => $state,
                     })
@@ -69,6 +70,7 @@ class SeccionImagenesTable
                         'preescolar' => 'Nivel - Kinder',
                         'primaria' => 'Nivel - Elementary',
                         'secundaria' => 'Nivel - Middle',
+                        'pop-del-ib' => 'POP del IB',
                         'contacto' => 'Contacto',
                     ]),
             ])

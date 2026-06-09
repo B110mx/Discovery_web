@@ -28,6 +28,7 @@ class SeccionImagenForm
                             'preescolar' => 'Nivel - Kinder',
                             'primaria' => 'Nivel - Elementary',
                             'secundaria' => 'Nivel - Middle',
+                            'pop-del-ib' => 'POP del IB',
                             'contacto' => 'Contacto',
                         ])
                         ->searchable()
@@ -35,7 +36,7 @@ class SeccionImagenForm
 
                     TextInput::make('clave')
                         ->label('Parte exacta de la vista')
-                        ->helperText('Ejemplos: hero, sobre_nosotros, historia_2003, preescolar, explorers.')
+                        ->helperText('Ejemplos: hero, sobre_nosotros, preescolar, explorers. La línea del tiempo se administra en su propia sección.')
                         ->required()
                         ->maxLength(255),
 

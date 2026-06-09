@@ -300,6 +300,12 @@ class PageController extends Controller
             $nivelContenido['informacion']['imagen_enfoque']['url'] = $nivelContenido['informacion']['imagen_enfoque']['url']
                 ?? $this->mediaUrlIfExists($nivelContenido['informacion']['imagen_enfoque']['media_path'] ?? null);
         }
+        if (($nivelContenido['layout'] ?? null) === 'pop' && ! empty($nivelContenido['informacion']['imagenes'])) {
+            $nivelContenido['informacion']['imagenes'] = $this->imagenesVista(
+                'pop-del-ib',
+                $nivelContenido['informacion']['imagenes'],
+            );
+        }
         $imagenGaleriaPrincipal = $galeria[0]['url'] ?? null;
         $mediaPathGaleriaPrincipal = $nivelContenido['hero_media_path'] ?? (isset($carpetas[$nivel], $imagenGaleriaPrincipal)
             ? $carpetas[$nivel] . '/' . basename($imagenGaleriaPrincipal)
@@ -788,7 +794,7 @@ class PageController extends Controller
 
     private function obtenerHistoriaNosotros(): array
     {
-        $imagenesHistoria = $this->imagenesVista('nosotros', [
+        $imagenesHistoria = collect([
             'historia_2003' => [
                 'titulo' => 'Nosotros - Historia 2003',
                 'referencia' => 'Imagen para el hito Discovery® Kinder en la línea del tiempo de Nosotros.',
@@ -849,7 +855,12 @@ class PageController extends Controller
                 'referencia' => 'Imagen para el hito Actualmente en la línea del tiempo de Nosotros.',
                 'media_path' => 'Linea del tiempo/2025-1.jpg',
             ],
-        ]);
+        ])->map(fn (array $imagen) => [
+            'url' => null,
+            'titulo' => $imagen['titulo'],
+            'referencia' => $imagen['referencia'],
+            'pendiente' => true,
+        ])->all();
 
         $historiaDefault = [
             ['anio' => '2003', 'titulo' => 'Discovery® Kinder', 'texto' => 'Nace Discovery® Kinder, el inicio de un sueño educativo porque los primeros pasos trascienden.', 'imagenes' => [$imagenesHistoria['historia_2003'], $imagenesHistoria['historia_2003_2']]],
@@ -875,7 +886,7 @@ class PageController extends Controller
                 $fallback = $fallbacksPorAnio->get($hito->anio, ['imagenes' => []]);
                 $imagenes = $fallback['imagenes'] ?? [];
 
-                if ($url = $this->publicUploadUrl($hito->imagen_url)) {
+                if ($url = $this->publicUploadUrl($hito->imagen_url) ?? $this->mediaUrlIfExists($hito->imagen_media_path)) {
                     $imagenes[0] = [
                         'url' => $url,
                         'titulo' => $hito->titulo,
@@ -884,7 +895,7 @@ class PageController extends Controller
                     ];
                 }
 
-                if ($url = $this->publicUploadUrl($hito->imagen_secundaria_url)) {
+                if ($url = $this->publicUploadUrl($hito->imagen_secundaria_url) ?? $this->mediaUrlIfExists($hito->imagen_secundaria_media_path)) {
                     $imagenes[1] = [
                         'url' => $url,
                         'titulo' => $hito->titulo . ' - Imagen secundaria',

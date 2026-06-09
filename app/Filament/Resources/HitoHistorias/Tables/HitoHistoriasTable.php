@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\HitoHistorias\Tables;
 
+use App\Models\HitoHistoria;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
@@ -9,6 +10,7 @@ use Filament\Actions\EditAction;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Illuminate\Support\Facades\Storage;
 
 class HitoHistoriasTable
 {
@@ -26,12 +28,12 @@ class HitoHistoriasTable
                     ->label('Descripción')
                     ->limit(70)
                     ->searchable(),
-                ImageColumn::make('imagen_url')
+                ImageColumn::make('imagen_principal_preview')
                     ->label('Imagen principal')
-                    ->disk('public'),
-                ImageColumn::make('imagen_secundaria_url')
+                    ->getStateUsing(fn (HitoHistoria $record) => self::previewUrl($record->imagen_url, $record->imagen_media_path)),
+                ImageColumn::make('imagen_secundaria_preview')
                     ->label('Imagen secundaria')
-                    ->disk('public'),
+                    ->getStateUsing(fn (HitoHistoria $record) => self::previewUrl($record->imagen_secundaria_url, $record->imagen_secundaria_media_path)),
                 TextColumn::make('orden')
                     ->label('Orden')
                     ->numeric()
@@ -45,9 +47,7 @@ class HitoHistoriasTable
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
-            ->filters([
-                //
-            ])
+            ->filters([])
             ->defaultSort('orden')
             ->recordActions([
                 EditAction::make(),
@@ -58,5 +58,26 @@ class HitoHistoriasTable
                     DeleteBulkAction::make(),
                 ]),
             ]);
+    }
+
+    private static function previewUrl(?string $uploadPath, ?string $mediaPath): ?string
+    {
+        if ($uploadPath && Storage::disk('public')->exists($uploadPath)) {
+            return Storage::disk('public')->url($uploadPath);
+        }
+
+        if (! $mediaPath) {
+            return null;
+        }
+
+        $path = trim(str_replace('\\', '/', $mediaPath), '/');
+
+        if (! Storage::disk(config('colegio.media.disk', 'videosyfotos'))->exists($path)) {
+            return null;
+        }
+
+        return '/media/' . collect(explode('/', $path))
+            ->map(fn (string $segment) => rawurlencode($segment))
+            ->implode('/');
     }
 }

@@ -146,6 +146,20 @@ return [
             ],
             'puntos' => ['Perfil IB', 'Indagación', 'Acción con impacto'],
         ],
+        'pop-del-ib' => [
+            'titulo' => 'POP del IB',
+            'subtitulo' => 'Orientación profesional para construir el futuro.',
+            'descripcion' => 'Formación académica, personal y profesional conectada con la universidad y el mundo real.',
+            'edad' => 'High School',
+            'color' => 'blue',
+            'logo_path' => 'Logos de niveles educativos/Logo IB cl.jpeg',
+            'imagen_clave' => 'pop_ib',
+            'imagen_default' => [
+                'titulo' => 'Oferta Educativa - POP del IB',
+                'referencia' => 'Imagen destacada para presentar el Programa de Orientación Profesional del IB en la vista Oferta Educativa. Se recomienda una fotografía horizontal de Explorers de High trabajando en un proyecto.',
+            ],
+            'puntos' => ['Orientación profesional', 'Rutas preuniversitarias', 'Preparación universitaria'],
+        ],
         'certificacion-de-ingles' => [
             'titulo' => 'Certificación de Inglés',
             'subtitulo' => 'Metas claras para avanzar con confianza.',
@@ -349,6 +363,99 @@ return [
                     'experiencias' => ['Pensamiento crítico', 'Teoría del Conocimiento', 'CAS', 'Investigación', 'Dos lenguas', 'Mentalidad internacional'],
                 ],
             ],
+            'pop-del-ib' => [
+                'titulo' => 'Programa de Orientación Profesional del IB',
+                'descripcion' => 'Preparando Explorers para construir su futuro mediante experiencias académicas, personales y profesionales conectadas con el mundo real.',
+                'logo_path' => 'Logos principales/logo-ib-y-discovery-principal-1024x342.png',
+                'logo_extendido_path' => 'Logos principales/logo-ib-y-discovery-principal-1024x342.png',
+                'usar_placeholder_hero' => true,
+                'ocultar_galeria' => true,
+                'layout' => 'pop',
+                'informacion' => [
+                    'eyebrow' => 'Programa de Orientación Profesional del IB',
+                    'titulo' => 'Preparando Explorers para construir su futuro',
+                    'intro' => 'El POP del IB combina la filosofía del Bachillerato Internacional con experiencias prácticas, proyectos significativos, rutas preuniversitarias y una trayectoria académica que acompaña a cada Explorer en la construcción de su perfil profesional.',
+                    'destacados' => [
+                        ['titulo' => 'Autoconocimiento', 'texto' => 'Cada Explorer reconoce sus intereses, talentos y fortalezas para tomar decisiones más informadas sobre su futuro.'],
+                        ['titulo' => 'Experiencia práctica', 'texto' => 'Los aprendizajes se conectan con proyectos, tecnología, servicio y situaciones del mundo real.'],
+                        ['titulo' => 'Proyección universitaria', 'texto' => 'La trayectoria fortalece el perfil académico, personal y profesional para la siguiente etapa.'],
+                    ],
+                    'habilidades' => [
+                        'Pensamiento crítico',
+                        'Comunicación',
+                        'Investigación',
+                        'Liderazgo',
+                        'Colaboración',
+                        'Responsabilidad social',
+                        'Creatividad',
+                        'Toma de decisiones',
+                    ],
+                    'componentes' => [
+                        ['titulo' => 'Aprendizaje-servicio', 'texto' => 'Participación en proyectos que responden a necesidades reales de la comunidad y fortalecen el compromiso social.'],
+                        ['titulo' => 'Desarrollo de la lengua', 'texto' => 'Crecimiento de habilidades comunicativas en un contexto internacional para expresarse, comprender y conectar con otras culturas.'],
+                        ['titulo' => 'Habilidades personales y profesionales', 'texto' => 'Organización, liderazgo, trabajo en equipo, comunicación asertiva y pensamiento reflexivo para la vida universitaria y profesional.'],
+                        ['titulo' => 'Proyecto de reflexión', 'texto' => 'Investigación y reflexión sobre temas relacionados con el área de interés profesional de cada Explorer.'],
+                    ],
+                    'rutas' => [
+                        [
+                            'titulo' => 'Ruta de Data Science',
+                            'intro' => 'Para Explorers interesados en tecnología, análisis de información, inteligencia artificial, negocios, innovación y resolución de problemas.',
+                            'habilidades' => ['Análisis de datos', 'Pensamiento lógico', 'Programación', 'Interpretación de información', 'Innovación'],
+                            'perfiles' => 'Ingeniería, Ciencia de Datos, Inteligencia Artificial, Economía, Finanzas, Administración, Negocios, Tecnología y Marketing Analytics.',
+                        ],
+                        [
+                            'titulo' => 'Ruta de Diseño e Impresión 3D',
+                            'intro' => 'Para Explorers interesados en creatividad, diseño, ingeniería, arquitectura, tecnología e innovación aplicada.',
+                            'habilidades' => ['Diseño', 'Pensamiento espacial', 'Prototipado', 'Planeación de proyectos', 'Tecnología aplicada'],
+                            'perfiles' => 'Arquitectura, Diseño Industrial, Ingeniería, Diseño de Producto, Animación, Robótica, Manufactura Digital y Arte Digital.',
+                        ],
+                    ],
+                    'areas' => [
+                        [
+                            'titulo' => 'Área de Salud',
+                            'texto' => 'Fortalece análisis, observación, pensamiento científico, investigación y comprensión del ser humano.',
+                            'perfiles' => 'Medicina, Enfermería, Nutrición, Psicología, Fisioterapia, Odontología, Biotecnología y Ciencias Biomédicas.',
+                        ],
+                        [
+                            'titulo' => 'Área Físico-Matemática',
+                            'texto' => 'Desarrolla pensamiento lógico, razonamiento matemático, análisis de problemas y creatividad aplicada.',
+                            'perfiles' => 'Ingenierías, Arquitectura, Ciencia de Datos, Actuaría, Física, Matemáticas Aplicadas, Robótica y Diseño Industrial.',
+                        ],
+                        [
+                            'titulo' => 'Área Económico-Administrativa',
+                            'texto' => 'Fortalece liderazgo, toma de decisiones, análisis de información, pensamiento estratégico y comunicación.',
+                            'perfiles' => 'Administración, Finanzas, Economía, Mercadotecnia, Negocios Internacionales, Contaduría, Comercio y Emprendimiento.',
+                        ],
+                    ],
+                    'imagenes' => [
+                        'componentes' => [
+                            'titulo' => 'POP del IB - Componentes del programa',
+                            'referencia' => 'Fotografía horizontal de Explorers participando en aprendizaje-servicio, trabajo colaborativo, investigación o una presentación relacionada con los componentes del POP.',
+                        ],
+                        'ruta_data_science' => [
+                            'titulo' => 'POP del IB - Ruta de Data Science',
+                            'referencia' => 'Fotografía horizontal de Explorers trabajando con computadoras, programación, análisis de datos, inteligencia artificial o tecnología.',
+                        ],
+                        'ruta_diseno_3d' => [
+                            'titulo' => 'POP del IB - Ruta de Diseño e Impresión 3D',
+                            'referencia' => 'Fotografía horizontal de Explorers diseñando, creando prototipos o utilizando una impresora 3D.',
+                        ],
+                        'areas_academicas' => [
+                            'titulo' => 'POP del IB - Áreas académicas de 11° y 12°',
+                            'referencia' => 'Fotografía horizontal de Explorers de 11° y 12° en una actividad académica, laboratorio, exposición o sesión de orientación universitaria.',
+                        ],
+                        'cierre' => [
+                            'titulo' => 'POP del IB - Preparación universitaria',
+                            'referencia' => 'Fotografía horizontal de graduación, orientación universitaria o Explorers proyectando su futuro profesional.',
+                        ],
+                    ],
+                    'cierre' => [
+                        'titulo' => 'Una preparación integral para la universidad',
+                        'texto' => 'En Discovery, nuestros Explorers no solo eligen materias: construyen un camino. El POP del IB, las rutas preuniversitarias y las áreas académicas de 11° y 12° les permiten descubrir intereses, desarrollar talentos y construir un perfil sólido, competitivo y con propósito.',
+                        'frase' => 'El futuro no se espera, se construye.',
+                    ],
+                ],
+            ],
             'certificacion-de-ingles' => [
                 'titulo' => 'Certificación de Inglés',
                 'descripcion' => 'Preparación progresiva para certificar el dominio del inglés con metas claras, práctica guiada y acompañamiento académico.',
@@ -449,6 +556,18 @@ return [
             'bar' => 'bg-amber-500',
             'heroText' => 'text-black',
             'heroMuted' => 'text-black',
+        ],
+        'pop-del-ib' => [
+            'hero' => 'bg-blue-700 text-white',
+            'heading' => 'text-blue-700',
+            'eyebrow' => 'text-blue-700',
+            'soft' => 'bg-blue-50 border-blue-200',
+            'dot' => 'bg-yellow-500',
+            'button' => 'bg-yellow-500 text-black hover:bg-amber-500',
+            'chip' => 'text-blue-700',
+            'bar' => 'bg-yellow-500',
+            'heroText' => 'text-white',
+            'heroMuted' => 'text-blue-50',
         ],
         'certificacion-de-ingles' => [
             'hero' => 'bg-sky-500 text-white',

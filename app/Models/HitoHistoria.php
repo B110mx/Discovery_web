@@ -12,7 +12,9 @@ class HitoHistoria extends Model
         'titulo',
         'texto',
         'imagen_url',
+        'imagen_media_path',
         'imagen_secundaria_url',
+        'imagen_secundaria_media_path',
         'orden',
     ];
 

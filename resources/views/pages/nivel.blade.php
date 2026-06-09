@@ -220,7 +220,153 @@
         @endforeach
     </div>
 
-    @if (in_array($nivel['layout'] ?? null, ['ib', 'ingles'], true) && ! empty($nivel['informacion']))
+    @if (($nivel['layout'] ?? null) === 'pop' && ! empty($nivel['informacion']))
+        @php
+            $pop = $nivel['informacion'];
+            $imagenesPop = $pop['imagenes'] ?? [];
+        @endphp
+
+        <section class="mt-12 overflow-hidden rounded-xl bg-white shadow-md">
+            <div class="grid lg:grid-cols-[1.05fr_.95fr]">
+                <div class="p-6 md:p-10">
+                    <p class="text-sm font-bold uppercase tracking-wide {{ $tema['eyebrow'] }}">{{ $pop['eyebrow'] }}</p>
+                    <h2 class="mt-3 text-3xl font-extrabold leading-tight text-gray-950 md:text-4xl">{{ $pop['titulo'] }}</h2>
+                    <p class="mt-5 text-lg leading-8 text-gray-600">{{ $pop['intro'] }}</p>
+
+                    <h3 class="mt-8 text-xl font-extrabold text-gray-950">Habilidades para decidir y construir</h3>
+                    <div class="mt-4 flex flex-wrap gap-2">
+                        @foreach ($pop['habilidades'] as $habilidad)
+                            <span class="rounded-full bg-blue-50 px-4 py-2 text-sm font-bold text-blue-700">
+                                {{ $habilidad }}
+                            </span>
+                        @endforeach
+                    </div>
+                </div>
+
+                <x-imagen-seccion
+                    :imagen="$imagenesPop['componentes']"
+                    alt="Componentes del POP del IB"
+                    class="h-full min-h-72 w-full object-cover"
+                    placeholder-class="h-full min-h-72 w-full rounded-none"
+                />
+            </div>
+        </section>
+
+        <section class="mt-12">
+            <div class="max-w-3xl">
+                <p class="text-sm font-bold uppercase tracking-wide {{ $tema['eyebrow'] }}">Formación integral</p>
+                <h2 class="mt-2 text-3xl font-extrabold text-gray-950">Componentes del POP</h2>
+                <p class="mt-4 leading-8 text-gray-600">
+                    Experiencias que conectan el aprendizaje académico con la vida universitaria, profesional y comunitaria.
+                </p>
+            </div>
+
+            <div class="mt-7 grid gap-5 md:grid-cols-2">
+                @foreach ($pop['componentes'] as $componente)
+                    <article class="rounded-xl border border-blue-100 bg-white p-6 shadow-sm">
+                        <span class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-blue-700 text-lg font-extrabold text-white">
+                            {{ $loop->iteration }}
+                        </span>
+                        <h3 class="mt-5 text-xl font-extrabold text-gray-950">{{ $componente['titulo'] }}</h3>
+                        <p class="mt-3 leading-7 text-gray-600">{{ $componente['texto'] }}</p>
+                    </article>
+                @endforeach
+            </div>
+        </section>
+
+        <section class="mt-12 overflow-hidden rounded-xl bg-gray-950 p-6 text-white shadow-lg md:p-10">
+            <div class="max-w-3xl">
+                <p class="text-sm font-bold uppercase tracking-wide text-yellow-500">Explorar antes de decidir</p>
+                <h2 class="mt-2 text-3xl font-extrabold md:text-4xl">Rutas preuniversitarias Discovery</h2>
+                <p class="mt-4 leading-8 text-gray-300">
+                    No representan una especialización temprana. Son oportunidades para descubrir fortalezas, explorar posibilidades profesionales y tomar decisiones más informadas.
+                </p>
+            </div>
+
+            <div class="mt-8 grid gap-6 lg:grid-cols-2">
+                @foreach ($pop['rutas'] as $ruta)
+                    @php($imagenRuta = $loop->first ? $imagenesPop['ruta_data_science'] : $imagenesPop['ruta_diseno_3d'])
+                    <article class="overflow-hidden rounded-xl bg-white text-gray-950 shadow-md">
+                        <x-imagen-seccion
+                            :imagen="$imagenRuta"
+                            :alt="$ruta['titulo']"
+                            class="aspect-[16/9] w-full object-cover"
+                            placeholder-class="aspect-[16/9] w-full rounded-none"
+                        />
+                        <div class="p-6">
+                            <h3 class="text-2xl font-extrabold text-blue-700">{{ $ruta['titulo'] }}</h3>
+                            <p class="mt-3 leading-7 text-gray-600">{{ $ruta['intro'] }}</p>
+
+                            <div class="mt-5 flex flex-wrap gap-2">
+                                @foreach ($ruta['habilidades'] as $habilidad)
+                                    <span class="rounded-full bg-blue-50 px-3 py-1.5 text-xs font-bold text-blue-700">{{ $habilidad }}</span>
+                                @endforeach
+                            </div>
+
+                            <p class="mt-5 text-sm leading-7 text-gray-600">
+                                <strong class="text-gray-950">Perfiles relacionados:</strong>
+                                {{ $ruta['perfiles'] }}
+                            </p>
+                        </div>
+                    </article>
+                @endforeach
+            </div>
+        </section>
+
+        <section class="mt-12">
+            <div class="grid gap-8 lg:grid-cols-[.9fr_1.1fr] lg:items-center">
+                <x-imagen-seccion
+                    :imagen="$imagenesPop['areas_academicas']"
+                    alt="Áreas académicas de 11° y 12°"
+                    class="aspect-[4/3] w-full rounded-xl object-cover shadow-md"
+                    placeholder-class="aspect-[4/3] w-full"
+                />
+
+                <div>
+                    <p class="text-sm font-bold uppercase tracking-wide {{ $tema['eyebrow'] }}">Trayectoria académica</p>
+                    <h2 class="mt-2 text-3xl font-extrabold text-gray-950">Áreas de interés profesional en 11° y 12°</h2>
+                    <p class="mt-4 leading-8 text-gray-600">
+                        Los Explorers profundizan conocimientos relacionados con tres grandes áreas preuniversitarias.
+                    </p>
+                </div>
+            </div>
+
+            <div class="mt-8 grid gap-5 lg:grid-cols-3">
+                @foreach ($pop['areas'] as $area)
+                    <article class="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+                        <span class="inline-flex h-2 w-14 rounded-full {{ $loop->iteration === 1 ? 'bg-red-600' : ($loop->iteration === 2 ? 'bg-blue-700' : 'bg-green-600') }}"></span>
+                        <h3 class="mt-5 text-xl font-extrabold text-gray-950">{{ $area['titulo'] }}</h3>
+                        <p class="mt-3 leading-7 text-gray-600">{{ $area['texto'] }}</p>
+                        <p class="mt-5 text-sm leading-7 text-gray-600">
+                            <strong class="text-gray-950">Perfiles universitarios:</strong>
+                            {{ $area['perfiles'] }}
+                        </p>
+                    </article>
+                @endforeach
+            </div>
+        </section>
+
+        <section class="mt-12 overflow-hidden rounded-xl bg-blue-700 text-white shadow-lg">
+            <div class="grid lg:grid-cols-[1.05fr_.95fr]">
+                <div class="flex flex-col justify-center p-7 md:p-10">
+                    <p class="text-sm font-bold uppercase tracking-wide text-yellow-500">Discovery High School</p>
+                    <h2 class="mt-3 text-3xl font-extrabold md:text-4xl">{{ $pop['cierre']['titulo'] }}</h2>
+                    <p class="mt-5 leading-8 text-blue-50">{{ $pop['cierre']['texto'] }}</p>
+                    <p class="mt-6 text-2xl font-extrabold text-yellow-500">{{ $pop['cierre']['frase'] }}</p>
+                    <a href="{{ route('contacto') }}" class="mt-7 inline-flex w-fit items-center justify-center rounded bg-yellow-500 px-6 py-3 font-extrabold text-black transition hover:bg-amber-500">
+                        Solicitar informes
+                    </a>
+                </div>
+
+                <x-imagen-seccion
+                    :imagen="$imagenesPop['cierre']"
+                    alt="Preparación universitaria POP del IB"
+                    class="h-full min-h-80 w-full object-cover"
+                    placeholder-class="h-full min-h-80 w-full rounded-none border-white/30 bg-blue-800"
+                />
+            </div>
+        </section>
+    @elseif (in_array($nivel['layout'] ?? null, ['ib', 'ingles'], true) && ! empty($nivel['informacion']))
         <section class="mt-12 overflow-hidden rounded-xl bg-white shadow-md">
             <div class="{{ $tema['hero'] }} p-6 md:p-10">
                 <div class="max-w-5xl">
