@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Colegio Discovery®</title>
+    <link rel="icon" type="image/png" sizes="64x64" href="{{ asset('favicon.png') }}?v=dk2">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('apple-touch-icon.png') }}?v=dk2">
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>

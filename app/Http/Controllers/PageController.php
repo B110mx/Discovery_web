@@ -597,18 +597,18 @@ class PageController extends Controller
     private function universidadesVinculacion(): array
     {
         return [
-            ['nombre' => 'UVM', 'url' => 'https://colegiodiscovery.edu.mx/wp-content/uploads/2022/08/uvm.png'],
-            ['nombre' => 'UPAEP', 'url' => 'https://colegiodiscovery.edu.mx/wp-content/uploads/2022/08/upaep.png'],
-            ['nombre' => 'UDLAP', 'url' => 'https://colegiodiscovery.edu.mx/wp-content/uploads/2022/08/udlap.png'],
-            ['nombre' => 'Anahuac', 'url' => 'https://colegiodiscovery.edu.mx/wp-content/uploads/2022/08/anahuac.png'],
-            ['nombre' => 'Ibero', 'url' => 'https://colegiodiscovery.edu.mx/wp-content/uploads/2022/08/ibero.png'],
-            ['nombre' => 'Tec de Monterrey', 'url' => 'https://colegiodiscovery.edu.mx/wp-content/uploads/2022/08/tec-de-monterrey.png'],
-            ['nombre' => 'Escuela Libre de Derecho', 'url' => 'https://colegiodiscovery.edu.mx/wp-content/uploads/2022/08/escuela-libre-de-derecho.png'],
-            ['nombre' => 'Vatel', 'url' => 'https://colegiodiscovery.edu.mx/wp-content/uploads/2022/08/vatel.png'],
-            ['nombre' => 'ITAM', 'url' => 'https://colegiodiscovery.edu.mx/wp-content/uploads/2022/08/itam.png'],
-            ['nombre' => 'ISU', 'url' => 'https://colegiodiscovery.edu.mx/wp-content/uploads/2022/08/isu.png'],
-            ['nombre' => 'Universidad Panamericana', 'url' => 'https://colegiodiscovery.edu.mx/wp-content/uploads/2022/08/universidad-panamericana.png'],
-            ['nombre' => 'Unilomas', 'url' => 'https://colegiodiscovery.edu.mx/wp-content/uploads/2022/08/unilomas.png'],
+            ['nombre' => 'UVM', 'url' => asset('images/universidades/uvm.png')],
+            ['nombre' => 'UPAEP', 'url' => asset('images/universidades/upaep.png')],
+            ['nombre' => 'UDLAP', 'url' => asset('images/universidades/udlap.png')],
+            ['nombre' => 'Anáhuac', 'url' => asset('images/universidades/anahuac.png')],
+            ['nombre' => 'Ibero', 'url' => asset('images/universidades/ibero.png')],
+            ['nombre' => 'Tec de Monterrey', 'url' => asset('images/universidades/tec-de-monterrey.png')],
+            ['nombre' => 'Escuela Libre de Derecho', 'url' => asset('images/universidades/escuela-libre-de-derecho.png')],
+            ['nombre' => 'Vatel', 'url' => asset('images/universidades/vatel.png')],
+            ['nombre' => 'ITAM', 'url' => asset('images/universidades/itam.png')],
+            ['nombre' => 'ISU', 'url' => asset('images/universidades/isu.png')],
+            ['nombre' => 'Universidad Panamericana', 'url' => asset('images/universidades/universidad-panamericana.png')],
+            ['nombre' => 'Unilomas', 'url' => asset('images/universidades/unilomas.png')],
         ];
     }
 

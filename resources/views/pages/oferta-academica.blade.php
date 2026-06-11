@@ -64,10 +64,12 @@
         En escritorio la altura es deliberadamente compacta para mostrar imagen,
         pestañas, información y botones sin desplazar la página.
     --}}
-    <section id="oferta-hero" class="grid overflow-hidden rounded-lg bg-white shadow-xl lg:h-[640px] lg:grid-cols-[.85fr_1.15fr] xl:h-[620px]">
+    <section id="oferta-hero" class="grid overflow-hidden rounded-lg bg-white shadow-xl lg:h-[608px] lg:grid-cols-[.85fr_1.15fr] xl:h-[589px]">
         <div class="relative min-h-60 bg-gray-100 lg:min-h-0">
             @foreach ($ofertaNiveles as $slug => $programa)
-                @php($color = $colores[$programa['color']] ?? $colores['blue'])
+                @php
+                    $color = $colores[$programa['color']] ?? $colores['blue'];
+                @endphp
                 <div
                     class="{{ $loop->first ? '' : 'hidden' }} h-full"
                     data-oferta-panel="{{ $slug }}"
@@ -102,7 +104,9 @@
 
             <div class="mt-2 grid auto-rows-[56px] gap-2 sm:grid-cols-2" role="tablist" aria-label="Niveles académicos">
                 @foreach ($ofertaNiveles as $slug => $programa)
-                    @php($color = $colores[$programa['color']] ?? $colores['blue'])
+                    @php
+                        $color = $colores[$programa['color']] ?? $colores['blue'];
+                    @endphp
                     <button
                         type="button"
                         class="group flex h-14 flex-col justify-between overflow-hidden rounded border border-gray-200 bg-white px-2 py-1.5 text-left shadow-sm transition duration-300 hover:border-blue-300 hover:shadow-md data-[active=true]:ring-2 {{ $color['ring'] }}"
@@ -121,7 +125,9 @@
 
             <div class="mt-3 min-h-0 border-t border-gray-100 pt-3">
                 @foreach ($ofertaNiveles as $slug => $programa)
-                    @php($color = $colores[$programa['color']] ?? $colores['blue'])
+                    @php
+                        $color = $colores[$programa['color']] ?? $colores['blue'];
+                    @endphp
                     <article
                         class="{{ $loop->first ? '' : 'hidden' }}"
                         data-oferta-panel="{{ $slug }}"
@@ -200,49 +206,70 @@
         </div>
     </section>
 
-    <section>
-        <div class="mb-6 flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
+    <section class="overflow-hidden rounded-2xl bg-gradient-to-br from-slate-50 via-white to-blue-50/70 px-5 py-8 ring-1 ring-slate-200 sm:px-8 sm:py-10">
+        <div class="mb-8 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
             <div>
                 <p class="text-sm font-bold uppercase tracking-wide text-blue-700">Comparativa rápida</p>
-                <h2 class="mt-2 text-3xl font-extrabold text-gray-950">Explora por etapa</h2>
+                <h2 class="mt-2 text-3xl font-extrabold tracking-tight text-gray-950 sm:text-4xl">Explora por etapa</h2>
+                <p class="mt-3 max-w-2xl text-base leading-7 text-gray-600">
+                    Conoce el enfoque de cada nivel y encuentra la ruta ideal para tu familia.
+                </p>
             </div>
-            <a href="{{ route('contacto') }}" class="w-fit font-bold text-blue-700 underline decoration-blue-200 decoration-4 underline-offset-4 hover:text-blue-900">
+            <a href="{{ route('contacto') }}" class="group inline-flex w-fit items-center gap-2 rounded-full bg-blue-700 px-5 py-3 text-sm font-bold text-white shadow-sm transition hover:-translate-y-0.5 hover:bg-blue-800 hover:shadow-md">
                 Agendar informes
+                <svg class="h-4 w-4 transition-transform group-hover:translate-x-1" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                    <path d="M4 10h12m-5-5 5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
             </a>
         </div>
 
-        <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+        <div class="grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
             @foreach ($ofertaNiveles as $slug => $programa)
-                @php($color = $colores[$programa['color']] ?? $colores['blue'])
+                @php
+                    $color = $colores[$programa['color']] ?? $colores['blue'];
+                    $esLogo = in_array($slug, ['ib-en-discovery', 'certificacion-de-ingles']);
+                @endphp
                 <a
                     href="{{ $programa['ruta'] }}"
-                    class="group overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-lg"
+                    class="group flex min-h-full flex-col overflow-hidden rounded-2xl border border-gray-200/80 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:border-blue-200 hover:shadow-xl"
                 >
-                    <div class="grid grid-cols-[.42fr_.58fr] items-stretch">
-                        @if ($slug === 'ib-en-discovery')
-                            <div class="flex h-40 items-center justify-center bg-gray-50 p-5">
-                                <x-imagen-seccion
-                                    :imagen="$programa['imagen']"
-                                    :alt="$programa['titulo']"
-                                    class="max-h-24 w-full object-contain"
-                                    placeholder-class="h-28 w-full"
-                                />
-                            </div>
+                    <div class="relative h-44 overflow-hidden {{ $esLogo ? 'bg-slate-50' : 'bg-slate-100' }}">
+                        @if (! empty($programa['imagen']['url']))
+                            <img
+                                src="{{ $programa['imagen']['url'] }}"
+                                alt="{{ $programa['titulo'] }}"
+                                class="h-full w-full transition duration-500 group-hover:scale-105 {{ $esLogo ? 'object-contain p-8' : 'object-cover' }}"
+                                loading="lazy"
+                            >
                         @else
-                            <x-imagen-seccion
-                                :imagen="$programa['imagen']"
-                                :alt="$programa['titulo']"
-                                class="h-40 w-full object-cover"
-                                placeholder-class="h-40"
-                            />
+                            <div class="flex h-full flex-col items-center justify-center bg-gradient-to-br from-slate-50 to-blue-50 px-6 text-center">
+                                <span class="flex h-11 w-11 items-center justify-center rounded-full bg-white text-blue-700 shadow-sm ring-1 ring-blue-100">
+                                    <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                                        <path d="M4 7.5A2.5 2.5 0 0 1 6.5 5h11A2.5 2.5 0 0 1 20 7.5v9a2.5 2.5 0 0 1-2.5 2.5h-11A2.5 2.5 0 0 1 4 16.5v-9Z" stroke="currentColor" stroke-width="1.8"/>
+                                        <path d="m5 16 4-4 3 3 2-2 5 4.5M15.5 9.5h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </span>
+                                <p class="mt-3 text-xs font-bold uppercase tracking-wider text-slate-500">Fotografía próximamente</p>
+                            </div>
                         @endif
-                        <div class="flex min-h-40 flex-col justify-center p-5">
-                            <span class="block h-1.5 w-14 rounded-full {{ $color['bar'] }}"></span>
-                            <h3 class="mt-4 text-xl font-extrabold text-gray-950">{{ $programa['titulo'] }}</h3>
-                            <p class="mt-2 text-sm font-semibold {{ $color['text'] }}">{{ $programa['edad'] }}</p>
-                            <p class="mt-3 text-sm leading-6 text-gray-600">{{ $programa['subtitulo'] }}</p>
-                            <span class="mt-4 inline-flex text-sm font-bold text-blue-700 group-hover:text-blue-900">
+
+                        <span class="absolute left-4 top-4 rounded-full bg-white/95 px-3 py-1.5 text-xs font-bold shadow-sm backdrop-blur {{ $color['text'] }}">
+                            {{ $programa['edad'] }}
+                        </span>
+                    </div>
+
+                    <div class="flex flex-1 flex-col p-5">
+                        <span class="block h-1.5 w-12 rounded-full {{ $color['bar'] }}"></span>
+                        <h3 class="mt-4 text-xl font-extrabold leading-tight text-gray-950">{{ $programa['titulo'] }}</h3>
+                        <p class="mt-3 flex-1 text-sm leading-6 text-gray-600">{{ $programa['subtitulo'] }}</p>
+                        <div class="mt-5 flex items-center justify-between border-t border-gray-100 pt-4">
+                            <span class="text-sm font-bold text-blue-700 transition group-hover:text-blue-900">
                                 Explorar nivel
+                            </span>
+                            <span class="flex h-8 w-8 items-center justify-center rounded-full bg-blue-50 text-blue-700 transition group-hover:bg-blue-700 group-hover:text-white">
+                                <svg class="h-4 w-4 transition-transform group-hover:translate-x-0.5" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                                    <path d="M4 10h12m-5-5 5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
                             </span>
                         </div>
                     </div>
