@@ -52,16 +52,29 @@ class VistaPublicacionTest extends TestCase
             ->assertSee('no es visible para el público');
     }
 
-    public function test_disabling_offer_page_also_blocks_its_children(): void
+    public function test_disabling_offer_page_does_not_block_its_children(): void
     {
         VistaPublicacion::query()
             ->where('clave', 'oferta-academica')
             ->firstOrFail()
             ->update(['publicada' => false]);
 
-        $this->get('/oferta-academica/pop-del-ib')->assertStatus(503);
         $this->get('/oferta-academica')->assertStatus(503);
+        $this->get('/oferta-academica/preescolar')->assertOk();
+        $this->get('/oferta-academica/pop-del-ib')->assertOk();
         $this->get('/nosotros')->assertOk();
+    }
+
+    public function test_disabling_a_level_does_not_block_the_offer_page_or_other_levels(): void
+    {
+        VistaPublicacion::query()
+            ->where('clave', 'preescolar')
+            ->firstOrFail()
+            ->update(['publicada' => false]);
+
+        $this->get('/oferta-academica/preescolar')->assertStatus(503);
+        $this->get('/oferta-academica')->assertOk();
+        $this->get('/oferta-academica/primaria')->assertOk();
     }
 
     public function test_view_is_available_immediately_after_republishing(): void

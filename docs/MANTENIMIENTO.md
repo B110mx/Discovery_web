@@ -121,7 +121,8 @@ El middleware:
 - deja pasar vistas publicadas;
 - permite previsualización a administradores autenticados;
 - responde con HTTP `503` al público;
-- respeta la relación `padre` de los niveles de Oferta Educativa.
+- controla cada ruta de forma independiente. Oferta Educativa conserva sus
+  niveles agrupados en el panel, pero su interruptor no cambia el estado de ellos.
 
 Para agregar una vista:
 

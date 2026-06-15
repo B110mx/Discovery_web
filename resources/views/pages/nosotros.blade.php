@@ -5,11 +5,36 @@
 {{-- Datos institucionales fijos. Los textos del hero e imágenes llegan del controlador. --}}
 @php
     $incorporaciones = [
-        'Maternal: 21PDI0093H',
-        'Kinder: 21PJN0912U',
-        'Elementary: 21PPR0078B',
-        'Middle: 21PES0097J',
-        'High: 21PBH0513D',
+        [
+            'nivel' => 'Maternal',
+            'clave' => '21PDI0093H',
+            'color' => 'border-lime-300 bg-lime-50 text-lime-900',
+            'badge' => 'bg-lime-500 text-black',
+        ],
+        [
+            'nivel' => 'Kinder',
+            'clave' => '21PJN0912U',
+            'color' => 'border-lime-300 bg-lime-50 text-lime-900',
+            'badge' => 'bg-lime-500 text-black',
+        ],
+        [
+            'nivel' => 'Elementary',
+            'clave' => '21PPR0078B',
+            'color' => 'border-red-200 bg-red-50 text-red-900',
+            'badge' => 'bg-red-600 text-white',
+        ],
+        [
+            'nivel' => 'Middle',
+            'clave' => '21PES0097J',
+            'color' => 'border-blue-200 bg-blue-50 text-blue-900',
+            'badge' => 'bg-blue-700 text-white',
+        ],
+        [
+            'nivel' => 'High',
+            'clave' => '21PBH0513D',
+            'color' => 'border-green-200 bg-green-50 text-green-900',
+            'badge' => 'bg-green-600 text-white',
+        ],
     ];
 
     $areas = [
@@ -47,23 +72,51 @@
         </div>
     </div>
 
-    <div class="grid lg:grid-cols-5 gap-8 items-start">
-        <section class="lg:col-span-3 bg-white rounded-xl shadow-md p-8">
-            <p class="font-semibold uppercase tracking-wide text-sm text-blue-700">Bienvenidos</p>
-            <h2 class="text-3xl font-bold text-black mt-2">Una comunidad que forma para trascender</h2>
-            <p class="text-gray-700 leading-7 mt-5">
-                En Discovery® formamos en valores, actitudes y virtudes que impactan en el crecimiento personal y social del individuo.
-            </p>
-            <p class="text-gray-700 leading-7 mt-4">
-                Nuestros Explorers desarrollan herramientas para participar responsablemente y aportar a un mundo mejor.
-            </p>
+    <div class="grid items-start gap-8 lg:grid-cols-5">
+        <section class="flex flex-col rounded-xl bg-white p-8 shadow-md lg:col-span-3">
+            <div>
+                <p class="font-semibold uppercase tracking-wide text-sm text-blue-700">Bienvenidos</p>
+                <h2 class="text-3xl font-bold text-black mt-2">Una comunidad que forma para trascender</h2>
+                <p class="text-gray-700 leading-7 mt-5">
+                    En Discovery® formamos en valores, actitudes y virtudes que impactan en el crecimiento personal y social del individuo.
+                </p>
+                <p class="text-gray-700 leading-7 mt-4">
+                    Nuestros Explorers desarrollan herramientas para participar responsablemente y aportar a un mundo mejor.
+                </p>
+            </div>
+
+            <div class="mt-8 grid gap-3 border-t border-gray-100 pt-6 sm:grid-cols-3">
+                <div class="rounded-xl bg-blue-50 p-4 text-center text-blue-800">
+                    <span class="block text-sm font-extrabold uppercase tracking-wide">Valores</span>
+                    <span class="mt-1 block text-xs font-semibold text-blue-600">Para convivir</span>
+                </div>
+                <div class="rounded-xl bg-red-50 p-4 text-center text-red-800">
+                    <span class="block text-sm font-extrabold uppercase tracking-wide">Actitudes</span>
+                    <span class="mt-1 block text-xs font-semibold text-red-600">Para participar</span>
+                </div>
+                <div class="rounded-xl bg-green-50 p-4 text-center text-green-800">
+                    <span class="block text-sm font-extrabold uppercase tracking-wide">Virtudes</span>
+                    <span class="mt-1 block text-xs font-semibold text-green-600">Para trascender</span>
+                </div>
+            </div>
         </section>
 
-        <aside class="lg:col-span-2 bg-blue-700 text-white rounded-xl shadow-md p-8">
-            <h3 class="text-2xl font-bold mb-5">Incorporados a la SEP</h3>
-            <ul class="space-y-3">
+        <aside class="lg:col-span-2 rounded-xl bg-white p-6 shadow-md md:p-8">
+            <p class="text-sm font-bold uppercase tracking-wide text-blue-700">Validez oficial</p>
+            <h3 class="mt-2 text-2xl font-bold text-gray-950">Incorporados a la SEP</h3>
+            <ul class="mt-6 space-y-3">
                 @foreach ($incorporaciones as $incorporacion)
-                    <li class="border-b border-blue-500 pb-3 last:border-b-0 last:pb-0">{{ $incorporacion }}</li>
+                    <li class="rounded-xl border p-4 {{ $incorporacion['color'] }}">
+                        <div class="flex flex-wrap items-center gap-2">
+                            <span class="rounded-full px-3 py-1 text-xs font-extrabold uppercase tracking-wide {{ $incorporacion['badge'] }}">
+                                {{ $incorporacion['nivel'] }}
+                            </span>
+                            <strong class="text-base">{{ $incorporacion['clave'] }}</strong>
+                        </div>
+                        <p class="mt-2 text-sm font-semibold leading-6">
+                            {{ $incorporacion['nivel'] }}: {{ $incorporacion['clave'] }} - Colegio Discovery Nuevo Millenium
+                        </p>
+                    </li>
                 @endforeach
             </ul>
         </aside>

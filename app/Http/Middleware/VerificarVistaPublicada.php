@@ -23,14 +23,9 @@ class VerificarVistaPublicada
             return $next($request);
         }
 
-        // Los niveles heredan el estado de Oferta Educativa mediante "padre".
-        // Así puede cerrarse toda la sección con un solo interruptor.
-        $clavesBloqueadas = collect([$clave, config("publicacion.vistas.{$clave}.padre")])
-            ->filter()
-            ->filter(fn (string $vista) => ! VistaPublicacion::estaPublicada($vista))
-            ->values();
-
-        if ($clavesBloqueadas->isEmpty()) {
+        // Cada interruptor controla exclusivamente su propia ruta. Los niveles
+        // siguen agrupados bajo Oferta Educativa, pero no heredan su estado.
+        if (VistaPublicacion::estaPublicada($clave)) {
             return $next($request);
         }
 
