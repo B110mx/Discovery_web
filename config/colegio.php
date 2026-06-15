@@ -14,6 +14,7 @@ return [
         'hours' => 12,
         'keys' => [
             'inicio_eventos' => 'inicio_eventos',
+            'inicio_banners' => 'inicio_banners_v1',
             'inicio_testimonios' => 'inicio_testimonios_v2',
             'nosotros_historia' => 'nosotros_historia_v1',
             'protagonistas_testimonios' => 'protagonistas_testimonios_v1',

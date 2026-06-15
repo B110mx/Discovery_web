@@ -31,38 +31,47 @@
     </div>
 </section>
 
-{{-- Hero: cada archivo de videosyfotos/Banner de inicio es una diapositiva. --}}
-<section class="relative mt-8 overflow-hidden rounded-xl bg-white shadow-lg" data-home-hero-carousel>
-    <div class="overflow-hidden">
-        <div class="flex transition-transform duration-700 ease-out" data-home-hero-track>
-            @foreach ($bannerInicioSlides ?? [$bannerInicio] as $banner)
-                <div class="block min-w-full">
+@if (! empty($bannerInicioSlides))
+    <section class="relative mt-8 overflow-hidden rounded-xl bg-white shadow-lg" data-home-hero-carousel>
+        <div class="overflow-hidden">
+            <div class="flex transition-transform duration-700 ease-out" data-home-hero-track>
+                @foreach ($bannerInicioSlides as $banner)
+                    @if (! empty($banner['enlace']))
+                        <a href="{{ $banner['enlace'] }}" class="block min-w-full">
+                    @else
+                        <div class="block min-w-full">
+                    @endif
                     <x-imagen-seccion
                         :imagen="$banner"
-                        alt="{{ $banner['titulo'] ?? ($paginaInicio?->titulo ?? 'Colegio Internacional Discovery®') }}"
+                        alt="{{ $banner['alt'] ?? $banner['titulo'] ?? 'Colegio Internacional Discovery®' }}"
                         class="aspect-[1916/657] w-full bg-white object-contain"
                         placeholder-class="aspect-[1916/657] w-full"
                         loading="{{ $loop->first ? 'eager' : 'lazy' }}"
                         fetchpriority="{{ $loop->first ? 'high' : 'auto' }}"
                     />
-                </div>
-            @endforeach
+                    @if (! empty($banner['enlace']))
+                        </a>
+                    @else
+                        </div>
+                    @endif
+                @endforeach
+            </div>
         </div>
-    </div>
 
-    @if (count($bannerInicioSlides ?? []) > 1)
-        <div class="absolute inset-x-0 bottom-4 flex justify-center gap-2" data-home-hero-dots>
-            @foreach ($bannerInicioSlides as $banner)
-                <button
-                    type="button"
-                    class="h-3 w-3 rounded-full bg-white/70 shadow"
-                    aria-label="Ir al banner {{ $loop->iteration }}"
-                    data-home-hero-dot="{{ $loop->index }}"
-                ></button>
-            @endforeach
-        </div>
-    @endif
-</section>
+        @if (count($bannerInicioSlides) > 1)
+            <div class="absolute inset-x-0 bottom-4 flex justify-center gap-2" data-home-hero-dots>
+                @foreach ($bannerInicioSlides as $banner)
+                    <button
+                        type="button"
+                        class="h-3 w-3 rounded-full bg-white/70 shadow"
+                        aria-label="Ir al banner {{ $loop->iteration }}"
+                        data-home-hero-dot="{{ $loop->index }}"
+                    ></button>
+                @endforeach
+            </div>
+        @endif
+    </section>
+@endif
 
 
 @if (! empty($eventos))
@@ -136,6 +145,49 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </section>
+@endif
+
+@if (! empty($proximasFechas))
+    @php
+        $upcomingStyles = [
+            'general' => 'border-slate-200 bg-slate-50 text-slate-800',
+            'preescolar' => 'border-lime-200 bg-lime-50 text-lime-900',
+            'primaria' => 'border-red-200 bg-red-50 text-red-900',
+            'secundaria' => 'border-blue-200 bg-blue-50 text-blue-900',
+            'bachillerato' => 'border-green-200 bg-green-50 text-green-900',
+        ];
+    @endphp
+
+    <section class="mt-12 rounded-2xl bg-white p-6 shadow-md md:p-8 animate-on-scroll">
+        <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+            <div>
+                <p class="text-sm font-bold uppercase tracking-[0.18em] text-red-600">Para tenerlo presente</p>
+                <h2 class="mt-2 text-3xl font-extrabold text-blue-700">Próximas fechas en Discovery®</h2>
+                <p class="mt-3 text-gray-600">Actividades y momentos importantes para acompañar la vida escolar de tus hijos.</p>
+            </div>
+            <a
+                href="{{ route('recursos-escolares', ['mes' => substr($proximasFechas[0]['date'], 0, 7)]) }}#calendario-mensual"
+                class="inline-flex shrink-0 items-center justify-center rounded-lg bg-blue-700 px-6 py-3 font-extrabold text-white transition hover:bg-blue-800"
+            >
+                Ver calendario mensual
+            </a>
+        </div>
+
+        <div class="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            @foreach ($proximasFechas as $event)
+                <article class="flex gap-4 rounded-xl border p-4 {{ $upcomingStyles[$event['level']] ?? $upcomingStyles['general'] }}">
+                    <div class="flex h-16 w-16 shrink-0 flex-col items-center justify-center rounded-lg bg-white shadow-sm">
+                        <span class="text-2xl font-extrabold leading-none">{{ $event['day'] }}</span>
+                        <span class="mt-1 text-xs font-extrabold uppercase">{{ $event['month_short'] }}</span>
+                    </div>
+                    <div>
+                        <p class="text-xs font-bold uppercase tracking-wide opacity-70">{{ $event['level_label'] }}</p>
+                        <h3 class="mt-1 font-extrabold leading-snug">{{ $event['title'] }}</h3>
+                    </div>
+                </article>
+            @endforeach
         </div>
     </section>
 @endif

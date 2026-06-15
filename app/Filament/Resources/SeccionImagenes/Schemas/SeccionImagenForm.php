@@ -45,7 +45,7 @@ class SeccionImagenForm
 
                     TextInput::make('clave')
                         ->label('Parte exacta de la vista')
-                        ->helperText('Ejemplos: hero, logo, modelo_academico o sobre_nosotros. Carruseles, galerías, línea del tiempo, banners de Inicio y el hero dinámico de Protagonistas se administran fuera de este módulo.')
+                        ->helperText('Ejemplos: hero, logo, modelo_academico o sobre_nosotros. Carruseles, galerías, línea del tiempo, banners de Inicio y el hero dinámico de Protagonistas se administran en sus módulos especializados.')
                         ->required()
                         ->maxLength(255),
 
@@ -72,7 +72,7 @@ class SeccionImagenForm
                 ->schema([
                     Select::make('respaldo_media_path')
                         ->label('Imagen desde /videosyfotos')
-                        ->helperText('Selecciona el archivo actual de respaldo. No aplica para carruseles, galerías, línea del tiempo, banners de Inicio ni el hero dinámico de Protagonistas.')
+                        ->helperText('Selecciona el archivo actual de respaldo. Los grupos de imágenes se administran en sus módulos especializados.')
                         ->options(fn () => VideoFotoOptions::images())
                         ->searchable()
                         ->preload()

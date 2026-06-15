@@ -675,7 +675,7 @@
 
             <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
                 @foreach ($galeria as $imagen)
-                    <a href="{{ $imagen['url'] }}" class="glightbox" data-gallery="gallery-nivel" data-title="{{ $imagen['alt'] }}">
+                    <a href="{{ $imagen['url'] }}" class="glightbox" data-gallery="gallery-nivel" data-title="{{ $imagen['titulo'] ?? $imagen['alt'] }}">
                         <img
                             src="{{ $imagen['url'] }}"
                             alt="{{ $imagen['alt'] }}"

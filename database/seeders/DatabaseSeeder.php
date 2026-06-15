@@ -13,6 +13,8 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             NivelContenidoSeeder::class,
+            BannerInicioSeeder::class,
+            GaleriaImagenSeeder::class,
         ]);
     }
 }

@@ -60,6 +60,90 @@
         </div>
     </div>
 
+    @php
+        $calendarStyles = [
+            'general' => 'border-slate-300 bg-slate-100 text-slate-800',
+            'preescolar' => 'border-lime-300 bg-lime-100 text-lime-900',
+            'primaria' => 'border-red-300 bg-red-100 text-red-900',
+            'secundaria' => 'border-blue-300 bg-blue-100 text-blue-900',
+            'bachillerato' => 'border-green-300 bg-green-100 text-green-900',
+        ];
+    @endphp
+
+    <section id="calendario-mensual" class="overflow-hidden rounded-xl bg-white shadow-md">
+        <div class="flex flex-col gap-5 border-b border-gray-100 p-6 md:flex-row md:items-end md:justify-between md:p-8">
+            <div>
+                <p class="text-sm font-bold uppercase tracking-wide text-red-600">Agenda de la comunidad</p>
+                <h2 class="mt-2 text-3xl font-extrabold text-black">Calendario mensual</h2>
+                <p class="mt-3 text-gray-600">Consulta actividades, reuniones y fechas importantes de cada nivel.</p>
+            </div>
+
+            <div class="flex items-center gap-3">
+                <a
+                    href="{{ route('recursos-escolares', ['mes' => $calendarioMensual['previous']]) }}#calendario-mensual"
+                    class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-gray-200 bg-white text-xl font-extrabold text-blue-700 transition hover:border-blue-700 hover:bg-blue-50"
+                    aria-label="Ver mes anterior"
+                >&lt;</a>
+                <p class="min-w-40 text-center text-xl font-extrabold capitalize text-blue-700">
+                    {{ $calendarioMensual['title'] }}
+                </p>
+                <a
+                    href="{{ route('recursos-escolares', ['mes' => $calendarioMensual['next']]) }}#calendario-mensual"
+                    class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-gray-200 bg-white text-xl font-extrabold text-blue-700 transition hover:border-blue-700 hover:bg-blue-50"
+                    aria-label="Ver mes siguiente"
+                >&gt;</a>
+            </div>
+        </div>
+
+        <div class="overflow-x-auto p-4 md:p-8">
+            <div class="min-w-[760px]">
+                <div class="grid grid-cols-7 gap-px overflow-hidden rounded-t-lg bg-gray-200">
+                    @foreach (['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'] as $weekday)
+                        <div class="bg-blue-700 px-2 py-3 text-center text-xs font-extrabold uppercase tracking-wide text-white">
+                            {{ $weekday }}
+                        </div>
+                    @endforeach
+                </div>
+
+                <div class="overflow-hidden rounded-b-lg border-x border-b border-gray-200 bg-gray-200">
+                    @foreach ($calendarioMensual['weeks'] as $week)
+                        <div class="grid grid-cols-7 gap-px">
+                            @foreach ($week as $day)
+                                <div class="min-h-32 bg-white p-2 {{ $day['in_month'] ? '' : 'bg-gray-50 text-gray-400' }}">
+                                    <div class="flex justify-end">
+                                        <time
+                                            datetime="{{ $day['date'] }}"
+                                            class="flex h-8 w-8 items-center justify-center rounded-full text-sm font-extrabold {{ $day['is_today'] ? 'bg-red-600 text-white' : '' }}"
+                                        >
+                                            {{ $day['number'] }}
+                                        </time>
+                                    </div>
+
+                                    @if ($day['in_month'] && ! empty($day['events']))
+                                        <div class="mt-1 space-y-1.5">
+                                            @foreach ($day['events'] as $event)
+                                                <article class="rounded-md border px-2 py-1.5 text-xs leading-4 {{ $calendarStyles[$event['level']] ?? $calendarStyles['general'] }}">
+                                                    <p class="font-extrabold">{{ $event['title'] }}</p>
+                                                    <p class="mt-0.5 text-[10px] font-bold uppercase opacity-75">{{ $event['level_label'] }}</p>
+                                                </article>
+                                            @endforeach
+                                        </div>
+                                    @endif
+                                </div>
+                            @endforeach
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+
+        <div class="flex flex-wrap gap-3 border-t border-gray-100 px-6 py-5 text-xs font-bold md:px-8">
+            @foreach (\App\Models\Evento::levelOptions() as $level => $label)
+                <span class="rounded-full border px-3 py-1.5 {{ $calendarStyles[$level] }}">{{ $label }}</span>
+            @endforeach
+        </div>
+    </section>
+
     <div class="grid gap-8 lg:grid-cols-[1.35fr_.65fr]">
         <section id="listas-recursos" class="rounded-xl bg-white p-6 shadow-md md:p-8">
             <div class="flex flex-col gap-2">

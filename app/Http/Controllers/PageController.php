@@ -7,11 +7,15 @@ use App\Models\PaginaContenido;
 use App\Models\SeccionImagen;
 use App\Models\TestimonioVideo;
 use App\Services\HistoryTimelineService;
+use App\Services\HomeBannerService;
+use App\Services\LevelGalleryService;
 use App\Services\LevelContentService;
 use App\Services\MediaResolver;
+use App\Services\SchoolCalendarService;
 use App\Services\SchoolSupplyListService;
 use App\Support\SiteCache;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
@@ -33,6 +37,9 @@ class PageController extends Controller
         private readonly HistoryTimelineService $historyTimeline,
         private readonly SchoolSupplyListService $schoolSupplyLists,
         private readonly LevelContentService $levelContent,
+        private readonly LevelGalleryService $levelGallery,
+        private readonly HomeBannerService $homeBanners,
+        private readonly SchoolCalendarService $schoolCalendar,
     ) {}
 
     /**
@@ -120,28 +127,8 @@ class PageController extends Controller
                 ],
             ])
             ->all());
-        $bannerInicio = [
-            'url' => $this->media->urlIfExists('Banner de inicio/Banner de bienvenida.png'),
-            'titulo' => 'Banner de bienvenida',
-            'referencia' => 'Banner principal de la vista de inicio.',
-        ];
-        // El hero no se administra como PaginaContenido: cada imagen de esta
-        // carpeta se convierte en una diapositiva, ordenando primero bienvenida.
-        $bannerInicioSlides = $this->media->files('Banner de inicio')
-            ->filter(fn (string $path) => in_array(strtolower(pathinfo($path, PATHINFO_EXTENSION)), config('colegio.media.image_extensions', []), true))
-            ->sortBy(fn (string $path) => str_starts_with(strtolower(pathinfo($path, PATHINFO_FILENAME)), 'banner de bienvenida') ? '000-'.$path : '100-'.$path)
-            ->map(fn (string $path) => [
-                'url' => $this->media->url($path),
-                'titulo' => pathinfo($path, PATHINFO_FILENAME),
-                'referencia' => 'Banner principal de la vista de inicio.',
-                'pendiente' => false,
-            ])
-            ->values()
-            ->all();
-
-        if (empty($bannerInicioSlides)) {
-            $bannerInicioSlides = [$bannerInicio];
-        }
+        $bannerInicioSlides = $this->homeBanners->get();
+        $proximasFechas = $this->schoolCalendar->upcoming();
 
         $imagenesInicio = $this->media->images('inicio', [
             'sobre_nosotros' => [
@@ -156,7 +143,7 @@ class PageController extends Controller
             ->only(['preescolar', 'primaria', 'secundaria', 'bachillerato'])
             ->all();
 
-        return view('pages.inicio', compact('eventos', 'testimonios', 'logosNiveles', 'imagenesInicio', 'paginaInicio', 'bannerInicio', 'bannerInicioSlides', 'nivelesInicio'));
+        return view('pages.inicio', compact('eventos', 'testimonios', 'logosNiveles', 'imagenesInicio', 'paginaInicio', 'bannerInicioSlides', 'nivelesInicio', 'proximasFechas'));
     }
 
     private function eventosInicioCacheTtl()
@@ -242,7 +229,7 @@ class PageController extends Controller
         return view('pages.academias-vespertinas', compact('mediaAcademias'));
     }
 
-    public function recursosEscolares(): View
+    public function recursosEscolares(Request $request): View
     {
         $listasUtiles = Cache::remember(
             SiteCache::key('recursos_listas_utiles'),
@@ -255,8 +242,9 @@ class PageController extends Controller
             'referencia' => 'Imagen del calendario escolar mostrada en Recursos escolares.',
             'media_path' => 'Calendario Escolar/Calendario Escolar 2025-2026.jpg',
         ]);
+        $calendarioMensual = $this->schoolCalendar->month($request->query('mes'));
 
-        return view('pages.recursos-escolares', compact('listasUtiles', 'calendarioEscolar'));
+        return view('pages.recursos-escolares', compact('listasUtiles', 'calendarioEscolar', 'calendarioMensual'));
     }
 
     public function contacto(): View
@@ -296,20 +284,7 @@ class PageController extends Controller
 
         $carpetas = config('colegio.niveles.carpetas_galeria', []);
 
-        $galeria = Cache::remember(SiteCache::key("galeria.{$nivel}"), SiteCache::ttl(), function () use ($nivel, $carpetas, $niveles) {
-            if (! isset($carpetas[$nivel])) {
-                return [];
-            }
-
-            return $this->media->files($carpetas[$nivel])
-                ->filter(fn (string $file) => in_array(strtolower(pathinfo($file, PATHINFO_EXTENSION)), config('colegio.media.image_extensions', [])))
-                ->sortByDesc(fn (string $file) => $nivel === 'secundaria' && basename($file) === 'Colegio Discovery-59.jpg')
-                ->take(12)
-                ->map(fn ($file) => [
-                    'alt' => $niveles[$nivel]['titulo'],
-                    'url' => $this->media->url($file),
-                ])->values()->all();
-        });
+        $galeria = $this->levelGallery->get($nivel, $niveles[$nivel]['titulo']);
 
         $nivelContenido = $niveles[$nivel];
         $nivelContenido['slug'] = $nivel;

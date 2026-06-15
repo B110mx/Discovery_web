@@ -28,7 +28,7 @@ convertirse en un segundo lugar de edición.
 | Testimonios | `TestimonioVideo` | Archivos de `videosyfotos/Testimonios Alumni` | Los registros activos y válidos sustituyen la lectura automática |
 | Línea del tiempo | `HitoHistoria` | Hitos predeterminados de `PageController` | Los defaults solo se usan cuando la tabla no tiene hitos |
 | Listas de útiles | `ListaUtil` | PDFs de `videosyfotos/Listas de útiles` | Cualquier conjunto administrativo activo sustituye la lectura de carpeta |
-| Banners de Inicio | `videosyfotos/Banner de inicio` | Banner predeterminado del controlador | La carpeta completa es la fuente oficial |
+| Banners de Inicio | Panel `Banners de Inicio` | `videosyfotos/Banner de inicio` | El panel sustituye la carpeta cuando tiene registros |
 | Galerías de niveles | Carpetas definidas en `colegio.niveles.carpetas_galeria` | Imagen fija o logo del nivel | No se administran como `SeccionImagen` |
 | Textos principales de niveles y tarjetas de oferta | `NivelContenido` mediante `Contenido de niveles` | `database/data/nivel_contenidos.php` | La BD manda; el archivo conserva valores iniciales y fallback |
 | Estructura de niveles, slugs, layouts y temas | `config/colegio.php` | Ninguno | Es configuración técnica, no contenido editorial |
@@ -100,7 +100,12 @@ El hero de `oferta-academica.blade.php` tiene una altura controlada en escritori
 
 ## Inicio
 
-- El hero usa todos los archivos de `videosyfotos/Banner de inicio`.
+- El carrusel se administra en `Contenido del sitio > Banners de Inicio`.
+- Permite subir uno o varios banners, ordenarlos, ocultarlos y agregar un enlace opcional.
+- Mientras no existan registros administrativos, usa todos los archivos de
+  `videosyfotos/Banner de inicio` y coloca primero el banner de bienvenida.
+- `BannerInicioSeeder` importa los archivos actuales como registros editables
+  sin duplicarlos ni sobrescribir cambios posteriores.
 - El bloque Sobre Nosotros usa los campos de la página `inicio`.
 - Su imagen usa `vista=inicio`, `clave=sobre_nosotros`.
 - Los eventos se administran en el módulo de carrusel.
@@ -111,6 +116,22 @@ El hero de `oferta-academica.blade.php` tiene una altura controlada en escritori
 La línea del tiempo se administra exclusivamente desde `HitoHistoriaResource`. Las imágenes pertenecen al propio hito. No deben crearse duplicados en `Imágenes del sitio`.
 
 `HistoryTimelineService` conserva datos predeterminados como respaldo únicamente cuando no existen hitos administrativos.
+
+## Galerías de niveles
+
+Las galerías de Kinder, Elementary, Middle y High se administran desde
+`Contenido del sitio > Galerías`.
+
+- Permite subir una o varias imágenes.
+- Cada imagen puede ordenarse por arrastre, ocultarse o eliminarse.
+- El texto alternativo describe la imagen para accesibilidad.
+- También puede seleccionarse un archivo existente de `/videosyfotos`.
+- Cuando un nivel tiene al menos un registro administrativo, el panel sustituye
+  por completo a la carpeta de respaldo.
+- Si todavía no existen registros para ese nivel, se leen las imágenes de la
+  carpeta configurada en `colegio.niveles.carpetas_galeria`.
+- `GaleriaImagenSeeder` importa las imágenes que alimentaban originalmente cada
+  galería como registros editables, respetando el orden y límite anteriores.
 
 ## Publicación y mantenimiento
 

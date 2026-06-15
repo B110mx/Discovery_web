@@ -96,7 +96,7 @@
                     <li><a href="{{ route('nivel', 'primaria') }}" class="block px-4 py-2 hover:bg-blue-50">Elementary</a></li>
                     <li><a href="{{ route('nivel', 'secundaria') }}" class="block px-4 py-2 hover:bg-blue-50">Middle</a></li>
                     <li><a href="{{ route('nivel', 'bachillerato') }}" class="block px-4 py-2 hover:bg-blue-50">High</a></li>
-                    <li><a href="{{ route('nivel', 'ib-en-discovery') }}" class="block px-4 py-2 hover:bg-blue-50">IB en Discovery®</a></li>
+                    <li><a href="{{ route('nivel', 'ib-en-discovery') }}" class="block px-4 py-2 hover:bg-blue-50">IB en Discovery</a></li>
                     <li><a href="{{ route('nivel', 'pop-del-ib') }}" class="block px-4 py-2 hover:bg-blue-50">POP del IB</a></li>
                     <li><a href="{{ route('nivel', 'certificacion-de-ingles') }}" class="block px-4 py-2 hover:bg-blue-50">Certificación de Inglés</a></li>
                 </ul>

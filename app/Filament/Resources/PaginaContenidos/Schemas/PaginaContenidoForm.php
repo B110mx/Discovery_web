@@ -33,7 +33,7 @@ class PaginaContenidoForm
         $pageSettings = match ($fixedSlug) {
             'inicio' => [
                 'section' => 'Bloque para familias de Inicio',
-                'description' => 'Estos textos aparecen junto a la imagen, debajo de los niveles educativos. Las imágenes del carrusel ya deben incluir su propio mensaje y se cambian en Inicio - Carrusel de eventos.',
+                'description' => 'Estos textos aparecen junto a la imagen, debajo de los niveles educativos. Los banners se administran en Contenido del sitio → Banners de Inicio.',
                 'subtitle_label' => 'Etiqueta sobre el título',
                 'subtitle_help' => 'Texto breve sobre el encabezado. Ejemplo: Una comunidad que acompaña.',
                 'title_label' => 'Título del bloque',
@@ -140,7 +140,7 @@ class PaginaContenidoForm
                     TextEntry::make('image_management_notice')
                         ->hiddenLabel()
                         ->state($isFixedHomePage
-                            ? 'Ve a Contenido del sitio → Imágenes del sitio → Inicio. La imagen del bloque Sobre Nosotros usa la referencia “sobre_nosotros”. Los banners se cambian en Inicio - Carrusel de eventos.'
+                            ? 'Ve a Contenido del sitio → Imágenes del sitio → Inicio para cambiar “sobre_nosotros”. El carrusel se administra en Contenido del sitio → Banners de Inicio.'
                             : 'Ve a Contenido del sitio → Imágenes del sitio y filtra la vista correspondiente a esta página.'
                         )
                         ->columnSpanFull(),

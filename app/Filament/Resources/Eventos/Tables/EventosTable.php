@@ -10,6 +10,7 @@ use Filament\Actions\EditAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Support\Facades\Storage;
 
@@ -20,7 +21,7 @@ class EventosTable
         return $table
             ->columns([
                 TextColumn::make('titulo')
-                    ->label('Evento visible en inicio')
+                    ->label('Evento')
                     ->searchable()
                     ->sortable(),
                 ImageColumn::make('preview')
@@ -28,14 +29,25 @@ class EventosTable
                     ->getStateUsing(fn (Evento $record) => self::previewUrl($record))
                     ->height(56)
                     ->width(72),
+                TextColumn::make('fecha_evento')
+                    ->label('Fecha')
+                    ->date('d/m/Y')
+                    ->sortable(),
+                TextColumn::make('nivel')
+                    ->label('Nivel')
+                    ->formatStateUsing(fn (?string $state) => Evento::levelOptions()[$state ?: 'general'] ?? $state)
+                    ->badge()
+                    ->color(fn (?string $state) => match ($state) {
+                        'preescolar' => 'warning',
+                        'primaria' => 'danger',
+                        'secundaria' => 'info',
+                        'bachillerato' => 'success',
+                        default => 'gray',
+                    }),
                 TextColumn::make('descripcion')
                     ->label('Descripción')
                     ->limit(60)
                     ->searchable(),
-                TextColumn::make('fecha_evento')
-                    ->label('Fecha del evento')
-                    ->date('Y-m-d')
-                    ->sortable(),
                 TextColumn::make('imagen_media_path')
                     ->label('/videosyfotos')
                     ->limit(36)
@@ -45,7 +57,7 @@ class EventosTable
                     ->label('Orden')
                     ->sortable(),
                 IconColumn::make('activo')
-                    ->label('Visible')
+                    ->label('Publicado')
                     ->boolean(),
                 TextColumn::make('created_at')
                     ->label('Creado el')
@@ -54,9 +66,11 @@ class EventosTable
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                //
+                SelectFilter::make('nivel')
+                    ->label('Nivel')
+                    ->options(Evento::levelOptions()),
             ])
-            ->defaultSort('orden')
+            ->defaultSort('fecha_evento')
             ->recordActions([
                 EditAction::make(),
                 DeleteAction::make(),
@@ -84,7 +98,7 @@ class EventosTable
             return null;
         }
 
-        return '/media/' . collect(explode('/', $path))
+        return '/media/'.collect(explode('/', $path))
             ->map(fn (string $segment) => rawurlencode($segment))
             ->implode('/');
     }

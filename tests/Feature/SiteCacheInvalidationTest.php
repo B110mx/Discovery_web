@@ -3,6 +3,8 @@
 namespace Tests\Feature;
 
 use App\Models\Evento;
+use App\Models\BannerInicio;
+use App\Models\GaleriaImagen;
 use App\Models\HitoHistoria;
 use App\Models\ListaUtil;
 use App\Models\NivelContenido;
@@ -59,6 +61,21 @@ class SiteCacheInvalidationTest extends TestCase
         $this->assertFalse(Cache::has($eventsKey));
     }
 
+    public function test_home_banners_invalidate_their_public_cache(): void
+    {
+        $bannersKey = SiteCache::key('inicio_banners');
+        Cache::put($bannersKey, ['cached']);
+
+        BannerInicio::query()->create([
+            'titulo' => 'Banner de prueba',
+            'imagen_media_path' => 'Banner de inicio/Banner de bienvenida.png',
+            'orden' => 10,
+            'activo' => true,
+        ]);
+
+        $this->assertFalse(Cache::has($bannersKey));
+    }
+
     public function test_school_supply_lists_invalidate_their_public_cache(): void
     {
         $listsKey = SiteCache::key('recursos_listas_utiles');
@@ -108,5 +125,45 @@ class SiteCacheInvalidationTest extends TestCase
             ->update(['titulo' => 'Kinder actualizado']);
 
         $this->assertFalse(Cache::has($levelsKey));
+    }
+
+    public function test_gallery_images_invalidate_only_their_level_gallery_cache(): void
+    {
+        $kinderKey = SiteCache::key('galeria.preescolar');
+        $elementaryKey = SiteCache::key('galeria.primaria');
+        Cache::put($kinderKey, ['cached']);
+        Cache::put($elementaryKey, ['keep']);
+
+        GaleriaImagen::query()->create([
+            'nivel' => 'preescolar',
+            'titulo' => 'Galería actualizada',
+            'imagen_media_path' => 'Kinder fotos actuales/IMG_5775.JPG',
+            'orden' => 10,
+            'activo' => true,
+        ]);
+
+        $this->assertFalse(Cache::has($kinderKey));
+        $this->assertSame(['keep'], Cache::get($elementaryKey));
+    }
+
+    public function test_moving_a_gallery_image_invalidates_the_old_and_new_level_caches(): void
+    {
+        $image = GaleriaImagen::query()->create([
+            'nivel' => 'preescolar',
+            'titulo' => 'Imagen que cambia de nivel',
+            'imagen_media_path' => 'Kinder fotos actuales/IMG_5775.JPG',
+            'orden' => 10,
+            'activo' => true,
+        ]);
+
+        $kinderKey = SiteCache::key('galeria.preescolar');
+        $elementaryKey = SiteCache::key('galeria.primaria');
+        Cache::put($kinderKey, ['cached']);
+        Cache::put($elementaryKey, ['cached']);
+
+        $image->update(['nivel' => 'primaria']);
+
+        $this->assertFalse(Cache::has($kinderKey));
+        $this->assertFalse(Cache::has($elementaryKey));
     }
 }

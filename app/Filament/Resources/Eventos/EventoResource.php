@@ -25,11 +25,11 @@ class EventoResource extends Resource
 
     protected static ?int $navigationSort = 10;
 
-    protected static ?string $navigationLabel = 'Inicio - Carrusel de eventos';
+    protected static ?string $navigationLabel = 'Eventos y calendario';
 
-    protected static ?string $modelLabel = 'evento del carrusel';
+    protected static ?string $modelLabel = 'evento';
 
-    protected static ?string $pluralModelLabel = 'eventos del carrusel de inicio';
+    protected static ?string $pluralModelLabel = 'eventos y calendario';
 
     protected static ?string $recordTitleAttribute = 'titulo';
 
