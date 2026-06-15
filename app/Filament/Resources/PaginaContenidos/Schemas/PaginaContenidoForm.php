@@ -32,14 +32,14 @@ class PaginaContenidoForm
         // la función de una página, actualiza también su texto aquí.
         $pageSettings = match ($fixedSlug) {
             'inicio' => [
-                'section' => 'Bloque Sobre Nosotros de Inicio',
-                'description' => 'Estos textos aparecen debajo de los niveles educativos. El hero de Inicio se administra desde Inicio - Carrusel de eventos, en la carpeta Banner de inicio.',
+                'section' => 'Bloque para familias de Inicio',
+                'description' => 'Estos textos aparecen junto a la imagen, debajo de los niveles educativos. Las imágenes del carrusel ya deben incluir su propio mensaje y se cambian en Inicio - Carrusel de eventos.',
                 'subtitle_label' => 'Etiqueta sobre el título',
-                'subtitle_help' => 'Texto breve sobre el encabezado. Ejemplo: Conócenos.',
+                'subtitle_help' => 'Texto breve sobre el encabezado. Ejemplo: Una comunidad que acompaña.',
                 'title_label' => 'Título del bloque',
-                'title_help' => 'Encabezado de la sección Sobre Nosotros.',
+                'title_help' => 'Encabezado dirigido a madres, padres y tutores.',
                 'description_label' => 'Texto de la sección',
-                'description_help' => 'Párrafo que aparece junto a la imagen de Sobre Nosotros.',
+                'description_help' => 'Párrafo que explica cómo Discovery® acompaña a los hijos y a sus familias.',
             ],
             'nosotros' => [
                 'section' => 'Hero de Conócenos / Nosotros',

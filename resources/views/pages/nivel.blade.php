@@ -37,7 +37,7 @@
         [
             'icono' => 'language',
             'titulo' => 'Educación Bilingüe y Trilingüe',
-            'texto' => 'Inglés, Español y desde 5 de Elementary se incorpora Francés.',
+            'texto' => 'Inglés, Español y desde 5° de Elementary se incorpora Francés.',
         ],
         [
             'icono' => 'ib',
@@ -64,7 +64,7 @@
         [
             'icono' => 'language',
             'titulo' => 'Educación Bilingüe y Trilingüe',
-            'texto' => 'Inglés, Español y desde 5 de Elementary se incorpora Francés.',
+            'texto' => 'Inglés, Español y desde 5° de Elementary se incorpora Francés.',
         ],
         [
             'icono' => 'ib',
@@ -96,7 +96,7 @@
         [
             'icono' => 'language',
             'titulo' => 'Educación Bilingüe y Trilingüe',
-            'texto' => 'Inglés, Español y desde 5 de Elementary se incorpora Francés. Inglés, Español y Francés con más de 15 bloques a la semana.',
+            'texto' => 'Inglés, Español y desde 5° de Elementary se incorpora Francés. Inglés, Español y Francés con más de 15 bloques a la semana.',
         ],
         [
             'icono' => 'skills',

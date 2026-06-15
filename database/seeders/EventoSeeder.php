@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Evento;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class EventoSeeder extends Seeder
@@ -38,7 +37,10 @@ class EventoSeeder extends Seeder
         ];
 
         foreach ($eventos as $evento) {
-            Evento::create($evento);
+            Evento::query()->firstOrCreate(
+                ['titulo' => $evento['titulo']],
+                $evento,
+            );
         }
     }
 }

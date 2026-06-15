@@ -40,10 +40,23 @@ class InicioPageContentTest extends TestCase
             ->get(InicioResource::getUrl('edit', ['record' => $page]));
 
         $response->assertOk();
-        $response->assertSee('Bloque Sobre Nosotros de Inicio');
+        $response->assertSee('Bloque para familias de Inicio');
         $response->assertSee('Título del bloque');
         $response->assertSee('Imágenes de la página');
         $response->assertSee('sobre_nosotros');
         $response->assertDontSee('Imagen principal');
+    }
+
+    public function test_home_addresses_families_without_overlaying_copy_on_the_banner(): void
+    {
+        $response = $this->get('/');
+
+        $response->assertOk();
+        $response->assertSee('Una comunidad para crecer juntos');
+        $response->assertSee('Agenda una visita');
+        $response->assertSee('Una etapa, un acompañamiento');
+        $response->assertSee('Conoce esta etapa');
+        $response->assertDontSee('El mejor Kinder de Tehuacán');
+        $response->assertDontSee('Saber más');
     }
 }

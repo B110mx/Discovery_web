@@ -39,12 +39,12 @@ class ListaUtilForm
                                 ->required(),
                             TextInput::make('grado')
                                 ->label('Grado o grupo')
-                                ->helperText('Ejemplo: 1 grado, 2 grado, Kinder 3 o General.')
+                                ->helperText('Ejemplo: 1° grado, 2° grado, Kinder 3° o General.')
                                 ->required()
                                 ->maxLength(120),
                             TextInput::make('titulo')
                                 ->label('Nombre de la lista')
-                                ->helperText('Ejemplo: Lista de útiles Elementary 1 grado.')
+                                ->helperText('Ejemplo: Lista de útiles Elementary 1° grado.')
                                 ->required()
                                 ->maxLength(255),
                         ]),

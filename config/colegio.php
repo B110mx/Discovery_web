@@ -18,6 +18,7 @@ return [
             'nosotros_historia' => 'nosotros_historia_v1',
             'protagonistas_testimonios' => 'protagonistas_testimonios_v1',
             'recursos_listas_utiles' => 'recursos_listas_utiles_v2',
+            'niveles_contenido' => 'niveles_contenido_v1',
             'contacto_pagina_id' => 'contacto_pagina_id',
             'pagina_contenido.inicio' => 'pagina_contenido_inicio',
             'pagina_contenido.nosotros' => 'pagina_contenido_nosotros',
@@ -91,10 +92,6 @@ return [
 
     'oferta_academica' => [
         'preescolar' => [
-            'titulo' => 'Kinder',
-            'subtitulo' => 'Primeros pasos con seguridad, juego y acompañamiento.',
-            'descripcion' => 'Un entorno cercano para iniciar el aprendizaje con creatividad, bienestar emocional y bases bilingües.',
-            'edad' => 'Maternal a Pre-primary',
             'color' => 'lime',
             'logo_path' => 'Logos de niveles educativos/logo preescolar.png',
             'imagen_clave' => 'preescolar',
@@ -103,13 +100,8 @@ return [
                 'referencia' => 'Imagen destacada para Kinder en la vista Oferta Educativa.',
                 'media_path' => 'Portadas/IMG_5775.JPG',
             ],
-            'puntos' => ['Neuroaprendizaje', 'Inglés natural', 'Grupos reducidos'],
         ],
         'primaria' => [
-            'titulo' => 'Elementary',
-            'subtitulo' => 'Bases sólidas para explorar, investigar y crear.',
-            'descripcion' => 'Aprendizaje activo con enfoque bilingüe, pensamiento lógico, proyectos IB y desarrollo social.',
-            'edad' => '1 a 6 grado',
             'color' => 'red',
             'logo_path' => 'Logos de niveles educativos/logo primaria.png',
             'imagen_clave' => 'primaria',
@@ -118,13 +110,8 @@ return [
                 'referencia' => 'Imagen destacada para Elementary en la vista Oferta Educativa.',
                 'media_path' => 'Elementary fotos actuales/IMG_5684.JPG',
             ],
-            'puntos' => ['Inglés diario', 'Francés desde 5 grado', 'Tecnología y arte'],
         ],
         'secundaria' => [
-            'titulo' => 'Middle',
-            'subtitulo' => 'Acompañamiento para descubrir voz, criterio y talentos.',
-            'descripcion' => 'Formación académica con idiomas, tecnología, proyectos interdisciplinarios y bienestar emocional.',
-            'edad' => '7 a 9 grado',
             'color' => 'blue',
             'logo_path' => 'Logos de niveles educativos/logo secundaria.png',
             'imagen_clave' => 'secundaria',
@@ -133,13 +120,8 @@ return [
                 'referencia' => 'Imagen destacada para Middle en la vista Oferta Educativa.',
                 'media_path' => 'Middle fotos actuales/IMG_5867.JPG',
             ],
-            'puntos' => ['Tres idiomas', 'Deporte diario', 'Proyectos con impacto'],
         ],
         'bachillerato' => [
-            'titulo' => 'High',
-            'subtitulo' => 'Preparación universitaria con visión internacional.',
-            'descripcion' => 'Una etapa retadora con Programa del Diploma IB, orientación vocacional y proyectos reales.',
-            'edad' => '10 a 12 grado',
             'color' => 'green',
             'logo_path' => 'Logos de niveles educativos/logo bachillerato.png',
             'imagen_clave' => 'bachillerato',
@@ -148,13 +130,8 @@ return [
                 'referencia' => 'Imagen destacada para High en la vista Oferta Educativa.',
                 'media_path' => 'High (Prepa)/BACHILLERATO-MOSAICO-5-scaled.jpg',
             ],
-            'puntos' => ['Diploma IB', 'Orientacion vocacional', 'Becas universitarias'],
         ],
         'ib-en-discovery' => [
-            'titulo' => 'IB en Discovery®',
-            'subtitulo' => 'Mentalidad internacional en la vida escolar.',
-            'descripcion' => 'Un enfoque que fortalece investigación, pensamiento crítico, comunicación y responsabilidad global.',
-            'edad' => 'Enfoque transversal',
             'color' => 'amber',
             'logo_path' => 'Logos de niveles educativos/Logo IB cl.jpeg',
             'imagen_clave' => 'ib',
@@ -163,13 +140,8 @@ return [
                 'referencia' => 'Imagen destacada para IB en Discovery® en la vista Oferta Educativa.',
                 'media_path' => 'Logos de niveles educativos/Logo IB cl.jpeg',
             ],
-            'puntos' => ['Perfil IB', 'Indagación', 'Acción con impacto'],
         ],
         'pop-del-ib' => [
-            'titulo' => 'POP del IB',
-            'subtitulo' => 'Orientación profesional para construir el futuro.',
-            'descripcion' => 'Formación académica, personal y profesional conectada con la universidad y el mundo real.',
-            'edad' => 'High School',
             'color' => 'blue',
             'logo_path' => 'Logos de niveles educativos/Logo IB cl.jpeg',
             'imagen_clave' => 'pop_ib',
@@ -177,13 +149,8 @@ return [
                 'titulo' => 'Oferta Educativa - POP del IB',
                 'referencia' => 'Imagen destacada para presentar el Programa de Orientación Profesional del IB en la vista Oferta Educativa. Se recomienda una fotografía horizontal de Explorers de High trabajando en un proyecto.',
             ],
-            'puntos' => ['Orientación profesional', 'Rutas preuniversitarias', 'Preparación universitaria'],
         ],
         'certificacion-de-ingles' => [
-            'titulo' => 'Certificación de Inglés',
-            'subtitulo' => 'Metas claras para avanzar con confianza.',
-            'descripcion' => 'Acompañamiento académico para fortalecer reading, writing, listening y speaking con objetivos medibles.',
-            'edad' => 'Preparación continua',
             'color' => 'sky',
             'logo_path' => null,
             'imagen_clave' => 'certificacion_ingles',
@@ -192,7 +159,6 @@ return [
                 'referencia' => 'Imagen destacada para Certificación de Inglés en la vista Oferta Educativa.',
                 'media_path' => 'Certificacion fotos/unicam.jpg',
             ],
-            'puntos' => ['Práctica guiada', 'Habilidades comunicativas', 'Seguimiento académico'],
         ],
     ],
 
@@ -220,15 +186,11 @@ return [
         ],
         'definiciones' => [
             'preescolar' => [
-                'titulo' => 'Kinder',
-                'descripcion' => 'Un entorno cercano para iniciar el aprendizaje con seguridad, creatividad y acompañamiento.',
                 'logo_path' => 'Logos de niveles educativos/logo preescolar.png',
                 'logo_extendido_path' => 'Logos de niveles educativos/Preescolar-extendido.png',
                 'hoja_informativa_path' => 'Hojas informativas/Kinder _ hoja informativa.pdf.pdf',
                 'modelo_academico_path' => 'Modelos educativos/modelo educativo kínder.png',
                 'informacion' => [
-                    'titulo' => 'El kinder ideal para tus hijos',
-                    'intro' => 'Una infancia feliz, segura y bilingue, con programas de neuroaprendizaje y bases solidas para Elementary.',
                     'destacados' => [
                         ['titulo' => 'Acompañamiento', 'texto' => 'Grupos reducidos de 14 a 24 Explorers, bienestar emocional y seguimiento cercano en cada etapa.'],
                         ['titulo' => 'Aprendizaje', 'texto' => 'Neuromotor, Audiomotor, Spark y Bancubi fortalecen lenguaje, pensamiento lógico y madurez neurológica.'],
@@ -251,24 +213,20 @@ return [
                 ],
             ],
             'primaria' => [
-                'titulo' => 'Elementary',
-                'descripcion' => 'Bases académicas sólidas, valores y experiencias que despiertan la curiosidad.',
                 'logo_path' => 'Logos de niveles educativos/logo primaria.png',
                 'logo_extendido_path' => 'Logos de niveles educativos/Primaria-extendido.png',
                 'hoja_informativa_path' => 'Hojas informativas/Elementary _hoja informativa.pdf',
                 'modelo_academico_path' => 'Modelos educativos/modelo educativo elementary.png',
                 'informacion' => [
-                    'titulo' => 'Elementary para tus hijos',
-                    'intro' => 'Un entorno bilingüe y trilingüe donde los Explorers desarrollan mentalidad internacional, creatividad, tecnología y bienestar emocional.',
                     'destacados' => [
                         ['titulo' => 'Acompañamiento', 'texto' => 'Atención académica y emocional para que cada Explorer avance con confianza, curiosidad y autonomía.'],
-                        ['titulo' => 'Aprendizaje', 'texto' => 'Tres bloques diarios en inglés, francés desde 5 grado, tecnología, arte y unidades de indagación IB.'],
+                        ['titulo' => 'Aprendizaje', 'texto' => 'Tres bloques diarios en inglés, francés desde 5° grado, tecnología, arte y unidades de indagación IB.'],
                         ['titulo' => 'Comunidad', 'texto' => 'Deporte diario, academias, mini olimpiadas y proyectos que fortalecen colaboración y pertenencia.'],
                     ],
                     'puntos' => [
                         'Tres bloques diarios en inglés con materias como Science y Civics.',
-                        'Francés desde 5 grado de Elementary como tercer idioma.',
-                        'Mock Cambridge desde 3 grado de Elementary para practicar reading, writing, listening y speaking.',
+                        'Francés desde 5° grado de Elementary como tercer idioma.',
+                        'Mock Cambridge desde 3° grado de Elementary para practicar reading, writing, listening y speaking.',
                         'Unidades de indagación del modelo IB para investigar, cuestionar y resolver problemas reales.',
                         'Artes, deporte diario y academias vespertinas como fútbol, básquetbol, ajedrez, origami, atletismo y UrbanKids.',
                     ],
@@ -282,15 +240,11 @@ return [
                 ],
             ],
             'secundaria' => [
-                'titulo' => 'Middle',
-                'descripcion' => 'Formación integral con tecnología, proyectos y desarrollo personal.',
                 'logo_path' => 'Logos de niveles educativos/logo secundaria.png',
                 'logo_extendido_path' => 'Logos de niveles educativos/Secundaria-extendido.png',
                 'hoja_informativa_path' => 'Hojas informativas/Secundaria _hoja informativa.pdf.pdf',
                 'modelo_academico_path' => 'Modelos educativos/modelo educativo middle.png',
                 'informacion' => [
-                    'titulo' => 'Middle ayuda a tus hijos a convertirse en su mejor versión',
-                    'intro' => 'Middle School es la etapa donde los jovenes despiertan su voz, definen su camino y conectan localmente con una vision global.',
                     'destacados' => [
                         ['titulo' => 'Acompañamiento', 'texto' => 'Preceptoría, bienestar emocional y habilidades de autogestión para una etapa de cambios importantes.'],
                         ['titulo' => 'Aprendizaje', 'texto' => 'Inglés, español y francés, proyectos interdisciplinarios y enfoques de aprendizaje para pensar e investigar mejor.'],
@@ -313,15 +267,11 @@ return [
                 ],
             ],
             'bachillerato' => [
-                'titulo' => 'High',
-                'descripcion' => 'Preparación para la universidad con orientación vocacional y alto nivel académico.',
                 'logo_path' => 'Logos de niveles educativos/logo bachillerato.png',
                 'logo_extendido_path' => 'Logos de niveles educativos/Bachillerato-extendido.png',
                 'hoja_informativa_path' => 'Hojas informativas/High school _ hoja informativa.pdf.pdf',
                 'modelo_academico_path' => 'Modelos educativos/modelo educativo high.png',
                 'informacion' => [
-                    'titulo' => 'High te reta, forma y también se disfruta',
-                    'intro' => 'Preparación universitaria con Programa del Diploma IB, orientación vocacional, idiomas y proyectos reales.',
                     'destacados' => [
                         ['titulo' => 'Acompañamiento', 'texto' => 'Orientación vocacional, asesoría para admisiones y seguimiento individual rumbo a universidad.'],
                         ['titulo' => 'Aprendizaje', 'texto' => 'Programa del Diploma IB, Teoría del Conocimiento, CAS, idiomas y pensamiento crítico aplicado.'],
@@ -344,8 +294,6 @@ return [
                 ],
             ],
             'ib-en-discovery' => [
-                'titulo' => 'IB en Discovery®',
-                'descripcion' => 'Bachillerato Internacional en Discovery®: habilidades, perfil de aprendizaje y Programa del Diploma con visión global.',
                 'logo_path' => 'Logos principales/logo-ib-y-discovery-principal-1024x342.png',
                 'logo_extendido_path' => 'Logos principales/logo-ib-y-discovery-principal-1024x342.png',
                 'usar_placeholder_hero' => true,
@@ -353,8 +301,6 @@ return [
                 'ocultar_galeria' => true,
                 'layout' => 'ib',
                 'informacion' => [
-                    'titulo' => 'Bachillerato Internacional en Discovery®',
-                    'intro' => 'Nuestro modelo educativo potencia habilidades para que los Explorers vivan el aprendizaje como un proceso activo y dinámico. El enfoque IB los impulsa a aprender a aprender, plantear buenas preguntas, establecer metas, trabajar por sus aspiraciones y sostener la determinación necesaria para cumplirlas.',
                     'destacados' => [
                         ['titulo' => 'Habilidades', 'texto' => 'Pensamiento, autogestión, comunicación, investigación y habilidades sociales para aprender con autonomía.'],
                         ['titulo' => 'Perfil IB', 'texto' => 'Formación de Explorers con capacidades humanas que van más allá del éxito académico.'],
@@ -383,8 +329,6 @@ return [
                 ],
             ],
             'pop-del-ib' => [
-                'titulo' => 'Programa de Orientación Profesional del IB',
-                'descripcion' => 'Preparando Explorers para construir su futuro mediante experiencias académicas, personales y profesionales conectadas con el mundo real.',
                 'logo_path' => 'Logos principales/logo-ib-y-discovery-principal-1024x342.png',
                 'logo_extendido_path' => 'Logos principales/logo-ib-y-discovery-principal-1024x342.png',
                 'usar_placeholder_hero' => true,
@@ -392,8 +336,6 @@ return [
                 'layout' => 'pop',
                 'informacion' => [
                     'eyebrow' => 'Programa de Orientación Profesional del IB',
-                    'titulo' => 'Preparando Explorers para construir su futuro',
-                    'intro' => 'El POP del IB combina la filosofía del Bachillerato Internacional con experiencias prácticas, proyectos significativos, rutas preuniversitarias y una trayectoria académica que acompaña a cada Explorer en la construcción de su perfil profesional.',
                     'destacados' => [
                         ['titulo' => 'Autoconocimiento', 'texto' => 'Cada Explorer reconoce sus intereses, talentos y fortalezas para tomar decisiones más informadas sobre su futuro.'],
                         ['titulo' => 'Experiencia práctica', 'texto' => 'Los aprendizajes se conectan con proyectos, tecnología, servicio y situaciones del mundo real.'],
@@ -476,15 +418,11 @@ return [
                 ],
             ],
             'certificacion-de-ingles' => [
-                'titulo' => 'Certificación de Inglés',
-                'descripcion' => 'Preparación progresiva para certificar el dominio del inglés con metas claras, práctica guiada y acompañamiento académico.',
                 'usar_placeholder_hero' => true,
                 'hero_media_path' => 'Certificacion fotos/unicam.jpg',
                 'ocultar_galeria' => true,
                 'layout' => 'ingles',
                 'informacion' => [
-                    'titulo' => 'Certificación de Inglés en Discovery®',
-                    'intro' => 'La certificación de inglés acompaña a nuestros Explorers para medir, fortalecer y demostrar sus habilidades comunicativas. El trabajo se enfoca en reading, writing, listening y speaking, con seguimiento académico para avanzar hacia evaluaciones reconocidas y oportunidades universitarias.',
                     'eyebrow' => 'Certificación de Inglés',
                     'puntos_titulo' => 'Preparación integral por habilidades',
                     'destacados' => [

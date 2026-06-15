@@ -2,13 +2,52 @@
 
 Esta guía permite localizar rápidamente el código responsable de cada parte del sitio.
 
+La estrategia de tono, recorrido y llamados a acción para madres, padres y
+tutores vive en `docs/EXPERIENCIA_FAMILIAS.md`. La configuración global del CTA
+principal y la promesa de comunicación vive en `config/experiencia.php`.
+
 ## Flujo de una página pública
 
 1. `routes/web.php` recibe la URL.
 2. El middleware `VerificarVistaPublicada` decide si la vista está publicada.
-3. `PageController` consulta contenido, configuración y archivos multimedia.
+3. `PageController` coordina servicios de contenido y prepara la vista.
 4. El controlador entrega datos a una plantilla de `resources/views/pages`.
 5. `resources/js/app.js` agrega las interacciones globales.
+
+## Fuentes de verdad
+
+Cada dato debe tener un único propietario principal. Los respaldos mantienen el
+sitio visible cuando todavía no existe contenido administrativo, pero no deben
+convertirse en un segundo lugar de edición.
+
+| Tipo de dato | Fuente principal | Respaldo o estructura | Regla |
+| --- | --- | --- | --- |
+| Títulos y descripciones generales de páginas | `PaginaContenido` mediante `Páginas del sitio` | Texto predeterminado en Blade o `config/colegio.php` | Si existe el registro, Filament manda |
+| Imágenes fijas por sección | `SeccionImagen` mediante `Imágenes del sitio` | Ruta de `videosyfotos` declarada en el registro o en configuración | La carga en `storage/public` tiene prioridad |
+| Eventos de Inicio | `Evento` | `colegio.inicio.eventos_default` | Si existen eventos administrativos activos, los defaults dejan de ser contenido |
+| Testimonios | `TestimonioVideo` | Archivos de `videosyfotos/Testimonios Alumni` | Los registros activos y válidos sustituyen la lectura automática |
+| Línea del tiempo | `HitoHistoria` | Hitos predeterminados de `PageController` | Los defaults solo se usan cuando la tabla no tiene hitos |
+| Listas de útiles | `ListaUtil` | PDFs de `videosyfotos/Listas de útiles` | Cualquier conjunto administrativo activo sustituye la lectura de carpeta |
+| Banners de Inicio | `videosyfotos/Banner de inicio` | Banner predeterminado del controlador | La carpeta completa es la fuente oficial |
+| Galerías de niveles | Carpetas definidas en `colegio.niveles.carpetas_galeria` | Imagen fija o logo del nivel | No se administran como `SeccionImagen` |
+| Textos principales de niveles y tarjetas de oferta | `NivelContenido` mediante `Contenido de niveles` | `database/data/nivel_contenidos.php` | La BD manda; el archivo conserva valores iniciales y fallback |
+| Estructura de niveles, slugs, layouts y temas | `config/colegio.php` | Ninguno | Es configuración técnica, no contenido editorial |
+| Datos globales de WhatsApp y URLs técnicas | `config/colegio.php` y variables de entorno | Valores predeterminados de configuración | No pertenecen a `PaginaContenido` |
+
+### Jerarquía multimedia
+
+Cuando una posición visual admite reemplazo desde Filament, el orden es:
+
+1. Archivo cargado en `storage/public`.
+2. Respaldo elegido en el registro administrativo.
+3. URL predeterminada preparada por la página.
+4. Ruta predeterminada en `videosyfotos`.
+5. Marcador de imagen pendiente.
+
+No copies contenido editable a `config/colegio.php`. Tampoco agregues una tabla
+para datos técnicos como slugs, clases Tailwind, nombres de discos o layouts.
+Si un texto necesita edición frecuente por el colegio, su destino es Filament;
+si define cómo funciona o se compone la aplicación, permanece en configuración.
 
 ## Mapa de páginas
 
@@ -25,7 +64,7 @@ Esta guía permite localizar rápidamente el código responsable de cada parte d
 
 ## Prioridad de imágenes
 
-`PageController::imagenesVista` resuelve cada imagen en este orden:
+`MediaResolver::images` resuelve cada imagen en este orden:
 
 1. Archivo cargado en `Imágenes del sitio`.
 2. Ruta de respaldo registrada en ese mismo módulo.
@@ -48,7 +87,9 @@ Las claves forman parte del contrato entre controlador, base de datos y Blade. S
 
 ## Oferta Educativa
 
-La estructura de niveles vive en `config/colegio.php`, bajo `oferta_academica` y `niveles.definiciones`.
+Los textos principales se administran en `Contenido de niveles`. La estructura
+técnica permanece en `config/colegio.php`, bajo `oferta_academica`,
+`niveles.definiciones` y `temas_niveles`.
 
 El hero de `oferta-academica.blade.php` tiene una altura controlada en escritorio. Sus tarjetas y ficha activa están deliberadamente compactadas para mostrar toda la información sin desplazar la página. Al agregar textos:
 
@@ -69,7 +110,7 @@ El hero de `oferta-academica.blade.php` tiene una altura controlada en escritori
 
 La línea del tiempo se administra exclusivamente desde `HitoHistoriaResource`. Las imágenes pertenecen al propio hito. No deben crearse duplicados en `Imágenes del sitio`.
 
-`PageController::obtenerHistoriaNosotros` conserva datos predeterminados como respaldo únicamente cuando no existen hitos administrativos.
+`HistoryTimelineService` conserva datos predeterminados como respaldo únicamente cuando no existen hitos administrativos.
 
 ## Publicación y mantenimiento
 
@@ -101,6 +142,40 @@ php artisan optimize:clear
 
 No guardes modelos Eloquent completos en caché. Guarda IDs o arreglos simples y recupera el modelo después; esto evita problemas de serialización y relaciones obsoletas.
 
+## Migraciones y seeders
+
+A partir del 15 de junio de 2026:
+
+- las migraciones crean o transforman estructura;
+- una migración de datos solo se justifica cuando una versión desplegada
+  necesita transformar registros existentes para conservar compatibilidad;
+- una migración de datos excepcional debe incluir `_data_` en el nombre para
+  hacer visible su propósito y pasar la prueba de convenciones;
+- los datos iniciales repetibles viven en seeders idempotentes;
+- el contenido opcional o de demostración no se ejecuta desde `DatabaseSeeder`;
+- los seeders deben ser idempotentes;
+- para contenido editable usa `firstOrCreate`, de modo que una nueva ejecución
+  complete faltantes sin sobrescribir cambios hechos desde Filament;
+- reserva `updateOrCreate` o `updateOrInsert` para catálogos técnicos cuyo valor
+  sí deba sincronizarse con el código.
+
+`NivelContenidoSeeder` carga los siete niveles administrables. `EventoSeeder`
+es opcional y no forma parte del seeding normal.
+
+Para una instalación nueva:
+
+```bash
+php artisan migrate
+php artisan db:seed
+```
+
+No edites migraciones que ya hayan sido publicadas o compartidas. Este proyecto
+solo separó la migración de niveles porque todavía pertenecía al cambio local
+en desarrollo.
+
+`MigrationConventionTest` revisa las migraciones creadas desde esta convención y
+evita que una migración estructural vuelva a usar `DB`, `File` o `Storage`.
+
 ## Multimedia
 
 La ruta `/media/{path}` sirve archivos del disco configurado en `colegio.media.disk`.
@@ -112,7 +187,18 @@ Las rutas:
 - codifican cada segmento para soportar espacios y acentos;
 - agregan la fecha de modificación como versión de caché.
 
-No construyas URLs de `videosyfotos` manualmente. Usa los helpers de `PageController`.
+No construyas URLs de `videosyfotos` manualmente. Usa `MediaResolver`.
+
+## Servicios públicos
+
+- `MediaResolver`: discos, URLs, seguridad de rutas y prioridad de imágenes.
+- `HistoryTimelineService`: hitos administrativos y respaldo histórico.
+- `SchoolSupplyListService`: listas administradas y lectura heredada de PDFs.
+- `LevelContentService`: superpone textos editables sobre la estructura técnica de niveles.
+
+`PageController` debe coordinar estos servicios y entregar arreglos a Blade. No
+vuelvas a incorporar al controlador consultas o transformaciones que ya tengan
+un servicio propietario.
 
 ## Panel Filament
 

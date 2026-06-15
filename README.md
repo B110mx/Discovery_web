@@ -13,6 +13,9 @@ Antes de modificar el proyecto, consulta [docs/MANTENIMIENTO.md](docs/MANTENIMIE
 - qué cachés deben invalidarse;
 - cómo verificar un cambio antes de publicarlo.
 
+Para cambios de contenido, navegación o experiencia pública, consulta también
+[docs/EXPERIENCIA_FAMILIAS.md](docs/EXPERIENCIA_FAMILIAS.md).
+
 Los comentarios dentro del código describen responsabilidades, prioridades de datos y decisiones que no son evidentes. No se comenta cada instrucción individual porque el código y el comentario podrían dejar de coincidir; se documentan módulos, contratos y bloques con comportamiento especial.
 
 ## Requisitos
@@ -30,6 +33,7 @@ npm install
 copy .env.example .env
 php artisan key:generate
 php artisan migrate
+php artisan db:seed
 npm run build
 php artisan serve
 ```
@@ -62,7 +66,8 @@ php artisan migrate --force
 ## Estructura principal
 
 ```text
-app/Http/Controllers/PageController.php  Prepara todas las páginas públicas.
+app/Http/Controllers/PageController.php  Coordina las páginas públicas.
+app/Services/                           Prepara multimedia y contenido especializado.
 app/Filament/                            Panel administrativo.
 app/Models/                              Datos editables y limpieza de caché.
 app/Support/                             Utilidades de caché y multimedia.
@@ -81,5 +86,9 @@ tests/Feature/                           Pruebas de los flujos principales.
 - Línea del tiempo: `Nosotros - Línea del tiempo`.
 - Banners de Inicio: carpeta `videosyfotos/Banner de inicio`.
 - Eventos, videos y listas: sus módulos específicos de Filament.
+- Textos principales de niveles: `Contenido de niveles`.
+- Slugs, layouts, temas y rutas de respaldo: `config/colegio.php`.
 
-Evita crear una segunda fuente para el mismo contenido. La guía de mantenimiento detalla las excepciones y respaldos.
+Evita crear una segunda fuente para el mismo contenido. La sección
+`Fuentes de verdad` de la guía de mantenimiento detalla la prioridad de cada
+origen y sus respaldos.
