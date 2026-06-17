@@ -141,6 +141,42 @@ const initSiteInteractions = () => {
         animatedElements.forEach((element) => observer.observe(element));
     }
 
+    // Franja superior de contacto: visible solo al inicio de la pagina.
+    const siteTopbar = document.querySelector('[data-site-topbar]');
+
+    if (siteTopbar) {
+        let isTopbarVisible = true;
+        const showTopbarAt = 8;
+        const hideTopbarAt = 80;
+
+        const setTopbarVisible = (isVisible) => {
+            if (isTopbarVisible === isVisible) {
+                return;
+            }
+
+            isTopbarVisible = isVisible;
+            siteTopbar.style.maxHeight = isVisible ? `${siteTopbar.scrollHeight}px` : '0px';
+            siteTopbar.style.opacity = isVisible ? '1' : '0';
+            siteTopbar.style.pointerEvents = isVisible ? 'auto' : 'none';
+        };
+
+        const updateTopbarVisibility = () => {
+            if (window.scrollY <= showTopbarAt) {
+                setTopbarVisible(true);
+            } else if (window.scrollY >= hideTopbarAt) {
+                setTopbarVisible(false);
+            }
+        };
+
+        siteTopbar.style.maxHeight = `${siteTopbar.scrollHeight}px`;
+        siteTopbar.style.opacity = '1';
+        siteTopbar.style.pointerEvents = 'auto';
+        updateTopbarVisibility();
+
+        window.addEventListener('scroll', updateTopbarVisibility, { passive: true });
+        window.addEventListener('resize', updateTopbarVisibility);
+    }
+
     // Menú móvil y submenús. Los atributos data-* forman el contrato con
     // resources/views/components/navbar.blade.php.
     const siteNav = document.querySelector('[data-site-nav]');

@@ -33,10 +33,10 @@
                         WhatsApp
                     </a>
                     <a href="{{ $telefonoHref }}" class="rounded-lg border border-blue-700 px-4 py-3 text-center font-bold text-blue-700 hover:bg-blue-50">
-                        Llamar
+                        {{ __('site.pages.contact.call') }}
                     </a>
                     <a href="mailto:{{ $correo }}" class="rounded-lg border border-red-600 px-4 py-3 text-center font-bold text-red-600 hover:bg-red-50">
-                        Correo
+                        {{ __('site.pages.contact.email') }}
                     </a>
                 </div>
             </div>
@@ -67,19 +67,19 @@
             @csrf
 
             <div class="mb-7 flex flex-col gap-2">
-                <p class="text-sm font-bold uppercase tracking-wide text-blue-700">Escríbenos</p>
-                <h2 class="text-3xl font-extrabold text-gray-950">Agenda informes o solicita admisiones</h2>
+                <p class="text-sm font-bold uppercase tracking-wide text-blue-700">{{ __('site.pages.contact.write') }}</p>
+                <h2 class="text-3xl font-extrabold text-gray-950">{{ __('site.pages.contact.form_title') }}</h2>
             </div>
 
             <div class="grid gap-5">
                 <div>
-                    <label for="aspirante_nombre" class="mb-2 block text-sm font-bold text-gray-700">Nombre completo del aspirante</label>
+                    <label for="aspirante_nombre" class="mb-2 block text-sm font-bold text-gray-700">{{ __('site.pages.contact.student_name') }}</label>
                     <input id="aspirante_nombre" type="text" name="aspirante_nombre" value="{{ old('aspirante_nombre') }}" class="w-full rounded-lg border border-gray-300 p-3 outline-none focus:border-blue-700 focus:ring-4 focus:ring-blue-100" required>
                     @error('aspirante_nombre') <p class="mt-1 text-sm font-semibold text-red-600">{{ $message }}</p> @enderror
                 </div>
 
                 <div>
-                    <label for="tutor_nombre" class="mb-2 block text-sm font-bold text-gray-700">Nombre completo del tutor (a)</label>
+                    <label for="tutor_nombre" class="mb-2 block text-sm font-bold text-gray-700">{{ __('site.pages.contact.guardian_name') }}</label>
                     <input id="tutor_nombre" type="text" name="tutor_nombre" value="{{ old('tutor_nombre') }}" class="w-full rounded-lg border border-gray-300 p-3 outline-none focus:border-blue-700 focus:ring-4 focus:ring-blue-100" required>
                     @error('tutor_nombre') <p class="mt-1 text-sm font-semibold text-red-600">{{ $message }}</p> @enderror
                 </div>
@@ -91,15 +91,15 @@
                 </div>
 
                 <div>
-                    <label for="telefono" class="mb-2 block text-sm font-bold text-gray-700">Telefono de contacto *</label>
+                    <label for="telefono" class="mb-2 block text-sm font-bold text-gray-700">{{ __('site.pages.contact.phone') }}</label>
                     <input id="telefono" type="tel" name="telefono" value="{{ old('telefono') }}" class="w-full rounded-lg border border-gray-300 p-3 outline-none focus:border-blue-700 focus:ring-4 focus:ring-blue-100" required>
                     @error('telefono') <p class="mt-1 text-sm font-semibold text-red-600">{{ $message }}</p> @enderror
                 </div>
 
                 <div>
-                    <label for="grado" class="mb-2 block text-sm font-bold text-gray-700">Grado al que aplica</label>
+                    <label for="grado" class="mb-2 block text-sm font-bold text-gray-700">{{ __('site.pages.contact.grade') }}</label>
                     <select id="grado" name="grado" class="w-full rounded-lg border border-gray-300 bg-white p-3 outline-none focus:border-blue-700 focus:ring-4 focus:ring-blue-100" required>
-                        <option value="">Selecciona una opción</option>
+                        <option value="">{{ __('site.pages.contact.select') }}</option>
                         @foreach (['Kinder', 'Elementary', 'Middle', 'High'] as $grado)
                             <option value="{{ $grado }}" @selected(old('grado') === $grado)>{{ $grado }}</option>
                         @endforeach
@@ -110,31 +110,31 @@
 
             <div class="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
                 <button class="rounded-lg bg-blue-700 px-8 py-3 font-bold text-white hover:bg-blue-800">
-                    Enviar mensaje
+                    {{ __('site.pages.contact.send') }}
                 </button>
                 <a href="{{ $whatsappUrl }}" target="_blank" rel="noopener noreferrer" class="rounded-lg border border-green-600 px-8 py-3 text-center font-bold text-green-600 hover:bg-green-50">
-                    Contactar por WhatsApp
+                    {{ __('site.pages.contact.whatsapp') }}
                 </a>
             </div>
         </form>
 
         <aside class="space-y-6">
             <div class="rounded-lg bg-gray-950 p-6 text-white shadow-md">
-                <p class="text-sm font-bold uppercase tracking-wide text-yellow-500">Atención directa</p>
+                <p class="text-sm font-bold uppercase tracking-wide text-yellow-500">{{ __('site.pages.contact.direct') }}</p>
                 <h2 class="mt-2 text-2xl font-extrabold">Colegio Internacional Discovery®</h2>
 
                 <div class="mt-6 space-y-5 text-sm leading-7 text-gray-200">
                     <div>
-                        <p class="font-bold text-white">Dirección</p>
+                        <p class="font-bold text-white">{{ __('site.pages.contact.address') }}</p>
                         <p>{{ $direccion }}</p>
                     </div>
                     <div>
-                        <p class="font-bold text-white">Teléfonos</p>
+                        <p class="font-bold text-white">{{ __('site.pages.contact.phones') }}</p>
                         <p>{{ $telefonoPrincipal }}</p>
                         <p>{{ $telefonoSecundario }}</p>
                     </div>
                     <div>
-                        <p class="font-bold text-white">Correo</p>
+                        <p class="font-bold text-white">{{ __('site.pages.contact.email') }}</p>
                         <a href="mailto:{{ $correo }}" class="text-yellow-500 hover:underline">{{ $correo }}</a>
                     </div>
                 </div>
@@ -152,22 +152,22 @@
     <div class="overflow-hidden rounded-lg bg-white shadow-md">
         <div class="grid lg:grid-cols-[.75fr_1.25fr]">
             <div class="p-6 md:p-8">
-                <p class="text-sm font-bold uppercase tracking-wide text-blue-700">Ubicación</p>
-                <h2 class="mt-2 text-3xl font-extrabold text-gray-950">Ven a conocernos</h2>
+                <p class="text-sm font-bold uppercase tracking-wide text-blue-700">{{ __('site.pages.contact.location') }}</p>
+                <h2 class="mt-2 text-3xl font-extrabold text-gray-950">{{ __('site.pages.contact.visit') }}</h2>
                 <p class="mt-4 leading-7 text-gray-600">{{ $direccion }}</p>
                 <div class="mt-6 flex flex-col gap-3">
                     <a href="{{ $whatsappUrl }}" target="_blank" rel="noopener noreferrer" class="rounded-lg bg-green-600 px-6 py-3 text-center font-bold text-white hover:bg-green-700">
-                        Pedir indicaciones por WhatsApp
+                        {{ __('site.pages.contact.directions') }}
                     </a>
                     <a href="{{ $mapaExternoUrl }}" target="_blank" rel="noopener noreferrer" class="rounded-lg border border-blue-700 px-6 py-3 text-center font-bold text-blue-700 hover:bg-blue-50">
-                        Abrir en Google Maps
+                        {{ __('site.pages.contact.maps') }}
                     </a>
                 </div>
             </div>
 
             <iframe
                 src="{{ $mapaUrl }}"
-                title="Ubicación Colegio Discovery® en Google Maps"
+                title="{{ __('site.pages.contact.map_title') }}"
                 class="h-96 w-full border-0 lg:h-[500px]"
                 loading="lazy"
                 referrerpolicy="no-referrer-when-downgrade"

@@ -93,16 +93,16 @@
 
         <div class="flex min-h-0 flex-col justify-center p-4 md:p-5">
             <div>
-                <p class="text-xs font-bold uppercase tracking-wide text-blue-700 md:text-sm">{{ $paginaOferta?->subtitulo ?? 'Oferta Educativa' }}</p>
+                <p class="text-xs font-bold uppercase tracking-wide text-blue-700 md:text-sm">{{ $paginaOferta?->subtitulo ?? __('site.pages.offer.default_subtitle') }}</p>
                 <h1 class="mt-1 text-2xl font-extrabold leading-tight text-gray-950 md:text-3xl lg:text-[2rem]">
-                    {{ $paginaOferta?->titulo ?? 'Una ruta académica para cada etapa' }}
+                    {{ $paginaOferta?->titulo ?? __('site.pages.offer.default_title') }}
                 </h1>
                 <p class="mt-1 text-sm leading-5 text-gray-600 xl:text-[0.95rem]">
-                    {{ $paginaOferta?->descripcion ?? 'Explora niveles, enfoques y experiencias de aprendizaje para encontrar el programa que mejor acompaña a tu familia.' }}
+                    {{ $paginaOferta?->descripcion ?? __('site.pages.offer.default_text') }}
                 </p>
             </div>
 
-            <div class="mt-2 grid auto-rows-[56px] gap-2 sm:grid-cols-2" role="tablist" aria-label="Niveles académicos">
+            <div class="mt-2 grid auto-rows-[56px] gap-2 sm:grid-cols-2" role="tablist" aria-label="{{ __('site.pages.offer.tabs_label') }}">
                 @foreach ($ofertaNiveles as $slug => $programa)
                     @php
                         $color = $colores[$programa['color']] ?? $colores['blue'];
@@ -168,10 +168,10 @@
                             href="{{ $programa['ruta'] }}"
                             class="inline-flex items-center justify-center rounded px-4 py-2 text-sm font-bold transition {{ $color['button'] }}"
                         >
-                            Ver programa
+                            {{ __('site.pages.offer.view_program') }}
                         </a>
                         <a href="{{ route('contacto') }}" class="inline-flex items-center justify-center rounded border border-blue-700 px-4 py-2 text-sm font-bold text-blue-700 transition hover:bg-blue-50">
-                            Solicitar informes
+                            {{ __('site.pages.offer.request_info') }}
                         </a>
                     </div>
                     </article>
@@ -181,42 +181,28 @@
     </section>
 
     <section class="grid gap-5 lg:grid-cols-3">
-        <div class="rounded-lg bg-gray-950 p-6 text-white shadow-md">
-            <p class="text-sm font-bold uppercase tracking-wide text-yellow-500">Continuidad</p>
-            <h2 class="mt-3 text-2xl font-extrabold">De Kinder a High</h2>
-            <p class="mt-4 leading-7 text-gray-200">
-                Una misma comunidad acompaña el crecimiento académico, emocional y social en cada etapa.
-            </p>
-        </div>
-
-        <div class="rounded-lg bg-blue-700 p-6 text-white shadow-md">
-            <p class="text-sm font-bold uppercase tracking-wide text-blue-100">Acompañamiento</p>
-            <h2 class="mt-3 text-2xl font-extrabold">Grupos cercanos y seguimiento</h2>
-            <p class="mt-4 leading-7 text-blue-50">
-                Las familias encuentran rutas claras, comunicación constante y atención personalizada.
-            </p>
-        </div>
-
-        <div class="rounded-lg bg-white p-6 shadow-md">
-            <p class="text-sm font-bold uppercase tracking-wide text-red-600">Visión internacional</p>
-            <h2 class="mt-3 text-2xl font-extrabold text-gray-950">Idiomas, IB y proyectos</h2>
-            <p class="mt-4 leading-7 text-gray-600">
-                Los programas integran pensamiento crítico, colaboración y experiencias conectadas con el mundo.
-            </p>
-        </div>
+        @foreach (__('site.pages.offer.cards') as $card)
+            <div class="rounded-lg {{ ['bg-gray-950 text-white', 'bg-blue-700 text-white', 'bg-white'][$loop->index] }} p-6 shadow-md">
+                <p class="text-sm font-bold uppercase tracking-wide {{ ['text-yellow-500', 'text-blue-100', 'text-red-600'][$loop->index] }}">{{ $card['eyebrow'] }}</p>
+                <h2 class="mt-3 text-2xl font-extrabold {{ $loop->index === 2 ? 'text-gray-950' : '' }}">{{ $card['title'] }}</h2>
+                <p class="mt-4 leading-7 {{ ['text-gray-200', 'text-blue-50', 'text-gray-600'][$loop->index] }}">
+                    {{ $card['text'] }}
+                </p>
+            </div>
+        @endforeach
     </section>
 
     <section class="overflow-hidden rounded-2xl bg-gradient-to-br from-slate-50 via-white to-blue-50/70 px-5 py-8 ring-1 ring-slate-200 sm:px-8 sm:py-10">
         <div class="mb-8 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
             <div>
-                <p class="text-sm font-bold uppercase tracking-wide text-blue-700">Comparativa rápida</p>
-                <h2 class="mt-2 text-3xl font-extrabold tracking-tight text-gray-950 sm:text-4xl">Explora por etapa</h2>
+                <p class="text-sm font-bold uppercase tracking-wide text-blue-700">{{ __('site.pages.offer.comparison_eyebrow') }}</p>
+                <h2 class="mt-2 text-3xl font-extrabold tracking-tight text-gray-950 sm:text-4xl">{{ __('site.pages.offer.comparison_title') }}</h2>
                 <p class="mt-3 max-w-2xl text-base leading-7 text-gray-600">
-                    Conoce el enfoque de cada nivel y encuentra la ruta ideal para tu familia.
+                    {{ __('site.pages.offer.comparison_text') }}
                 </p>
             </div>
             <a href="{{ route('contacto') }}" class="group inline-flex w-fit items-center gap-2 rounded-full bg-blue-700 px-5 py-3 text-sm font-bold text-white shadow-sm transition hover:-translate-y-0.5 hover:bg-blue-800 hover:shadow-md">
-                Agendar informes
+                {{ __('site.pages.offer.schedule_info') }}
                 <svg class="h-4 w-4 transition-transform group-hover:translate-x-1" viewBox="0 0 20 20" fill="none" aria-hidden="true">
                     <path d="M4 10h12m-5-5 5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
@@ -249,7 +235,7 @@
                                         <path d="m5 16 4-4 3 3 2-2 5 4.5M15.5 9.5h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
                                     </svg>
                                 </span>
-                                <p class="mt-3 text-xs font-bold uppercase tracking-wider text-slate-500">Fotografía próximamente</p>
+                                <p class="mt-3 text-xs font-bold uppercase tracking-wider text-slate-500">{{ __('site.pages.offer.photo_soon') }}</p>
                             </div>
                         @endif
 
@@ -264,7 +250,7 @@
                         <p class="mt-3 flex-1 text-sm leading-6 text-gray-600">{{ $programa['subtitulo'] }}</p>
                         <div class="mt-5 flex items-center justify-between border-t border-gray-100 pt-4">
                             <span class="text-sm font-bold text-blue-700 transition group-hover:text-blue-900">
-                                Explorar nivel
+                                {{ __('site.pages.offer.explore_level') }}
                             </span>
                             <span class="flex h-8 w-8 items-center justify-center rounded-full bg-blue-50 text-blue-700 transition group-hover:bg-blue-700 group-hover:text-white">
                                 <svg class="h-4 w-4 transition-transform group-hover:translate-x-0.5" viewBox="0 0 20 20" fill="none" aria-hidden="true">

@@ -180,6 +180,8 @@
         ],
         default => null,
     };
+    $bloqueIdealTraducido = __('levels.ideal_blocks.' . ($nivel['slug'] ?? ''));
+    $bloqueIdeal = is_array($bloqueIdealTraducido) ? $bloqueIdealTraducido : $bloqueIdeal;
     $bloqueIdealGrid = $bloqueIdeal && count($bloqueIdeal['items']) === 7 ? 'xl:grid-cols-7' : 'xl:grid-cols-6';
 @endphp
 
@@ -201,7 +203,7 @@
                     </div>
                 @endif
 
-                <p class="font-semibold uppercase tracking-wide text-xs md:text-sm">Oferta Educativa</p>
+                <p class="font-semibold uppercase tracking-wide text-xs md:text-sm">{{ __('site.pages.level.offer') }}</p>
                 <h1 class="mt-2 text-3xl font-extrabold md:text-4xl">{{ $nivel['titulo'] }}</h1>
                 <p class="{{ $tema['heroMuted'] }} mt-3 max-w-2xl text-base leading-7">{{ $nivel['descripcion'] }}</p>
             </div>
@@ -238,7 +240,7 @@
                     <h2 class="mt-3 text-3xl font-extrabold leading-tight text-gray-950 md:text-4xl">{{ $pop['titulo'] }}</h2>
                     <p class="mt-5 text-lg leading-8 text-gray-600">{{ $pop['intro'] }}</p>
 
-                    <h3 class="mt-8 text-xl font-extrabold text-gray-950">Habilidades para decidir y construir</h3>
+                    <h3 class="mt-8 text-xl font-extrabold text-gray-950">{{ __('site.pages.level.decision_skills') }}</h3>
                     <div class="mt-4 flex flex-wrap gap-2">
                         @foreach ($pop['habilidades'] as $habilidad)
                             <span class="rounded-full bg-blue-50 px-4 py-2 text-sm font-bold text-blue-700">
@@ -250,7 +252,7 @@
 
                 <x-imagen-seccion
                     :imagen="$imagenesPop['componentes']"
-                    alt="Componentes del POP del IB"
+                    alt="{{ $imagenesPop['componentes']['titulo'] ?? __('site.pages.level.pop_components') }}"
                     class="h-full min-h-72 w-full object-cover"
                     placeholder-class="h-full min-h-72 w-full rounded-none"
                 />
@@ -259,10 +261,10 @@
 
         <section class="mt-12">
             <div class="max-w-3xl">
-                <p class="text-sm font-bold uppercase tracking-wide {{ $tema['eyebrow'] }}">Formación integral</p>
-                <h2 class="mt-2 text-3xl font-extrabold text-gray-950">Componentes del POP</h2>
+                <p class="text-sm font-bold uppercase tracking-wide {{ $tema['eyebrow'] }}">{{ __('site.pages.level.holistic_education') }}</p>
+                <h2 class="mt-2 text-3xl font-extrabold text-gray-950">{{ __('site.pages.level.pop_components') }}</h2>
                 <p class="mt-4 leading-8 text-gray-600">
-                    Experiencias que conectan el aprendizaje académico con la vida universitaria, profesional y comunitaria.
+                    {{ __('site.pages.level.pop_components_text') }}
                 </p>
             </div>
 
@@ -281,10 +283,10 @@
 
         <section class="mt-12 overflow-hidden rounded-xl bg-gray-950 p-6 text-white shadow-lg md:p-10">
             <div class="max-w-3xl">
-                <p class="text-sm font-bold uppercase tracking-wide text-yellow-500">Explorar antes de decidir</p>
-                <h2 class="mt-2 text-3xl font-extrabold md:text-4xl">Rutas preuniversitarias Discovery</h2>
+                <p class="text-sm font-bold uppercase tracking-wide text-yellow-500">{{ __('site.pages.level.explore_before_deciding') }}</p>
+                <h2 class="mt-2 text-3xl font-extrabold md:text-4xl">{{ __('site.pages.level.preuniversity_paths') }}</h2>
                 <p class="mt-4 leading-8 text-gray-300">
-                    No representan una especialización temprana. Son oportunidades para descubrir fortalezas, explorar posibilidades profesionales y tomar decisiones más informadas.
+                    {{ __('site.pages.level.preuniversity_paths_text') }}
                 </p>
             </div>
 
@@ -309,7 +311,7 @@
                             </div>
 
                             <p class="mt-5 text-sm leading-7 text-gray-600">
-                                <strong class="text-gray-950">Perfiles relacionados:</strong>
+                                <strong class="text-gray-950">{{ __('site.pages.level.university_profiles') }}</strong>
                                 {{ $ruta['perfiles'] }}
                             </p>
                         </div>
@@ -322,16 +324,16 @@
             <div class="grid gap-8 lg:grid-cols-[.9fr_1.1fr] lg:items-center">
                 <x-imagen-seccion
                     :imagen="$imagenesPop['areas_academicas']"
-                    alt="Áreas académicas de 11° y 12°"
+                    alt="{{ $imagenesPop['areas_academicas']['titulo'] ?? __('site.pages.level.interest_areas_title') }}"
                     class="aspect-[4/3] w-full rounded-xl object-cover shadow-md"
                     placeholder-class="aspect-[4/3] w-full"
                 />
 
                 <div>
-                    <p class="text-sm font-bold uppercase tracking-wide {{ $tema['eyebrow'] }}">Trayectoria académica</p>
-                    <h2 class="mt-2 text-3xl font-extrabold text-gray-950">Áreas de interés profesional en 11° y 12°</h2>
+                    <p class="text-sm font-bold uppercase tracking-wide {{ $tema['eyebrow'] }}">{{ __('site.pages.level.academic_path') }}</p>
+                    <h2 class="mt-2 text-3xl font-extrabold text-gray-950">{{ __('site.pages.level.interest_areas_title') }}</h2>
                     <p class="mt-4 leading-8 text-gray-600">
-                        Los Explorers profundizan conocimientos relacionados con tres grandes áreas preuniversitarias.
+                        {{ __('site.pages.level.interest_areas_text') }}
                     </p>
                 </div>
             </div>
@@ -343,7 +345,7 @@
                         <h3 class="mt-5 text-xl font-extrabold text-gray-950">{{ $area['titulo'] }}</h3>
                         <p class="mt-3 leading-7 text-gray-600">{{ $area['texto'] }}</p>
                         <p class="mt-5 text-sm leading-7 text-gray-600">
-                            <strong class="text-gray-950">Perfiles universitarios:</strong>
+                            <strong class="text-gray-950">{{ __('site.pages.level.university_profiles') }}</strong>
                             {{ $area['perfiles'] }}
                         </p>
                     </article>
@@ -359,13 +361,13 @@
                     <p class="mt-5 leading-8 text-blue-50">{{ $pop['cierre']['texto'] }}</p>
                     <p class="mt-6 text-2xl font-extrabold text-yellow-500">{{ $pop['cierre']['frase'] }}</p>
                     <a href="{{ route('contacto') }}" class="mt-7 inline-flex w-fit items-center justify-center rounded bg-yellow-500 px-6 py-3 font-extrabold text-black transition hover:bg-amber-500">
-                        Solicitar informes
+                        {{ __('site.pages.level.request_info') }}
                     </a>
                 </div>
 
                 <x-imagen-seccion
                     :imagen="$imagenesPop['cierre']"
-                    alt="Preparación universitaria POP del IB"
+                    alt="{{ $imagenesPop['cierre']['titulo'] ?? $pop['cierre']['titulo'] }}"
                     class="h-full min-h-80 w-full object-cover"
                     placeholder-class="h-full min-h-80 w-full rounded-none border-white/30 bg-blue-800"
                 />
@@ -375,7 +377,7 @@
         <section class="mt-12 overflow-hidden rounded-xl bg-white shadow-md">
             <div class="{{ $tema['hero'] }} p-6 md:p-10">
                 <div class="max-w-5xl">
-                    <p class="font-semibold uppercase tracking-wide text-sm {{ $tema['heroMuted'] }}">{{ $nivel['informacion']['eyebrow'] ?? 'Bachillerato Internacional' }}</p>
+                    <p class="font-semibold uppercase tracking-wide text-sm {{ $tema['heroMuted'] }}">{{ $nivel['informacion']['eyebrow'] ?? __('site.pages.level.international_baccalaureate') }}</p>
                     <h2 class="mt-2 text-3xl font-extrabold md:text-4xl">{{ $nivel['informacion']['titulo'] }}</h2>
                     <p class="mt-5 text-lg leading-8 {{ $tema['heroMuted'] }}">{{ $nivel['informacion']['intro'] }}</p>
                 </div>
@@ -384,8 +386,8 @@
             <div class="p-6 md:p-8">
                 <div class="grid gap-8 lg:grid-cols-[.9fr_1.1fr]">
                     <div class="rounded-xl bg-gray-50 p-6">
-                        <p class="text-sm font-bold uppercase tracking-wide {{ $tema['eyebrow'] }}">{{ $nivel['informacion']['eyebrow'] ?? 'Enfoques del aprendizaje' }}</p>
-                        <h3 class="mt-2 text-2xl font-extrabold text-black">{{ $nivel['informacion']['puntos_titulo'] ?? 'Cinco categorías de habilidades' }}</h3>
+                        <p class="text-sm font-bold uppercase tracking-wide {{ $tema['eyebrow'] }}">{{ $nivel['informacion']['eyebrow'] ?? __('site.pages.level.learning_approaches') }}</p>
+                        <h3 class="mt-2 text-2xl font-extrabold text-black">{{ $nivel['informacion']['puntos_titulo'] ?? __('site.pages.level.five_skill_categories') }}</h3>
                         <div class="mt-5 space-y-3">
                             @foreach ($nivel['informacion']['puntos'] as $punto)
                                 <div class="flex gap-3 rounded-lg bg-white p-4 text-gray-700 shadow-sm">
@@ -421,11 +423,11 @@
                 <div class="mt-10 rounded-xl bg-gray-50 p-6">
                     <div class="grid gap-5 md:grid-cols-2">
                         <div>
-                            <p class="text-sm font-bold uppercase tracking-wide {{ $tema['eyebrow'] }}">{{ $nivel['informacion']['eyebrow'] ?? 'Reconocimiento internacional' }}</p>
-                            <h3 class="mt-2 text-2xl font-extrabold text-black">{{ $nivel['informacion']['cierre']['titulo'] ?? 'Colegio acreditado para impartir el Programa del Diploma' }}</h3>
+                            <p class="text-sm font-bold uppercase tracking-wide {{ $tema['eyebrow'] }}">{{ $nivel['informacion']['eyebrow'] ?? __('site.pages.level.international_recognition') }}</p>
+                            <h3 class="mt-2 text-2xl font-extrabold text-black">{{ $nivel['informacion']['cierre']['titulo'] ?? __('levels.ib-en-discovery.informacion.cierre.titulo') }}</h3>
                         </div>
                         <p class="leading-8 text-gray-600">
-                            {{ $nivel['informacion']['cierre']['texto'] ?? 'El Programa del Diploma del IB permite que los Explorers profundicen en sus conocimientos, fortalezcan dos lenguas, desarrollen criterio ético y construyan una visión internacional para su siguiente etapa académica.' }}
+                            {{ $nivel['informacion']['cierre']['texto'] ?? __('levels.ib-en-discovery.informacion.cierre.texto') }}
                         </p>
                     </div>
                 </div>
@@ -569,7 +571,7 @@
             <div class="{{ $tema['hero'] }} p-6 md:p-8">
                 <div class="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
                     <div class="max-w-4xl">
-                        <p class="font-semibold uppercase tracking-wide text-sm {{ $tema['heroMuted'] }}">Hoja informativa maquetada</p>
+                        <p class="font-semibold uppercase tracking-wide text-sm {{ $tema['heroMuted'] }}">{{ __('site.pages.level.information_sheet') }}</p>
                         <h2 class="mt-2 text-3xl font-extrabold md:text-4xl">{{ $nivel['informacion']['titulo'] }}</h2>
                         <p class="mt-4 text-lg leading-8 {{ $tema['heroMuted'] }}">{{ $nivel['informacion']['intro'] }}</p>
                     </div>
@@ -581,7 +583,7 @@
                             rel="noopener"
                             class="inline-flex w-fit items-center justify-center rounded px-5 py-3 font-bold {{ $tema['button'] }}"
                         >
-                            Abrir PDF original
+                            {{ __('site.pages.level.open_original_pdf') }}
                         </a>
                     @endif
                 </div>
@@ -590,7 +592,7 @@
             <div class="p-6 md:p-8">
                 <div class="grid gap-8 lg:grid-cols-[1.05fr_.95fr]">
                     <div>
-                        <h3 class="text-2xl font-bold {{ $tema['heading'] }}">Puntos clave</h3>
+                        <h3 class="text-2xl font-bold {{ $tema['heading'] }}">{{ __('site.pages.level.key_points') }}</h3>
                         <div class="mt-5 grid gap-3 sm:grid-cols-2">
                             @foreach ($nivel['informacion']['puntos'] as $punto)
                                 <div class="flex gap-3 rounded-lg border {{ $tema['soft'] }} p-4 text-gray-700">
@@ -604,13 +606,13 @@
                     @if (! empty($nivel['modelo_academico']['url']))
                         <aside class="rounded-xl border border-gray-200 bg-gray-50 p-4">
                             <div class="mb-4">
-                                <p class="text-sm font-bold uppercase tracking-wide {{ $tema['eyebrow'] }}">Modelo académico</p>
+                                <p class="text-sm font-bold uppercase tracking-wide {{ $tema['eyebrow'] }}">{{ __('site.pages.level.academic_model') }}</p>
                                 <h3 class="mt-1 text-2xl font-bold text-black">{{ $nivel['titulo'] }}</h3>
                             </div>
-                            <a href="{{ $nivel['modelo_academico']['url'] }}" class="glightbox block" data-gallery="modelo-academico-{{ $nivel['slug'] }}" data-title="Modelo académico {{ $nivel['titulo'] }}">
+                            <a href="{{ $nivel['modelo_academico']['url'] }}" class="glightbox block" data-gallery="modelo-academico-{{ $nivel['slug'] }}" data-title="{{ __('site.pages.level.academic_model') }} {{ $nivel['titulo'] }}">
                                 <x-imagen-seccion
                                     :imagen="$nivel['modelo_academico']"
-                                    alt="Modelo académico {{ $nivel['titulo'] }}"
+                                    alt="{{ __('site.pages.level.academic_model') }} {{ $nivel['titulo'] }}"
                                     class="max-h-[420px] w-full rounded-lg bg-white object-contain p-3 shadow-sm transition-transform hover:scale-[1.02]"
                                     placeholder-class="min-h-80 w-full"
                                 />
@@ -631,12 +633,12 @@
 
                 @if (! empty($nivel['informacion']['imagenes_referencia']))
                     <div class="mt-10">
-                        <h3 class="text-2xl font-bold {{ $tema['heading'] }}">Imágenes de referencia</h3>
+                        <h3 class="text-2xl font-bold {{ $tema['heading'] }}">{{ __('site.pages.level.reference_images') }}</h3>
                         <div class="mt-5 grid gap-5 md:grid-cols-2">
                             @foreach ($nivel['informacion']['imagenes_referencia'] as $imagenReferencia)
                                 <x-imagen-seccion
                                     :imagen="$imagenReferencia"
-                                    alt="{{ $imagenReferencia['titulo'] ?? 'Imagen pendiente' }}"
+                                    alt="{{ $imagenReferencia['titulo'] ?? __('site.pages.level.image_pending') }}"
                                     class="aspect-[4/3] w-full object-cover"
                                     placeholder-class="aspect-[4/3] w-full"
                                 />
@@ -647,7 +649,7 @@
 
                 @if (! empty($nivel['informacion']['experiencias']))
                     <div class="mt-10 rounded-xl bg-gray-50 p-6">
-                        <h3 class="text-2xl font-bold {{ $tema['heading'] }}">Comunidad y experiencias</h3>
+                        <h3 class="text-2xl font-bold {{ $tema['heading'] }}">{{ __('site.pages.level.community_experiences') }}</h3>
                         <div class="mt-5 flex flex-wrap gap-3">
                             @foreach ($nivel['informacion']['experiencias'] as $experiencia)
                                 <span class="rounded-full bg-white px-4 py-2 text-sm font-bold {{ $tema['chip'] }} shadow-sm">
@@ -665,11 +667,11 @@
         <section class="mt-12">
             <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-6">
                 <div>
-                    <p class="font-semibold uppercase tracking-wide text-sm {{ $tema['eyebrow'] }}">Galería</p>
-                    <h2 class="text-3xl font-bold text-black mt-2">{{ $nivel['titulo'] }} en Discovery®</h2>
+                    <p class="font-semibold uppercase tracking-wide text-sm {{ $tema['eyebrow'] }}">{{ __('site.pages.level.gallery') }}</p>
+                    <h2 class="text-3xl font-bold text-black mt-2">{{ __('site.pages.level.gallery_title', ['level' => $nivel['titulo']]) }}</h2>
                 </div>
                 <p class="text-gray-600 max-w-2xl">
-                    Momentos reales de nuestra comunidad educativa en este nivel.
+                    {{ __('site.pages.level.gallery_text') }}
                 </p>
             </div>
 
@@ -688,9 +690,9 @@
         </section>
     @elseif (! ($nivel['ocultar_galeria'] ?? false))
         <section class="mt-12 bg-white rounded-xl shadow-md p-8">
-            <h2 class="text-2xl font-bold {{ $tema['heading'] }} mb-2">Galería en preparación</h2>
+            <h2 class="text-2xl font-bold {{ $tema['heading'] }} mb-2">{{ __('site.pages.level.gallery_pending') }}</h2>
             <p class="text-gray-600">
-                Pronto agregaremos más imágenes de este nivel educativo.
+                {{ __('site.pages.level.gallery_pending_text') }}
             </p>
         </section>
     @endif

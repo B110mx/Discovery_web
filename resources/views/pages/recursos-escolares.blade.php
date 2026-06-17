@@ -10,39 +10,39 @@
     <div class="overflow-hidden rounded-xl bg-blue-700 text-white shadow-lg">
         <div class="grid gap-8 p-8 md:p-12 lg:grid-cols-[.9fr_1.1fr] lg:items-end">
             <div>
-                <p class="text-sm font-bold uppercase tracking-wide text-blue-50">Recursos escolares</p>
-                <h1 class="mt-3 text-4xl font-extrabold md:text-5xl">Listas de útiles y calendario</h1>
+                <p class="text-sm font-bold uppercase tracking-wide text-blue-50">{{ __('site.pages.resources.eyebrow') }}</p>
+                <h1 class="mt-3 text-4xl font-extrabold md:text-5xl">{{ __('site.pages.resources.title') }}</h1>
                 <p class="mt-5 max-w-3xl text-lg leading-8 text-blue-50">
-                    Encuentra la lista correspondiente por nivel o grado y consulta el calendario escolar vigente.
+                    {{ __('site.pages.resources.text') }}
                 </p>
             </div>
 
             <div class="rounded-xl bg-white p-5 text-black shadow-lg">
-                <p class="text-sm font-bold uppercase tracking-wide text-blue-700">Cómo usarlo</p>
-                <h2 class="mt-2 text-2xl font-extrabold text-black">Encuentra tu PDF</h2>
+                <p class="text-sm font-bold uppercase tracking-wide text-blue-700">{{ __('site.pages.resources.how') }}</p>
+                <h2 class="mt-2 text-2xl font-extrabold text-black">{{ __('site.pages.resources.find_pdf') }}</h2>
                 <div class="mt-4 grid gap-3 text-sm text-gray-700 md:grid-cols-3">
                     <div class="flex gap-2">
                         <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-blue-700 text-xs font-extrabold text-white">1</span>
-                        <p>Elige el nivel educativo.</p>
+                        <p>{{ __('site.pages.resources.steps.0') }}</p>
                     </div>
                     <div class="flex gap-2">
                         <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-red-600 text-xs font-extrabold text-white">2</span>
-                        <p>Ubica el grado correspondiente.</p>
+                        <p>{{ __('site.pages.resources.steps.1') }}</p>
                     </div>
                     <div class="flex gap-2">
                         <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-yellow-500 text-xs font-extrabold text-black">3</span>
-                        <p>Abre el PDF para revisarlo.</p>
+                        <p>{{ __('site.pages.resources.steps.2') }}</p>
                     </div>
                 </div>
                 @if (! empty($listasUtiles))
-                    <div class="mt-5 flex flex-wrap gap-2" role="tablist" aria-label="Filtrar listas por nivel">
+                    <div class="mt-5 flex flex-wrap gap-2" role="tablist" aria-label="{{ __('site.pages.resources.filter_label') }}">
                         <button
                             type="button"
                             data-recursos-filter="todos"
                             class="rounded border border-blue-700 bg-blue-700 px-4 py-2 text-sm font-bold text-white transition"
                             aria-pressed="true"
                         >
-                            Todos
+                            {{ __('site.pages.resources.all') }}
                         </button>
                         @foreach ($listasUtiles as $nivel => $listas)
                             <button
@@ -73,16 +73,16 @@
     <section id="calendario-mensual" class="overflow-hidden rounded-xl bg-white shadow-md">
         <div class="flex flex-col gap-5 border-b border-gray-100 p-6 md:flex-row md:items-end md:justify-between md:p-8">
             <div>
-                <p class="text-sm font-bold uppercase tracking-wide text-red-600">Agenda de la comunidad</p>
-                <h2 class="mt-2 text-3xl font-extrabold text-black">Calendario mensual</h2>
-                <p class="mt-3 text-gray-600">Consulta actividades, reuniones y fechas importantes de cada nivel.</p>
+                <p class="text-sm font-bold uppercase tracking-wide text-red-600">{{ __('site.pages.resources.agenda') }}</p>
+                <h2 class="mt-2 text-3xl font-extrabold text-black">{{ __('site.pages.resources.monthly_calendar') }}</h2>
+                <p class="mt-3 text-gray-600">{{ __('site.pages.resources.calendar_text') }}</p>
             </div>
 
             <div class="flex items-center gap-3">
                 <a
                     href="{{ route('recursos-escolares', ['mes' => $calendarioMensual['previous']]) }}#calendario-mensual"
                     class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-gray-200 bg-white text-xl font-extrabold text-blue-700 transition hover:border-blue-700 hover:bg-blue-50"
-                    aria-label="Ver mes anterior"
+                    aria-label="{{ __('site.pages.resources.previous_month') }}"
                 >&lt;</a>
                 <p class="min-w-40 text-center text-xl font-extrabold capitalize text-blue-700">
                     {{ $calendarioMensual['title'] }}
@@ -90,7 +90,7 @@
                 <a
                     href="{{ route('recursos-escolares', ['mes' => $calendarioMensual['next']]) }}#calendario-mensual"
                     class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-gray-200 bg-white text-xl font-extrabold text-blue-700 transition hover:border-blue-700 hover:bg-blue-50"
-                    aria-label="Ver mes siguiente"
+                    aria-label="{{ __('site.pages.resources.next_month') }}"
                 >&gt;</a>
             </div>
         </div>
@@ -148,9 +148,9 @@
         <section id="listas-recursos" class="rounded-xl bg-white p-6 shadow-md md:p-8">
             <div class="flex flex-col gap-2">
                 <div>
-                    <p class="text-sm font-bold uppercase tracking-wide text-red-600">Listas en PDF</p>
-                    <h2 class="mt-2 text-3xl font-extrabold text-black">Listas por nivel educativo</h2>
-                    <p class="mt-3 text-gray-600">Abre el PDF en una nueva pestaña para consultarlo o descargarlo.</p>
+                    <p class="text-sm font-bold uppercase tracking-wide text-red-600">{{ __('site.pages.resources.lists_pdf') }}</p>
+                    <h2 class="mt-2 text-3xl font-extrabold text-black">{{ __('site.pages.resources.lists_title') }}</h2>
+                    <p class="mt-3 text-gray-600">{{ __('site.pages.resources.lists_text') }}</p>
                 </div>
 
             </div>
@@ -165,7 +165,7 @@
                             <div class="mb-4 flex items-center justify-between gap-4">
                                 <div>
                                     <h3 class="text-xl font-extrabold text-black">{{ $nivel }}</h3>
-                                    <p class="text-sm text-gray-600">{{ count($listas) }} listas disponibles</p>
+                                    <p class="text-sm text-gray-600">{{ __('site.pages.resources.available_lists', ['count' => count($listas)]) }}</p>
                                 </div>
                                 <span class="h-1.5 w-16 rounded-full {{ $loop->iteration % 2 === 0 ? 'bg-red-600' : 'bg-blue-700' }}"></span>
                             </div>
@@ -186,13 +186,13 @@
                                             </span>
                                             @if (! empty($lista['ciclo']))
                                                 <span class="ml-2 inline-flex rounded-full bg-white px-3 py-1 text-xs font-bold text-gray-600 ring-1 ring-gray-200">
-                                                    Ciclo {{ $lista['ciclo'] }}
+                                                    {{ __('site.pages.resources.cycle', ['cycle' => $lista['ciclo']]) }}
                                                 </span>
                                             @endif
                                             <h4 class="mt-4 text-lg font-extrabold leading-snug text-black">{{ $lista['titulo'] }}</h4>
                                         </div>
                                         <span class="mt-5 inline-flex items-center text-sm font-extrabold text-red-600 group-hover:underline">
-                                            Abrir PDF
+                                            {{ __('site.pages.resources.open_pdf') }}
                                         </span>
                                     </a>
                                 @endforeach
@@ -202,11 +202,11 @@
                 </div>
 
                 <div class="mt-8 hidden rounded-lg border border-dashed border-gray-300 p-6 text-center text-gray-600" data-recursos-empty>
-                    No encontramos una lista con ese filtro.
+                    {{ __('site.pages.resources.empty_filter') }}
                 </div>
             @else
                 <div class="mt-8 rounded-lg border border-dashed border-gray-300 p-6 text-gray-600">
-                    Aún no hay listas PDF disponibles.
+                    {{ __('site.pages.resources.empty_lists') }}
                 </div>
             @endif
         </section>
@@ -222,10 +222,10 @@
                     >
                 </div>
                 <div class="p-6 md:p-8">
-                    <p class="text-sm font-bold uppercase tracking-wide text-blue-700">Portal de pagos</p>
-                    <h2 class="mt-2 text-2xl font-extrabold text-black">Acceso a Cometa</h2>
+                    <p class="text-sm font-bold uppercase tracking-wide text-blue-700">{{ __('site.pages.resources.payments') }}</p>
+                    <h2 class="mt-2 text-2xl font-extrabold text-black">{{ __('site.pages.resources.cometa_access') }}</h2>
                     <p class="mt-3 text-sm font-semibold leading-6 text-gray-700">
-                        Para realizar el pedido y pago de los utiles escolares ingresa a:
+                        {{ __('site.pages.resources.cometa_text') }}
                     </p>
                     <a
                         href="https://portal.getcometa.com/"
@@ -233,10 +233,10 @@
                         rel="noopener"
                         class="mt-5 inline-flex rounded bg-red-600 px-5 py-3 text-sm font-extrabold text-white hover:bg-red-700"
                     >
-                        Abrir Cometa
+                        {{ __('site.pages.resources.open_cometa') }}
                     </a>
                     <div class="mt-4 rounded-lg border border-yellow-300 bg-yellow-50 p-4 text-sm font-semibold leading-6 text-yellow-900">
-                        Si eres padre de familia o tutor de nuevo ingreso, comunicate con Cobranza antes de acceder para que puedan habilitarte sin problema.
+                        {{ __('site.pages.resources.cometa_notice') }}
                     </div>
                 </div>
             </section>
@@ -244,8 +244,8 @@
             @if (! empty($calendarioEscolar['url']))
                 <section class="overflow-hidden rounded-xl bg-white shadow-md">
                     <div class="p-6 md:p-8">
-                        <p class="text-sm font-bold uppercase tracking-wide text-blue-700">Calendario 2025-2026</p>
-                        <h2 class="mt-2 text-2xl font-extrabold text-black">Consulta el calendario escolar</h2>
+                        <p class="text-sm font-bold uppercase tracking-wide text-blue-700">{{ __('site.pages.resources.school_calendar') }}</p>
+                        <h2 class="mt-2 text-2xl font-extrabold text-black">{{ __('site.pages.resources.consult_calendar') }}</h2>
                     </div>
                     <a href="{{ $calendarioEscolar['url'] }}" target="_blank" rel="noopener" class="block bg-gray-50 p-3">
                         <img
@@ -257,7 +257,7 @@
                     </a>
                     <div class="px-6 pb-6 md:px-8">
                         <a href="{{ $calendarioEscolar['url'] }}" target="_blank" rel="noopener" class="inline-flex rounded bg-red-600 px-5 py-3 text-sm font-extrabold text-white hover:bg-red-700">
-                            Abrir calendario
+                            {{ __('site.pages.resources.open_calendar') }}
                         </a>
                     </div>
                 </section>

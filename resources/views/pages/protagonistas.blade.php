@@ -6,32 +6,14 @@
 @php
     $imagenesProtagonistas = $comunidad['protagonistas'] ?? [];
 
-    $protagonistas = [
-        'alumnos' => [
-            'titulo' => 'Explorers',
-            'subtitulo' => 'Explorers que aprenden, crean y participan.',
-            'texto' => 'Nuestros Explorers son el centro de la vida escolar. En cada proyecto, clase, presentación y experiencia, desarrollan creatividad, pensamiento crítico y mentalidad internacional.',
-            'puntos' => ['Proyectos interdisciplinarios', 'Arte, deporte y tecnología', 'Acompañamiento académico y emocional'],
-        ],
-        'docentes' => [
-            'titulo' => 'Docentes',
-            'subtitulo' => 'Guías cercanos para cada etapa.',
-            'texto' => 'El equipo docente acompaña a cada Explorer con planeación, escucha y metodologías activas que conectan el aprendizaje con la vida real.',
-            'puntos' => ['Profesores preparados', 'Seguimiento personalizado', 'Comunidad de aprendizaje'],
-        ],
-        'padres' => [
-            'titulo' => 'Padres de familia',
-            'subtitulo' => 'Familias que construyen comunidad.',
-            'texto' => 'La participación de madres, padres y tutores fortalece el crecimiento de los Explorers. Trabajamos en equipo para formar una comunidad cercana, informada y comprometida.',
-            'puntos' => ['Comunicación constante', 'Actividades para familias', 'Acompañamiento en el proceso educativo'],
-        ],
-        'alumni' => [
-            'titulo' => 'Alumni',
-            'subtitulo' => 'Historias que siguen creciendo.',
-            'texto' => 'Nuestros egresados llevan el sello Discovery® a nuevas etapas académicas y profesionales, manteniendo vivo el sentido de pertenencia a la comunidad.',
-            'puntos' => ['Generaciones Discovery®', 'Testimonios de egresados', 'Vínculo con la comunidad escolar'],
-        ],
-    ];
+    $protagonistas = collect(__('site.pages.community.groups'))
+        ->map(fn ($item) => [
+            'titulo' => $item['title'],
+            'subtitulo' => $item['subtitle'],
+            'texto' => $item['text'],
+            'puntos' => $item['points'],
+        ])
+        ->all();
 
     $protagonistas = collect($protagonistas)
         ->map(function ($item, $clave) use ($imagenesProtagonistas) {
@@ -72,13 +54,13 @@
     <div class="overflow-hidden rounded-xl bg-blue-700 text-white shadow-lg">
         <div class="grid lg:grid-cols-[.95fr_1.05fr]">
             <div class="p-8 md:p-12 lg:p-14">
-                <p class="font-semibold uppercase tracking-wide text-sm text-blue-100">{{ $paginaProtagonistas?->subtitulo ?? 'Comunidad Discovery®' }}</p>
-                <h1 class="mt-3 text-4xl md:text-5xl font-extrabold">{{ $paginaProtagonistas?->titulo ?? 'Protagonistas' }}</h1>
+                <p class="font-semibold uppercase tracking-wide text-sm text-blue-100">{{ $paginaProtagonistas?->subtitulo ?? __('site.pages.community.hero_subtitle') }}</p>
+                <h1 class="mt-3 text-4xl md:text-5xl font-extrabold">{{ $paginaProtagonistas?->titulo ?? __('site.pages.community.hero_title') }}</h1>
                 <p class="mt-5 max-w-2xl text-lg leading-8 text-blue-50">
-                    {{ $paginaProtagonistas?->descripcion ?? 'En Discovery® Explorers, padres de familia, docentes y alumni trabajamos en equipo para formar una comunidad de aprendizaje con mentalidad internacional.' }}
+                    {{ $paginaProtagonistas?->descripcion ?? __('site.pages.community.hero_text') }}
                 </p>
                 <a href="#testimonios" class="mt-8 inline-flex w-fit items-center justify-center rounded bg-red-600 px-6 py-3 font-bold text-white hover:bg-red-700">
-                    Ver testimonios
+                    {{ __('site.pages.community.view_testimonials') }}
                 </a>
             </div>
 
@@ -111,11 +93,11 @@
     <section class="rounded-xl bg-white p-6 shadow-md md:p-8" data-protagonistas>
         <div class="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
             <div>
-                <p class="font-semibold uppercase tracking-wide text-sm text-blue-700">Protagonistas</p>
-                <h2 class="mt-2 text-3xl font-bold text-black">Quienes hacen viva nuestra comunidad</h2>
+                <p class="font-semibold uppercase tracking-wide text-sm text-blue-700">{{ __('site.pages.community.section_eyebrow') }}</p>
+                <h2 class="mt-2 text-3xl font-bold text-black">{{ __('site.pages.community.section_title') }}</h2>
             </div>
 
-            <div class="grid grid-cols-2 gap-2 md:flex" role="tablist" aria-label="Grupos de protagonistas">
+            <div class="grid grid-cols-2 gap-2 md:flex" role="tablist" aria-label="{{ __('site.pages.community.tabs_label') }}">
                 @foreach ($protagonistas as $clave => $item)
                     @php
                         $tabColor = $tabColors[$item['color']] ?? $tabColors['bg-blue-700'];
@@ -192,18 +174,18 @@
                         <div class="flex min-w-0 items-center gap-3">
                             <span class="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-blue-700 text-xl font-extrabold text-white">D</span>
                             <div class="min-w-0">
-                                <p class="text-xs font-bold uppercase tracking-wide text-blue-700 sm:text-sm">Mensaje de nuestra fundadora</p>
-                                <p class="mt-1 text-sm font-semibold text-gray-500">Una comunidad que deja huella</p>
+                                <p class="text-xs font-bold uppercase tracking-wide text-blue-700 sm:text-sm">{{ __('site.pages.community.founder_message') }}</p>
+                                <p class="mt-1 text-sm font-semibold text-gray-500">{{ __('site.pages.community.founder_subtitle') }}</p>
                             </div>
                         </div>
                         <blockquote class="mt-8 min-w-0 border-l-4 border-red-600 pl-4 md:pl-5">
-                            <h2 class="break-words text-xl font-extrabold leading-snug text-black sm:text-2xl md:text-3xl">Nos define lo que somos como esencia.</h2>
+                            <h2 class="break-words text-xl font-extrabold leading-snug text-black sm:text-2xl md:text-3xl">{{ __('site.pages.community.founder_quote') }}</h2>
                             <div class="mt-5 space-y-4 text-base leading-8 text-gray-700">
                                 <p class="break-words">
-                                    En Discovery® nuestros grupos reducidos aseguran una atención personalizada, fundamental para el desarrollo de las facultades de cada Explorer y para la adquisición de hábitos.
+                                    {{ __('site.pages.community.founder_text_1') }}
                                 </p>
                                 <p class="break-words">
-                                    Somos una institución bilingüe con programas de inglés impartidos por profesores internacionales y una comunidad que aprende de forma natural, cercana y sana.
+                                    {{ __('site.pages.community.founder_text_2') }}
                                 </p>
                             </div>
                         </blockquote>
@@ -212,23 +194,23 @@
                     <div class="mt-8 grid gap-3 sm:grid-cols-2">
                         <div class="rounded-lg bg-blue-50 p-4">
                             <span class="inline-flex h-1.5 w-10 rounded-full bg-blue-700"></span>
-                            <p class="mt-3 text-sm font-extrabold uppercase text-blue-800">Acompañamiento</p>
-                            <p class="mt-1 text-sm leading-6 text-gray-600">Cercanía en cada etapa escolar.</p>
+                            <p class="mt-3 text-sm font-extrabold uppercase text-blue-800">{{ __('site.pages.community.guidance') }}</p>
+                            <p class="mt-1 text-sm leading-6 text-gray-600">{{ __('site.pages.community.guidance_text') }}</p>
                         </div>
                         <div class="rounded-lg bg-red-50 p-4">
                             <span class="inline-flex h-1.5 w-10 rounded-full bg-red-600"></span>
-                            <p class="mt-3 text-sm font-extrabold uppercase text-red-700">Alumni</p>
-                            <p class="mt-1 text-sm leading-6 text-gray-600">Historias que siguen creciendo.</p>
+                            <p class="mt-3 text-sm font-extrabold uppercase text-red-700">{{ __('site.pages.community.alumni') }}</p>
+                            <p class="mt-1 text-sm leading-6 text-gray-600">{{ __('site.pages.community.alumni_text') }}</p>
                         </div>
                     </div>
                 </div>
             </div>
 
             <div class="flex min-w-0 flex-col bg-blue-700 p-4 text-white md:p-8">
-                <p class="font-semibold uppercase tracking-wide text-sm text-blue-100">Videos testimoniales</p>
-                <h2 class="mt-2 text-3xl font-extrabold md:text-4xl">Historias Discovery®</h2>
+                <p class="font-semibold uppercase tracking-wide text-sm text-blue-100">{{ __('site.pages.community.videos_eyebrow') }}</p>
+                <h2 class="mt-2 text-3xl font-extrabold md:text-4xl">{{ __('site.pages.community.videos_title') }}</h2>
                 <p class="mt-4 max-w-2xl leading-8 text-blue-50">
-                    Alumni y familias comparten lo que significa crecer dentro de nuestra comunidad.
+                    {{ __('site.pages.community.videos_text') }}
                 </p>
 
                 @if (! empty($testimonios))
@@ -238,7 +220,7 @@
                                 type="button"
                                 data-community-video-prev
                                 class="hidden absolute -left-12 top-1/2 z-10 h-10 w-10 -translate-y-1/2 rounded-full bg-white font-bold text-blue-700 shadow-lg transition hover:bg-blue-50 md:block"
-                                aria-label="Video anterior"
+                                aria-label="{{ __('site.pages.community.previous_video') }}"
                             >
                                 &lt;
                             </button>
@@ -260,7 +242,7 @@
                                                         type="button"
                                                         class="absolute inset-0 flex items-center justify-center bg-white p-10 transition-opacity"
                                                         data-community-video-poster
-                                                        aria-label="Reproducir {{ $video['titulo'] }}"
+                                                        aria-label="{{ __('site.pages.community.play_video', ['title' => $video['titulo']]) }}"
                                                     >
                                                         <img
                                                             src="{{ url('/media/Logos%20principales/' . rawurlencode('LOGO DISCOVERY PNG.png')) }}"
@@ -284,7 +266,7 @@
                                 type="button"
                                 data-community-video-next
                                 class="hidden absolute -right-12 top-1/2 z-10 h-10 w-10 -translate-y-1/2 rounded-full bg-red-600 font-bold text-white shadow-lg transition hover:bg-red-700 md:block"
-                                aria-label="Video siguiente"
+                                aria-label="{{ __('site.pages.community.next_video') }}"
                             >
                                 &gt;
                             </button>
@@ -295,7 +277,7 @@
                                 type="button"
                                 data-community-video-prev
                                 class="h-10 w-10 rounded-full bg-white font-bold text-blue-700 shadow-lg transition hover:bg-blue-50"
-                                aria-label="Video anterior"
+                                aria-label="{{ __('site.pages.community.previous_video') }}"
                             >
                                 &lt;
                             </button>
@@ -303,7 +285,7 @@
                                 type="button"
                                 data-community-video-next
                                 class="h-10 w-10 rounded-full bg-red-600 font-bold text-white shadow-lg transition hover:bg-red-700"
-                                aria-label="Video siguiente"
+                                aria-label="{{ __('site.pages.community.next_video') }}"
                             >
                                 &gt;
                             </button>
@@ -311,7 +293,7 @@
                     </div>
                 @else
                     <div class="mt-8 rounded-lg border border-dashed border-white/40 p-6 text-blue-50">
-                        Pronto agregaremos videos testimoniales.
+                        {{ __('site.pages.community.empty_videos') }}
                     </div>
                 @endif
             </div>

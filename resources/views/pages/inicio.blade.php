@@ -5,29 +5,29 @@
 <section class="mx-auto max-w-6xl rounded-2xl bg-blue-700 px-6 py-8 text-white shadow-xl md:px-10 md:py-10 animate-on-scroll">
     <div class="grid items-center gap-8 lg:grid-cols-[1fr_auto]">
         <div>
-            <p class="text-sm font-bold uppercase tracking-[0.2em] text-blue-100">Una comunidad para crecer juntos</p>
+            <p class="text-sm font-bold uppercase tracking-[0.2em] text-blue-100">{{ __('site.pages.home.eyebrow') }}</p>
             <h1 class="mt-3 max-w-4xl text-3xl font-extrabold leading-tight md:text-4xl">
-                El lugar donde tus hijos pueden descubrir quiénes son y todo lo que pueden llegar a ser.
+                {{ __('site.pages.home.hero_title') }}
             </h1>
             <p class="mt-4 max-w-3xl text-lg leading-8 text-blue-50">
-                {{ config('experiencia.promesa') }}
+                {{ __('site.pages.home.promise') }}
             </p>
         </div>
 
         <div class="flex flex-col gap-3 sm:flex-row lg:flex-col">
             <a href="{{ route(config('experiencia.cta_principal.route')) }}" class="inline-flex items-center justify-center rounded-lg bg-red-600 px-7 py-3.5 font-extrabold text-white shadow-md transition hover:bg-red-700">
-                {{ config('experiencia.cta_principal.texto') }}
+                {{ __('site.cta.visit') }}
             </a>
             <a href="{{ route('oferta-academica') }}" class="inline-flex items-center justify-center rounded-lg border-2 border-white px-7 py-3 font-extrabold text-white transition hover:bg-white hover:text-blue-700">
-                Conoce nuestra propuesta
+                {{ __('site.pages.home.proposal') }}
             </a>
         </div>
     </div>
 
     <div class="mt-8 grid gap-3 border-t border-white/20 pt-6 text-sm font-semibold sm:grid-cols-3">
-        <p>Acompañamiento cercano en cada etapa</p>
-        <p>Formación con visión internacional</p>
-        <p>Una comunidad para toda la familia</p>
+        @foreach (__('site.pages.home.pillars') as $pillar)
+            <p>{{ $pillar }}</p>
+        @endforeach
     </div>
 </section>
 
@@ -64,7 +64,7 @@
                     <button
                         type="button"
                         class="h-3 w-3 rounded-full bg-white/70 shadow"
-                        aria-label="Ir al banner {{ $loop->iteration }}"
+                        aria-label="{{ __('site.pages.home.banner_dot', ['number' => $loop->iteration]) }}"
                         data-home-hero-dot="{{ $loop->index }}"
                     ></button>
                 @endforeach
@@ -74,14 +74,25 @@
 @endif
 
 
+@push('inicio-eventos')
 @if (! empty($eventos))
+    @php
+        $eventLevelStyles = [
+            'general' => 'bg-slate-100 text-slate-800',
+            'preescolar' => 'bg-lime-100 text-lime-900',
+            'primaria' => 'bg-red-100 text-red-900',
+            'secundaria' => 'bg-blue-100 text-blue-900',
+            'bachillerato' => 'bg-green-100 text-green-900',
+        ];
+    @endphp
+
     <section class="mt-16 overflow-hidden rounded-xl bg-white shadow-lg animate-on-scroll">
         <div class="grid lg:grid-cols-[.85fr_1.15fr]">
             <div class="bg-blue-700 p-8 text-white md:p-10">
-                <p class="font-semibold uppercase tracking-wide text-sm text-blue-100">La vida en Discovery®</p>
-                <h2 class="mt-3 text-4xl font-extrabold">Momentos que compartimos en familia</h2>
+                <p class="font-semibold uppercase tracking-wide text-sm text-blue-100">{{ __('site.pages.home.life_eyebrow') }}</p>
+                <h2 class="mt-3 text-4xl font-extrabold">{{ __('site.pages.home.life_title') }}</h2>
                 <p class="mt-5 leading-8 text-blue-50">
-                    Conoce las actividades que acercan a Explorers, docentes y familias, y que hacen de cada ciclo una experiencia compartida.
+                    {{ __('site.pages.home.life_text') }}
                 </p>
 
                 <div class="mt-8 flex items-center gap-3">
@@ -89,7 +100,7 @@
                         type="button"
                         data-event-prev
                         class="h-11 w-11 rounded-full bg-white text-2xl font-bold text-blue-700 shadow hover:bg-blue-50"
-                        aria-label="Evento anterior"
+                        aria-label="{{ __('site.pages.home.event_previous') }}"
                     >
                         &lt;
                     </button>
@@ -97,7 +108,7 @@
                         type="button"
                         data-event-next
                         class="h-11 w-11 rounded-full bg-red-600 text-2xl font-bold text-white shadow hover:bg-red-700"
-                        aria-label="Evento siguiente"
+                        aria-label="{{ __('site.pages.home.event_next') }}"
                     >
                         &gt;
                     </button>
@@ -108,14 +119,14 @@
                         <button
                             type="button"
                             class="h-3 w-3 rounded-full bg-white/60"
-                            aria-label="Ir al evento {{ $loop->iteration }}"
+                            aria-label="{{ __('site.pages.home.event_dot', ['number' => $loop->iteration]) }}"
                             data-event-dot="{{ $loop->index }}"
                         ></button>
                     @endforeach
                 </div>
 
                 <a href="{{ route('recursos-escolares') }}" class="mt-8 inline-flex font-extrabold text-white underline decoration-red-400 decoration-4 underline-offset-4 hover:text-blue-100">
-                    Ver recursos escolares
+                    {{ __('site.pages.home.view_resources') }}
                 </a>
             </div>
 
@@ -135,7 +146,12 @@
                                     </div>
 
                                     <div class="flex flex-col justify-center p-6 md:p-8">
-                                        <p class="text-sm font-bold uppercase tracking-wide text-red-600">Evento próximo</p>
+                                        <div class="flex flex-wrap items-center gap-2">
+                                            <p class="text-sm font-bold uppercase tracking-wide text-red-600">{{ __('site.pages.home.event_label') }}</p>
+                                            <span class="rounded-full px-3 py-1 text-xs font-extrabold uppercase {{ $eventLevelStyles[$evento['nivel'] ?? 'general'] ?? $eventLevelStyles['general'] }}">
+                                                {{ $evento['nivel_etiqueta'] ?? 'Toda la comunidad' }}
+                                            </span>
+                                        </div>
                                         <h3 class="mt-3 text-3xl font-extrabold text-blue-700">{{ $evento['titulo'] }}</h3>
                                         <p class="mt-4 leading-8 text-gray-600">{{ $evento['descripcion'] }}</p>
                                     </div>
@@ -148,7 +164,9 @@
         </div>
     </section>
 @endif
+@endpush
 
+@push('inicio-proximas-fechas')
 @if (! empty($proximasFechas))
     @php
         $upcomingStyles = [
@@ -163,15 +181,15 @@
     <section class="mt-12 rounded-2xl bg-white p-6 shadow-md md:p-8 animate-on-scroll">
         <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
             <div>
-                <p class="text-sm font-bold uppercase tracking-[0.18em] text-red-600">Para tenerlo presente</p>
-                <h2 class="mt-2 text-3xl font-extrabold text-blue-700">Próximas fechas en Discovery®</h2>
-                <p class="mt-3 text-gray-600">Actividades y momentos importantes para acompañar la vida escolar de tus hijos.</p>
+                <p class="text-sm font-bold uppercase tracking-[0.18em] text-red-600">{{ __('site.pages.home.upcoming_eyebrow') }}</p>
+                <h2 class="mt-2 text-3xl font-extrabold text-blue-700">{{ __('site.pages.home.upcoming_title') }}</h2>
+                <p class="mt-3 text-gray-600">{{ __('site.pages.home.upcoming_text') }}</p>
             </div>
             <a
                 href="{{ route('recursos-escolares', ['mes' => substr($proximasFechas[0]['date'], 0, 7)]) }}#calendario-mensual"
                 class="inline-flex shrink-0 items-center justify-center rounded-lg bg-blue-700 px-6 py-3 font-extrabold text-white transition hover:bg-blue-800"
             >
-                Ver calendario mensual
+                {{ __('site.pages.home.view_calendar') }}
             </a>
         </div>
 
@@ -191,6 +209,7 @@
         </div>
     </section>
 @endif
+@endpush
 
 @php
     $nivelEstilos = [
@@ -203,9 +222,9 @@
 
 <section class="mt-16 rounded-2xl bg-white px-6 py-12 shadow-md md:px-10">
     <div class="mx-auto mb-10 max-w-3xl text-center animate-on-scroll">
-        <p class="text-sm font-bold uppercase tracking-[0.2em] text-sky-600">Una etapa, un acompañamiento</p>
-        <h2 class="mt-3 text-3xl font-extrabold text-blue-700 md:text-4xl">Encuentra el espacio que acompaña lo que tus hijos necesitan hoy</h2>
-        <p class="mt-4 text-lg leading-8 text-gray-600">Cada etapa tiene sus propios retos. En Discovery® crecemos junto a tu familia con atención cercana y experiencias que preparan para el siguiente paso.</p>
+        <p class="text-sm font-bold uppercase tracking-[0.2em] text-sky-600">{{ __('site.pages.home.levels_eyebrow') }}</p>
+        <h2 class="mt-3 text-3xl font-extrabold text-blue-700 md:text-4xl">{{ __('site.pages.home.levels_title') }}</h2>
+        <p class="mt-4 text-lg leading-8 text-gray-600">{{ __('site.pages.home.levels_text') }}</p>
     </div>
 
     <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
@@ -222,7 +241,7 @@
                 <h3 class="mt-2 text-center text-2xl font-extrabold text-gray-900">{{ $nivel['titulo'] }}</h3>
                 <p class="mt-5 flex-1 leading-7 text-gray-600">{{ $nivel['descripcion'] }}</p>
                 <a href="{{ route('nivel', $slug) }}" class="mt-7 inline-flex items-center justify-center rounded-lg px-5 py-3 text-center font-bold text-white transition {{ $estilo['button'] }}">
-                    Conoce esta etapa
+                    {{ __('site.pages.home.level_cta') }}
                 </a>
             </article>
         @endforeach
@@ -245,7 +264,7 @@
             {{ $paginaInicio?->descripcion ?? 'Sabemos que elegir colegio es elegir quién acompañará a tus hijos mientras crecen. En Discovery® unimos formación académica, bienestar y una comunidad cercana para que cada Explorer avance con confianza y cada familia se sienta parte del camino.' }}
         </p>
         <a href="{{ route('nosotros') }}" class="mt-7 inline-flex font-extrabold text-blue-700 underline decoration-red-500 decoration-4 underline-offset-4 hover:text-blue-900">
-            Conoce lo que nos une
+            {{ __('site.pages.home.about_cta') }}
         </a>
     </div>
 
@@ -261,31 +280,29 @@
 
 <section class="mt-20 overflow-hidden rounded-2xl bg-gradient-to-br from-blue-700 to-blue-900 px-6 py-12 text-white shadow-xl md:px-12 animate-on-scroll">
     <div class="mx-auto max-w-4xl text-center">
-        <p class="text-sm font-bold uppercase tracking-[0.2em] text-blue-100">Aquí también hay un lugar para ustedes</p>
-        <h2 class="mt-3 text-3xl font-extrabold md:text-4xl">{{ config('experiencia.pertenencia') }}</h2>
+        <p class="text-sm font-bold uppercase tracking-[0.2em] text-blue-100">{{ __('site.pages.home.belong_eyebrow') }}</p>
+        <h2 class="mt-3 text-3xl font-extrabold md:text-4xl">{{ __('site.pages.home.belong_title') }}</h2>
     </div>
     <div class="mt-10 grid gap-5 md:grid-cols-3">
-        <article class="rounded-xl bg-white/10 p-6 backdrop-blur-sm">
-            <h3 class="text-xl font-extrabold">Conocemos a cada Explorer</h3>
-            <p class="mt-3 leading-7 text-blue-50">Escuchamos, acompañamos y reconocemos el ritmo, los talentos y las necesidades de tus hijos.</p>
-        </article>
-        <article class="rounded-xl bg-white/10 p-6 backdrop-blur-sm">
-            <h3 class="text-xl font-extrabold">Crecemos junto a las familias</h3>
-            <p class="mt-3 leading-7 text-blue-50">La comunicación cercana permite construir confianza y compartir cada logro importante.</p>
-        </article>
-        <article class="rounded-xl bg-white/10 p-6 backdrop-blur-sm">
-            <h3 class="text-xl font-extrabold">Aprendemos como comunidad</h3>
-            <p class="mt-3 leading-7 text-blue-50">Explorers, docentes y familias hacemos del colegio un espacio donde pertenecer y participar.</p>
-        </article>
+        @foreach (__('site.pages.home.belong_cards') as $card)
+            <article class="rounded-xl bg-white/10 p-6 backdrop-blur-sm">
+                <h3 class="text-xl font-extrabold">{{ $card['title'] }}</h3>
+                <p class="mt-3 leading-7 text-blue-50">{{ $card['text'] }}</p>
+            </article>
+        @endforeach
     </div>
 </section>
+
+@stack('inicio-proximas-fechas')
+
+@stack('inicio-eventos')
 
 @if (! empty($testimonios))
     <section class="mt-20 bg-white rounded-xl shadow-md p-6 md:p-8 animate-on-scroll">
         <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-6">
             <div>
-                <p class="font-semibold uppercase tracking-wide text-sm text-blue-700">Voces de nuestra comunidad</p>
-                <h2 class="text-3xl font-bold text-black mt-2">Historias que muestran lo que significa crecer en Discovery®</h2>
+                <p class="font-semibold uppercase tracking-wide text-sm text-blue-700">{{ __('site.pages.home.voices_eyebrow') }}</p>
+                <h2 class="text-3xl font-bold text-black mt-2">{{ __('site.pages.home.voices_title') }}</h2>
             </div>
 
             <div class="flex gap-3">
@@ -293,7 +310,7 @@
                     type="button"
                     data-video-prev
                     class="h-11 w-11 rounded-full bg-gray-100 text-blue-700 font-bold hover:bg-blue-100"
-                    aria-label="Video anterior"
+                    aria-label="{{ __('site.pages.home.video_previous') }}"
                 >
                     &lt;
                 </button>
@@ -301,7 +318,7 @@
                     type="button"
                     data-video-next
                     class="h-11 w-11 rounded-full bg-blue-700 text-white font-bold hover:bg-blue-800"
-                    aria-label="Video siguiente"
+                    aria-label="{{ __('site.pages.home.video_next') }}"
                 >
                     &gt;
                 </button>
@@ -324,7 +341,7 @@
                                 type="button"
                                 class="absolute inset-0 flex items-center justify-center bg-white p-8 transition-opacity"
                                 data-home-video-poster
-                                aria-label="Reproducir {{ $video['titulo'] }}"
+                                aria-label="{{ __('site.pages.home.video_play', ['title' => $video['titulo']]) }}"
                             >
                                 <img
                                     src="{{ url('/media/Logos%20principales/' . rawurlencode('LOGO DISCOVERY PNG.png')) }}"
@@ -345,7 +362,7 @@
                 <button
                     type="button"
                     class="h-3 w-3 rounded-full bg-gray-300"
-                    aria-label="Ir al video {{ $loop->iteration }}"
+                    aria-label="{{ __('site.pages.home.video_dot', ['number' => $loop->iteration]) }}"
                     data-video-dot="{{ $loop->index }}"
                 ></button>
             @endforeach
@@ -354,14 +371,14 @@
 @endif
 
 <section class="mt-20 rounded-2xl bg-red-600 px-6 py-10 text-center text-white shadow-xl md:px-12 animate-on-scroll">
-    <p class="text-sm font-bold uppercase tracking-[0.2em] text-red-100">El siguiente paso puede comenzar aquí</p>
-    <h2 class="mx-auto mt-3 max-w-3xl text-3xl font-extrabold md:text-4xl">Ven a conocer el lugar donde tus hijos pueden crecer con confianza y tu familia puede sentirse parte.</h2>
+    <p class="text-sm font-bold uppercase tracking-[0.2em] text-red-100">{{ __('site.pages.home.final_eyebrow') }}</p>
+    <h2 class="mx-auto mt-3 max-w-3xl text-3xl font-extrabold md:text-4xl">{{ __('site.pages.home.final_title') }}</h2>
     <div class="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
         <a href="{{ route(config('experiencia.cta_principal.route')) }}" class="inline-flex items-center justify-center rounded-lg bg-white px-7 py-3.5 font-extrabold text-red-600 shadow transition hover:bg-red-50">
-            {{ config('experiencia.cta_principal.texto') }}
+            {{ __('site.cta.visit') }}
         </a>
         <a href="{{ route('nosotros') }}" class="inline-flex items-center justify-center rounded-lg border-2 border-white px-7 py-3 font-extrabold text-white transition hover:bg-white hover:text-red-600">
-            Conoce nuestra comunidad
+            {{ __('site.pages.home.community_cta') }}
         </a>
     </div>
 </section>

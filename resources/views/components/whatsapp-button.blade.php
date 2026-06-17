@@ -1,8 +1,9 @@
 @props([
-    'label' => 'Atencion a clientes',
+    'label' => null,
 ])
 
 @php
+    $label = $label ?? __('site.whatsapp.label');
     $numeroVisible = config('colegio.contacto.whatsapp_numero');
     $numero = preg_replace('/\D+/', '', $numeroVisible);
     $mensaje = rawurlencode(config('colegio.contacto.whatsapp_mensaje'));
@@ -23,7 +24,7 @@
 
             <div class="space-y-3 p-4">
                 <p class="text-sm leading-6 text-gray-600">
-                    Escríbenos y con gusto te orientamos sobre informes, admisiones o ubicación.
+                    {{ __('site.whatsapp.body') }}
                 </p>
                 <a
                     href="{{ $url }}"
@@ -31,7 +32,7 @@
                     rel="noopener noreferrer"
                     class="flex items-center justify-between rounded-lg bg-green-600 px-4 py-3 font-bold text-white hover:bg-green-700"
                 >
-                    Abrir chat
+                    {{ __('site.whatsapp.open_chat') }}
                     <span aria-hidden="true">→</span>
                 </a>
                 <a href="{{ $telefonoUrl }}" class="block rounded-lg border border-gray-200 px-4 py-3 text-sm font-bold text-gray-800 hover:bg-gray-50">
@@ -46,7 +47,7 @@
         target="_blank"
         rel="noopener noreferrer"
         class="flex h-16 w-16 items-center justify-center rounded-full bg-green-600 text-xl font-black text-white shadow-2xl ring-4 ring-white transition duration-200 hover:scale-105 hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-200"
-        aria-label="Abrir WhatsApp de {{ $label }}"
+        aria-label="{{ __('site.whatsapp.open_label', ['label' => $label]) }}"
     >
         <span class="sr-only">{{ $label }}</span>
         <svg class="h-8 w-8 text-white" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">

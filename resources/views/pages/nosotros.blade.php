@@ -37,12 +37,7 @@
         ],
     ];
 
-    $areas = [
-        'Área bilingüe',
-        'Área de matemáticas',
-        'Área de tecnologías',
-        'Área de comprensión lectora',
-    ];
+    $areas = __('site.pages.about.areas');
 
     $historia = $historiaNosotros;
 @endphp
@@ -52,14 +47,14 @@
     <div class="bg-white rounded-xl overflow-hidden shadow-lg">
         <div class="grid lg:grid-cols-2">
             <div class="p-8 md:p-12 flex flex-col justify-center">
-                <p class="font-semibold uppercase tracking-wide text-sm text-blue-700">{{ $paginaNosotros?->subtitulo ?? 'Conócenos' }}</p>
-                <h1 class="text-4xl md:text-5xl font-bold mt-3 text-black">{{ $paginaNosotros?->titulo ?? 'Colegio Discovery®' }}</h1>
+                <p class="font-semibold uppercase tracking-wide text-sm text-blue-700">{{ $paginaNosotros?->subtitulo ?? __('site.pages.about.hero_subtitle') }}</p>
+                <h1 class="text-4xl md:text-5xl font-bold mt-3 text-black">{{ $paginaNosotros?->titulo ?? __('site.pages.about.hero_title') }}</h1>
                 <p class="text-gray-600 text-lg mt-5 max-w-xl">
-                    {{ $paginaNosotros?->descripcion ?? 'Una comunidad educativa que acompaña a cada Explorer en su crecimiento académico, humano y social.' }}
+                    {{ $paginaNosotros?->descripcion ?? __('site.pages.about.hero_text') }}
                 </p>
                 <div class="mt-8">
                     <a href="#historia" class="bg-blue-700 text-white px-6 py-3 rounded font-semibold hover:bg-blue-800 transition-colors">
-                        Ver historia
+                        {{ __('site.pages.about.view_history') }}
                     </a>
                 </div>
             </div>
@@ -75,35 +70,35 @@
     <div class="grid items-start gap-8 lg:grid-cols-5">
         <section class="flex flex-col rounded-xl bg-white p-8 shadow-md lg:col-span-3">
             <div>
-                <p class="font-semibold uppercase tracking-wide text-sm text-blue-700">Bienvenidos</p>
-                <h2 class="text-3xl font-bold text-black mt-2">Una comunidad que forma para trascender</h2>
+                <p class="font-semibold uppercase tracking-wide text-sm text-blue-700">{{ __('site.pages.about.welcome') }}</p>
+                <h2 class="text-3xl font-bold text-black mt-2">{{ __('site.pages.about.community_title') }}</h2>
                 <p class="text-gray-700 leading-7 mt-5">
-                    En Discovery® formamos en valores, actitudes y virtudes que impactan en el crecimiento personal y social del individuo.
+                    {{ __('site.pages.about.community_text_1') }}
                 </p>
                 <p class="text-gray-700 leading-7 mt-4">
-                    Nuestros Explorers desarrollan herramientas para participar responsablemente y aportar a un mundo mejor.
+                    {{ __('site.pages.about.community_text_2') }}
                 </p>
             </div>
 
             <div class="mt-8 grid gap-3 border-t border-gray-100 pt-6 sm:grid-cols-3">
                 <div class="rounded-xl bg-blue-50 p-4 text-center text-blue-800">
-                    <span class="block text-sm font-extrabold uppercase tracking-wide">Valores</span>
-                    <span class="mt-1 block text-xs font-semibold text-blue-600">Para convivir</span>
+                    <span class="block text-sm font-extrabold uppercase tracking-wide">{{ __('site.pages.about.values') }}</span>
+                    <span class="mt-1 block text-xs font-semibold text-blue-600">{{ __('site.pages.about.values_caption') }}</span>
                 </div>
                 <div class="rounded-xl bg-red-50 p-4 text-center text-red-800">
-                    <span class="block text-sm font-extrabold uppercase tracking-wide">Actitudes</span>
-                    <span class="mt-1 block text-xs font-semibold text-red-600">Para participar</span>
+                    <span class="block text-sm font-extrabold uppercase tracking-wide">{{ __('site.pages.about.attitudes') }}</span>
+                    <span class="mt-1 block text-xs font-semibold text-red-600">{{ __('site.pages.about.attitudes_caption') }}</span>
                 </div>
                 <div class="rounded-xl bg-green-50 p-4 text-center text-green-800">
-                    <span class="block text-sm font-extrabold uppercase tracking-wide">Virtudes</span>
-                    <span class="mt-1 block text-xs font-semibold text-green-600">Para trascender</span>
+                    <span class="block text-sm font-extrabold uppercase tracking-wide">{{ __('site.pages.about.virtues') }}</span>
+                    <span class="mt-1 block text-xs font-semibold text-green-600">{{ __('site.pages.about.virtues_caption') }}</span>
                 </div>
             </div>
         </section>
 
         <aside class="lg:col-span-2 rounded-xl bg-white p-6 shadow-md md:p-8">
-            <p class="text-sm font-bold uppercase tracking-wide text-blue-700">Validez oficial</p>
-            <h3 class="mt-2 text-2xl font-bold text-gray-950">Incorporados a la SEP</h3>
+            <p class="text-sm font-bold uppercase tracking-wide text-blue-700">{{ __('site.pages.about.official') }}</p>
+            <h3 class="mt-2 text-2xl font-bold text-gray-950">{{ __('site.pages.about.sep') }}</h3>
             <ul class="mt-6 space-y-3">
                 @foreach ($incorporaciones as $incorporacion)
                     <li class="rounded-xl border p-4 {{ $incorporacion['color'] }}">
@@ -114,7 +109,7 @@
                             <strong class="text-base">{{ $incorporacion['clave'] }}</strong>
                         </div>
                         <p class="mt-2 text-sm font-semibold leading-6">
-                            {{ $incorporacion['nivel'] }}: {{ $incorporacion['clave'] }} - Colegio Discovery Nuevo Millenium
+                            {{ $incorporacion['nivel'] }}: {{ $incorporacion['clave'] }} - {{ __('site.pages.about.sep_school') }}
                         </p>
                     </li>
                 @endforeach
@@ -133,10 +128,10 @@
                 />
             </a>
             <div class="p-8 md:p-10">
-                <p class="font-semibold uppercase tracking-wide text-sm text-blue-700">Modelo Educativo</p>
-                <h2 class="text-3xl font-bold text-black mt-2">Planeación estratégica para el futuro</h2>
+                <p class="font-semibold uppercase tracking-wide text-sm text-blue-700">{{ __('site.pages.about.model') }}</p>
+                <h2 class="text-3xl font-bold text-black mt-2">{{ __('site.pages.about.planning_title') }}</h2>
                 <p class="text-gray-700 leading-7 mt-5">
-                    Trabajamos con una planeación que enfoca los recursos en las necesidades futuras de nuestros Explorers.
+                    {{ __('site.pages.about.planning_text') }}
                 </p>
                 <div class="grid sm:grid-cols-2 gap-4 mt-7">
                     @foreach ($areas as $area)
@@ -149,44 +144,38 @@
 
     <section class="grid md:grid-cols-2 gap-8">
         <div class="bg-blue-700 text-white rounded-xl shadow-md p-8">
-            <p class="font-semibold uppercase tracking-wide text-sm text-blue-100">Misión</p>
-            <h2 class="text-3xl font-bold mt-3">Contribuir a la formación de Explorers que trascienden en un mundo globalizado.</h2>
+            <p class="font-semibold uppercase tracking-wide text-sm text-blue-100">{{ __('site.pages.about.mission') }}</p>
+            <h2 class="text-3xl font-bold mt-3">{{ __('site.pages.about.mission_text') }}</h2>
         </div>
         <div class="bg-green-500 text-white rounded-xl shadow-md p-8">
-            <p class="font-semibold uppercase tracking-wide text-sm text-green-50">Visión</p>
-            <h2 class="text-3xl font-bold mt-3">Ser una comunidad unida que empodera agentes de cambio que contribuyen a un mundo mejor.</h2>
+            <p class="font-semibold uppercase tracking-wide text-sm text-green-50">{{ __('site.pages.about.vision') }}</p>
+            <h2 class="text-3xl font-bold mt-3">{{ __('site.pages.about.vision_text') }}</h2>
         </div>
     </section>
 
     <section class="bg-white rounded-xl shadow-md overflow-hidden">
         <div class="grid lg:grid-cols-[.95fr_1.05fr]">
             <div class="p-8 md:p-10 flex flex-col justify-center">
-                <p class="font-semibold uppercase tracking-wide text-sm text-blue-700">Proyección académica</p>
-                <h2 class="text-3xl md:text-4xl font-bold text-black mt-2">Vinculación Universitaria</h2>
+                <p class="font-semibold uppercase tracking-wide text-sm text-blue-700">{{ __('site.pages.about.academic_projection') }}</p>
+                <h2 class="text-3xl md:text-4xl font-bold text-black mt-2">{{ __('site.pages.about.university_title') }}</h2>
                 <p class="text-gray-700 leading-8 mt-5">
-                    Acompañamos a nuestros Explorers en la construcción de su proyecto de vida, acercándolos a opciones universitarias, experiencias de orientación vocacional y herramientas para tomar decisiones informadas sobre su futuro.
+                    {{ __('site.pages.about.university_text') }}
                 </p>
 
                 <div class="mt-6 flex items-center gap-4 rounded-xl border border-yellow-200 bg-yellow-50 p-5">
                     <span class="shrink-0 text-3xl font-extrabold text-yellow-600">+70%</span>
                     <p class="font-semibold leading-6 text-gray-800">
-                        Más del 70% de nuestros alumni obtiene becas en universidades de México y el extranjero.
+                        {{ __('site.pages.about.scholarships') }}
                     </p>
                 </div>
 
                 <div class="grid sm:grid-cols-3 gap-3 mt-7">
-                    <div class="rounded-lg border border-blue-100 bg-blue-50 p-4">
-                        <span class="block text-2xl font-extrabold text-blue-700">01</span>
-                        <p class="mt-2 text-sm font-semibold leading-6 text-blue-900">Orientación para elegir camino profesional</p>
-                    </div>
-                    <div class="rounded-lg border border-green-100 bg-green-50 p-4">
-                        <span class="block text-2xl font-extrabold text-green-600">02</span>
-                        <p class="mt-2 text-sm font-semibold leading-6 text-green-900">Acercamiento con instituciones universitarias</p>
-                    </div>
-                    <div class="rounded-lg border border-red-100 bg-red-50 p-4">
-                        <span class="block text-2xl font-extrabold text-red-600">03</span>
-                        <p class="mt-2 text-sm font-semibold leading-6 text-red-900">Preparación para nuevas etapas académicas</p>
-                    </div>
+                    @foreach (__('site.pages.about.university_steps') as $step)
+                        <div class="rounded-lg border {{ ['border-blue-100 bg-blue-50 text-blue-900', 'border-green-100 bg-green-50 text-green-900', 'border-red-100 bg-red-50 text-red-900'][$loop->index] }} p-4">
+                            <span class="block text-2xl font-extrabold {{ ['text-blue-700', 'text-green-600', 'text-red-600'][$loop->index] }}">0{{ $loop->iteration }}</span>
+                            <p class="mt-2 text-sm font-semibold leading-6">{{ $step }}</p>
+                        </div>
+                    @endforeach
                 </div>
             </div>
 
@@ -209,10 +198,10 @@
 
     <section id="historia" class="bg-white rounded-xl shadow-md p-8 md:p-12 mb-10">
         <div class="max-w-3xl mb-16 text-center md:text-left mx-auto md:mx-0">
-            <p class="font-semibold uppercase tracking-wide text-sm text-blue-700">Línea temporal</p>
-            <h2 class="text-3xl md:text-4xl font-bold text-black mt-2">Nuestra Historia</h2>
+            <p class="font-semibold uppercase tracking-wide text-sm text-blue-700">{{ __('site.pages.about.timeline') }}</p>
+            <h2 class="text-3xl md:text-4xl font-bold text-black mt-2">{{ __('site.pages.about.history_title') }}</h2>
             <p class="text-gray-600 mt-4 text-lg">
-                Un recorrido por los momentos que han construido a Colegio Discovery® como una comunidad educativa en constante crecimiento.
+                {{ __('site.pages.about.history_text') }}
             </p>
         </div>
 

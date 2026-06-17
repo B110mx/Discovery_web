@@ -12,13 +12,13 @@
             <div class="flex items-start justify-between gap-4 bg-blue-700 px-5 py-4 text-white">
                 <div>
                     <p class="text-xs font-bold uppercase tracking-wide text-blue-100">Discovery® Tehuacán</p>
-                    <h2 class="mt-1 text-xl font-extrabold">¿Qué es un Explorer?</h2>
+                    <h2 class="mt-1 text-xl font-extrabold">{{ __('site.explorer.title') }}</h2>
                 </div>
                 <button
                     type="button"
                     data-explorer-help-close
                     class="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded bg-white/15 font-bold text-white hover:bg-white/25"
-                    aria-label="Cerrar información de Explorer"
+                    aria-label="{{ __('site.explorer.close') }}"
                 >
                     ×
                 </button>
@@ -26,12 +26,12 @@
 
             <div class="space-y-4 p-5">
                 <p class="text-sm leading-7 text-gray-700">
-                    En Discovery® Tehuacán, un Explorer es un estudiante que emprende un viaje de aprendizaje holístico, desarrollando habilidades lingüísticas, cognitivas y sociales a través de un enfoque inmersivo y basado en la indagación.
+                    {{ __('site.explorer.body') }}
                 </p>
                 <div class="grid grid-cols-3 gap-2 text-center text-xs font-bold text-gray-700">
-                    <span class="rounded bg-blue-50 px-2 py-2 text-blue-700">Indaga</span>
-                    <span class="rounded bg-yellow-50 px-2 py-2 text-yellow-800">Crea</span>
-                    <span class="rounded bg-red-50 px-2 py-2 text-red-700">Convive</span>
+                    <span class="rounded bg-blue-50 px-2 py-2 text-blue-700">{{ __('site.explorer.traits.inquire') }}</span>
+                    <span class="rounded bg-yellow-50 px-2 py-2 text-yellow-800">{{ __('site.explorer.traits.create') }}</span>
+                    <span class="rounded bg-red-50 px-2 py-2 text-red-700">{{ __('site.explorer.traits.connect') }}</span>
                 </div>
             </div>
         </div>
@@ -41,11 +41,11 @@
         type="button"
         data-explorer-help-toggle
         class="flex h-16 w-16 items-center justify-center rounded-full bg-blue-700 text-white shadow-2xl ring-4 ring-white transition duration-200 hover:scale-105 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-200"
-        aria-label="Abrir información sobre qué es un Explorer"
+        aria-label="{{ __('site.explorer.open') }}"
         aria-controls="explorer-help-bubble"
         aria-expanded="false"
     >
-        <span class="sr-only">¿Qué es un Explorer?</span>
+        <span class="sr-only">{{ __('site.explorer.title') }}</span>
         <svg class="h-8 w-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
             <circle cx="12" cy="12" r="9"></circle>
             <path d="m15.5 8.5-2.1 4.9-4.9 2.1 2.1-4.9 4.9-2.1Z"></path>

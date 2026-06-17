@@ -15,8 +15,8 @@ class LevelContentService
 
         return collect($technicalDefinitions)
             ->map(fn (array $definition, string $slug) => $this->mergeDefinition(
-                $definition,
-                $this->content()[$slug] ?? [],
+                $this->localizedDefinition($slug, $definition),
+                $this->localizedContent($slug, $this->content()[$slug] ?? []),
             ))
             ->all();
     }
@@ -25,7 +25,7 @@ class LevelContentService
     {
         return collect(config('colegio.oferta_academica', []))
             ->map(function (array $definition, string $slug) {
-                $content = $this->content()[$slug] ?? [];
+                $content = $this->localizedContent($slug, $this->content()[$slug] ?? []);
 
                 return [
                     ...$definition,
@@ -64,6 +64,38 @@ class LevelContentService
                 })
                 ->all();
         });
+    }
+
+    private function localizedContent(string $slug, array $content): array
+    {
+        if (app()->getLocale() === 'es') {
+            return $content;
+        }
+
+        $translated = trans("levels.{$slug}.content");
+
+        return is_array($translated) ? [...$content, ...$translated] : $content;
+    }
+
+    private function localizedDefinition(string $slug, array $definition): array
+    {
+        if (app()->getLocale() === 'es') {
+            return $definition;
+        }
+
+        $translatedInformation = trans("levels.{$slug}.informacion");
+
+        if (! is_array($translatedInformation)) {
+            return $definition;
+        }
+
+        return [
+            ...$definition,
+            'informacion' => array_replace_recursive(
+                $definition['informacion'] ?? [],
+                $translatedInformation,
+            ),
+        ];
     }
 
     private function mergeDefinition(array $definition, array $content): array

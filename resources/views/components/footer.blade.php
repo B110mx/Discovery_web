@@ -18,19 +18,19 @@
         </div>
 
         <div>
-            <h3 class="text-xl font-bold mb-3">Secciones</h3>
+            <h3 class="text-xl font-bold mb-3">{{ __('site.footer.sections') }}</h3>
             <ul class="space-y-2 text-gray-300">
-                <li><a href="{{ route('inicio') }}" class="hover:text-white">Inicio</a></li>
-                <li><a href="{{ route('nosotros') }}" class="hover:text-white">Conócenos</a></li>
-                <li><a href="{{ route('oferta-academica') }}" class="hover:text-white">Oferta Educativa</a></li>
-                <li><a href="{{ route('protagonistas') }}" class="hover:text-white">Comunidad</a></li>
-                <li><a href="{{ route('recursos-escolares') }}" class="hover:text-white">Recursos escolares</a></li>
-                <li><a href="{{ route('contacto') }}" class="hover:text-white">Contacto</a></li>
+                <li><a href="{{ route('inicio') }}" class="hover:text-white">{{ __('site.nav.home') }}</a></li>
+                <li><a href="{{ route('nosotros') }}" class="hover:text-white">{{ __('site.nav.about') }}</a></li>
+                <li><a href="{{ route('oferta-academica') }}" class="hover:text-white">{{ __('site.nav.academic_offer') }}</a></li>
+                <li><a href="{{ route('protagonistas') }}" class="hover:text-white">{{ __('site.nav.community') }}</a></li>
+                <li><a href="{{ route('recursos-escolares') }}" class="hover:text-white">{{ __('site.nav.school_resources') }}</a></li>
+                <li><a href="{{ route('contacto') }}" class="hover:text-white">{{ __('site.nav.contact') }}</a></li>
             </ul>
         </div>
 
         <div>
-            <h3 class="text-xl font-bold mb-3">Niveles</h3>
+            <h3 class="text-xl font-bold mb-3">{{ __('site.footer.levels') }}</h3>
             <ul class="space-y-2 text-gray-300">
                 <li><a href="{{ route('nivel', 'preescolar') }}" class="hover:text-white">Kinder</a></li>
                 <li><a href="{{ route('nivel', 'primaria') }}" class="hover:text-white">Elementary</a></li>
@@ -38,21 +38,21 @@
                 <li><a href="{{ route('nivel', 'bachillerato') }}" class="hover:text-white">High</a></li>
                 <li><a href="{{ route('nivel', 'ib-en-discovery') }}" class="hover:text-white">IB en Discovery</a></li>
                 <li><a href="{{ route('nivel', 'pop-del-ib') }}" class="hover:text-white">POP del IB</a></li>
-                <li><a href="{{ route('nivel', 'certificacion-de-ingles') }}" class="hover:text-white">Certificación de Inglés</a></li>
+                <li><a href="{{ route('nivel', 'certificacion-de-ingles') }}" class="hover:text-white">{{ __('site.nav.english_certification') }}</a></li>
             </ul>
         </div>
     </div>
 
     <div class="border-t border-gray-800 p-4 text-center text-gray-400">
         <div class="flex flex-col items-center justify-center gap-2 text-sm md:flex-row md:gap-4">
-            <span>Copyright Colegio Discovery®</span>
+            <span>{{ __('site.footer.copyright') }}</span>
             <a
                 href="{{ url('/media/Aviso%20de%20privacidad/' . rawurlencode('Aviso de Privacidad _ DISCOVERY.pdf')) }}"
                 target="_blank"
                 rel="noopener"
                 class="font-semibold text-gray-300 hover:text-white"
             >
-                Aviso de privacidad
+                {{ __('site.footer.privacy') }}
             </a>
         </div>
     </div>

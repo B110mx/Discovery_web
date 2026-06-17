@@ -52,7 +52,56 @@ class PageController extends Controller
             return PaginaContenido::where('slug', $slug)->value('id');
         });
 
-        return $paginaId ? PaginaContenido::find($paginaId) : null;
+        $pagina = $paginaId ? PaginaContenido::find($paginaId) : null;
+
+        return $this->localizarPaginaContenido($slug, $pagina);
+    }
+
+    private function localizarPaginaContenido(string $slug, ?PaginaContenido $pagina): ?PaginaContenido
+    {
+        if (! $pagina || app()->getLocale() === 'es') {
+            return $pagina;
+        }
+
+        $translationMap = [
+            'inicio' => [
+                'subtitulo' => 'site.pages.home.about_subtitle',
+                'titulo' => 'site.pages.home.about_title',
+                'descripcion' => 'site.pages.home.about_text',
+            ],
+            'nosotros' => [
+                'subtitulo' => 'site.pages.about.hero_subtitle',
+                'titulo' => 'site.pages.about.hero_title',
+                'descripcion' => 'site.pages.about.hero_text',
+            ],
+            'oferta-academica' => [
+                'subtitulo' => 'site.pages.offer.default_subtitle',
+                'titulo' => 'site.pages.offer.default_title',
+                'descripcion' => 'site.pages.offer.default_text',
+            ],
+            'protagonistas' => [
+                'subtitulo' => 'site.pages.community.hero_subtitle',
+                'titulo' => 'site.pages.community.hero_title',
+                'descripcion' => 'site.pages.community.hero_text',
+            ],
+            'contacto' => [
+                'subtitulo' => 'site.pages.contact.hero_subtitle',
+                'titulo' => 'site.pages.contact.hero_title',
+                'descripcion' => 'site.pages.contact.hero_text',
+            ],
+        ];
+
+        if (! isset($translationMap[$slug])) {
+            return $pagina;
+        }
+
+        $localized = clone $pagina;
+
+        foreach ($translationMap[$slug] as $attribute => $translationKey) {
+            $localized->setAttribute($attribute, __($translationKey));
+        }
+
+        return $localized;
     }
 
     /**
@@ -99,6 +148,8 @@ class PageController extends Controller
                     return [
                         'titulo' => $evento->titulo,
                         'descripcion' => $evento->descripcion ?? 'Próximo evento de la comunidad Discovery®.',
+                        'nivel' => $evento->nivel ?: 'general',
+                        'nivel_etiqueta' => Evento::levelOptions()[$evento->nivel ?: 'general'] ?? 'Toda la comunidad',
                         'url' => $imagen['url'] ?? null,
                         'imagen' => $imagen,
                     ];
@@ -251,11 +302,7 @@ class PageController extends Controller
     {
         // Igual que paginaContenido(), se almacena el ID y se recupera un
         // modelo fresco para evitar serializar Eloquent dentro del caché.
-        $paginaId = Cache::remember(SiteCache::key('pagina_contenido.contacto'), SiteCache::ttl(), function () {
-            return PaginaContenido::where('slug', 'contacto')->value('id');
-        });
-
-        $pagina = $paginaId ? PaginaContenido::find($paginaId) : null;
+        $pagina = $this->paginaContenido('contacto');
         $imagenesContacto = $this->media->images('contacto', [
             'hero' => [
                 'titulo' => 'Contacto - Imagen principal',
@@ -390,6 +437,8 @@ class PageController extends Controller
             ->map(fn (array $evento) => [
                 'titulo' => $evento['titulo'],
                 'descripcion' => $evento['descripcion'],
+                'nivel' => 'general',
+                'nivel_etiqueta' => Evento::levelOptions()['general'],
                 'url' => $this->media->urlIfExists($evento['media_path'] ?? null),
                 'imagen' => [
                     'url' => $this->media->urlIfExists($evento['media_path'] ?? null),
