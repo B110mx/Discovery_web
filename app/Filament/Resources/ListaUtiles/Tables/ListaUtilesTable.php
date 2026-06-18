@@ -59,10 +59,10 @@ class ListaUtilesTable
                         ->all()),
                 SelectFilter::make('nivel')
                     ->options([
-                        'Kinder' => 'Kinder',
+                        'Kinder' => 'Kindergarten',
                         'Elementary' => 'Elementary',
-                        'Middle' => 'Middle',
-                        'High' => 'High',
+                        'Middle' => 'Middle School',
+                        'High' => 'High School',
                         'General' => 'General',
                     ]),
             ])

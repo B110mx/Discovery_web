@@ -56,12 +56,12 @@ class HistoryTimelineService
     private function defaults(): array
     {
         $images = collect([
-            'historia_2003' => ['titulo' => 'Nosotros - Historia 2003', 'referencia' => 'Imagen para el hito Discovery® Kinder en la línea del tiempo de Nosotros.'],
-            'historia_2003_2' => ['titulo' => 'Nosotros - Historia 2003 - Imagen secundaria', 'referencia' => 'Imagen secundaria para el hito Discovery® Kinder en la línea del tiempo de Nosotros.'],
+            'historia_2003' => ['titulo' => 'Nosotros - Historia 2003', 'referencia' => 'Imagen para el hito Discovery® Kindergarten en la línea del tiempo de Nosotros.'],
+            'historia_2003_2' => ['titulo' => 'Nosotros - Historia 2003 - Imagen secundaria', 'referencia' => 'Imagen secundaria para el hito Discovery® Kindergarten en la línea del tiempo de Nosotros.'],
             'historia_2005' => ['titulo' => 'Nosotros - Historia 2005', 'referencia' => 'Imagen para el hito Discovery® Elementary en la línea del tiempo de Nosotros.'],
             'historia_2005_2' => ['titulo' => 'Nosotros - Historia 2005 - Imagen secundaria', 'referencia' => 'Imagen secundaria para el hito Discovery® Elementary en la línea del tiempo de Nosotros.'],
-            'historia_2011' => ['titulo' => 'Nosotros - Historia 2011', 'referencia' => 'Imagen para el hito Discovery® Middle en la línea del tiempo de Nosotros.'],
-            'historia_2016' => ['titulo' => 'Nosotros - Historia 2016', 'referencia' => 'Imagen para el hito Discovery® High en la línea del tiempo de Nosotros.'],
+            'historia_2011' => ['titulo' => 'Nosotros - Historia 2011', 'referencia' => 'Imagen para el hito Discovery® Middle School en la línea del tiempo de Nosotros.'],
+            'historia_2016' => ['titulo' => 'Nosotros - Historia 2016', 'referencia' => 'Imagen para el hito Discovery® High School en la línea del tiempo de Nosotros.'],
             'historia_2018' => ['titulo' => 'Nosotros - Historia 2018', 'referencia' => 'Imagen para el hito Colegio del Mundo IB en la línea del tiempo de Nosotros.'],
             'historia_2019' => ['titulo' => 'Nosotros - Historia 2019', 'referencia' => 'Imagen para el hito Nuevas instalaciones en la línea del tiempo de Nosotros.'],
             'historia_2019_2' => ['titulo' => 'Nosotros - Historia 2019 - Imagen secundaria', 'referencia' => 'Imagen secundaria para el hito Nuevas instalaciones en la línea del tiempo de Nosotros.'],
@@ -76,10 +76,10 @@ class HistoryTimelineService
         ])->all();
 
         return [
-            ['anio' => '2003', 'titulo' => 'Discovery® Kinder', 'texto' => 'Nace Discovery® Kinder, el inicio de un sueño educativo porque los primeros pasos trascienden.', 'imagenes' => [$images['historia_2003'], $images['historia_2003_2']]],
+            ['anio' => '2003', 'titulo' => 'Discovery® Kindergarten', 'texto' => 'Nace Discovery® Kindergarten, el inicio de un sueño educativo porque los primeros pasos trascienden.', 'imagenes' => [$images['historia_2003'], $images['historia_2003_2']]],
             ['anio' => '2005', 'titulo' => 'Discovery® Elementary', 'texto' => 'Inauguración de Discovery® Elementary, creciendo con pasos firmes.', 'imagenes' => [$images['historia_2005'], $images['historia_2005_2']]],
-            ['anio' => '2011', 'titulo' => 'Discovery® Middle', 'texto' => 'Se suma Discovery® Middle, ampliando horizontes.', 'imagenes' => [$images['historia_2011']]],
-            ['anio' => '2016', 'titulo' => 'Discovery® High', 'texto' => 'Llega Discovery® High, preparando grandes Explorers y descubriendo su potencial.', 'imagenes' => [$images['historia_2016']]],
+            ['anio' => '2011', 'titulo' => 'Discovery® Middle School', 'texto' => 'Se suma Discovery® Middle School, ampliando horizontes.', 'imagenes' => [$images['historia_2011']]],
+            ['anio' => '2016', 'titulo' => 'Discovery® High School', 'texto' => 'Llega Discovery® High School, preparando grandes Explorers y descubriendo su potencial.', 'imagenes' => [$images['historia_2016']]],
             ['anio' => '2018', 'titulo' => 'Colegio del Mundo', 'texto' => 'Nos convertimos en Colegio del Mundo IB, abrazando la educación internacional.', 'imagenes' => [$images['historia_2018']]],
             ['anio' => '2019', 'titulo' => 'Nuevas instalaciones', 'texto' => 'Estrenamos nuevas instalaciones para seguir innovando.', 'imagenes' => [$images['historia_2019'], $images['historia_2019_2']]],
             ['anio' => '2023', 'titulo' => 'DKMUN primera edición', 'texto' => 'Realizamos nuestra primera edición DKMUN, un espacio para el debate y la diplomacia.', 'imagenes' => [$images['historia_2023'], $images['historia_2023_2']]],

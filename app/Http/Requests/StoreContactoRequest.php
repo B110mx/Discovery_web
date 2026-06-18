@@ -35,7 +35,7 @@ class StoreContactoRequest extends FormRequest
             'email' => ['required', 'email', 'max:255'],
             'telefono' => ['required', 'string', 'max:20'],
             // Mantener esta lista sincronizada con las opciones del formulario.
-            'grado' => ['required', 'string', 'max:120', Rule::in(['Kinder', 'Elementary', 'Middle', 'High'])],
+            'grado' => ['required', 'string', 'max:120', Rule::in(['Kindergarten', 'Elementary', 'Middle School', 'High School'])],
         ];
     }
 

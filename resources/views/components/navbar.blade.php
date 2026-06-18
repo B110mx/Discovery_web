@@ -102,12 +102,12 @@
             <li class="relative group">
                 <a href="{{ route('oferta-academica') }}" class="hover:text-blue-700 {{ request()->routeIs('oferta-academica') || request()->routeIs('nivel') ? 'text-blue-700' : '' }}">{{ __('site.nav.academic_offer') }}</a>
                 <ul class="absolute left-0 top-full z-20 hidden w-56 rounded-md bg-white py-2 shadow-lg group-hover:block group-focus-within:block">
-                    <li><a href="{{ route('nivel', 'preescolar') }}" class="block px-4 py-2 hover:bg-blue-50">Kinder</a></li>
+                    <li><a href="{{ route('nivel', 'preescolar') }}" class="block px-4 py-2 hover:bg-blue-50">Kindergarten</a></li>
                     <li><a href="{{ route('nivel', 'primaria') }}" class="block px-4 py-2 hover:bg-blue-50">Elementary</a></li>
-                    <li><a href="{{ route('nivel', 'secundaria') }}" class="block px-4 py-2 hover:bg-blue-50">Middle</a></li>
-                    <li><a href="{{ route('nivel', 'bachillerato') }}" class="block px-4 py-2 hover:bg-blue-50">High</a></li>
-                    <li><a href="{{ route('nivel', 'ib-en-discovery') }}" class="block px-4 py-2 hover:bg-blue-50">IB en Discovery</a></li>
-                    <li><a href="{{ route('nivel', 'pop-del-ib') }}" class="block px-4 py-2 hover:bg-blue-50">POP del IB</a></li>
+                    <li><a href="{{ route('nivel', 'secundaria') }}" class="block px-4 py-2 hover:bg-blue-50">Middle School</a></li>
+                    <li><a href="{{ route('nivel', 'bachillerato') }}" class="block px-4 py-2 hover:bg-blue-50">High School</a></li>
+                    <li><a href="{{ route('nivel', 'ib-en-discovery') }}" class="block px-4 py-2 hover:bg-blue-50">IB® en Discovery®</a></li>
+                    <li><a href="{{ route('nivel', 'pop-del-ib') }}" class="block px-4 py-2 hover:bg-blue-50">POP del IB®</a></li>
                     <li><a href="{{ route('nivel', 'certificacion-de-ingles') }}" class="block px-4 py-2 hover:bg-blue-50">{{ __('site.nav.english_certification') }}</a></li>
                 </ul>
             </li>
@@ -141,12 +141,12 @@
                     </button>
                     <ul class="{{ request()->routeIs('oferta-academica') || request()->routeIs('nivel') ? '' : 'hidden' }} mt-1 space-y-1 pl-4" data-mobile-submenu>
                         <li><a href="{{ route('oferta-academica') }}" class="block rounded-lg px-4 py-2 text-sm font-semibold hover:bg-blue-50">{{ __('site.nav.academic_offer') }}</a></li>
-                        <li><a href="{{ route('nivel', 'preescolar') }}" class="block rounded-lg px-4 py-2 text-sm font-semibold hover:bg-blue-50">Kinder</a></li>
+                        <li><a href="{{ route('nivel', 'preescolar') }}" class="block rounded-lg px-4 py-2 text-sm font-semibold hover:bg-blue-50">Kindergarten</a></li>
                         <li><a href="{{ route('nivel', 'primaria') }}" class="block rounded-lg px-4 py-2 text-sm font-semibold hover:bg-blue-50">Elementary</a></li>
-                        <li><a href="{{ route('nivel', 'secundaria') }}" class="block rounded-lg px-4 py-2 text-sm font-semibold hover:bg-blue-50">Middle</a></li>
-                        <li><a href="{{ route('nivel', 'bachillerato') }}" class="block rounded-lg px-4 py-2 text-sm font-semibold hover:bg-blue-50">High</a></li>
-                        <li><a href="{{ route('nivel', 'ib-en-discovery') }}" class="block rounded-lg px-4 py-2 text-sm font-semibold hover:bg-blue-50">IB en Discovery</a></li>
-                        <li><a href="{{ route('nivel', 'pop-del-ib') }}" class="block rounded-lg px-4 py-2 text-sm font-semibold hover:bg-blue-50">POP del IB</a></li>
+                        <li><a href="{{ route('nivel', 'secundaria') }}" class="block rounded-lg px-4 py-2 text-sm font-semibold hover:bg-blue-50">Middle School</a></li>
+                        <li><a href="{{ route('nivel', 'bachillerato') }}" class="block rounded-lg px-4 py-2 text-sm font-semibold hover:bg-blue-50">High School</a></li>
+                        <li><a href="{{ route('nivel', 'ib-en-discovery') }}" class="block rounded-lg px-4 py-2 text-sm font-semibold hover:bg-blue-50">IB® en Discovery®</a></li>
+                        <li><a href="{{ route('nivel', 'pop-del-ib') }}" class="block rounded-lg px-4 py-2 text-sm font-semibold hover:bg-blue-50">POP del IB®</a></li>
                         <li><a href="{{ route('nivel', 'certificacion-de-ingles') }}" class="block rounded-lg px-4 py-2 text-sm font-semibold hover:bg-blue-50">{{ __('site.nav.english_certification') }}</a></li>
                     </ul>
                 </li>

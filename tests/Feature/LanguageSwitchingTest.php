@@ -54,10 +54,10 @@ class LanguageSwitchingTest extends TestCase
             ->withSession(['locale' => 'en'])
             ->get(route('nivel', 'preescolar'))
             ->assertOk()
-            ->assertSee('The ideal kinder for your children')
+            ->assertSee('The ideal Kindergarten for your children')
             ->assertSee('A happy, safe, bilingual childhood')
             ->assertSee('Learning in two languages')
-            ->assertSee('Why are we the ideal kinder for your children?')
+            ->assertSee('Why are we the ideal Kindergarten for your children?')
             ->assertSee('Neurolearning programs');
 
         $this
@@ -71,7 +71,7 @@ class LanguageSwitchingTest extends TestCase
             ->withSession(['locale' => 'en'])
             ->get(route('nivel', 'ib-en-discovery'))
             ->assertOk()
-            ->assertSee('IB learner profile')
+            ->assertSee('IB® learner profile')
             ->assertSee('Diploma Programme curriculum')
             ->assertSee('Critical thinking');
 

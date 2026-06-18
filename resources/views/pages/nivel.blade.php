@@ -41,13 +41,13 @@
         ],
         [
             'icono' => 'ib',
-            'titulo' => 'Perfil IB',
-            'texto' => 'Nuestros programas están alineados a la Organización del Bachillerato Internacional (IB), incluso desde los primeros años.',
+            'titulo' => 'Perfil IB®',
+            'texto' => 'Mediante el juego y experiencias significativas, potenciamos la curiosidad, el pensamiento crítico, la colaboración y la autonomía, sentando bases para su desarrollo integral.',
         ],
         [
             'icono' => 'academias',
             'titulo' => 'Academias Vespertinas',
-            'texto' => 'Fútbol, Básquetbol, Ajedrez, Origami, Atletismo y UrbanKids. Para padres: Club de conversación en Inglés, Flamenco y Música.',
+            'texto' => 'Disponibles a partir de Kindergarten 3: Fútbol, Básquetbol, Ajedrez, Origami, Atletismo y UrbanKids. Para padres: Club de conversación en Inglés, Flamenco y Música.',
         ],
         [
             'icono' => 'atencion',
@@ -68,7 +68,7 @@
         ],
         [
             'icono' => 'ib',
-            'titulo' => 'Perfil IB',
+            'titulo' => 'Perfil IB®',
             'texto' => 'Nuestros explorers desarrollan una mentalidad internacional a través de Unidades de Indagación.',
         ],
         [
@@ -96,7 +96,7 @@
         [
             'icono' => 'language',
             'titulo' => 'Educación Bilingüe y Trilingüe',
-            'texto' => 'Inglés, Español y desde 5° de Elementary se incorpora Francés. Inglés, Español y Francés con más de 15 bloques a la semana.',
+            'texto' => 'Inglés y Español, además de Francés a nivel básico, con más de 15 bloques de idiomas a la semana.',
         ],
         [
             'icono' => 'skills',
@@ -105,7 +105,7 @@
         ],
         [
             'icono' => 'ib',
-            'titulo' => 'Perfil IB',
+            'titulo' => 'Perfil IB®',
             'texto' => 'Nuestros explorers desarrollan una mentalidad internacional a través de Proyectos Interdisciplinarios.',
         ],
         [
@@ -128,7 +128,7 @@
         [
             'icono' => 'language',
             'titulo' => 'Educación Bilingüe y Trilingüe',
-            'texto' => 'Inglés, Español y Francés. 15 bloques a la semana en Inglés.',
+            'texto' => 'Inglés y Español, además de Francés a nivel básico. 15 bloques a la semana en Inglés.',
         ],
         [
             'icono' => 'graduation',
@@ -137,8 +137,8 @@
         ],
         [
             'icono' => 'ib',
-            'titulo' => 'Perfil IB',
-            'texto' => 'Somos High con Programa IB oficial y validez internacional. Programa del Diploma y desarrollo del perfil IB.',
+            'titulo' => 'Perfil IB®',
+            'texto' => 'Somos High School con Programa IB® oficial y validez internacional. Programa del Diploma y desarrollo del perfil IB®.',
         ],
         [
             'icono' => 'arts',
@@ -163,7 +163,7 @@
     ];
     $bloqueIdeal = match ($nivel['slug'] ?? null) {
         'preescolar' => [
-            'titulo' => '¿Por qué somos el kinder ideal para tus hijos?',
+            'titulo' => '¿Por qué somos el Kindergarten ideal para tus hijos?',
             'items' => $kinderIdeal,
         ],
         'primaria' => [
@@ -171,11 +171,11 @@
             'items' => $primariaIdeal,
         ],
         'secundaria' => [
-            'titulo' => '¿Por qué Middle ayudará a tus hijos a convertirse en su mejor versión?',
+            'titulo' => '¿Por qué Middle School ayudará a tus hijos a convertirse en su mejor versión?',
             'items' => $secundariaIdeal,
         ],
         'bachillerato' => [
-            'titulo' => '¿Por qué somos el mejor High?',
+            'titulo' => '¿Por qué somos el mejor High School?',
             'items' => $bachilleratoIdeal,
         ],
         default => null,
@@ -384,6 +384,21 @@
             </div>
 
             <div class="p-6 md:p-8">
+                @if (! empty($nivel['informacion']['aviso']))
+                    <aside class="mb-8 overflow-hidden rounded-xl border border-amber-300 bg-amber-50 shadow-sm" role="note" aria-label="{{ $nivel['informacion']['aviso']['titulo'] }}">
+                        <div class="flex flex-col gap-4 p-5 sm:flex-row sm:items-center md:p-6">
+                            <span class="inline-flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-amber-500 text-2xl font-black text-black" aria-hidden="true">!</span>
+                            <div class="flex-1">
+                                <p class="text-sm font-extrabold uppercase tracking-wide text-amber-700">{{ $nivel['informacion']['aviso']['titulo'] }}</p>
+                                <p class="mt-2 leading-7 text-gray-700">{{ $nivel['informacion']['aviso']['texto'] }}</p>
+                            </div>
+                            <a href="{{ route('nivel', 'pop-del-ib') }}" class="inline-flex flex-shrink-0 items-center justify-center rounded bg-blue-700 px-5 py-3 font-extrabold text-white transition hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:ring-offset-2">
+                                {{ $nivel['informacion']['aviso']['enlace_texto'] }}
+                            </a>
+                        </div>
+                    </aside>
+                @endif
+
                 <div class="grid gap-8 lg:grid-cols-[.9fr_1.1fr]">
                     <div class="rounded-xl bg-gray-50 p-6">
                         <p class="text-sm font-bold uppercase tracking-wide {{ $tema['eyebrow'] }}">{{ $nivel['informacion']['eyebrow'] ?? __('site.pages.level.learning_approaches') }}</p>
@@ -420,15 +435,40 @@
                     </div>
                 </div>
 
-                <div class="mt-10 rounded-xl bg-gray-50 p-6">
-                    <div class="grid gap-5 md:grid-cols-2">
-                        <div>
-                            <p class="text-sm font-bold uppercase tracking-wide {{ $tema['eyebrow'] }}">{{ $nivel['informacion']['eyebrow'] ?? __('site.pages.level.international_recognition') }}</p>
-                            <h3 class="mt-2 text-2xl font-extrabold text-black">{{ $nivel['informacion']['cierre']['titulo'] ?? __('levels.ib-en-discovery.informacion.cierre.titulo') }}</h3>
+                <div class="mt-10 overflow-hidden rounded-2xl border p-6 shadow-sm md:p-8 {{ ($nivel['layout'] ?? null) === 'ib' ? 'border-amber-200 bg-gradient-to-br from-amber-50 via-white to-blue-50' : 'border-gray-200 bg-gray-50' }}">
+                    <div class="grid gap-6 lg:grid-cols-[.85fr_1.15fr] lg:items-start">
+                        <div class="flex gap-4">
+                            <span class="inline-flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-full text-lg font-black shadow-sm {{ ($nivel['layout'] ?? null) === 'ib' ? 'bg-amber-500 text-black' : $tema['bar'] . ' text-white' }}" aria-hidden="true">
+                                {{ ($nivel['layout'] ?? null) === 'ib' ? 'IB®' : 'EN' }}
+                            </span>
+                            <div>
+                                <p class="text-sm font-bold uppercase tracking-wide {{ $tema['eyebrow'] }}">{{ $nivel['informacion']['eyebrow'] ?? __('site.pages.level.international_recognition') }}</p>
+                                <h3 class="mt-2 text-2xl font-extrabold leading-tight text-black">{{ $nivel['informacion']['cierre']['titulo'] }}</h3>
+
+                                @if (! empty($nivel['informacion']['nombre_registrado_ib']))
+                                    <p class="mt-4 rounded-xl border border-amber-200 bg-white px-4 py-3 font-semibold leading-7 text-gray-800 shadow-sm">
+                                        {{ $nivel['informacion']['nombre_registrado_ib'] }}
+                                    </p>
+                                @endif
+                            </div>
                         </div>
-                        <p class="leading-8 text-gray-600">
-                            {{ $nivel['informacion']['cierre']['texto'] ?? __('levels.ib-en-discovery.informacion.cierre.texto') }}
-                        </p>
+                        <div>
+                            <p class="leading-8 text-gray-600">
+                                {{ $nivel['informacion']['cierre']['texto'] }}
+                            </p>
+
+                            @if (! empty($nivel['informacion']['certificacion_url']))
+                                <a
+                                    href="{{ $nivel['informacion']['certificacion_url'] }}"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    class="mt-5 inline-flex items-center gap-2 rounded bg-amber-500 px-5 py-3 font-extrabold text-black transition hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2"
+                                >
+                                    {{ $nivel['informacion']['certificacion_texto'] ?? 'Consultar autorización oficial en el sitio del IB®' }}
+                                    <span aria-hidden="true">↗</span>
+                                </a>
+                            @endif
+                        </div>
                     </div>
                 </div>
 

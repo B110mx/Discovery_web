@@ -192,6 +192,49 @@
         @endforeach
     </section>
 
+    <section class="overflow-hidden rounded-xl bg-white shadow-md">
+        <div class="grid lg:grid-cols-[.95fr_1.05fr]">
+            <div class="flex flex-col justify-center p-8 md:p-10">
+                <p class="text-sm font-semibold uppercase tracking-wide text-blue-700">{{ __('site.pages.about.academic_projection') }}</p>
+                <h2 class="mt-2 text-3xl font-bold text-black md:text-4xl">{{ __('site.pages.about.university_title') }}</h2>
+                <p class="mt-5 leading-8 text-gray-700">
+                    {{ __('site.pages.about.university_text') }}
+                </p>
+
+                <div class="mt-6 flex items-center gap-4 rounded-xl border border-yellow-200 bg-yellow-50 p-5">
+                    <span class="shrink-0 text-3xl font-extrabold text-yellow-600">+70%</span>
+                    <p class="font-semibold leading-6 text-gray-800">
+                        {{ __('site.pages.about.scholarships') }}
+                    </p>
+                </div>
+
+                <div class="mt-7 grid gap-3 sm:grid-cols-3">
+                    @foreach (__('site.pages.about.university_steps') as $step)
+                        <div class="rounded-lg border {{ ['border-blue-100 bg-blue-50 text-blue-900', 'border-green-100 bg-green-50 text-green-900', 'border-red-100 bg-red-50 text-red-900'][$loop->index] }} p-4">
+                            <span class="block text-2xl font-extrabold {{ ['text-blue-700', 'text-green-600', 'text-red-600'][$loop->index] }}">0{{ $loop->iteration }}</span>
+                            <p class="mt-2 text-sm font-semibold leading-6">{{ $step }}</p>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+
+            <div class="bg-gray-100 p-4 md:p-6">
+                <div class="grid grid-cols-2 gap-3 sm:grid-cols-3">
+                    @foreach ($universidadesVinculacion as $universidad)
+                        <div class="flex h-28 items-center justify-center rounded-lg border border-gray-200 bg-white p-4 shadow-sm md:h-32">
+                            <img
+                                src="{{ $universidad['url'] }}"
+                                alt="{{ $universidad['nombre'] }}"
+                                class="max-h-20 w-full object-contain"
+                                loading="lazy"
+                            >
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section class="overflow-hidden rounded-2xl bg-gradient-to-br from-slate-50 via-white to-blue-50/70 px-5 py-8 ring-1 ring-slate-200 sm:px-8 sm:py-10">
         <div class="mb-8 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
             <div>

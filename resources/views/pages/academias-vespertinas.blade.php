@@ -10,7 +10,7 @@
             'academias' => [
                 'Fútbol - Elementary',
                 'Basketball - Elementary',
-                'Origami - Kinder, Elementary, Middle, High y papás Explorers',
+                'Origami - Kindergarten, Elementary, Middle School, High School y papás Explorers',
                 'Conversation Club for Explorers Parents',
             ],
         ],
@@ -20,7 +20,7 @@
         ],
         [
             'dias' => 'Martes',
-            'academias' => ['Ajedrez - Kinder y Elementary'],
+            'academias' => ['Ajedrez - Kindergarten y Elementary'],
         ],
         [
             'dias' => 'Martes y miércoles',
@@ -29,9 +29,9 @@
         [
             'dias' => 'Martes y jueves',
             'academias' => [
-                'Basketball - Middle y High',
+                'Basketball - Middle School y High School',
                 'Urban Kids - Elementary',
-                'Urban Dance - Middle y High',
+                'Urban Dance - Middle School y High School',
                 'Pickleball - Elementary',
                 'Zumba Explorers Moms',
                 'Flamenco para mamás',
@@ -53,8 +53,8 @@
             'beneficios' => 'Condición física, estrategia, colaboración, concentración y confianza.',
         ],
         [
-            'nombre' => 'Basketball Middle & High',
-            'dirigido' => 'Explorers de Middle y High',
+            'nombre' => 'Basketball Middle School & High School',
+            'dirigido' => 'Explorers de Middle School y High School',
             'dias' => 'Martes y jueves',
             'beneficios' => 'Liderazgo, comunicación, resistencia, pensamiento estratégico y sentido de equipo.',
         ],
@@ -66,13 +66,13 @@
         ],
         [
             'nombre' => 'Ajedrez',
-            'dirigido' => 'Explorers de Kinder y Elementary',
+            'dirigido' => 'Explorers de Kindergarten y Elementary',
             'dias' => 'Martes',
             'beneficios' => 'Pensamiento lógico, concentración, memoria, paciencia y resolución de problemas.',
         ],
         [
             'nombre' => 'Origami',
-            'dirigido' => 'Kinder, Elementary, Middle, High y papás Explorers',
+            'dirigido' => 'Kindergarten, Elementary, Middle School, High School y papás Explorers',
             'dias' => 'Lunes y miércoles',
             'beneficios' => 'Creatividad, precisión, paciencia, motricidad fina y atención al detalle.',
         ],
@@ -84,7 +84,7 @@
         ],
         [
             'nombre' => 'Urban Dance',
-            'dirigido' => 'Explorers de Middle y High',
+            'dirigido' => 'Explorers de Middle School y High School',
             'dias' => 'Martes y jueves',
             'beneficios' => 'Expresión personal, disciplina, autoestima, trabajo en equipo y bienestar emocional.',
         ],

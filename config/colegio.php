@@ -68,8 +68,8 @@ return [
     'inicio' => [
         'eventos_default' => [
             [
-                'titulo' => 'Evento Kinder',
-                'descripcion' => 'Actividades próximas para nuestras familias de Kinder.',
+                'titulo' => 'Evento Kindergarten',
+                'descripcion' => 'Actividades próximas para nuestras familias de Kindergarten.',
                 'media_path' => 'Portadas/IMG_5775.JPG',
             ],
             [
@@ -78,8 +78,8 @@ return [
                 'media_path' => 'Elementary fotos actuales/IMG_5684.JPG',
             ],
             [
-                'titulo' => 'Evento Middle',
-                'descripcion' => 'Actividades académicas y de comunidad para middle school.',
+                'titulo' => 'Evento Middle School',
+                'descripcion' => 'Actividades académicas y de comunidad para Middle School.',
                 'media_path' => 'Middle fotos actuales/IMG_5867.JPG',
             ],
         ],
@@ -97,8 +97,8 @@ return [
             'logo_path' => 'Logos de niveles educativos/logo preescolar.png',
             'imagen_clave' => 'preescolar',
             'imagen_default' => [
-                'titulo' => 'Oferta Educativa - Kinder',
-                'referencia' => 'Imagen destacada para Kinder en la vista Oferta Educativa.',
+                'titulo' => 'Oferta Educativa - Kindergarten',
+                'referencia' => 'Imagen destacada para Kindergarten en la vista Oferta Educativa.',
                 'media_path' => 'Portadas/IMG_5775.JPG',
             ],
         ],
@@ -117,8 +117,8 @@ return [
             'logo_path' => 'Logos de niveles educativos/logo secundaria.png',
             'imagen_clave' => 'secundaria',
             'imagen_default' => [
-                'titulo' => 'Oferta Educativa - Middle',
-                'referencia' => 'Imagen destacada para Middle en la vista Oferta Educativa.',
+                'titulo' => 'Oferta Educativa - Middle School',
+                'referencia' => 'Imagen destacada para Middle School en la vista Oferta Educativa.',
                 'media_path' => 'Middle fotos actuales/IMG_5867.JPG',
             ],
         ],
@@ -127,8 +127,8 @@ return [
             'logo_path' => 'Logos de niveles educativos/logo bachillerato.png',
             'imagen_clave' => 'bachillerato',
             'imagen_default' => [
-                'titulo' => 'Oferta Educativa - High',
-                'referencia' => 'Imagen destacada para High en la vista Oferta Educativa.',
+                'titulo' => 'Oferta Educativa - High School',
+                'referencia' => 'Imagen destacada para High School en la vista Oferta Educativa.',
                 'media_path' => 'High (Prepa)/BACHILLERATO-MOSAICO-5-scaled.jpg',
             ],
         ],
@@ -137,8 +137,8 @@ return [
             'logo_path' => 'Logos de niveles educativos/Logo IB cl.jpeg',
             'imagen_clave' => 'ib',
             'imagen_default' => [
-                'titulo' => 'Oferta Educativa - IB en Discovery®',
-                'referencia' => 'Imagen destacada para IB en Discovery® en la vista Oferta Educativa.',
+                'titulo' => 'Oferta Educativa - IB® en Discovery®',
+                'referencia' => 'Imagen destacada para IB® en Discovery® en la vista Oferta Educativa.',
                 'media_path' => 'Logos de niveles educativos/Logo IB cl.jpeg',
             ],
         ],
@@ -147,8 +147,8 @@ return [
             'logo_path' => 'Logos de niveles educativos/Logo IB cl.jpeg',
             'imagen_clave' => 'pop_ib',
             'imagen_default' => [
-                'titulo' => 'Oferta Educativa - POP del IB',
-                'referencia' => 'Imagen destacada para presentar el Programa de Orientación Profesional del IB en la vista Oferta Educativa. Se recomienda una fotografía horizontal de Explorers de High trabajando en un proyecto.',
+                'titulo' => 'Oferta Educativa - POP del IB®',
+                'referencia' => 'Imagen destacada para presentar el Programa de Orientación Profesional del IB® en la vista Oferta Educativa. Se recomienda una fotografía horizontal de Explorers de High School trabajando en un proyecto.',
             ],
         ],
         'certificacion-de-ingles' => [
@@ -165,10 +165,10 @@ return [
 
     'protagonistas' => [
         'niveles' => [
-            ['titulo' => 'Kinder', 'clave' => 'preescolar', 'color' => 'bg-lime-500', 'referencia' => 'Imagen para representar Kinder dentro de Comunidad.', 'media_path' => 'Portadas/IMG_5775.JPG'],
+            ['titulo' => 'Kindergarten', 'clave' => 'preescolar', 'color' => 'bg-lime-500', 'referencia' => 'Imagen para representar Kindergarten dentro de Comunidad.', 'media_path' => 'Portadas/IMG_5775.JPG'],
             ['titulo' => 'Elementary', 'clave' => 'primaria', 'color' => 'bg-red-600', 'referencia' => 'Imagen para representar Elementary dentro de Comunidad.', 'media_path' => 'Elementary fotos actuales/IMG_5684.JPG'],
-            ['titulo' => 'Middle', 'clave' => 'secundaria', 'color' => 'bg-blue-700', 'referencia' => 'Imagen para representar Middle dentro de Comunidad.', 'media_path' => 'Middle fotos actuales/IMG_5867.JPG'],
-            ['titulo' => 'High', 'clave' => 'bachillerato', 'color' => 'bg-green-600', 'referencia' => 'Imagen para representar High dentro de Comunidad.', 'media_path' => 'High fotos actuales/1234.jpg'],
+            ['titulo' => 'Middle School', 'clave' => 'secundaria', 'color' => 'bg-blue-700', 'referencia' => 'Imagen para representar Middle School dentro de Comunidad.', 'media_path' => 'Middle fotos actuales/IMG_5867.JPG'],
+            ['titulo' => 'High School', 'clave' => 'bachillerato', 'color' => 'bg-green-600', 'referencia' => 'Imagen para representar High School dentro de Comunidad.', 'media_path' => 'High fotos actuales/1234.jpg'],
         ],
         'protagonistas' => [
             'alumnos' => ['titulo' => 'Comunidad - Explorers', 'color' => 'bg-red-600', 'referencia' => 'Imagen para representar a los Explorers en la sección Quienes hacen viva nuestra comunidad.', 'media_path' => 'Comunidad Explorers/1234.jpg', 'media_directory' => 'Comunidad Explorers'],
@@ -195,20 +195,20 @@ return [
                     'destacados' => [
                         ['titulo' => 'Acompañamiento', 'texto' => 'Grupos reducidos de 14 a 24 Explorers, bienestar emocional y seguimiento cercano en cada etapa.'],
                         ['titulo' => 'Aprendizaje', 'texto' => 'Neuromotor, Audiomotor, Spark y Bancubi fortalecen lenguaje, pensamiento lógico y madurez neurológica.'],
-                        ['titulo' => 'Comunidad', 'texto' => 'Crecen en un entorno de amor, respeto y seguridad, con valores IB y mentalidad abierta.'],
+                        ['titulo' => 'Comunidad', 'texto' => 'Crecen en un entorno de amor, respeto y seguridad, con valores IB® y mentalidad abierta.'],
                     ],
                     'puntos' => [
                         'Programas de neuroaprendizaje: Neuromotor, Audiomotor y Spark.',
                         'Aprendizaje natural en inglés y español con estrategias multisensoriales.',
-                        'Programas alineados al Bachillerato Internacional desde los primeros años.',
+                        'Programas alineados al Bachillerato Internacional® desde los primeros años.',
                         'Grupos reducidos de 14 a 24 Explorers con atención personalizada.',
                         'Bienestar emocional, expresión oral y acompañamiento cercano.',
                     ],
                     'secciones' => [
                         ['titulo' => 'Estimulación para cuerpo y mente', 'texto' => 'Neuromotor y Audiomotor fortalecen coordinación, atención, creatividad, autodominio físico y madurez neurológica.'],
                         ['titulo' => 'Aprendizaje en dos idiomas', 'texto' => 'Spark impulsa lectoescritura, vocabulario, comprensión y expresión en inglés y español desde los primeros años.'],
-                        ['titulo' => 'Pensamiento lógico jugando', 'texto' => 'Con Bancubi aprenden matemáticas de forma concreta: clasifican, ordenan, comparan y resuelven problemas manipulando objetos reales.'],
-                        ['titulo' => 'Crecimiento en comunidad', 'texto' => 'Crecen en un entorno de amor, respeto y seguridad, con valores del perfil IB, empatía y mentalidad abierta.'],
+                        ['titulo' => 'Pensamiento lógico jugando', 'texto' => 'Con Bancubi y pensamiento matemático, aprenden matemáticas de forma concreta: clasifican, ordenan, comparan y resuelven problemas manipulando objetos reales.'],
+                        ['titulo' => 'Crecimiento en comunidad', 'texto' => 'Crecen en un entorno de amor, respeto y seguridad, con valores del perfil IB®, empatía y mentalidad abierta.'],
                     ],
                     'experiencias' => ['Convivio de Navidad', 'Clase Neuromotora', 'Visita de Pre-primary a Elementary', 'Profesiones y Oficios', 'Festival de la Primavera', 'Día del niño y la niña'],
                 ],
@@ -221,19 +221,19 @@ return [
                 'informacion' => [
                     'destacados' => [
                         ['titulo' => 'Acompañamiento', 'texto' => 'Atención académica y emocional para que cada Explorer avance con confianza, curiosidad y autonomía.'],
-                        ['titulo' => 'Aprendizaje', 'texto' => 'Tres bloques diarios en inglés, francés desde 5° grado, tecnología, arte y unidades de indagación IB.'],
+                        ['titulo' => 'Aprendizaje', 'texto' => 'Tres bloques diarios en inglés, francés desde 5° grado, tecnología, arte y unidades de indagación IB®.'],
                         ['titulo' => 'Comunidad', 'texto' => 'Deporte diario, academias, mini olimpiadas y proyectos que fortalecen colaboración y pertenencia.'],
                     ],
                     'puntos' => [
                         'Tres bloques diarios en inglés con materias como Science y Civics.',
                         'Francés desde 5° grado de Elementary como tercer idioma.',
                         'Mock Cambridge desde 3° grado de Elementary para practicar reading, writing, listening y speaking.',
-                        'Unidades de indagación del modelo IB para investigar, cuestionar y resolver problemas reales.',
+                        'Unidades de indagación del modelo IB® para investigar, cuestionar y resolver problemas reales.',
                         'Artes, deporte diario y academias vespertinas como fútbol, básquetbol, ajedrez, origami, atletismo y UrbanKids.',
                     ],
                     'secciones' => [
                         ['titulo' => 'Formación bilingüe y trilingüe', 'texto' => 'Aprenden inglés en un entorno de inmersión y suman francés para ampliar su visión como ciudadanos globales.'],
-                        ['titulo' => 'Perfil IB y pensamiento global', 'texto' => 'Trabajan atributos como ser pensadores, informados, comunicadores, solidarios y de mentalidad abierta.'],
+                        ['titulo' => 'Perfil IB® y pensamiento global', 'texto' => 'Trabajan atributos como ser pensadores, informados, comunicadores, solidarios y de mentalidad abierta.'],
                         ['titulo' => 'Pensamiento lógico y algorítmico', 'texto' => 'Tecnología y concursos de programación fortalecen análisis, secuenciación, creatividad y toma de decisiones.'],
                         ['titulo' => 'Cuerpo, atención y creatividad', 'texto' => 'Neuromotor continúa en Elementary junto con deporte diario y artes integradas para una formación equilibrada.'],
                     ],
@@ -248,18 +248,18 @@ return [
                 'informacion' => [
                     'destacados' => [
                         ['titulo' => 'Acompañamiento', 'texto' => 'Preceptoría, bienestar emocional y habilidades de autogestión para una etapa de cambios importantes.'],
-                        ['titulo' => 'Aprendizaje', 'texto' => 'Inglés, español y francés, proyectos interdisciplinarios y enfoques de aprendizaje para pensar e investigar mejor.'],
+                        ['titulo' => 'Aprendizaje', 'texto' => 'Inglés, español y francés a nivel básico, proyectos interdisciplinarios y enfoques de aprendizaje para pensar e investigar mejor.'],
                         ['titulo' => 'Comunidad', 'texto' => 'Deporte diario, DKMUN, WASP, arte y clanes para desarrollar iniciativa, identidad y trabajo en equipo.'],
                     ],
                     'puntos' => [
-                        'Inglés, español y francés con más de 15 bloques a la semana.',
+                        'Inglés y español, además de francés a nivel básico, con más de 15 bloques de idiomas a la semana.',
                         'Enfoques de aprendizaje: pensamiento, autogestión, comunicación, investigación y habilidades sociales.',
                         'Proyectos interdisciplinarios con mentalidad internacional.',
                         'Deporte diario: futbol, basquetbol, voleibol o tenis.',
-                        'Bienestar emocional y preceptoría hasta el último año.',
+                        'Acompañamiento integral con bienestar emocional y preceptoría durante toda la trayectoria escolar.',
                     ],
                     'secciones' => [
-                        ['titulo' => 'Idiomas para comunicarse con el mundo', 'texto' => 'Viven el inglés todos los días, incorporan francés y se preparan para certificaciones como Cambridge y Lengua B del Programa Diploma.'],
+                        ['titulo' => 'Idiomas para comunicarse con el mundo', 'texto' => 'Viven el inglés todos los días e incorporan francés a nivel básico. La certificación de Lengua B del Programa del Diploma es obligatoria, mientras que la certificación Cambridge es opcional.'],
                         ['titulo' => 'Deporte diario', 'texto' => 'La práctica deportiva fortalece salud física, disciplina, autoestima, trabajo en equipo y hábitos saludables.'],
                         ['titulo' => 'Proyectos globales', 'texto' => 'Programas como DKMun y WASP desarrollan investigación, debate, diplomacia e iniciativa desde edades tempranas.'],
                         ['titulo' => 'Talentos y pasiones', 'texto' => 'Exploran arte, ciencia, ferias escolares y experiencias que conectan lo aprendido con el mundo real.'],
@@ -275,23 +275,23 @@ return [
                 'informacion' => [
                     'destacados' => [
                         ['titulo' => 'Acompañamiento', 'texto' => 'Orientación vocacional, asesoría para admisiones y seguimiento individual rumbo a universidad.'],
-                        ['titulo' => 'Aprendizaje', 'texto' => 'Programa del Diploma IB, Teoría del Conocimiento, CAS, idiomas y pensamiento crítico aplicado.'],
-                        ['titulo' => 'Comunidad', 'texto' => 'DKMUN, proyectos IB, arte, deporte diario e impacto social para fortalecer iniciativa y expresión.'],
+                        ['titulo' => 'Aprendizaje', 'texto' => 'Programa del Diploma IB®, Teoría del Conocimiento, CAS, idiomas y pensamiento crítico aplicado.'],
+                        ['titulo' => 'Comunidad', 'texto' => 'DKMUN, proyectos IB®, arte, deporte diario e impacto social para fortalecer iniciativa y expresión.'],
                     ],
                     'puntos' => [
-                        'High con Programa IB oficial y validez internacional.',
-                        'Programa del Diploma y desarrollo del perfil IB.',
-                        'Inglés, español y francés con 15 bloques semanales en inglés.',
+                        'High School con Programa IB® oficial y validez internacional.',
+                        'Programa del Diploma y desarrollo del perfil IB®.',
+                        'Inglés y español, además de francés a nivel básico, con 15 bloques semanales en inglés.',
                         'Más del 70% de egresados obtiene becas en universidades de México y el extranjero.',
                         'Orientación vocacional, asesoría para admisiones y seguimiento individual.',
                     ],
                     'secciones' => [
                         ['titulo' => 'Pensamiento global', 'texto' => 'Teoría del Conocimiento y CAS fortalecen pensamiento crítico, visión internacional y capacidad de tomar decisiones.'],
-                        ['titulo' => 'Certificaciones e idiomas', 'texto' => 'La formación en inglés y francés prepara para comunicar argumentos, escribir ensayos y abrir puertas universitarias.'],
+                        ['titulo' => 'Certificaciones de inglés y formación en francés', 'texto' => 'La formación en inglés prepara para certificaciones y fortalece la comunicación académica; el francés se aprende a nivel básico como tercer idioma.'],
                         ['titulo' => 'Debates y diplomacia', 'texto' => 'DKMUN permite negociar, argumentar, proponer soluciones y representar países en asuntos internacionales.'],
                         ['titulo' => 'Impacto social y expresión', 'texto' => 'CAS, arte y deporte diario hacen que cada Explorer participe en proyectos culturales, sociales, ambientales o deportivos.'],
                     ],
-                    'experiencias' => ['Expo Arte', 'Graduación', 'Día del Explorer', 'DKMUN', 'Proyectos IB'],
+                    'experiencias' => ['Expo Arte', 'Graduación', 'Día del Explorer', 'DKMUN', 'Proyectos IB®'],
                 ],
             ],
             'ib-en-discovery' => [
@@ -302,9 +302,14 @@ return [
                 'ocultar_galeria' => true,
                 'layout' => 'ib',
                 'informacion' => [
+                    'aviso' => [
+                        'titulo' => 'Transición al POP del IB®',
+                        'texto' => '12.º grado será el último en cursar el Programa del Diploma. A partir de la siguiente generación, se implementará el Programa de Orientación Profesional (POP) del IB®.',
+                        'enlace_texto' => 'Conoce el POP del IB®',
+                    ],
                     'destacados' => [
                         ['titulo' => 'Habilidades', 'texto' => 'Pensamiento, autogestión, comunicación, investigación y habilidades sociales para aprender con autonomía.'],
-                        ['titulo' => 'Perfil IB', 'texto' => 'Formación de Explorers con capacidades humanas que van más allá del éxito académico.'],
+                        ['titulo' => 'Perfil IB®', 'texto' => 'Formación de Explorers con capacidades humanas que van más allá del éxito académico.'],
                         ['titulo' => 'Programa del Diploma', 'texto' => 'Un programa riguroso y equilibrado para Explorers de 16 a 19 años, reconocido por universidades del mundo.'],
                     ],
                     'puntos' => [
@@ -316,16 +321,23 @@ return [
                     ],
                     'imagen_enfoque' => [
                         'titulo' => 'Enfoque de aprendizaje Pacis',
-                        'referencia' => 'Imagen de apoyo para los enfoques de aprendizaje IB.',
+                        'referencia' => 'Imagen de apoyo para los enfoques de aprendizaje IB®.',
                         'media_path' => 'Enfoque de aprendizaje/Enfoque de aprendizaje Pacis.png',
                     ],
                     'secciones' => [
-                        ['titulo' => 'Perfil de la comunidad de aprendizaje IB', 'texto' => 'El perfil IB expresa capacidades y responsabilidades humanas que buscan formar Explorers respetuosos consigo mismos, con las demás personas y con el mundo que les rodea.'],
-                        ['titulo' => 'Programa del Diploma (PD)', 'texto' => 'Colegio Discovery® está acreditado por la Organización del Bachillerato Internacional para impartir el Programa del Diploma, una propuesta que favorece amplitud y profundidad académica junto con desarrollo físico, intelectual, emocional y ético.'],
+                        ['titulo' => 'Perfil de la comunidad de aprendizaje IB®', 'texto' => 'El perfil IB® expresa capacidades y responsabilidades humanas que buscan formar Explorers respetuosos consigo mismos, con las demás personas y con el mundo que les rodea.'],
+                        ['titulo' => 'Programa del Diploma (PD)', 'texto' => 'Colegio Discovery® está acreditado por la Organización del Bachillerato Internacional® para impartir el Programa del Diploma, una propuesta que favorece amplitud y profundidad académica junto con desarrollo físico, intelectual, emocional y ético.'],
                         ['titulo' => 'Qué ofrece el PD a los Explorers', 'texto' => 'El programa promueve excelencia académica, estudio de al menos dos lenguas, desarrollo integral y exploración de la naturaleza del conocimiento mediante Teoría del Conocimiento.'],
                         ['titulo' => 'Currículo del Programa del Diploma', 'texto' => 'El currículo se integra por el tronco común del PD y seis grupos de asignaturas. Sus componentes troncales amplían la experiencia educativa y retan a los Explorers a aplicar conocimientos y habilidades.'],
                         ['titulo' => 'Perfil de nuestros egresados', 'texto' => 'Nuestros egresados se desenvuelven competitivamente en inglés y español, cuentan con preparación académica para certificaciones, enfrentan desafíos con mentalidad abierta y son ciudadanos globales con visión internacional.'],
                     ],
+                    'cierre' => [
+                        'titulo' => 'Colegio autorizado por el Bachillerato Internacional®',
+                        'texto' => 'Colegio Discovery® cuenta con autorización oficial para impartir el Programa del Diploma. La ficha institucional puede consultarse directamente en el sitio del IB®.',
+                    ],
+                    'certificacion_url' => 'https://ibo.org/es/programmes/find-an-ib-school/ibla/c/colegio-discovery-nuevo-millenium/',
+                    'certificacion_texto' => 'Consultar autorización oficial en el sitio del IB®',
+                    'nombre_registrado_ib' => 'Ante el Bachillerato Internacional®, estamos registrados como: Colegio Discovery Nuevo Millenium.',
                     'experiencias' => ['Pensamiento crítico', 'Teoría del Conocimiento', 'CAS', 'Investigación', 'Dos lenguas', 'Mentalidad internacional'],
                 ],
             ],
@@ -336,7 +348,7 @@ return [
                 'ocultar_galeria' => true,
                 'layout' => 'pop',
                 'informacion' => [
-                    'eyebrow' => 'Programa de Orientación Profesional del IB',
+                    'eyebrow' => 'Programa de Orientación Profesional del IB®',
                     'destacados' => [
                         ['titulo' => 'Autoconocimiento', 'texto' => 'Cada Explorer reconoce sus intereses, talentos y fortalezas para tomar decisiones más informadas sobre su futuro.'],
                         ['titulo' => 'Experiencia práctica', 'texto' => 'Los aprendizajes se conectan con proyectos, tecnología, servicio y situaciones del mundo real.'],
@@ -391,29 +403,29 @@ return [
                     ],
                     'imagenes' => [
                         'componentes' => [
-                            'titulo' => 'POP del IB - Componentes del programa',
+                            'titulo' => 'POP del IB® - Componentes del programa',
                             'referencia' => 'Fotografía horizontal de Explorers participando en aprendizaje-servicio, trabajo colaborativo, investigación o una presentación relacionada con los componentes del POP.',
                         ],
                         'ruta_data_science' => [
-                            'titulo' => 'POP del IB - Ruta de Data Science',
+                            'titulo' => 'POP del IB® - Ruta de Data Science',
                             'referencia' => 'Fotografía horizontal de Explorers trabajando con computadoras, programación, análisis de datos, inteligencia artificial o tecnología.',
                         ],
                         'ruta_diseno_3d' => [
-                            'titulo' => 'POP del IB - Ruta de Diseño e Impresión 3D',
+                            'titulo' => 'POP del IB® - Ruta de Diseño e Impresión 3D',
                             'referencia' => 'Fotografía horizontal de Explorers diseñando, creando prototipos o utilizando una impresora 3D.',
                         ],
                         'areas_academicas' => [
-                            'titulo' => 'POP del IB - Áreas académicas de 11° y 12°',
+                            'titulo' => 'POP del IB® - Áreas académicas de 11° y 12°',
                             'referencia' => 'Fotografía horizontal de Explorers de 11° y 12° en una actividad académica, laboratorio, exposición o sesión de orientación universitaria.',
                         ],
                         'cierre' => [
-                            'titulo' => 'POP del IB - Preparación universitaria',
+                            'titulo' => 'POP del IB® - Preparación universitaria',
                             'referencia' => 'Fotografía horizontal de graduación, orientación universitaria o Explorers proyectando su futuro profesional.',
                         ],
                     ],
                     'cierre' => [
                         'titulo' => 'Una preparación integral para la universidad',
-                        'texto' => 'En Discovery, nuestros Explorers no solo eligen materias: construyen un camino. El POP del IB, las rutas preuniversitarias y las áreas académicas de 11° y 12° les permiten descubrir intereses, desarrollar talentos y construir un perfil sólido, competitivo y con propósito.',
+                        'texto' => 'En Discovery, nuestros Explorers no solo eligen materias: construyen un camino. El POP del IB®, las rutas preuniversitarias y las áreas académicas de 11° y 12° les permiten descubrir intereses, desarrollar talentos y construir un perfil sólido, competitivo y con propósito.',
                         'frase' => 'El futuro no se espera, se construye.',
                     ],
                 ],

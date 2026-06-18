@@ -15,10 +15,10 @@ class GaleriaImagenForm
     public static function levelOptions(): array
     {
         return [
-            'preescolar' => 'Kinder',
+            'preescolar' => 'Kindergarten',
             'primaria' => 'Elementary',
-            'secundaria' => 'Middle',
-            'bachillerato' => 'High',
+            'secundaria' => 'Middle School',
+            'bachillerato' => 'High School',
         ];
     }
 

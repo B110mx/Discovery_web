@@ -34,10 +34,10 @@ class Evento extends Model
     {
         return [
             'general' => 'Toda la comunidad',
-            'preescolar' => 'Kinder',
+            'preescolar' => 'Kindergarten',
             'primaria' => 'Elementary',
-            'secundaria' => 'Middle',
-            'bachillerato' => 'High',
+            'secundaria' => 'Middle School',
+            'bachillerato' => 'High School',
         ];
     }
 }

@@ -32,12 +32,12 @@
         <div>
             <h3 class="text-xl font-bold mb-3">{{ __('site.footer.levels') }}</h3>
             <ul class="space-y-2 text-gray-300">
-                <li><a href="{{ route('nivel', 'preescolar') }}" class="hover:text-white">Kinder</a></li>
+                <li><a href="{{ route('nivel', 'preescolar') }}" class="hover:text-white">Kindergarten</a></li>
                 <li><a href="{{ route('nivel', 'primaria') }}" class="hover:text-white">Elementary</a></li>
-                <li><a href="{{ route('nivel', 'secundaria') }}" class="hover:text-white">Middle</a></li>
-                <li><a href="{{ route('nivel', 'bachillerato') }}" class="hover:text-white">High</a></li>
-                <li><a href="{{ route('nivel', 'ib-en-discovery') }}" class="hover:text-white">IB en Discovery</a></li>
-                <li><a href="{{ route('nivel', 'pop-del-ib') }}" class="hover:text-white">POP del IB</a></li>
+                <li><a href="{{ route('nivel', 'secundaria') }}" class="hover:text-white">Middle School</a></li>
+                <li><a href="{{ route('nivel', 'bachillerato') }}" class="hover:text-white">High School</a></li>
+                <li><a href="{{ route('nivel', 'ib-en-discovery') }}" class="hover:text-white">IB® en Discovery®</a></li>
+                <li><a href="{{ route('nivel', 'pop-del-ib') }}" class="hover:text-white">POP del IB®</a></li>
                 <li><a href="{{ route('nivel', 'certificacion-de-ingles') }}" class="hover:text-white">{{ __('site.nav.english_certification') }}</a></li>
             </ul>
         </div>

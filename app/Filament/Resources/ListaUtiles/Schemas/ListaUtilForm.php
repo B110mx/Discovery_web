@@ -28,10 +28,10 @@ class ListaUtilForm
                             Select::make('nivel')
                                 ->label('Nivel')
                                 ->options([
-                                    'Kinder' => 'Kinder',
+                                    'Kinder' => 'Kindergarten',
                                     'Elementary' => 'Elementary',
-                                    'Middle' => 'Middle',
-                                    'High' => 'High',
+                                    'Middle' => 'Middle School',
+                                    'High' => 'High School',
                                     'General' => 'General',
                                 ])
                                 ->searchable()
@@ -39,7 +39,7 @@ class ListaUtilForm
                                 ->required(),
                             TextInput::make('grado')
                                 ->label('Grado o grupo')
-                                ->helperText('Ejemplo: 1° grado, 2° grado, Kinder 3° o General.')
+                                ->helperText('Ejemplo: 1° grado, 2° grado, Kindergarten 3° o General.')
                                 ->required()
                                 ->maxLength(120),
                             TextInput::make('titulo')

@@ -12,7 +12,7 @@
             'badge' => 'bg-lime-500 text-black',
         ],
         [
-            'nivel' => 'Kinder',
+            'nivel' => 'Kindergarten',
             'clave' => '21PJN0912U',
             'color' => 'border-lime-300 bg-lime-50 text-lime-900',
             'badge' => 'bg-lime-500 text-black',
@@ -24,13 +24,13 @@
             'badge' => 'bg-red-600 text-white',
         ],
         [
-            'nivel' => 'Middle',
+            'nivel' => 'Middle School',
             'clave' => '21PES0097J',
             'color' => 'border-blue-200 bg-blue-50 text-blue-900',
             'badge' => 'bg-blue-700 text-white',
         ],
         [
-            'nivel' => 'High',
+            'nivel' => 'High School',
             'clave' => '21PBH0513D',
             'color' => 'border-green-200 bg-green-50 text-green-900',
             'badge' => 'bg-green-600 text-white',
@@ -150,49 +150,6 @@
         <div class="bg-green-500 text-white rounded-xl shadow-md p-8">
             <p class="font-semibold uppercase tracking-wide text-sm text-green-50">{{ __('site.pages.about.vision') }}</p>
             <h2 class="text-3xl font-bold mt-3">{{ __('site.pages.about.vision_text') }}</h2>
-        </div>
-    </section>
-
-    <section class="bg-white rounded-xl shadow-md overflow-hidden">
-        <div class="grid lg:grid-cols-[.95fr_1.05fr]">
-            <div class="p-8 md:p-10 flex flex-col justify-center">
-                <p class="font-semibold uppercase tracking-wide text-sm text-blue-700">{{ __('site.pages.about.academic_projection') }}</p>
-                <h2 class="text-3xl md:text-4xl font-bold text-black mt-2">{{ __('site.pages.about.university_title') }}</h2>
-                <p class="text-gray-700 leading-8 mt-5">
-                    {{ __('site.pages.about.university_text') }}
-                </p>
-
-                <div class="mt-6 flex items-center gap-4 rounded-xl border border-yellow-200 bg-yellow-50 p-5">
-                    <span class="shrink-0 text-3xl font-extrabold text-yellow-600">+70%</span>
-                    <p class="font-semibold leading-6 text-gray-800">
-                        {{ __('site.pages.about.scholarships') }}
-                    </p>
-                </div>
-
-                <div class="grid sm:grid-cols-3 gap-3 mt-7">
-                    @foreach (__('site.pages.about.university_steps') as $step)
-                        <div class="rounded-lg border {{ ['border-blue-100 bg-blue-50 text-blue-900', 'border-green-100 bg-green-50 text-green-900', 'border-red-100 bg-red-50 text-red-900'][$loop->index] }} p-4">
-                            <span class="block text-2xl font-extrabold {{ ['text-blue-700', 'text-green-600', 'text-red-600'][$loop->index] }}">0{{ $loop->iteration }}</span>
-                            <p class="mt-2 text-sm font-semibold leading-6">{{ $step }}</p>
-                        </div>
-                    @endforeach
-                </div>
-            </div>
-
-            <div class="bg-gray-100 p-4 md:p-6">
-                <div class="grid grid-cols-2 gap-3 sm:grid-cols-3">
-                    @foreach ($universidadesVinculacion as $universidad)
-                        <div class="flex h-28 items-center justify-center rounded-lg border border-gray-200 bg-white p-4 shadow-sm md:h-32">
-                            <img
-                                src="{{ $universidad['url'] }}"
-                                alt="{{ $universidad['nombre'] }}"
-                                class="max-h-20 w-full object-contain"
-                                loading="lazy"
-                            >
-                        </div>
-                    @endforeach
-                </div>
-            </div>
         </div>
     </section>
 

@@ -89,12 +89,12 @@ class SchoolCalendarTest extends TestCase
         $response->assertOk();
         $response->assertSee('Próximas fechas en Discovery®');
         $response->assertSee('Reunión de familias');
-        $response->assertSee('Kinder');
+        $response->assertSee('Kindergarten');
         $response->assertSeeInOrder([
             'Encuentra el espacio que acompaña lo que tus hijos necesitan hoy',
             'Próximas fechas en Discovery®',
             'Evento próximo',
-            'Kinder',
+            'Kindergarten',
             'Reunión de familias',
             'Historias que muestran lo que significa crecer en Discovery®',
             'El siguiente paso puede comenzar aquí',

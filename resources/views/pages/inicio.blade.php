@@ -59,6 +59,28 @@
         </div>
 
         @if (count($bannerInicioSlides) > 1)
+            <button
+                type="button"
+                class="absolute left-3 top-1/2 z-10 inline-flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-black/45 text-white shadow-lg backdrop-blur-sm transition hover:scale-105 hover:bg-black/65 focus:outline-none focus:ring-4 focus:ring-white/70 md:left-5 md:h-12 md:w-12"
+                aria-label="{{ __('site.pages.home.banner_previous') }}"
+                data-home-hero-previous
+            >
+                <svg class="h-6 w-6 md:h-7 md:w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                    <path d="m15 18-6-6 6-6"></path>
+                </svg>
+            </button>
+
+            <button
+                type="button"
+                class="absolute right-3 top-1/2 z-10 inline-flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-black/45 text-white shadow-lg backdrop-blur-sm transition hover:scale-105 hover:bg-black/65 focus:outline-none focus:ring-4 focus:ring-white/70 md:right-5 md:h-12 md:w-12"
+                aria-label="{{ __('site.pages.home.banner_next') }}"
+                data-home-hero-next
+            >
+                <svg class="h-6 w-6 md:h-7 md:w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                    <path d="m9 18 6-6-6-6"></path>
+                </svg>
+            </button>
+
             <div class="absolute inset-x-0 bottom-4 flex justify-center gap-2" data-home-hero-dots>
                 @foreach ($bannerInicioSlides as $banner)
                     <button
@@ -426,6 +448,8 @@
         const heroTrack = document.querySelector('[data-home-hero-track]');
         const heroSlides = heroTrack ? Array.from(heroTrack.children) : [];
         const heroDots = Array.from(document.querySelectorAll('[data-home-hero-dot]'));
+        const heroPrevious = document.querySelector('[data-home-hero-previous]');
+        const heroNext = document.querySelector('[data-home-hero-next]');
         let heroIndex = 0;
         let heroTimer = null;
 
@@ -454,6 +478,16 @@
                 showHero(Number(dot.dataset.homeHeroDot));
                 restartHeroTimer();
             });
+        });
+
+        heroPrevious?.addEventListener('click', () => {
+            showHero(heroIndex - 1);
+            restartHeroTimer();
+        });
+
+        heroNext?.addEventListener('click', () => {
+            showHero(heroIndex + 1);
+            restartHeroTimer();
         });
 
         enableTouchSwipe(

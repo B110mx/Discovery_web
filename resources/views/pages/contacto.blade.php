@@ -100,7 +100,7 @@
                     <label for="grado" class="mb-2 block text-sm font-bold text-gray-700">{{ __('site.pages.contact.grade') }}</label>
                     <select id="grado" name="grado" class="w-full rounded-lg border border-gray-300 bg-white p-3 outline-none focus:border-blue-700 focus:ring-4 focus:ring-blue-100" required>
                         <option value="">{{ __('site.pages.contact.select') }}</option>
-                        @foreach (['Kinder', 'Elementary', 'Middle', 'High'] as $grado)
+                        @foreach (['Kindergarten', 'Elementary', 'Middle School', 'High School'] as $grado)
                             <option value="{{ $grado }}" @selected(old('grado') === $grado)>{{ $grado }}</option>
                         @endforeach
                     </select>

@@ -14,11 +14,11 @@ class PublicPageContractsTest extends TestCase
     public function test_configured_academic_levels_render_their_current_content(): void
     {
         $levels = [
-            'preescolar' => ['Kinder', 'Programas de neuroaprendizaje'],
+            'preescolar' => ['Kindergarten', 'Programas de neuroaprendizaje'],
             'primaria' => ['Elementary', 'Unidades de Indagación'],
-            'secundaria' => ['Middle', 'Habilidades del Siglo XXI'],
-            'bachillerato' => ['High', 'Orientación vocacional personalizada'],
-            'ib-en-discovery' => ['Bachillerato Internacional en Discovery®', 'Perfil IB'],
+            'secundaria' => ['Middle School', 'Habilidades del Siglo XXI'],
+            'bachillerato' => ['High School', 'Orientación vocacional personalizada'],
+            'ib-en-discovery' => ['Bachillerato Internacional® en Discovery®', 'Perfil IB®'],
             'pop-del-ib' => ['Preparando Explorers para construir su futuro', 'Ruta de Data Science'],
             'certificacion-de-ingles' => ['Certificación de Inglés', 'Cambridge'],
         ];

@@ -60,12 +60,15 @@ class SchoolSupplyListService
     {
         return [
             'Kinder' => 10,
+            'Kindergarten' => 10,
             'Preescolar' => 10,
             'Elementary' => 20,
             'Primaria' => 20,
             'Middle' => 30,
+            'Middle School' => 30,
             'Secundaria' => 30,
             'High' => 40,
+            'High School' => 40,
             'Bachillerato' => 40,
             'General' => 50,
         ][$level] ?? 999;
@@ -74,10 +77,13 @@ class SchoolSupplyListService
     private function levelName(string $level): string
     {
         return [
-            'Preescolar' => 'Kinder',
+            'Kinder' => 'Kindergarten',
+            'Preescolar' => 'Kindergarten',
             'Primaria' => 'Elementary',
-            'Secundaria' => 'Middle',
-            'Bachillerato' => 'High',
+            'Middle' => 'Middle School',
+            'Secundaria' => 'Middle School',
+            'High' => 'High School',
+            'Bachillerato' => 'High School',
         ][$level] ?? $level;
     }
 
@@ -97,11 +103,11 @@ class SchoolSupplyListService
         }
 
         if (preg_match('/\b(7|8|9)\s*[º°]/u', $filename)) {
-            return 'Middle';
+            return 'Middle School';
         }
 
         if (preg_match('/\b(10|11|12)\s*[º°]/u', $filename)) {
-            return 'High';
+            return 'High School';
         }
 
         return 'General';

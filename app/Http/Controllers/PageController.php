@@ -246,9 +246,7 @@ class PageController extends Controller
         ]);
 
         $historiaNosotros = Cache::remember(SiteCache::key('nosotros_historia'), SiteCache::ttl(), fn () => $this->historyTimeline->get());
-        $universidadesVinculacion = $this->universidadesVinculacion();
-
-        return view('pages.nosotros', compact('imagenesNosotros', 'historiaNosotros', 'paginaNosotros', 'universidadesVinculacion'));
+        return view('pages.nosotros', compact('imagenesNosotros', 'historiaNosotros', 'paginaNosotros'));
     }
 
     public function ofertaAcademica(): View
@@ -260,8 +258,9 @@ class PageController extends Controller
         $ofertaNiveles = collect($this->levelContent->offerDefinitions())
             ->map(fn (array $nivel, string $slug) => $this->prepararNivelOferta($slug, $nivel))
             ->all();
+        $universidadesVinculacion = $this->universidadesVinculacion();
 
-        return view('pages.oferta-academica', compact('ofertaNiveles', 'paginaOferta'));
+        return view('pages.oferta-academica', compact('ofertaNiveles', 'paginaOferta', 'universidadesVinculacion'));
     }
 
     public function protagonistas(): View
