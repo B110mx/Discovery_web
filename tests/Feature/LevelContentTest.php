@@ -105,10 +105,11 @@ class LevelContentTest extends TestCase
         $response = $this->get(route('oferta-academica'));
 
         $response->assertOk();
-        $response->assertSee('1° a 6° grado');
+        $response->assertSee('1° a 5° grado');
         $response->assertSee('5° grado');
-        $response->assertSee('7° a 9° grado');
+        $response->assertSee('6° a 9° grado');
         $response->assertSee('10° a 12° grado');
-        $response->assertDontSee('1 a 6 grado');
+        $response->assertDontSee('1° a 6° grado');
+        $response->assertDontSee('7° a 9° grado');
     }
 }

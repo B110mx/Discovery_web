@@ -51,6 +51,54 @@ const initSiteInteractions = () => {
         });
     };
 
+    // Videos promocionales: la URL se asigna al abrir para no descargar los
+    // archivos pesados durante la carga inicial de la página.
+    document.querySelectorAll('[data-promotional-videos]').forEach((section) => {
+        const dialog = section.querySelector('[data-promotional-video-dialog]');
+        const player = dialog?.querySelector('[data-promotional-video-player]');
+        const dialogTitle = dialog?.querySelector('[data-promotional-video-dialog-title]');
+        const closeButton = dialog?.querySelector('[data-promotional-video-close]');
+
+        if (!dialog || !player) {
+            return;
+        }
+
+        const closeVideo = () => {
+            player.pause();
+            player.removeAttribute('src');
+            player.load();
+
+            if (dialog.open) {
+                dialog.close();
+            }
+        };
+
+        section.querySelectorAll('[data-promotional-video-open]').forEach((button) => {
+            onPress(button, () => {
+                player.src = button.dataset.videoUrl;
+                player.setAttribute('aria-label', button.dataset.videoTitle || 'Video promocional');
+
+                if (dialogTitle) {
+                    dialogTitle.textContent = button.dataset.videoTitle || '';
+                }
+
+                dialog.showModal();
+                player.play().catch(() => {});
+            });
+        });
+
+        onPress(closeButton, closeVideo);
+        dialog.addEventListener('cancel', (event) => {
+            event.preventDefault();
+            closeVideo();
+        });
+        dialog.addEventListener('click', (event) => {
+            if (event.target === dialog) {
+                closeVideo();
+            }
+        });
+    });
+
     document.addEventListener('click', (event) => {
         const link = event.target.closest('a[href]');
 

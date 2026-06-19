@@ -18,7 +18,7 @@ return [
         'contenido_intro' => 'Un entorno bilingüe y trilingüe donde los Explorers desarrollan mentalidad internacional, creatividad, tecnología y bienestar emocional.',
         'oferta_subtitulo' => 'Bases sólidas para explorar, investigar y crear.',
         'oferta_descripcion' => 'Aprendizaje activo con enfoque bilingüe, pensamiento lógico, proyectos IB® y desarrollo social.',
-        'oferta_edad' => '1° a 6° grado',
+        'oferta_edad' => '1° a 5° grado',
         'oferta_puntos' => ['Inglés diario', 'Francés desde 5° grado', 'Tecnología y arte'],
     ],
     'secundaria' => [
@@ -28,7 +28,7 @@ return [
         'contenido_intro' => 'Middle School es la etapa donde los jovenes despiertan su voz, definen su camino y conectan localmente con una vision global.',
         'oferta_subtitulo' => 'Acompañamiento para descubrir voz, criterio y talentos.',
         'oferta_descripcion' => 'Formación académica con idiomas, tecnología, proyectos interdisciplinarios y bienestar emocional.',
-        'oferta_edad' => '7° a 9° grado',
+        'oferta_edad' => '6° a 9° grado',
         'oferta_puntos' => ['Tres idiomas', 'Deporte diario', 'Proyectos con impacto'],
     ],
     'bachillerato' => [

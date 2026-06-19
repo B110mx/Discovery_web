@@ -11,6 +11,7 @@ use App\Services\HomeBannerService;
 use App\Services\LevelGalleryService;
 use App\Services\LevelContentService;
 use App\Services\MediaResolver;
+use App\Services\PromotionalVideoService;
 use App\Services\SchoolCalendarService;
 use App\Services\SchoolSupplyListService;
 use App\Support\SiteCache;
@@ -40,6 +41,7 @@ class PageController extends Controller
         private readonly LevelGalleryService $levelGallery,
         private readonly HomeBannerService $homeBanners,
         private readonly SchoolCalendarService $schoolCalendar,
+        private readonly PromotionalVideoService $promotionalVideos,
     ) {}
 
     /**
@@ -403,6 +405,7 @@ class PageController extends Controller
         return view('pages.nivel', [
             'nivel' => $nivelContenido,
             'galeria' => $galeria,
+            'videosPromocionales' => $this->promotionalVideos->get($nivel),
         ]);
     }
 

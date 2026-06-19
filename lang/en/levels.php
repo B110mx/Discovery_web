@@ -89,7 +89,7 @@ return [
             'contenido_intro' => 'A bilingual and trilingual environment where Explorers develop an international mindset, creativity, technology skills, and emotional well-being.',
             'oferta_subtitulo' => 'Solid foundations to explore, inquire, and create.',
             'oferta_descripcion' => 'Active learning with a bilingual approach, logical thinking, IB® projects, and social development.',
-            'oferta_edad' => '1st to 6th grade',
+            'oferta_edad' => '1st to 5th grade',
             'oferta_puntos' => ['Daily English', 'French from 5th grade', 'Technology and art'],
         ],
         'informacion' => [
@@ -122,7 +122,7 @@ return [
             'contenido_intro' => 'Middle School is the stage where young people awaken their voice, define their path, and connect locally with a global vision.',
             'oferta_subtitulo' => 'Guidance to discover voice, judgment, and talents.',
             'oferta_descripcion' => 'Academic education with languages, technology, interdisciplinary projects, and emotional well-being.',
-            'oferta_edad' => '7th to 9th grade',
+            'oferta_edad' => '6th to 9th grade',
             'oferta_puntos' => ['Three languages', 'Daily sports', 'Projects with impact'],
         ],
         'informacion' => [

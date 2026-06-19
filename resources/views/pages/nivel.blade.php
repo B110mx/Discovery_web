@@ -694,6 +694,10 @@
         </section>
     @endif
 
+    @if (! empty($videosPromocionales))
+        <x-videos-promocionales :videos="$videosPromocionales" :tema="$tema" />
+    @endif
+
     @if (! ($nivel['ocultar_galeria'] ?? false) && ! empty($galeria))
         <section class="mt-12">
             <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-6">
