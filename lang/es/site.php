@@ -160,6 +160,10 @@ return [
             'comparison_text' => 'Conoce el enfoque de cada nivel y encuentra la ruta ideal para tu familia.',
             'schedule_info' => 'Agendar informes',
             'photo_soon' => 'Fotografía próximamente',
+            'university_hover_hint' => 'Pasa el cursor sobre cada universidad para consultar sus beneficios; selecciona la tarjeta para visitar su sitio oficial.',
+            'university_visit' => 'Visitar el sitio oficial de :university',
+            'university_review_call' => 'Revisar convocatoria',
+            'university_validity_note' => 'Convenios y porcentajes vigentes al momento de publicación. Los beneficios están sujetos a requisitos, procesos de admisión y convocatorias de cada institución.',
             'explore_level' => 'Explorar nivel',
         ],
         'level' => [

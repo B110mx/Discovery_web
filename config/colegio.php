@@ -281,15 +281,32 @@ return [
                     'puntos' => [
                         'High School con Programa IB® oficial y validez internacional.',
                         'Programa del Diploma y desarrollo del perfil IB®.',
-                        'Inglés y español, además de francés a nivel básico, con 15 bloques semanales en inglés.',
+                        'Inglés y español, además de francés nivel A2, con 15 bloques semanales en inglés.',
                         'Más del 70% de egresados obtiene becas en universidades de México y el extranjero.',
                         'Orientación vocacional, asesoría para admisiones y seguimiento individual.',
                     ],
                     'secciones' => [
                         ['titulo' => 'Pensamiento global', 'texto' => 'Teoría del Conocimiento y CAS fortalecen pensamiento crítico, visión internacional y capacidad de tomar decisiones.'],
-                        ['titulo' => 'Certificaciones de inglés y formación en francés', 'texto' => 'La formación en inglés prepara para certificaciones y fortalece la comunicación académica; el francés se aprende a nivel básico como tercer idioma.'],
+                        ['titulo' => 'Certificaciones de inglés y formación en francés', 'texto' => 'La formación en inglés prepara para certificaciones y fortalece la comunicación académica; el francés se aprende hasta alcanzar el nivel A2 como tercer idioma.'],
                         ['titulo' => 'Debates y diplomacia', 'texto' => 'DKMUN permite negociar, argumentar, proponer soluciones y representar países en asuntos internacionales.'],
                         ['titulo' => 'Impacto social y expresión', 'texto' => 'CAS, arte y deporte diario hacen que cada Explorer participe en proyectos culturales, sociales, ambientales o deportivos.'],
+                    ],
+                    'areas' => [
+                        [
+                            'titulo' => 'Área de Salud',
+                            'texto' => 'Fortalece análisis, observación, pensamiento científico, investigación y comprensión del ser humano.',
+                            'perfiles' => 'Medicina, Enfermería, Nutrición, Psicología, Fisioterapia, Odontología, Biotecnología y Ciencias Biomédicas.',
+                        ],
+                        [
+                            'titulo' => 'Área Físico-Matemática',
+                            'texto' => 'Desarrolla pensamiento lógico, razonamiento matemático, análisis de problemas y creatividad aplicada.',
+                            'perfiles' => 'Ingenierías, Arquitectura, Ciencia de Datos, Actuaría, Física, Matemáticas Aplicadas, Robótica y Diseño Industrial.',
+                        ],
+                        [
+                            'titulo' => 'Área Económico-Administrativa',
+                            'texto' => 'Fortalece liderazgo, toma de decisiones, análisis de información, pensamiento estratégico y comunicación.',
+                            'perfiles' => 'Administración, Finanzas, Economía, Mercadotecnia, Negocios Internacionales, Contaduría, Comercio y Emprendimiento.',
+                        ],
                     ],
                     'experiencias' => ['Expo Arte', 'Graduación', 'Día del Explorer', 'DKMUN', 'Proyectos IB®'],
                 ],
@@ -382,23 +399,6 @@ return [
                             'intro' => 'Para Explorers interesados en creatividad, diseño, ingeniería, arquitectura, tecnología e innovación aplicada.',
                             'habilidades' => ['Diseño', 'Pensamiento espacial', 'Prototipado', 'Planeación de proyectos', 'Tecnología aplicada'],
                             'perfiles' => 'Arquitectura, Diseño Industrial, Ingeniería, Diseño de Producto, Animación, Robótica, Manufactura Digital y Arte Digital.',
-                        ],
-                    ],
-                    'areas' => [
-                        [
-                            'titulo' => 'Área de Salud',
-                            'texto' => 'Fortalece análisis, observación, pensamiento científico, investigación y comprensión del ser humano.',
-                            'perfiles' => 'Medicina, Enfermería, Nutrición, Psicología, Fisioterapia, Odontología, Biotecnología y Ciencias Biomédicas.',
-                        ],
-                        [
-                            'titulo' => 'Área Físico-Matemática',
-                            'texto' => 'Desarrolla pensamiento lógico, razonamiento matemático, análisis de problemas y creatividad aplicada.',
-                            'perfiles' => 'Ingenierías, Arquitectura, Ciencia de Datos, Actuaría, Física, Matemáticas Aplicadas, Robótica y Diseño Industrial.',
-                        ],
-                        [
-                            'titulo' => 'Área Económico-Administrativa',
-                            'texto' => 'Fortalece liderazgo, toma de decisiones, análisis de información, pensamiento estratégico y comunicación.',
-                            'perfiles' => 'Administración, Finanzas, Economía, Mercadotecnia, Negocios Internacionales, Contaduría, Comercio y Emprendimiento.',
                         ],
                     ],
                     'imagenes' => [

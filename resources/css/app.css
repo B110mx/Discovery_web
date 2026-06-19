@@ -202,3 +202,45 @@
 .data-\[active\=true\]\:bg-blue-700[data-active=true] {
     background-color: var(--discovery-blue);
 }
+
+/* Tarjetas de vinculación: resumen visible y detalle al pasar el cursor. */
+.university-card__details {
+    transform: translateY(calc(100% - 4.75rem));
+    transition: transform 300ms ease, background-color 300ms ease;
+}
+
+.university-card__benefits {
+    opacity: 0;
+    transition: opacity 180ms ease 40ms;
+}
+
+@media (hover: hover) {
+    .university-card:hover .university-card__details,
+    .university-card:focus-visible .university-card__details {
+        transform: translateY(0);
+        background-color: rgb(15 23 42 / 0.97);
+    }
+
+    .university-card:hover .university-card__benefits,
+    .university-card:focus-visible .university-card__benefits {
+        opacity: 1;
+    }
+}
+
+@media (hover: none) {
+    .university-card__details {
+        transform: translateY(0);
+        top: 7.5rem;
+    }
+
+    .university-card__benefits {
+        opacity: 1;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .university-card__details,
+    .university-card__benefits {
+        transition: none;
+    }
+}

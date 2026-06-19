@@ -192,9 +192,9 @@
         @endforeach
     </section>
 
-    <section class="overflow-hidden rounded-xl bg-white shadow-md">
-        <div class="grid lg:grid-cols-[.95fr_1.05fr]">
-            <div class="flex flex-col justify-center p-8 md:p-10">
+    <section class="overflow-hidden rounded-xl bg-white shadow-md" data-university-linkage>
+        <div class="grid gap-8 p-6 md:p-10 lg:grid-cols-[.8fr_1.2fr] lg:items-end">
+            <div>
                 <p class="text-sm font-semibold uppercase tracking-wide text-blue-700">{{ __('site.pages.about.academic_projection') }}</p>
                 <h2 class="mt-2 text-3xl font-bold text-black md:text-4xl">{{ __('site.pages.about.university_title') }}</h2>
                 <p class="mt-5 leading-8 text-gray-700">
@@ -207,8 +207,13 @@
                         {{ __('site.pages.about.scholarships') }}
                     </p>
                 </div>
+            </div>
 
-                <div class="mt-7 grid gap-3 sm:grid-cols-3">
+            <div>
+                <p class="mb-4 text-sm font-semibold leading-6 text-gray-600">
+                    {{ __('site.pages.offer.university_hover_hint') }}
+                </p>
+                <div class="grid gap-3 sm:grid-cols-3">
                     @foreach (__('site.pages.about.university_steps') as $step)
                         <div class="rounded-lg border {{ ['border-blue-100 bg-blue-50 text-blue-900', 'border-green-100 bg-green-50 text-green-900', 'border-red-100 bg-red-50 text-red-900'][$loop->index] }} p-4">
                             <span class="block text-2xl font-extrabold {{ ['text-blue-700', 'text-green-600', 'text-red-600'][$loop->index] }}">0{{ $loop->iteration }}</span>
@@ -217,21 +222,51 @@
                     @endforeach
                 </div>
             </div>
+        </div>
 
-            <div class="bg-gray-100 p-4 md:p-6">
-                <div class="grid grid-cols-2 gap-3 sm:grid-cols-3">
-                    @foreach ($universidadesVinculacion as $universidad)
-                        <div class="flex h-28 items-center justify-center rounded-lg border border-gray-200 bg-white p-4 shadow-sm md:h-32">
+        <div class="bg-gray-100 p-4 md:p-6">
+            <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                @foreach ($universidadesVinculacion as $universidad)
+                    <a
+                        href="{{ $universidad['sitio'] }}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="university-card group relative block h-80 overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm focus:outline-none focus-visible:ring-4 focus-visible:ring-blue-300"
+                        aria-label="{{ __('site.pages.offer.university_visit', ['university' => $universidad['nombre']]) }}"
+                    >
+                        <div class="flex h-full items-start justify-center px-5 pb-20 pt-7">
                             <img
-                                src="{{ $universidad['url'] }}"
+                                src="{{ $universidad['logo'] }}"
                                 alt="{{ $universidad['nombre'] }}"
-                                class="max-h-20 w-full object-contain"
+                                class="max-h-24 w-full object-contain transition duration-300 group-hover:scale-95"
                                 loading="lazy"
                             >
                         </div>
-                    @endforeach
-                </div>
+                        <div class="university-card__details absolute inset-x-0 bottom-0 z-10 min-h-[4.75rem] bg-slate-950 px-5 py-4 text-white">
+                            <div class="flex items-start justify-between gap-3">
+                                <h3 class="text-base font-extrabold leading-6">{{ $universidad['nombre'] }}</h3>
+                                <span aria-hidden="true" class="mt-0.5 shrink-0 text-lg">&#8599;</span>
+                            </div>
+                            <div class="university-card__benefits mt-3">
+                                <p class="text-sm font-medium leading-5 text-blue-100">{{ $universidad['resumen'] }}</p>
+                                <ul class="mt-3 space-y-2 text-xs leading-5 text-gray-200">
+                                    @foreach ($universidad['beneficios'] as $beneficio)
+                                        <li class="flex gap-2"><span class="text-yellow-400" aria-hidden="true">&#8226;</span><span>{{ $beneficio }}</span></li>
+                                    @endforeach
+                                </ul>
+                                @if ($universidad['convocatoria'] ?? false)
+                                    <p class="mt-3 inline-flex rounded-full bg-yellow-400/15 px-2.5 py-1 text-[11px] font-bold uppercase tracking-wide text-yellow-300">
+                                        {{ __('site.pages.offer.university_review_call') }}
+                                    </p>
+                                @endif
+                            </div>
+                        </div>
+                    </a>
+                @endforeach
             </div>
+            <p class="mt-5 text-center text-xs font-medium leading-5 text-gray-600">
+                {{ __('site.pages.offer.university_validity_note') }}
+            </p>
         </div>
     </section>
 

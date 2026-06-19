@@ -39,6 +39,19 @@ class PublicPageContractsTest extends TestCase
         $this->get(route('nivel', 'nivel-inexistente'))->assertNotFound();
     }
 
+    public function test_academic_offer_lists_current_clickable_university_agreements(): void
+    {
+        $response = $this->get(route('oferta-academica'));
+
+        $response->assertOk();
+        $response->assertSee('INQBA');
+        $response->assertSee('https://inqba.edu.mx/', false);
+        $response->assertSee('Beca empresarial de 40%');
+        $response->assertSee('Revisar convocatoria');
+        $response->assertSee('data-university-linkage', false);
+        $response->assertDontSee('Universidad Panamericana');
+    }
+
     public function test_active_admin_school_supply_lists_are_rendered(): void
     {
         Storage::fake('public');

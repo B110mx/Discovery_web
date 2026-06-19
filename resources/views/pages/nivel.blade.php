@@ -128,7 +128,7 @@
         [
             'icono' => 'language',
             'titulo' => 'Educación Bilingüe y Trilingüe',
-            'texto' => 'Inglés y Español, además de Francés a nivel básico. 15 bloques a la semana en Inglés.',
+            'texto' => 'Inglés y Español, además de Francés nivel A2. 15 bloques a la semana en Inglés.',
         ],
         [
             'icono' => 'graduation',
@@ -315,39 +315,6 @@
                                 {{ $ruta['perfiles'] }}
                             </p>
                         </div>
-                    </article>
-                @endforeach
-            </div>
-        </section>
-
-        <section class="mt-12">
-            <div class="grid gap-8 lg:grid-cols-[.9fr_1.1fr] lg:items-center">
-                <x-imagen-seccion
-                    :imagen="$imagenesPop['areas_academicas']"
-                    alt="{{ $imagenesPop['areas_academicas']['titulo'] ?? __('site.pages.level.interest_areas_title') }}"
-                    class="aspect-[4/3] w-full rounded-xl object-cover shadow-md"
-                    placeholder-class="aspect-[4/3] w-full"
-                />
-
-                <div>
-                    <p class="text-sm font-bold uppercase tracking-wide {{ $tema['eyebrow'] }}">{{ __('site.pages.level.academic_path') }}</p>
-                    <h2 class="mt-2 text-3xl font-extrabold text-gray-950">{{ __('site.pages.level.interest_areas_title') }}</h2>
-                    <p class="mt-4 leading-8 text-gray-600">
-                        {{ __('site.pages.level.interest_areas_text') }}
-                    </p>
-                </div>
-            </div>
-
-            <div class="mt-8 grid gap-5 lg:grid-cols-3">
-                @foreach ($pop['areas'] as $area)
-                    <article class="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
-                        <span class="inline-flex h-2 w-14 rounded-full {{ $loop->iteration === 1 ? 'bg-red-600' : ($loop->iteration === 2 ? 'bg-blue-700' : 'bg-green-600') }}"></span>
-                        <h3 class="mt-5 text-xl font-extrabold text-gray-950">{{ $area['titulo'] }}</h3>
-                        <p class="mt-3 leading-7 text-gray-600">{{ $area['texto'] }}</p>
-                        <p class="mt-5 text-sm leading-7 text-gray-600">
-                            <strong class="text-gray-950">{{ __('site.pages.level.university_profiles') }}</strong>
-                            {{ $area['perfiles'] }}
-                        </p>
                     </article>
                 @endforeach
             </div>
@@ -699,6 +666,30 @@
                         </div>
                     </div>
                 @endif
+            </div>
+        </section>
+    @endif
+
+    @if (($nivel['slug'] ?? null) === 'bachillerato' && ! empty($nivel['informacion']['areas']))
+        <section class="mt-12">
+            <div class="mb-8 max-w-3xl">
+                <p class="text-sm font-bold uppercase tracking-wide {{ $tema['eyebrow'] }}">{{ __('site.pages.level.academic_path') }}</p>
+                <h2 class="mt-2 text-3xl font-extrabold text-gray-950">{{ __('site.pages.level.interest_areas_title') }}</h2>
+                <p class="mt-4 leading-8 text-gray-600">{{ __('site.pages.level.interest_areas_text') }}</p>
+            </div>
+
+            <div class="grid gap-5 lg:grid-cols-3">
+                @foreach ($nivel['informacion']['areas'] as $area)
+                    <article class="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+                        <span class="inline-flex h-2 w-14 rounded-full {{ $loop->iteration === 1 ? 'bg-red-600' : ($loop->iteration === 2 ? 'bg-blue-700' : 'bg-green-600') }}"></span>
+                        <h3 class="mt-5 text-xl font-extrabold text-gray-950">{{ $area['titulo'] }}</h3>
+                        <p class="mt-3 leading-7 text-gray-600">{{ $area['texto'] }}</p>
+                        <p class="mt-5 text-sm leading-7 text-gray-600">
+                            <strong class="text-gray-950">{{ __('site.pages.level.university_profiles') }}</strong>
+                            {{ $area['perfiles'] }}
+                        </p>
+                    </article>
+                @endforeach
             </div>
         </section>
     @endif

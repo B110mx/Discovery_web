@@ -160,6 +160,10 @@ return [
             'comparison_text' => 'Discover the focus of each level and find the ideal path for your family.',
             'schedule_info' => 'Schedule information',
             'photo_soon' => 'Photo coming soon',
+            'university_hover_hint' => 'Hover over each university to review its benefits; select the card to visit its official website.',
+            'university_visit' => 'Visit the official :university website',
+            'university_review_call' => 'Review current call',
+            'university_validity_note' => 'Agreements and percentages are current as of publication. Benefits are subject to each institution’s requirements, admission process, and current calls.',
             'explore_level' => 'Explore level',
         ],
         'level' => [
