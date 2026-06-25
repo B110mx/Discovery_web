@@ -195,8 +195,9 @@ class PageController extends Controller
         $nivelesInicio = collect($this->levelContent->offerDefinitions())
             ->only(['preescolar', 'primaria', 'secundaria', 'bachillerato'])
             ->all();
+        $videosPromocionales = $this->promotionalVideos->featured();
 
-        return view('pages.inicio', compact('eventos', 'testimonios', 'logosNiveles', 'imagenesInicio', 'paginaInicio', 'bannerInicioSlides', 'nivelesInicio', 'proximasFechas'));
+        return view('pages.inicio', compact('eventos', 'testimonios', 'logosNiveles', 'imagenesInicio', 'paginaInicio', 'bannerInicioSlides', 'nivelesInicio', 'proximasFechas', 'videosPromocionales'));
     }
 
     private function eventosInicioCacheTtl()
@@ -261,8 +262,9 @@ class PageController extends Controller
             ->map(fn (array $nivel, string $slug) => $this->prepararNivelOferta($slug, $nivel))
             ->all();
         $universidadesVinculacion = $this->universidadesVinculacion();
+        $videosPromocionales = $this->promotionalVideos->getAll();
 
-        return view('pages.oferta-academica', compact('ofertaNiveles', 'paginaOferta', 'universidadesVinculacion'));
+        return view('pages.oferta-academica', compact('ofertaNiveles', 'paginaOferta', 'universidadesVinculacion', 'videosPromocionales'));
     }
 
     public function protagonistas(): View

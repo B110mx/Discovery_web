@@ -28,6 +28,7 @@ class VideoPromocional extends Model
     {
         static::saved(function (VideoPromocional $video): void {
             SiteCache::forget("videos_promocionales.{$video->nivel}");
+            SiteCache::forget('videos_promocionales.all');
 
             $previousLevel = $video->getOriginal('nivel');
 
@@ -35,6 +36,9 @@ class VideoPromocional extends Model
                 SiteCache::forget("videos_promocionales.{$previousLevel}");
             }
         });
-        static::deleted(fn (VideoPromocional $video) => SiteCache::forget("videos_promocionales.{$video->nivel}"));
+        static::deleted(fn (VideoPromocional $video) => SiteCache::forgetMany([
+            "videos_promocionales.{$video->nivel}",
+            'videos_promocionales.all',
+        ]));
     }
 }

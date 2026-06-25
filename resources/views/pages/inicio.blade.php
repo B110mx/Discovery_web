@@ -660,4 +660,8 @@
     });
 </script>
 
+@if (! empty($videosPromocionales))
+    <x-videos-promocionales :videos="$videosPromocionales" />
+@endif
+
 @endsection

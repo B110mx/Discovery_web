@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\Storage;
 
 /**
  * Resuelve archivos heredados de videosyfotos y cargas públicas de Filament.
+ *
+ * Las vistas no deben armar rutas de imágenes directamente. Este servicio
+ * centraliza prioridad de fuentes, cache-busting y protección de rutas.
  */
 class MediaResolver
 {
@@ -18,6 +21,8 @@ class MediaResolver
 
     public function files(string $directory): Collection
     {
+        // Una carpeta faltante no debe romper la página; la vista mostrará
+        // placeholders o omitirá la galería según corresponda.
         $disk = Storage::disk($this->diskName());
 
         if (! $disk->directoryExists($directory)) {
@@ -29,6 +34,8 @@ class MediaResolver
 
     public function url(string $relativePath): string
     {
+        // /media/* pasa por PageController@serveMedia. Codificar por segmento
+        // conserva nombres con espacios y acentos sin perder las diagonales.
         $relativePath = $this->normalizePath($relativePath);
         $url = '/media/'.collect(explode('/', $relativePath))
             ->map(fn (string $segment) => rawurlencode($segment))
@@ -36,6 +43,8 @@ class MediaResolver
         $disk = Storage::disk($this->diskName());
 
         if ($disk->exists($relativePath)) {
+            // Cambiar el archivo sin cambiar el nombre invalida caché gracias
+            // al timestamp de modificación.
             return $url.'?v='.$disk->lastModified($relativePath);
         }
 
@@ -59,6 +68,8 @@ class MediaResolver
 
     public function publicUploadUrl(?string $path): ?string
     {
+        // Filament guarda cargas en el disco public. Si la carga falta, se deja
+        // que image()/images() pruebe el respaldo configurado.
         if (empty($path) || ! Storage::disk('public')->exists($path)) {
             return null;
         }
@@ -83,6 +94,8 @@ class MediaResolver
 
     public function normalizePath(string $path): string
     {
+        // Acepta separadores de Windows, elimina segmentos vacíos y bloquea
+        // traversal con ".." antes de consultar el disco.
         $path = trim(str_replace('\\', '/', $path), '/');
         $segments = array_filter(
             explode('/', $path),
@@ -96,6 +109,8 @@ class MediaResolver
 
     public function defaultWithUrl(array $default): array
     {
+        // Convierte defaults declarados con media_path al mismo contrato que
+        // consume el componente <x-imagen-seccion>.
         if (isset($default['media_path'])) {
             $default['url'] = $this->urlIfExists($default['media_path']);
         }
@@ -111,6 +126,9 @@ class MediaResolver
     /**
      * Prioridad: carga pública, respaldo administrativo, URL predeterminada y
      * archivo predeterminado de videosyfotos.
+     *
+     * Cada posición editable se identifica por vista + clave. Esas claves deben
+     * coincidir con SeccionImagen para que el panel reemplace la imagen correcta.
      */
     public function images(string $view, array $defaults): array
     {

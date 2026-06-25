@@ -9,6 +9,14 @@ use Illuminate\Support\Facades\Cache;
 
 class LevelContentService
 {
+    /**
+     * Devuelve la definición completa de cada página de nivel.
+     *
+     * Combina tres fuentes:
+     * - config/colegio.php: estructura técnica, layouts, rutas de archivos y temas.
+     * - database/data/nivel_contenidos.php o BD: textos editables desde el panel.
+     * - archivos de idioma levels.php: traducciones cuando el sitio está en otro idioma.
+     */
     public function definitions(): array
     {
         $technicalDefinitions = config('colegio.niveles.definiciones', []);
@@ -21,6 +29,13 @@ class LevelContentService
             ->all();
     }
 
+    /**
+     * Devuelve las tarjetas de Oferta Educativa.
+     *
+     * Usa la misma fuente de contenido de los niveles para que título,
+     * descripción, edad y puntos se mantengan sincronizados entre la tarjeta
+     * de listado y la página detallada del nivel.
+     */
     public function offerDefinitions(): array
     {
         return collect(config('colegio.oferta_academica', []))
@@ -41,6 +56,12 @@ class LevelContentService
             ->all();
     }
 
+    /**
+     * Textos administrables de niveles.
+     *
+     * Los defaults permiten que el sitio funcione recién migrado. Si existe un
+     * registro en NivelContenido, el panel toma prioridad para ese slug.
+     */
     private function content(): array
     {
         return Cache::remember(SiteCache::key('niveles_contenido'), SiteCache::ttl(), function () {
@@ -66,6 +87,10 @@ class LevelContentService
         });
     }
 
+    /**
+     * Traduce solo los textos de contenido. La estructura técnica se mantiene
+     * estable para no duplicar rutas de archivos o reglas de layout por idioma.
+     */
     private function localizedContent(string $slug, array $content): array
     {
         if (app()->getLocale() === 'es') {
@@ -77,6 +102,10 @@ class LevelContentService
         return is_array($translated) ? [...$content, ...$translated] : $content;
     }
 
+    /**
+     * Traduce bloques anidados como informacion, rutas POP o avisos IB.
+     * array_replace_recursive conserva claves técnicas no traducidas.
+     */
     private function localizedDefinition(string $slug, array $definition): array
     {
         if (app()->getLocale() === 'es') {
@@ -98,6 +127,10 @@ class LevelContentService
         ];
     }
 
+    /**
+     * Inyecta el contenido editable dentro de la definición técnica que usa la
+     * vista pages/nivel.blade.php.
+     */
     private function mergeDefinition(array $definition, array $content): array
     {
         $information = $definition['informacion'] ?? [];

@@ -185,6 +185,7 @@
     $bloqueIdealGrid = $bloqueIdeal && count($bloqueIdeal['items']) === 7 ? 'xl:grid-cols-7' : 'xl:grid-cols-6';
 @endphp
 
+{{-- Hero común: aparece en todos los niveles antes de cualquier layout especial. --}}
 <section class="max-w-6xl mx-auto">
     <div class="{{ $tema['hero'] }} rounded-xl shadow-lg overflow-hidden">
         <div class="grid md:grid-cols-[.95fr_1.05fr] md:items-stretch">
@@ -208,10 +209,15 @@
                 <p class="{{ $tema['heroMuted'] }} mt-3 max-w-2xl text-base leading-7">{{ $nivel['descripcion'] }}</p>
             </div>
 
+            @php
+                // IB y POP usan infografías/logotipos que deben verse completos.
+                // Los demás niveles usan fotografía editorial y pueden recortarse.
+                $usaHeroContain = in_array($nivel['slug'] ?? null, ['ib-en-discovery', 'pop-del-ib'], true);
+            @endphp
             <x-imagen-seccion
                 :imagen="$imagenPrincipal"
                 alt="{{ $nivel['titulo'] }}"
-                class="h-48 w-full {{ ($nivel['slug'] ?? null) === 'ib-en-discovery' ? 'bg-white object-contain p-4' : 'object-cover' }} sm:h-56 md:h-[26rem]"
+                class="h-48 w-full {{ $usaHeroContain ? 'object-contain p-4' : 'object-cover' }} sm:h-56 md:h-[26rem]"
                 placeholder-class="h-48 sm:h-56 md:h-[26rem]"
             />
         </div>
@@ -227,6 +233,7 @@
         @endforeach
     </div>
 
+    {{-- Layout POP: rutas preuniversitarias, componentes del programa y cierre. --}}
     @if (($nivel['layout'] ?? null) === 'pop' && ! empty($nivel['informacion']))
         @php
             $pop = $nivel['informacion'];
@@ -253,8 +260,8 @@
                 <x-imagen-seccion
                     :imagen="$imagenesPop['componentes']"
                     alt="{{ $imagenesPop['componentes']['titulo'] ?? __('site.pages.level.pop_components') }}"
-                    class="h-full min-h-72 w-full object-cover"
-                    placeholder-class="h-full min-h-72 w-full rounded-none"
+                    class="block h-72 w-full object-cover sm:h-80 lg:h-full"
+                    placeholder-class="h-72 w-full rounded-none sm:h-80 lg:h-full"
                 />
             </div>
         </section>
@@ -335,12 +342,13 @@
                 <x-imagen-seccion
                     :imagen="$imagenesPop['cierre']"
                     alt="{{ $imagenesPop['cierre']['titulo'] ?? $pop['cierre']['titulo'] }}"
-                    class="h-full min-h-80 w-full object-cover"
-                    placeholder-class="h-full min-h-80 w-full rounded-none border-white/30 bg-blue-800"
+                    class="block h-80 w-full object-cover lg:h-full"
+                    placeholder-class="h-80 w-full rounded-none border-white/30 bg-blue-800 lg:h-full"
                 />
             </div>
         </section>
     @elseif (in_array($nivel['layout'] ?? null, ['ib', 'ingles'], true) && ! empty($nivel['informacion']))
+        {{-- Layout IB/Inglés: bloques informativos con aviso, enfoque y tarjetas. --}}
         <section class="mt-12 overflow-hidden rounded-xl bg-white shadow-md">
             <div class="{{ $tema['hero'] }} p-6 md:p-10">
                 <div class="max-w-5xl">
@@ -449,6 +457,7 @@
             </div>
         </section>
     @elseif (! empty($nivel['informacion']))
+        {{-- Layout estándar: Kinder, Elementary, Middle y High comparten ficha, PDF, modelo y galería. --}}
         @if ($bloqueIdeal)
             <section class="mt-12 rounded-xl border px-5 py-10 shadow-md {{ $tema['soft'] }} md:px-8 lg:px-10">
                 <h2 class="text-center text-3xl font-extrabold uppercase {{ $tema['heading'] }} md:text-4xl">
@@ -670,6 +679,7 @@
         </section>
     @endif
 
+    {{-- Bloque exclusivo de High School: áreas académicas de 11° y 12°. --}}
     @if (($nivel['slug'] ?? null) === 'bachillerato' && ! empty($nivel['informacion']['areas']))
         <section class="mt-12">
             <div class="mb-8 max-w-3xl">
@@ -694,10 +704,7 @@
         </section>
     @endif
 
-    @if (! empty($videosPromocionales))
-        <x-videos-promocionales :videos="$videosPromocionales" :tema="$tema" />
-    @endif
-
+    {{-- Galería final: se oculta en niveles que ya tienen layout visual propio. --}}
     @if (! ($nivel['ocultar_galeria'] ?? false) && ! empty($galeria))
         <section class="mt-12">
             <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-6">
@@ -732,5 +739,10 @@
         </section>
     @endif
 </section>
+
+{{-- Widget flotante de videos del nivel; vive fuera del contenedor para posicionarse fijo. --}}
+@if (! empty($videosPromocionales))
+    <x-videos-promocionales :videos="$videosPromocionales" />
+@endif
 
 @endsection

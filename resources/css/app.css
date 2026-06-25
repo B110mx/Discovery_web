@@ -35,10 +35,39 @@
     }
 }
 
-/* Reels promocionales: carrusel táctil en móvil y cuadrícula compacta en escritorio. */
+/* Widget lateral de videos promocionales. */
+.promotional-video-widget__panel {
+    transition: transform 280ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.promotional-video-widget__panel.is-open {
+    transform: translateX(0);
+}
+
+.promotional-video-widget__overlay {
+    transition: opacity 220ms ease;
+}
+
+.promotional-video-widget__overlay.is-open {
+    opacity: 1;
+}
+
+body.promotional-video-widget-open {
+    overflow: hidden;
+}
+
+[data-promotional-widget-toggle],
+[data-promotional-widget-close],
+[data-promotional-widget-overlay],
+[data-promotional-video-open],
+[data-promotional-video-close] {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+}
+
 .promotional-video-track {
     display: grid;
-    grid-auto-columns: minmax(76%, 19rem);
+    grid-auto-columns: minmax(82%, 19rem);
     grid-auto-flow: column;
     gap: 1rem;
     overflow-x: auto;
@@ -50,6 +79,7 @@
 }
 
 .promotional-video-card {
+    width: 100%;
     scroll-snap-align: start;
 }
 
@@ -62,27 +92,22 @@
     to { opacity: 1; transform: scale(1); }
 }
 
-@media (min-width: 1024px) {
-    .promotional-video-track {
-        grid-auto-flow: row;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        overflow: visible;
-        padding: 0;
-    }
-
-    .promotional-video-card {
-        margin-inline: auto;
-        width: min(100%, 24rem);
-    }
-}
-
 @media (prefers-reduced-motion: reduce) {
+    .promotional-video-widget__panel,
+    .promotional-video-widget__overlay,
     .promotional-video-dialog[open] {
+        transition: none;
         animation: none;
     }
 }
 
 :root {
+    /*
+     * Paleta oficial Discovery.
+     *
+     * Algunas clases Tailwind se reasignan abajo para que vistas antiguas y
+     * nuevas usen el mismo color institucional sin reescribir todo el markup.
+     */
     --discovery-blue: #0066AF;
     --discovery-red: #ED1C24;
     --discovery-yellow: #FDB913;

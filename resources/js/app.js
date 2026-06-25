@@ -51,15 +51,19 @@ const initSiteInteractions = () => {
         });
     };
 
-    // Videos promocionales: la URL se asigna al abrir para no descargar los
-    // archivos pesados durante la carga inicial de la página.
-    document.querySelectorAll('[data-promotional-videos]').forEach((section) => {
-        const dialog = section.querySelector('[data-promotional-video-dialog]');
+    // Widget lateral de videos: el panel no altera el flujo de la página y la
+    // URL del archivo se asigna únicamente cuando el visitante lo reproduce.
+    document.querySelectorAll('[data-promotional-videos]').forEach((widget) => {
+        const toggle = widget.querySelector('[data-promotional-widget-toggle]');
+        const panel = widget.querySelector('[data-promotional-widget-panel]');
+        const overlay = widget.querySelector('[data-promotional-widget-overlay]');
+        const widgetClose = widget.querySelector('[data-promotional-widget-close]');
+        const dialog = widget.querySelector('[data-promotional-video-dialog]');
         const player = dialog?.querySelector('[data-promotional-video-player]');
         const dialogTitle = dialog?.querySelector('[data-promotional-video-dialog-title]');
-        const closeButton = dialog?.querySelector('[data-promotional-video-close]');
+        const videoClose = dialog?.querySelector('[data-promotional-video-close]');
 
-        if (!dialog || !player) {
+        if (!toggle || !panel || !overlay || !widgetClose || !dialog || !player || !videoClose) {
             return;
         }
 
@@ -73,8 +77,34 @@ const initSiteInteractions = () => {
             }
         };
 
-        section.querySelectorAll('[data-promotional-video-open]').forEach((button) => {
-            onPress(button, () => {
+        const setWidgetOpen = (isOpen) => {
+            toggle.setAttribute('aria-expanded', String(isOpen));
+            panel.setAttribute('aria-hidden', String(!isOpen));
+            panel.classList.toggle('is-open', isOpen);
+            overlay.hidden = !isOpen;
+            document.body.classList.toggle('promotional-video-widget-open', isOpen);
+
+            requestAnimationFrame(() => {
+                overlay.classList.toggle('is-open', isOpen);
+            });
+
+            if (isOpen) {
+                widgetClose.focus();
+            } else {
+                closeVideo();
+                toggle.focus();
+            }
+        };
+
+        // El click nativo cubre mouse, teclado y toque. Evitar el helper de
+        // pointerup aquí previene que Safari móvil pierda el toque cuando el
+        // overlay aparece en el mismo instante que termina el gesto.
+        toggle.addEventListener('click', () => setWidgetOpen(true));
+        widgetClose.addEventListener('click', () => setWidgetOpen(false));
+        overlay.addEventListener('click', () => setWidgetOpen(false));
+
+        widget.querySelectorAll('[data-promotional-video-open]').forEach((button) => {
+            button.addEventListener('click', () => {
                 player.src = button.dataset.videoUrl;
                 player.setAttribute('aria-label', button.dataset.videoTitle || 'Video promocional');
 
@@ -87,7 +117,7 @@ const initSiteInteractions = () => {
             });
         });
 
-        onPress(closeButton, closeVideo);
+        videoClose.addEventListener('click', closeVideo);
         dialog.addEventListener('cancel', (event) => {
             event.preventDefault();
             closeVideo();
@@ -95,6 +125,11 @@ const initSiteInteractions = () => {
         dialog.addEventListener('click', (event) => {
             if (event.target === dialog) {
                 closeVideo();
+            }
+        });
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true' && !dialog.open) {
+                setWidgetOpen(false);
             }
         });
     });

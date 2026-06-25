@@ -91,6 +91,19 @@ return [
         ],
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Tarjetas de Oferta Educativa
+    |--------------------------------------------------------------------------
+    |
+    | Este arreglo controla el listado /oferta-academica. Cada clave debe
+    | coincidir con un slug de niveles.definiciones para que la tarjeta apunte
+    | a la página correcta y comparta textos con LevelContentService.
+    |
+    | imagen_clave conecta con SeccionImagen(vista=oferta-academica). Si se
+    | cambia una clave aquí, también debe existir o migrarse en el panel.
+    |
+    */
     'oferta_academica' => [
         'preescolar' => [
             'color' => 'lime',
@@ -163,6 +176,15 @@ return [
         ],
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Comunidad / Protagonistas
+    |--------------------------------------------------------------------------
+    |
+    | Las claves de protagonistas también se usan como prefijo para buscar
+    | imágenes administrables. Ejemplo: alumnos, alumnos_2, alumnos_3.
+    |
+    */
     'protagonistas' => [
         'niveles' => [
             ['titulo' => 'Kindergarten', 'clave' => 'preescolar', 'color' => 'bg-lime-500', 'referencia' => 'Imagen para representar Kindergarten dentro de Comunidad.', 'media_path' => 'Portadas/IMG_5775.JPG'],
@@ -178,6 +200,19 @@ return [
         ],
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Páginas de niveles
+    |--------------------------------------------------------------------------
+    |
+    | definiciones es la fuente técnica de pages/nivel.blade.php: layout,
+    | archivos de respaldo, PDF, modelo académico y bloques especiales.
+    |
+    | Los textos principales pueden venir de NivelContenido o de
+    | database/data/nivel_contenidos.php; aquí conviene dejar lo que afecta
+    | estructura, imágenes, galerías o comportamiento.
+    |
+    */
     'niveles' => [
         'carpetas_galeria' => [
             'preescolar' => 'Kinder fotos actuales',
@@ -358,6 +393,9 @@ return [
                     'experiencias' => ['Pensamiento crítico', 'Teoría del Conocimiento', 'CAS', 'Investigación', 'Dos lenguas', 'Mentalidad internacional'],
                 ],
             ],
+            // POP tiene layout propio dentro de resources/views/pages/nivel.blade.php.
+            // No usa galería pública; sus posiciones de imagen se editan como
+            // SeccionImagen(vista=pop-del-ib, clave=componentes|ruta_*|cierre).
             'pop-del-ib' => [
                 'logo_path' => 'Logos principales/logo-ib-y-discovery-principal-1024x342.png',
                 'logo_extendido_path' => 'Logos principales/logo-ib-y-discovery-principal-1024x342.png',
@@ -401,6 +439,9 @@ return [
                             'perfiles' => 'Arquitectura, Diseño Industrial, Ingeniería, Diseño de Producto, Animación, Robótica, Manufactura Digital y Arte Digital.',
                         ],
                     ],
+                    // Claves administrables del layout POP. Si se agrega una
+                    // tarjeta visual nueva, declarar aquí su clave y crear el
+                    // registro correspondiente en Imágenes del sitio.
                     'imagenes' => [
                         'componentes' => [
                             'titulo' => 'POP del IB® - Componentes del programa',
@@ -466,6 +507,15 @@ return [
         ],
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Temas visuales por nivel
+    |--------------------------------------------------------------------------
+    |
+    | Las clases aquí son consumidas por pages/nivel.blade.php. Mantenerlas como
+    | clases Tailwind completas ayuda a que el escáner de Tailwind las compile.
+    |
+    */
     'temas_niveles' => [
         'preescolar' => [
             'hero' => 'bg-lime-500 text-black',
