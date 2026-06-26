@@ -17,10 +17,12 @@ class NivelContenido extends Model
         'oferta_descripcion',
         'oferta_edad',
         'oferta_puntos',
+        'pop_rutas_visibles',
     ];
 
     protected $casts = [
         'oferta_puntos' => 'array',
+        'pop_rutas_visibles' => 'array',
     ];
 
     protected static function booted(): void

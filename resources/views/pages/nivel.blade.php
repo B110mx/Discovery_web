@@ -299,7 +299,11 @@
 
             <div class="mt-8 grid gap-6 lg:grid-cols-2">
                 @foreach ($pop['rutas'] as $ruta)
-                    @php($imagenRuta = $loop->first ? $imagenesPop['ruta_data_science'] : $imagenesPop['ruta_diseno_3d'])
+                    @php($imagenRuta = $imagenesPop[$ruta['imagen_clave'] ?? ''] ?? [
+                        'url' => null,
+                        'titulo' => $ruta['titulo'],
+                        'referencia' => 'Imagen de la ruta preuniversitaria ' . $ruta['titulo'] . '.',
+                    ])
                     <article class="overflow-hidden rounded-xl bg-white text-gray-950 shadow-md">
                         <x-imagen-seccion
                             :imagen="$imagenRuta"

@@ -9,6 +9,7 @@ use App\Models\HitoHistoria;
 use App\Models\ListaUtil;
 use App\Models\NivelContenido;
 use App\Models\PaginaContenido;
+use App\Models\SeccionImagen;
 use App\Models\TestimonioVideo;
 use App\Support\SiteCache;
 use Database\Seeders\NivelContenidoSeeder;
@@ -110,6 +111,26 @@ class SiteCacheInvalidationTest extends TestCase
 
         $this->assertFalse(Cache::has($homeKey));
         $this->assertFalse(Cache::has($communityKey));
+    }
+
+    public function test_academy_site_images_invalidate_their_public_media_cache(): void
+    {
+        $academyKey = SiteCache::key('academias_media');
+        Cache::put($academyKey, ['cached']);
+
+        SeccionImagen::query()->updateOrCreate([
+            'vista' => 'academias-vespertinas',
+            'clave' => 'academia_cache_test',
+        ], [
+            'vista' => 'academias-vespertinas',
+            'clave' => 'academia_cache_test',
+            'titulo' => 'Academia actualizada',
+            'respaldo_media_path' => 'Academias vespertinas/soccer.jpg',
+            'orden' => 10,
+            'activo' => true,
+        ]);
+
+        $this->assertFalse(Cache::has($academyKey));
     }
 
     public function test_level_content_invalidates_its_shared_cache(): void

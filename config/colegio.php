@@ -16,6 +16,7 @@ return [
             'inicio_eventos' => 'inicio_eventos_v2',
             'inicio_banners' => 'inicio_banners_v1',
             'inicio_testimonios' => 'inicio_testimonios_v2',
+            'academias_media' => 'academias_media_v1',
             'nosotros_historia' => 'nosotros_historia_v1',
             'protagonistas_testimonios' => 'protagonistas_testimonios_v1',
             'recursos_listas_utiles' => 'recursos_listas_utiles_v2',
@@ -425,14 +426,23 @@ return [
                         ['titulo' => 'Habilidades personales y profesionales', 'texto' => 'Organización, liderazgo, trabajo en equipo, comunicación asertiva y pensamiento reflexivo para la vida universitaria y profesional.'],
                         ['titulo' => 'Proyecto de reflexión', 'texto' => 'Investigación y reflexión sobre temas relacionados con el área de interés profesional de cada Explorer.'],
                     ],
+                    // Interruptor de rutas POP:
+                    // - ['data_science', 'diseno_3d'] muestra ambas.
+                    // - ['data_science'] muestra solo Data Science.
+                    // - ['diseno_3d'] muestra solo Diseño e Impresión 3D.
+                    'rutas_visibles' => ['data_science', 'diseno_3d'],
                     'rutas' => [
                         [
+                            'clave' => 'data_science',
+                            'imagen_clave' => 'ruta_data_science',
                             'titulo' => 'Ruta de Data Science',
                             'intro' => 'Para Explorers interesados en tecnología, análisis de información, inteligencia artificial, negocios, innovación y resolución de problemas.',
                             'habilidades' => ['Análisis de datos', 'Pensamiento lógico', 'Programación', 'Interpretación de información', 'Innovación'],
                             'perfiles' => 'Ingeniería, Ciencia de Datos, Inteligencia Artificial, Economía, Finanzas, Administración, Negocios, Tecnología y Marketing Analytics.',
                         ],
                         [
+                            'clave' => 'diseno_3d',
+                            'imagen_clave' => 'ruta_diseno_3d',
                             'titulo' => 'Ruta de Diseño e Impresión 3D',
                             'intro' => 'Para Explorers interesados en creatividad, diseño, ingeniería, arquitectura, tecnología e innovación aplicada.',
                             'habilidades' => ['Diseño', 'Pensamiento espacial', 'Prototipado', 'Planeación de proyectos', 'Tecnología aplicada'],

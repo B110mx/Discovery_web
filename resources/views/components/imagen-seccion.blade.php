@@ -15,6 +15,7 @@
     <img
         src="{{ $imagen['url'] }}"
         alt="{{ $alt }}"
+        decoding="async"
         {{ $attributes->merge(['class' => $class]) }}
     >
 @else

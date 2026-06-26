@@ -135,8 +135,7 @@ class PageController extends Controller
                 ->get()
                 ->map(function (Evento $evento, int $index) use ($eventosDefault) {
                     $imagen = $eventosDefault[$index]['imagen'] ?? null;
-                    $url = $this->media->publicUploadUrl($evento->imagen_url)
-                        ?? $this->media->urlIfExists($evento->imagen_media_path);
+                    $url = $this->media->uploadedOrMediaUrl($evento->imagen_url, $evento->imagen_media_path);
 
                     if ($url) {
                         $imagen = [
@@ -278,7 +277,11 @@ class PageController extends Controller
 
     public function academiasVespertinas(): View
     {
-        $mediaAcademias = $this->mediaAcademiasVespertinas();
+        $mediaAcademias = Cache::remember(
+            SiteCache::key('academias_media'),
+            SiteCache::ttl(),
+            fn () => $this->mediaAcademiasVespertinas(),
+        );
 
         return view('pages.academias-vespertinas', compact('mediaAcademias'));
     }
@@ -432,7 +435,9 @@ class PageController extends Controller
 
         abort_unless($filePath && is_file($filePath), 404);
 
-        return response()->file($filePath);
+        return response()->file($filePath, [
+            'Cache-Control' => 'public, max-age=31536000, immutable',
+        ]);
     }
 
     private function eventosInicioDefault(): array
@@ -462,8 +467,7 @@ class PageController extends Controller
             ->orderBy('orden')
             ->get()
             ->map(function (TestimonioVideo $video) {
-                $url = $this->media->publicUploadUrl($video->video)
-                    ?? $this->media->urlIfExists($video->video_media_path);
+                $url = $this->media->uploadedOrMediaUrl($video->video, $video->video_media_path);
 
                 return $url ? [
                     'titulo' => $video->titulo,
@@ -478,8 +482,7 @@ class PageController extends Controller
             return $testimonios;
         }
 
-        return $this->media->files('Testimonios Alumni')
-            ->filter(fn (string $path) => in_array(strtolower(pathinfo($path, PATHINFO_EXTENSION)), config('colegio.media.video_extensions', [])))
+        return $this->media->videoFiles('Testimonios Alumni')
             ->map(fn (string $path) => [
                 'titulo' => pathinfo($path, PATHINFO_FILENAME),
                 'url' => $this->media->url($path),
@@ -490,13 +493,8 @@ class PageController extends Controller
 
     private function mediaAcademiasVespertinas(): array
     {
-        $imageExtensions = config('colegio.media.image_extensions', []);
-        $videoExtensions = config('colegio.media.video_extensions', []);
-
-        $archivos = $this->media->files('Academias vespertinas')->sort();
-
-        $imagenesDefault = $archivos
-            ->filter(fn (string $path) => in_array(strtolower(pathinfo($path, PATHINFO_EXTENSION)), $imageExtensions, true))
+        $imagenesDefault = $this->media->imageFiles('Academias vespertinas')
+            ->sort()
             ->mapWithKeys(function (string $path): array {
                 $nombre = pathinfo($path, PATHINFO_FILENAME);
                 $clave = 'academia_'.str($nombre)->slug('_');
@@ -517,8 +515,8 @@ class PageController extends Controller
 
         // Los videos siguen leyéndose desde la carpeta porque este recurso
         // administrativo está destinado únicamente a imágenes.
-        $videos = $archivos
-            ->filter(fn (string $path) => in_array(strtolower(pathinfo($path, PATHINFO_EXTENSION)), $videoExtensions, true))
+        $videos = $this->media->videoFiles('Academias vespertinas')
+            ->sort()
             ->map(fn (string $path) => [
                 'titulo' => str_replace(['-', '_'], ' ', pathinfo($path, PATHINFO_FILENAME)),
                 'url' => $this->media->url($path),
@@ -531,14 +529,6 @@ class PageController extends Controller
             'imagenes' => $imagenes,
             'videos' => $videos,
         ];
-    }
-
-    private function mapearMediaPaths(array $paths): array
-    {
-        return collect($paths)
-            ->map(fn (string $path) => $this->media->urlIfExists($path))
-            ->filter()
-            ->all();
     }
 
     private function universidadesVinculacion(): array
@@ -708,8 +698,7 @@ class PageController extends Controller
         // Una carpeta configurada representa un grupo completo. Si está vacía,
         // se usan registros individuales del panel y finalmente el default.
         if (! empty($default['media_directory'])) {
-            $imagenesDirectorio = $this->media->files($default['media_directory'])
-                ->filter(fn (string $path) => in_array(strtolower(pathinfo($path, PATHINFO_EXTENSION)), config('colegio.media.image_extensions', []), true))
+            $imagenesDirectorio = $this->media->imageFiles($default['media_directory'])
                 ->sort()
                 ->map(fn (string $path) => [
                     'url' => $this->media->url($path),
@@ -724,8 +713,7 @@ class PageController extends Controller
         if ($imagenes->isEmpty()) {
             $imagenes = $registros
                 ->map(function (SeccionImagen $registro) {
-                    $url = $this->media->publicUploadUrl($registro->imagen)
-                        ?? $this->media->urlIfExists($registro->respaldo_media_path);
+                    $url = $this->media->uploadedOrMediaUrl($registro->imagen, $registro->respaldo_media_path);
 
                     return $url ? [
                         'url' => $url,

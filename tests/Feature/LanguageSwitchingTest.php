@@ -80,7 +80,8 @@ class LanguageSwitchingTest extends TestCase
             ->get(route('nivel', 'pop-del-ib'))
             ->assertOk()
             ->assertSee('Data Science Path')
-            ->assertSee('Professional interest areas in 11th and 12th grade')
+            ->assertSee('3D Design and Printing Path')
+            ->assertSee('Discovery pre-university paths')
             ->assertSee('The future is not waited for, it is built.');
 
         $this

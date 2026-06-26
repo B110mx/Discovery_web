@@ -48,6 +48,10 @@ class SeccionImagen extends Model
             SiteCache::forget('contacto_pagina_id');
         }
 
+        if ($this->vista === 'academias-vespertinas') {
+            SiteCache::forget('academias_media');
+        }
+
         if ($this->vista === 'nosotros' && str($this->clave)->startsWith('historia_')) {
             SiteCache::forget('nosotros_historia');
         }

@@ -81,6 +81,7 @@ class LevelContentService
                         'oferta_descripcion' => $record->oferta_descripcion,
                         'oferta_edad' => $record->oferta_edad,
                         'oferta_puntos' => $record->oferta_puntos,
+                        'pop_rutas_visibles' => $record->pop_rutas_visibles,
                     ] : $default;
                 })
                 ->all();
@@ -135,6 +136,14 @@ class LevelContentService
     {
         $information = $definition['informacion'] ?? [];
 
+        if (! empty($content['pop_rutas_visibles'] ?? null)) {
+            $information['rutas_visibles'] = $content['pop_rutas_visibles'];
+        }
+
+        if (($definition['layout'] ?? null) === 'pop') {
+            $information = $this->filterPopRoutes($information);
+        }
+
         return [
             ...$definition,
             'titulo' => $content['titulo'] ?? '',
@@ -145,5 +154,29 @@ class LevelContentService
                 'intro' => $content['contenido_intro'] ?? '',
             ],
         ];
+    }
+
+    /**
+     * Permite publicar una o ambas rutas preuniversitarias del POP desde
+     * config/colegio.php sin tocar la vista Blade.
+     */
+    private function filterPopRoutes(array $information): array
+    {
+        $visibleRoutes = $information['rutas_visibles'] ?? ['data_science', 'diseno_3d'];
+
+        if ($visibleRoutes === 'todas') {
+            $visibleRoutes = ['data_science', 'diseno_3d'];
+        }
+
+        $visibleRoutes = collect((array) $visibleRoutes)
+            ->map(fn (string $route): string => strtolower($route))
+            ->all();
+
+        $information['rutas'] = collect($information['rutas'] ?? [])
+            ->filter(fn (array $route): bool => in_array($route['clave'] ?? '', $visibleRoutes, true))
+            ->values()
+            ->all();
+
+        return $information;
     }
 }

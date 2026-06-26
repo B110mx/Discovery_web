@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\ListaUtil;
 use App\Support\SchoolGradeFormatter;
+use Illuminate\Support\Collection;
 
 class SchoolSupplyListService
 {
@@ -33,16 +34,12 @@ class SchoolSupplyListService
                 'url' => $this->media->publicUploadUrl($list->archivo_pdf),
             ])
             ->filter(fn (array $list) => ! empty($list['url']))
-            ->groupBy('nivel')
-            ->sortKeysUsing(fn (string $a, string $b) => $this->levelOrder($a) <=> $this->levelOrder($b))
-            ->map(fn ($lists) => $lists->values()->all())
-            ->all();
+            ->pipe(fn ($lists) => $this->groupByLevel($lists));
     }
 
     private function fromMediaDirectory(): array
     {
-        return $this->media->files('Listas de útiles')
-            ->filter(fn (string $path) => strtolower(pathinfo($path, PATHINFO_EXTENSION)) === 'pdf')
+        return $this->media->filesWithExtensions('Listas de útiles', ['pdf'])
             ->map(fn (string $file) => [
                 'grado' => $this->gradeFromFilename(basename($file)),
                 'nivel' => $this->levelFromFilename(basename($file)),
@@ -50,6 +47,12 @@ class SchoolSupplyListService
                 'url' => $this->media->url($file),
             ])
             ->sortBy(fn (array $list) => $this->gradeOrder($list['grado']))
+            ->pipe(fn ($lists) => $this->groupByLevel($lists));
+    }
+
+    private function groupByLevel(Collection $lists): array
+    {
+        return $lists
             ->groupBy('nivel')
             ->sortKeysUsing(fn (string $a, string $b) => $this->levelOrder($a) <=> $this->levelOrder($b))
             ->map(fn ($lists) => $lists->values()->all())

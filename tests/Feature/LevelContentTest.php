@@ -43,11 +43,11 @@ class LevelContentTest extends TestCase
             ->firstOrFail()
             ->update([
                 'titulo' => 'Kinder editable',
-                'descripcion' => 'Descripción editable del hero.',
-                'contenido_titulo' => 'Título interior editable',
-                'contenido_intro' => 'Introducción interior editable.',
-                'oferta_subtitulo' => 'Subtítulo editable de oferta',
-                'oferta_descripcion' => 'Descripción editable de oferta.',
+                'descripcion' => 'Descripcion editable del hero.',
+                'contenido_titulo' => 'Titulo interior editable',
+                'contenido_intro' => 'Introduccion interior editable.',
+                'oferta_subtitulo' => 'Subtitulo editable de oferta',
+                'oferta_descripcion' => 'Descripcion editable de oferta.',
                 'oferta_edad' => 'Etapa editable',
                 'oferta_puntos' => ['Punto editable uno', 'Punto editable dos'],
             ]);
@@ -56,15 +56,15 @@ class LevelContentTest extends TestCase
 
         $levelResponse->assertOk();
         $levelResponse->assertSee('Kinder editable');
-        $levelResponse->assertSee('Descripción editable del hero.');
-        $levelResponse->assertSee('Título interior editable');
-        $levelResponse->assertSee('Introducción interior editable.');
+        $levelResponse->assertSee('Descripcion editable del hero.');
+        $levelResponse->assertSee('Titulo interior editable');
+        $levelResponse->assertSee('Introduccion interior editable.');
 
         $offerResponse = $this->get(route('oferta-academica'));
 
         $offerResponse->assertOk();
-        $offerResponse->assertSee('Subtítulo editable de oferta');
-        $offerResponse->assertSee('Descripción editable de oferta.');
+        $offerResponse->assertSee('Subtitulo editable de oferta');
+        $offerResponse->assertSee('Descripcion editable de oferta.');
         $offerResponse->assertSee('Etapa editable');
         $offerResponse->assertSee('Punto editable uno');
     }
@@ -87,9 +87,35 @@ class LevelContentTest extends TestCase
             ->get(NivelContenidoResource::getUrl('edit', ['record' => $content]));
 
         $editResponse->assertOk();
-        $editResponse->assertSee('Página del nivel');
+        $editResponse->assertSee('Pagina del nivel');
         $editResponse->assertSee('Tarjeta de Oferta Educativa');
         $editResponse->assertSee('primaria');
+
+        $popContent = NivelContenido::query()->where('slug', 'pop-del-ib')->firstOrFail();
+        $popEditResponse = $this
+            ->actingAs($user)
+            ->get(NivelContenidoResource::getUrl('edit', ['record' => $popContent]));
+
+        $popEditResponse->assertOk();
+        $popEditResponse->assertSee('Rutas preuniversitarias POP');
+        $popEditResponse->assertSee('Ruta de Data Science');
+        $popEditResponse->assertSee('Ruta de Diseno e Impresion 3D');
+    }
+
+    public function test_pop_route_visibility_can_be_controlled_from_database(): void
+    {
+        NivelContenido::query()
+            ->where('slug', 'pop-del-ib')
+            ->firstOrFail()
+            ->update(['pop_rutas_visibles' => ['diseno_3d']]);
+
+        $response = $this->get(route('nivel', 'pop-del-ib'));
+
+        $response->assertOk();
+        $response->assertDontSee('Ruta de Data Science');
+        $response->assertSee('Ruta de Diseño e Impresión 3D');
+        $response->assertDontSee('POP del IB - Ruta de Data Science');
+        $response->assertSee('POP del IB - Ruta de Diseño e Impresión 3D');
     }
 
     public function test_technical_config_does_not_duplicate_editable_level_copy(): void

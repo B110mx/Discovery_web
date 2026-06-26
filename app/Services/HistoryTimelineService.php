@@ -24,7 +24,7 @@ class HistoryTimelineService
                 $fallback = $fallbacksByYear->get($milestone->anio, ['imagenes' => []]);
                 $images = $fallback['imagenes'] ?? [];
 
-                if ($url = $this->media->publicUploadUrl($milestone->imagen_url) ?? $this->media->urlIfExists($milestone->imagen_media_path)) {
+                if ($url = $this->media->uploadedOrMediaUrl($milestone->imagen_url, $milestone->imagen_media_path)) {
                     $images[0] = [
                         'url' => $url,
                         'titulo' => $milestone->titulo,
@@ -33,7 +33,7 @@ class HistoryTimelineService
                     ];
                 }
 
-                if ($url = $this->media->publicUploadUrl($milestone->imagen_secundaria_url) ?? $this->media->urlIfExists($milestone->imagen_secundaria_media_path)) {
+                if ($url = $this->media->uploadedOrMediaUrl($milestone->imagen_secundaria_url, $milestone->imagen_secundaria_media_path)) {
                     $images[1] = [
                         'url' => $url,
                         'titulo' => $milestone->titulo.' - Imagen secundaria',

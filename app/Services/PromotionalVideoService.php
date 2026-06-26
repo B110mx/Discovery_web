@@ -52,8 +52,7 @@ class PromotionalVideoService
             ->orderBy('id')
             ->get()
             ->map(function (VideoPromocional $video): ?array {
-                $url = $this->media->publicUploadUrl($video->video)
-                    ?? $this->media->urlIfExists($video->video_media_path);
+                $url = $this->media->uploadedOrMediaUrl($video->video, $video->video_media_path);
 
                 if (! $url) {
                     return null;
@@ -62,8 +61,7 @@ class PromotionalVideoService
                 return [
                     'titulo' => $video->titulo,
                     'url' => $url,
-                    'portada' => $this->media->publicUploadUrl($video->portada)
-                        ?? $this->media->urlIfExists($video->portada_media_path),
+                    'portada' => $this->media->uploadedOrMediaUrl($video->portada, $video->portada_media_path),
                 ];
             })
             ->filter()

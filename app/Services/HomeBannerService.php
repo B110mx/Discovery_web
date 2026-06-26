@@ -28,8 +28,7 @@ class HomeBannerService
                 ->orderBy('id')
                 ->get()
                 ->map(function (BannerInicio $banner): array {
-                    $url = $this->media->publicUploadUrl($banner->imagen)
-                        ?? $this->media->urlIfExists($banner->imagen_media_path);
+                    $url = $this->media->uploadedOrMediaUrl($banner->imagen, $banner->imagen_media_path);
 
                     return [
                         'url' => $url,
@@ -45,12 +44,7 @@ class HomeBannerService
                 ->all();
         }
 
-        return $this->media->files('Banner de inicio')
-            ->filter(fn (string $path): bool => in_array(
-                strtolower(pathinfo($path, PATHINFO_EXTENSION)),
-                config('colegio.media.image_extensions', []),
-                true,
-            ))
+        return $this->media->imageFiles('Banner de inicio')
             ->sortBy(fn (string $path): string => str_starts_with(
                 strtolower(pathinfo($path, PATHINFO_FILENAME)),
                 'banner de bienvenida',

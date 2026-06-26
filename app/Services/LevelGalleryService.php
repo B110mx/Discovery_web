@@ -33,8 +33,7 @@ class LevelGalleryService
                 ->orderBy('id')
                 ->get()
                 ->map(function (GaleriaImagen $image) use ($levelTitle): array {
-                    $url = $this->media->publicUploadUrl($image->imagen)
-                        ?? $this->media->urlIfExists($image->imagen_media_path);
+                    $url = $this->media->uploadedOrMediaUrl($image->imagen, $image->imagen_media_path);
 
                     return [
                         'alt' => $image->texto_alternativo ?: $image->titulo ?: $levelTitle,
@@ -53,12 +52,7 @@ class LevelGalleryService
             return [];
         }
 
-        return $this->media->files($directory)
-            ->filter(fn (string $file): bool => in_array(
-                strtolower(pathinfo($file, PATHINFO_EXTENSION)),
-                config('colegio.media.image_extensions', []),
-                true,
-            ))
+        return $this->media->imageFiles($directory)
             ->sortByDesc(fn (string $file): bool => $level === 'secundaria' && basename($file) === 'Colegio Discovery-59.jpg')
             ->take(12)
             ->map(fn (string $file): array => [
