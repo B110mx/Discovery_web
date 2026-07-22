@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\BannersInicio\Tables;
 
 use App\Models\BannerInicio;
+use App\Support\FilamentMediaPreview;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
@@ -11,7 +12,6 @@ use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
-use Illuminate\Support\Facades\Storage;
 
 class BannersInicioTable
 {
@@ -58,22 +58,6 @@ class BannersInicioTable
 
     private static function previewUrl(BannerInicio $record): ?string
     {
-        if ($record->imagen && Storage::disk('public')->exists($record->imagen)) {
-            return Storage::disk('public')->url($record->imagen);
-        }
-
-        if (! $record->imagen_media_path) {
-            return null;
-        }
-
-        $path = trim(str_replace('\\', '/', $record->imagen_media_path), '/');
-
-        if (! Storage::disk(config('colegio.media.disk', 'videosyfotos'))->exists($path)) {
-            return null;
-        }
-
-        return '/media/'.collect(explode('/', $path))
-            ->map(fn (string $segment): string => rawurlencode($segment))
-            ->implode('/');
+        return FilamentMediaPreview::url($record->imagen, $record->imagen_media_path);
     }
 }

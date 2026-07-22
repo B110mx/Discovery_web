@@ -302,7 +302,7 @@
                     @php($imagenRuta = $imagenesPop[$ruta['imagen_clave'] ?? ''] ?? [
                         'url' => null,
                         'titulo' => $ruta['titulo'],
-                        'referencia' => 'Imagen de la ruta preuniversitaria ' . $ruta['titulo'] . '.',
+                        'referencia' => __('site.pages.level.preuniversity_path_image_alt', ['title' => $ruta['titulo']]),
                     ])
                     <article class="overflow-hidden rounded-xl bg-white text-gray-950 shadow-md">
                         <x-imagen-seccion
@@ -635,6 +635,7 @@
                                     alt="{{ __('site.pages.level.academic_model') }} {{ $nivel['titulo'] }}"
                                     class="max-h-[420px] w-full rounded-lg bg-white object-contain p-3 shadow-sm transition-transform hover:scale-[1.02]"
                                     placeholder-class="min-h-80 w-full"
+                                    :lightbox="false"
                                 />
                             </a>
                         </aside>

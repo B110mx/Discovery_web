@@ -42,10 +42,17 @@ class HistoryTimelineService
                     ];
                 }
 
+                $content = app()->getLocale() === 'es'
+                    ? ['titulo' => $milestone->titulo, 'texto' => $milestone->texto]
+                    : [
+                        'titulo' => $fallback['titulo'] ?? $milestone->titulo,
+                        'texto' => $fallback['texto'] ?? $milestone->texto,
+                    ];
+
                 return [
                     'anio' => $milestone->anio,
-                    'titulo' => $milestone->titulo,
-                    'texto' => $milestone->texto,
+                    'titulo' => $content['titulo'],
+                    'texto' => $content['texto'],
                     'imagenes' => collect($images)->filter(fn (array $image) => ! empty($image['url']))->values()->all(),
                 ];
             })
@@ -75,15 +82,13 @@ class HistoryTimelineService
             'pendiente' => true,
         ])->all();
 
-        return [
-            ['anio' => '2003', 'titulo' => 'Discovery® Kindergarten', 'texto' => 'Nace Discovery® Kindergarten, el inicio de un sueño educativo porque los primeros pasos trascienden.', 'imagenes' => [$images['historia_2003'], $images['historia_2003_2']]],
-            ['anio' => '2005', 'titulo' => 'Discovery® Elementary', 'texto' => 'Inauguración de Discovery® Elementary, creciendo con pasos firmes.', 'imagenes' => [$images['historia_2005'], $images['historia_2005_2']]],
-            ['anio' => '2011', 'titulo' => 'Discovery® Middle School', 'texto' => 'Se suma Discovery® Middle School, ampliando horizontes.', 'imagenes' => [$images['historia_2011']]],
-            ['anio' => '2016', 'titulo' => 'Discovery® High School', 'texto' => 'Llega Discovery® High School, preparando grandes Explorers y descubriendo su potencial.', 'imagenes' => [$images['historia_2016']]],
-            ['anio' => '2018', 'titulo' => 'Colegio del Mundo', 'texto' => 'Nos convertimos en Colegio del Mundo IB, abrazando la educación internacional.', 'imagenes' => [$images['historia_2018']]],
-            ['anio' => '2019', 'titulo' => 'Nuevas instalaciones', 'texto' => 'Estrenamos nuevas instalaciones para seguir innovando.', 'imagenes' => [$images['historia_2019'], $images['historia_2019_2']]],
-            ['anio' => '2023', 'titulo' => 'DKMUN primera edición', 'texto' => 'Realizamos nuestra primera edición DKMUN, un espacio para el debate y la diplomacia.', 'imagenes' => [$images['historia_2023'], $images['historia_2023_2']]],
-            ['anio' => '2025', 'titulo' => 'Actualmente', 'texto' => 'Seguimos escribiendo nuestra historia, creciendo y evolucionando juntos.', 'imagenes' => [$images['historia_2025']]],
-        ];
+        return collect(__('site.pages.about.history_milestones'))
+            ->map(fn (array $milestone): array => [
+                ...$milestone,
+                'imagenes' => collect($milestone['imagenes'])
+                    ->map(fn (string $key): array => $images[$key])
+                    ->all(),
+            ])
+            ->all();
     }
 }

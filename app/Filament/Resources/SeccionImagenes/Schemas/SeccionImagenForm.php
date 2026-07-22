@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\SeccionImagenes\Schemas;
 
 use App\Support\VideoFotoOptions;
+use App\Support\SiteImageViewOptions;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -25,21 +26,7 @@ class SeccionImagenForm
                 ->schema([
                     Select::make('vista')
                         ->label('Vista o página')
-                        ->options([
-                            'inicio' => 'Inicio',
-                            'nosotros' => 'Nosotros',
-                            'oferta-academica' => 'Oferta Educativa',
-                            'preescolar' => 'Nivel - Kindergarten',
-                            'primaria' => 'Nivel - Elementary',
-                            'secundaria' => 'Nivel - Middle School',
-                            'bachillerato' => 'Nivel - High School',
-                            'ib-en-discovery' => 'Nivel - IB en Discovery®',
-                            'pop-del-ib' => 'POP del IB',
-                            'certificacion-de-ingles' => 'Certificación de Inglés',
-                            'academias-vespertinas' => 'Academias Vespertinas',
-                            'recursos-escolares' => 'Recursos escolares',
-                            'contacto' => 'Contacto',
-                        ])
+                        ->options(SiteImageViewOptions::all())
                         ->searchable()
                         ->required(),
 

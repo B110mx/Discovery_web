@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
             NivelContenidoSeeder::class,
             BannerInicioSeeder::class,
             GaleriaImagenSeeder::class,
+            VideoPromocionalSeeder::class,
         ]);
     }
 }

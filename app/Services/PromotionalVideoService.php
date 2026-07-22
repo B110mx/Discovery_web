@@ -51,7 +51,7 @@ class PromotionalVideoService
             ->orderBy('orden')
             ->orderBy('id')
             ->get()
-            ->map(function (VideoPromocional $video): ?array {
+            ->map(function (VideoPromocional $video, int $index): ?array {
                 $url = $this->media->uploadedOrMediaUrl($video->video, $video->video_media_path);
 
                 if (! $url) {
@@ -59,7 +59,9 @@ class PromotionalVideoService
                 }
 
                 return [
-                    'titulo' => $video->titulo,
+                    'titulo' => app()->getLocale() === 'es'
+                        ? $video->titulo
+                        : __('site.pages.level.promotional_video_title', ['number' => $index + 1]),
                     'url' => $url,
                     'portada' => $this->media->uploadedOrMediaUrl($video->portada, $video->portada_media_path),
                 ];

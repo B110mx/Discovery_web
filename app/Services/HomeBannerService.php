@@ -32,8 +32,8 @@ class HomeBannerService
 
                     return [
                         'url' => $url,
-                        'titulo' => $banner->titulo ?: 'Banner de Inicio',
-                        'alt' => $banner->texto_alternativo ?: $banner->titulo ?: 'Colegio Internacional Discovery®',
+                        'titulo' => $this->localizedTitle($banner->titulo, 'site.pages.home.banner_title'),
+                        'alt' => $this->localizedTitle($banner->texto_alternativo ?: $banner->titulo, 'site.pages.home.banner_alt'),
                         'enlace' => $this->safeLink($banner->enlace),
                         'referencia' => 'Banner administrado desde el panel.',
                         'pendiente' => empty($url),
@@ -51,8 +51,8 @@ class HomeBannerService
             ) ? '000-'.$path : '100-'.$path)
             ->map(fn (string $path): array => [
                 'url' => $this->media->url($path),
-                'titulo' => pathinfo($path, PATHINFO_FILENAME),
-                'alt' => pathinfo($path, PATHINFO_FILENAME),
+                'titulo' => $this->localizedTitle(pathinfo($path, PATHINFO_FILENAME), 'site.pages.home.banner_title'),
+                'alt' => $this->localizedTitle(pathinfo($path, PATHINFO_FILENAME), 'site.pages.home.banner_alt'),
                 'enlace' => null,
                 'referencia' => 'Banner de respaldo de la carpeta Banner de inicio.',
                 'pendiente' => false,
@@ -72,5 +72,12 @@ class HomeBannerService
         return str_starts_with($link, '/') || preg_match('/^https?:\/\//i', $link)
             ? $link
             : null;
+    }
+
+    private function localizedTitle(?string $title, string $translationKey): string
+    {
+        return app()->getLocale() === 'es' && ! empty($title)
+            ? $title
+            : __($translationKey);
     }
 }

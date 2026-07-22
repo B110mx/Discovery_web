@@ -4,6 +4,7 @@ namespace App\Filament\Resources\GaleriaImagenes\Tables;
 
 use App\Filament\Resources\GaleriaImagenes\Schemas\GaleriaImagenForm;
 use App\Models\GaleriaImagen;
+use App\Support\FilamentMediaPreview;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
@@ -13,7 +14,6 @@ use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
-use Illuminate\Support\Facades\Storage;
 
 class GaleriaImagenesTable
 {
@@ -65,22 +65,6 @@ class GaleriaImagenesTable
 
     private static function previewUrl(GaleriaImagen $record): ?string
     {
-        if ($record->imagen && Storage::disk('public')->exists($record->imagen)) {
-            return Storage::disk('public')->url($record->imagen);
-        }
-
-        if (! $record->imagen_media_path) {
-            return null;
-        }
-
-        $path = trim(str_replace('\\', '/', $record->imagen_media_path), '/');
-
-        if (! Storage::disk(config('colegio.media.disk', 'videosyfotos'))->exists($path)) {
-            return null;
-        }
-
-        return '/media/'.collect(explode('/', $path))
-            ->map(fn (string $segment): string => rawurlencode($segment))
-            ->implode('/');
+        return FilamentMediaPreview::url($record->imagen, $record->imagen_media_path);
     }
 }

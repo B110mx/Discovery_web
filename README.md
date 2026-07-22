@@ -35,7 +35,7 @@ php artisan key:generate
 php artisan migrate
 php artisan db:seed
 npm run build
-php artisan serve
+php artisan serve --host=127.0.0.1 --port=8000
 ```
 
 En Laragon, el proyecto se encuentra normalmente en:
@@ -47,8 +47,8 @@ C:\laragon\www\discovery-web
 ## Comandos frecuentes
 
 ```bash
-# Servidor de desarrollo con Vite
-npm run dev
+# Servidor de desarrollo local completo
+composer dev
 
 # Compilar CSS y JavaScript para producción
 npm run build
@@ -62,6 +62,10 @@ php artisan optimize:clear
 # Aplicar cambios de base de datos
 php artisan migrate --force
 ```
+
+El entorno local queda disponible en `http://127.0.0.1:8000`. El sitemap se
+genera en `http://127.0.0.1:8000/sitemap.xml` y los metadatos SEO base se
+configuran en `config/seo.php`.
 
 ## Estructura principal
 

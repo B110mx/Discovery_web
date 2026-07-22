@@ -6,6 +6,7 @@ use App\Models\Evento;
 use App\Models\PaginaContenido;
 use App\Models\SeccionImagen;
 use App\Models\TestimonioVideo;
+use App\Services\EditablePageContentService;
 use App\Services\HistoryTimelineService;
 use App\Services\HomeBannerService;
 use App\Services\LevelGalleryService;
@@ -42,6 +43,7 @@ class PageController extends Controller
         private readonly HomeBannerService $homeBanners,
         private readonly SchoolCalendarService $schoolCalendar,
         private readonly PromotionalVideoService $promotionalVideos,
+        private readonly EditablePageContentService $editablePages,
     ) {}
 
     /**
@@ -50,60 +52,7 @@ class PageController extends Controller
      */
     private function paginaContenido(string $slug): ?PaginaContenido
     {
-        $paginaId = Cache::remember(SiteCache::key("pagina_contenido.{$slug}"), SiteCache::ttl(), function () use ($slug) {
-            return PaginaContenido::where('slug', $slug)->value('id');
-        });
-
-        $pagina = $paginaId ? PaginaContenido::find($paginaId) : null;
-
-        return $this->localizarPaginaContenido($slug, $pagina);
-    }
-
-    private function localizarPaginaContenido(string $slug, ?PaginaContenido $pagina): ?PaginaContenido
-    {
-        if (! $pagina || app()->getLocale() === 'es') {
-            return $pagina;
-        }
-
-        $translationMap = [
-            'inicio' => [
-                'subtitulo' => 'site.pages.home.about_subtitle',
-                'titulo' => 'site.pages.home.about_title',
-                'descripcion' => 'site.pages.home.about_text',
-            ],
-            'nosotros' => [
-                'subtitulo' => 'site.pages.about.hero_subtitle',
-                'titulo' => 'site.pages.about.hero_title',
-                'descripcion' => 'site.pages.about.hero_text',
-            ],
-            'oferta-academica' => [
-                'subtitulo' => 'site.pages.offer.default_subtitle',
-                'titulo' => 'site.pages.offer.default_title',
-                'descripcion' => 'site.pages.offer.default_text',
-            ],
-            'protagonistas' => [
-                'subtitulo' => 'site.pages.community.hero_subtitle',
-                'titulo' => 'site.pages.community.hero_title',
-                'descripcion' => 'site.pages.community.hero_text',
-            ],
-            'contacto' => [
-                'subtitulo' => 'site.pages.contact.hero_subtitle',
-                'titulo' => 'site.pages.contact.hero_title',
-                'descripcion' => 'site.pages.contact.hero_text',
-            ],
-        ];
-
-        if (! isset($translationMap[$slug])) {
-            return $pagina;
-        }
-
-        $localized = clone $pagina;
-
-        foreach ($translationMap[$slug] as $attribute => $translationKey) {
-            $localized->setAttribute($attribute, __($translationKey));
-        }
-
-        return $localized;
+        return $this->editablePages->get($slug);
     }
 
     /**
@@ -134,23 +83,26 @@ class PageController extends Controller
                 ->orderBy('orden')
                 ->get()
                 ->map(function (Evento $evento, int $index) use ($eventosDefault) {
+                    $level = $evento->nivel ?: 'general';
+                    $title = $this->eventTitle($evento->titulo, $level);
+                    $description = $this->eventDescription($evento->descripcion, $level);
                     $imagen = $eventosDefault[$index]['imagen'] ?? null;
                     $url = $this->media->uploadedOrMediaUrl($evento->imagen_url, $evento->imagen_media_path);
 
                     if ($url) {
                         $imagen = [
                             'url' => $url,
-                            'titulo' => $evento->titulo,
-                            'referencia' => $evento->descripcion ?? 'Imagen del carrusel de eventos en Inicio.',
+                            'titulo' => $title,
+                            'referencia' => __('site.pages.home.event_image_reference'),
                             'pendiente' => false,
                         ];
                     }
 
                     return [
-                        'titulo' => $evento->titulo,
-                        'descripcion' => $evento->descripcion ?? 'Próximo evento de la comunidad Discovery®.',
+                        'titulo' => $title,
+                        'descripcion' => $description,
                         'nivel' => $evento->nivel ?: 'general',
-                        'nivel_etiqueta' => Evento::levelOptions()[$evento->nivel ?: 'general'] ?? 'Toda la comunidad',
+                        'nivel_etiqueta' => $this->eventLevelLabel($level),
                         'url' => $imagen['url'] ?? null,
                         'imagen' => $imagen,
                     ];
@@ -173,8 +125,8 @@ class PageController extends Controller
         $logosNiveles = $this->media->images('inicio', collect(config('colegio.inicio.logos_niveles', []))
             ->mapWithKeys(fn (string $path, string $nivel) => [
                 "logo_{$nivel}" => [
-                    'titulo' => 'Inicio - Logo '.ucfirst($nivel),
-                    'referencia' => 'Logo mostrado en la tarjeta del nivel dentro de Inicio.',
+                    'titulo' => __('site.pages.home.level_logo_title', ['level' => __("site.nav.levels.{$nivel}")]),
+                    'referencia' => __('site.pages.home.level_logo_reference'),
                     'media_path' => $path,
                 ],
             ])
@@ -184,8 +136,8 @@ class PageController extends Controller
 
         $imagenesInicio = $this->media->images('inicio', [
             'sobre_nosotros' => [
-                'titulo' => 'Inicio - Sobre Nosotros',
-                'referencia' => 'Imagen lateral de la sección Sobre Nosotros en la página de inicio.',
+                'titulo' => __('site.pages.home.about_image_title'),
+                'referencia' => __('site.pages.home.about_image_reference'),
                 'url' => $this->media->publicUploadUrl($paginaInicio?->imagen_principal),
                 'media_path' => 'Kinder fotos actuales/IMG_5775.JPG',
             ],
@@ -226,6 +178,48 @@ class PageController extends Controller
         $proximoCorte = Carbon::parse($proximaFechaEvento)->setTime(15, 0);
 
         return $proximoCorte->lt($ttlDefault) ? $proximoCorte : $ttlDefault;
+    }
+
+    private function eventLevelLabel(string $level): string
+    {
+        return __("site.event_levels.{$level}");
+    }
+
+    private function eventTitle(string $title, string $level): string
+    {
+        return app()->getLocale() === 'es'
+            ? $title
+            : __('site.pages.home.dynamic_event_title', ['level' => $this->eventLevelLabel($level)]);
+    }
+
+    private function eventDescription(?string $description, string $level): string
+    {
+        if (app()->getLocale() === 'es') {
+            return $description ?? __('site.pages.home.dynamic_event_description', ['level' => $this->eventLevelLabel($level)]);
+        }
+
+        return __('site.pages.home.dynamic_event_description', ['level' => $this->eventLevelLabel($level)]);
+    }
+
+    private function localizedMapUrl(?string $url): ?string
+    {
+        if (! $url) {
+            return null;
+        }
+
+        $locale = app()->getLocale() === 'en' ? 'en-US' : 'es-MX';
+        $separator = str_contains($url, '?') ? '&' : '?';
+
+        return preg_match('/([?&])hl=[^&]*/', $url)
+            ? preg_replace('/([?&])hl=[^&]*/', '$1hl='.$locale, $url)
+            : $url.$separator.'hl='.$locale;
+    }
+
+    private function localizedVideoTitle(string $title, int $index): string
+    {
+        return app()->getLocale() === 'es'
+            ? $title
+            : __('site.pages.community.video_generic_title', ['number' => $index + 1]);
     }
 
     public function nosotros(): View
@@ -295,8 +289,8 @@ class PageController extends Controller
         );
 
         $calendarioEscolar = $this->media->image('recursos-escolares', 'calendario', [
-            'titulo' => 'Recursos escolares - Calendario escolar',
-            'referencia' => 'Imagen del calendario escolar mostrada en Recursos escolares.',
+            'titulo' => __('site.pages.resources.school_calendar'),
+            'referencia' => __('site.pages.resources.school_calendar_image_reference'),
             'media_path' => 'Calendario Escolar/Calendario Escolar 2025-2026.jpg',
         ]);
         $calendarioMensual = $this->schoolCalendar->month($request->query('mes'));
@@ -322,7 +316,10 @@ class PageController extends Controller
             ],
         ]);
 
-        return view('pages.contacto', compact('pagina', 'imagenesContacto'));
+        $mapaUrl = $this->localizedMapUrl($pagina?->mapaEmbedUrl() ?? config('colegio.contacto.mapa_embed_url'));
+        $mapaExternoUrl = $this->localizedMapUrl(config('colegio.contacto.mapa_url'));
+
+        return view('pages.contacto', compact('pagina', 'imagenesContacto', 'mapaUrl', 'mapaExternoUrl'));
     }
 
     /**
@@ -443,16 +440,16 @@ class PageController extends Controller
     private function eventosInicioDefault(): array
     {
         return collect(config('colegio.inicio.eventos_default', []))
-            ->map(fn (array $evento) => [
-                'titulo' => $evento['titulo'],
-                'descripcion' => $evento['descripcion'],
+            ->map(fn (array $evento, int $index) => [
+                'titulo' => __('site.pages.home.default_events.'.$index.'.title'),
+                'descripcion' => __('site.pages.home.default_events.'.$index.'.description'),
                 'nivel' => 'general',
-                'nivel_etiqueta' => Evento::levelOptions()['general'],
+                'nivel_etiqueta' => $this->eventLevelLabel('general'),
                 'url' => $this->media->urlIfExists($evento['media_path'] ?? null),
                 'imagen' => [
                     'url' => $this->media->urlIfExists($evento['media_path'] ?? null),
-                    'titulo' => $evento['titulo'],
-                    'referencia' => 'Imagen default del carrusel de eventos en Inicio.',
+                    'titulo' => __('site.pages.home.default_events.'.$index.'.title'),
+                    'referencia' => __('site.pages.home.event_image_reference'),
                     'pendiente' => false,
                 ],
             ])
@@ -484,7 +481,7 @@ class PageController extends Controller
 
         return $this->media->videoFiles('Testimonios Alumni')
             ->map(fn (string $path) => [
-                'titulo' => pathinfo($path, PATHINFO_FILENAME),
+                'titulo' => $this->localizedVideoTitle(pathinfo($path, PATHINFO_FILENAME), $index),
                 'url' => $this->media->url($path),
             ])
             ->values()
@@ -517,8 +514,10 @@ class PageController extends Controller
         // administrativo está destinado únicamente a imágenes.
         $videos = $this->media->videoFiles('Academias vespertinas')
             ->sort()
-            ->map(fn (string $path) => [
-                'titulo' => str_replace(['-', '_'], ' ', pathinfo($path, PATHINFO_FILENAME)),
+            ->map(fn (string $path, int $index) => [
+                'titulo' => app()->getLocale() === 'es'
+                    ? str_replace(['-', '_'], ' ', pathinfo($path, PATHINFO_FILENAME))
+                    : __('site.pages.academies.media_title', ['number' => $index + 1]),
                 'url' => $this->media->url($path),
                 'tipo' => 'video',
             ])
@@ -533,100 +532,102 @@ class PageController extends Controller
 
     private function universidadesVinculacion(): array
     {
-        return [
+        $universidades = [
             [
+                'key' => 'uvm',
                 'nombre' => 'UVM',
                 'logo' => asset('images/universidades/uvm.png'),
                 'sitio' => 'https://uvm.mx/',
-                'resumen' => 'Acompañamiento durante el proceso de ingreso.',
-                'beneficios' => ['Atención preuniversitaria', 'Examen de admisión sin costo', 'Asesoría sobre becas y visitas al campus'],
             ],
             [
+                'key' => 'upaep',
                 'nombre' => 'UPAEP',
                 'logo' => asset('images/universidades/upaep.png'),
                 'sitio' => 'https://www.upaep.mx/',
-                'resumen' => 'Pase directo y opciones de beca por mérito.',
-                'beneficios' => ['Pase directo con promedio de 8.0, excepto Medicina', 'Beca Mérito de hasta 80%', 'Examen diagnóstico, orientación y visitas'],
                 'convocatoria' => true,
             ],
             [
+                'key' => 'udlap',
                 'nombre' => 'UDLAP',
                 'logo' => asset('images/universidades/udlap.png'),
                 'sitio' => 'https://www.udlap.mx/web/',
-                'resumen' => 'Beneficios de admisión y becas para egresados IB®.',
-                'beneficios' => ['Examen de admisión sin costo', 'Beca de 20% para egresados de preparatoria IB® sin diploma', 'Con Diploma IB®: becas de 35% a 50% según puntaje'],
             ],
             [
+                'key' => 'anahuac',
                 'nombre' => 'Anáhuac Puebla',
                 'logo' => asset('images/universidades/anahuac.png'),
                 'sitio' => 'https://www.anahuac.mx/puebla/',
-                'resumen' => 'Orientación y distintas modalidades de apoyo financiero.',
-                'beneficios' => ['Beca al mejor estudiante de hasta 60%', 'Becas académicas, deportivas y artísticas', 'Opciones de financiamiento educativo'],
                 'convocatoria' => true,
             ],
             [
+                'key' => 'ibero',
                 'nombre' => 'Ibero Puebla',
                 'logo' => asset('images/universidades/ibero.png'),
                 'sitio' => 'https://www.iberopuebla.mx/',
-                'resumen' => 'Ingreso preferente y oportunidades de Beca Mérito.',
-                'beneficios' => ['Sin examen con promedio mayor a 8.5', 'Examen de admisión sin costo', 'Tres Becas Mérito de 50% con promedio de 9.0'],
                 'convocatoria' => true,
             ],
             [
+                'key' => 'tec',
                 'nombre' => 'Tec de Monterrey',
                 'logo' => asset('images/universidades/tec-de-monterrey.png'),
                 'sitio' => 'https://tec.mx/es',
-                'resumen' => 'Acompañamiento de admisión y reconocimiento del Diploma IB®.',
-                'beneficios' => ['Asesoría, orientación y visitas', 'Reconocimiento a promedios destacados', 'Posible acreditación de materias del Diploma IB® durante admisión'],
             ],
             [
+                'key' => 'eldp',
                 'nombre' => 'Escuela Libre de Derecho de Puebla',
                 'logo' => asset('images/universidades/escuela-libre-de-derecho.png'),
                 'sitio' => 'https://eldp.edu.mx/',
-                'resumen' => 'Ingreso automático y becas académicas.',
-                'beneficios' => ['Admisión automática con promedio mayor a 8.0', 'Beca de 25% con promedio de 8.5', 'Beca de 50% con promedio de 9.0'],
                 'convocatoria' => true,
             ],
             [
+                'key' => 'vatel',
                 'nombre' => 'Vatel',
                 'logo' => asset('images/universidades/vatel.png'),
                 'sitio' => 'https://www.vatel.mx/',
-                'resumen' => 'Beneficios de ingreso para estudios de hotelería.',
-                'beneficios' => ['Beneficio en el pago del examen y cuota de nuevo ingreso', 'Becas de excelencia de 20% a 50% según promedio', 'Visitas y conferencias de hotelería'],
                 'convocatoria' => true,
             ],
             [
+                'key' => 'itam',
                 'nombre' => 'ITAM',
                 'logo' => asset('images/universidades/itam.png'),
                 'sitio' => 'https://www.itam.mx/',
-                'resumen' => 'Apoyos de admisión, beca y financiamiento.',
-                'beneficios' => ['Examen sin costo con promedio mayor a 8.0', 'Beca o beca-préstamo de hasta 90%', 'Beca Bachilleres de 100% para el puntaje más alto por carrera'],
                 'convocatoria' => true,
             ],
             [
+                'key' => 'isu',
                 'nombre' => 'ISU Universidad',
                 'logo' => asset('images/universidades/isu.png'),
                 'sitio' => 'https://isu.edu.mx/',
-                'resumen' => 'Ingreso preferente, becas y experiencias universitarias.',
-                'beneficios' => ['Sin examen con promedio mayor a 8.5', 'Una beca de 50% y dos becas de 25%', 'Visitas, talleres y clases muestra'],
                 'convocatoria' => true,
             ],
             [
+                'key' => 'inqba',
                 'nombre' => 'INQBA',
                 'logo' => asset('images/universidades/inqba.png'),
                 'sitio' => 'https://inqba.edu.mx/',
-                'resumen' => 'Becas empresariales, de excelencia y por proyecto.',
-                'beneficios' => ['Examen diagnóstico sin costo', 'Beca empresarial de 40% con promedio de 8.5', 'Becas de 60% a 80% sujetas a requisitos'],
                 'convocatoria' => true,
             ],
             [
+                'key' => 'unilomas',
                 'nombre' => 'Unilomas',
                 'logo' => asset('images/universidades/unilomas.png'),
                 'sitio' => 'https://www.unilomas.mx/',
-                'resumen' => 'Acercamiento directo a la experiencia universitaria.',
-                'beneficios' => ['Eventos y actividades académicas', 'Pláticas, talleres y orientación', 'Tours y visitas universitarias'],
             ],
         ];
+
+        $traducciones = __('site.pages.offer.universities');
+
+        return array_map(function (array $universidad) use ($traducciones): array {
+            $contenido = is_array($traducciones)
+                ? ($traducciones[$universidad['key']] ?? [])
+                : [];
+
+            return [
+                ...$universidad,
+                'resumen' => $contenido['summary'] ?? '',
+                'beneficios' => $contenido['benefits'] ?? [],
+            ];
+        }, $universidades);
     }
 
     private function prepararNivelOferta(string $slug, array $nivel): array
@@ -643,8 +644,8 @@ class PageController extends Controller
             'ruta' => route('nivel', $slug),
             'logo' => $logoDefault
                 ? $this->media->image($slug, 'logo', [
-                    'titulo' => $nivel['titulo'].' - Logo',
-                    'referencia' => 'Logo mostrado en Oferta Educativa y en el encabezado del nivel.',
+                    'titulo' => __('site.pages.offer.level_logo_title', ['level' => $nivel['titulo']]),
+                    'referencia' => __('site.pages.offer.level_logo_reference'),
                     'media_path' => $logoDefault,
                 ])['url']
                 : null,
@@ -669,8 +670,8 @@ class PageController extends Controller
                 // mosaico, siempre dentro del grupo correspondiente.
                 $item['imagen'] = $item['imagenes'][array_rand($item['imagenes'])] ?? [
                     'url' => null,
-                    'titulo' => 'Comunidad Discovery®',
-                    'referencia' => 'Imagen para la sección Quienes hacen viva nuestra comunidad.',
+                    'titulo' => __('site.pages.community.image_title'),
+                    'referencia' => __('site.pages.community.image_reference'),
                     'pendiente' => true,
                 ];
 
@@ -702,8 +703,12 @@ class PageController extends Controller
                 ->sort()
                 ->map(fn (string $path) => [
                     'url' => $this->media->url($path),
-                    'titulo' => $default['titulo'] ?? pathinfo($path, PATHINFO_FILENAME),
-                    'referencia' => $default['referencia'] ?? null,
+                    'titulo' => app()->getLocale() === 'es'
+                        ? ($default['titulo'] ?? pathinfo($path, PATHINFO_FILENAME))
+                        : __('site.pages.community.image_title'),
+                    'referencia' => app()->getLocale() === 'es'
+                        ? ($default['referencia'] ?? null)
+                        : __('site.pages.community.image_reference'),
                     'pendiente' => false,
                 ]);
         }
@@ -717,8 +722,8 @@ class PageController extends Controller
 
                     return $url ? [
                         'url' => $url,
-                        'titulo' => $registro->titulo,
-                        'referencia' => $registro->referencia,
+                        'titulo' => app()->getLocale() === 'es' ? $registro->titulo : __('site.pages.community.image_title'),
+                        'referencia' => app()->getLocale() === 'es' ? $registro->referencia : __('site.pages.community.image_reference'),
                         'pendiente' => false,
                     ] : null;
                 })

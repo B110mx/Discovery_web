@@ -2,7 +2,10 @@
 
 namespace Tests\Feature;
 
+use App\Models\Evento;
+use App\Models\ListaUtil;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
 class LanguageSwitchingTest extends TestCase
@@ -48,7 +51,10 @@ class LanguageSwitchingTest extends TestCase
             ->assertSee('An academic path for every stage')
             ->assertSee('A close environment to begin learning with creativity')
             ->assertSee('Quick comparison')
-            ->assertSee('Explore level');
+            ->assertSee('Explore level')
+            ->assertSee('Business, excellence, and project-based scholarships.')
+            ->assertSee('40% business scholarship with an 8.5 GPA')
+            ->assertDontSee('Beca empresarial de 40%');
 
         $this
             ->withSession(['locale' => 'en'])
@@ -128,5 +134,55 @@ class LanguageSwitchingTest extends TestCase
 
         $response->assertOk();
         $response->assertSee('<html lang="es">', false);
+    }
+
+    public function test_dynamic_public_content_uses_safe_english_fallbacks(): void
+    {
+        Storage::fake('public');
+        Storage::disk('public')->put('listas-utiles/elementary-tercero.pdf', 'PDF de prueba');
+
+        Evento::query()->create([
+            'titulo' => 'Evento administrado en español',
+            'descripcion' => 'Descripción administrada en español',
+            'fecha_evento' => '2026-08-05',
+            'nivel' => 'general',
+            'imagen_url' => '',
+            'orden' => 10,
+            'activo' => true,
+        ]);
+
+        ListaUtil::query()->create([
+            'ciclo_escolar' => '2026-2027',
+            'nivel' => 'Elementary',
+            'grado' => '3° grado',
+            'titulo' => 'Lista administrable en español',
+            'archivo_pdf' => 'listas-utiles/elementary-tercero.pdf',
+            'orden' => 10,
+            'activo' => true,
+        ]);
+
+        $this
+            ->get(route('recursos-escolares', ['lang' => 'en', 'mes' => '2026-08']))
+            ->assertOk()
+            ->assertSee('August 2026')
+            ->assertSee('Wed')
+            ->assertSee('Discovery® event')
+            ->assertSee('the whole community')
+            ->assertSee('Supply list for 3rd grade')
+            ->assertDontSee('Evento administrado en español')
+            ->assertDontSee('Descripción administrada en español')
+            ->assertDontSee('Lista administrable en español')
+            ->assertDontSee('Mié');
+    }
+
+    public function test_english_contact_page_uses_localized_seo_map_and_whatsapp_text(): void
+    {
+        $response = $this->get(route('contacto', ['lang' => 'en']));
+
+        $response->assertOk();
+        $response->assertSee('<title>Contact | Colegio Discovery</title>', false);
+        $response->assertSee('<meta name="description" content="Information and admissions for Colegio Discovery in Tehuacan, Puebla.">', false);
+        $response->assertSee('hl=en-US', false);
+        $response->assertSee('Hello%2C%20I%20would%20like%20to%20receive%20information%20about%20Colegio%20Discovery', false);
     }
 }

@@ -11,10 +11,8 @@
     $telefonoPrincipal = $pagina?->telefono_principal ?? config('colegio.contacto.telefono_principal');
     $telefonoSecundario = $pagina?->telefono_secundario ?? config('colegio.contacto.telefono_secundario');
     $correo = $pagina?->correo ?? config('colegio.contacto.correo');
-    $mapaUrl = $pagina?->mapaEmbedUrl() ?? config('colegio.contacto.mapa_embed_url');
-    $mapaExternoUrl = config('colegio.contacto.mapa_url');
     $whatsappNumero = preg_replace('/\D+/', '', config('colegio.contacto.whatsapp_numero'));
-    $whatsappUrl = 'https://wa.me/' . $whatsappNumero . '?text=' . rawurlencode(config('colegio.contacto.whatsapp_mensaje'));
+    $whatsappUrl = 'https://wa.me/' . $whatsappNumero . '?text=' . rawurlencode(__('site.whatsapp.message'));
     $telefonoHref = 'tel:+52' . preg_replace('/\D+/', '', $telefonoSecundario);
 @endphp
 
@@ -43,7 +41,7 @@
 
             <x-imagen-seccion
                 :imagen="$imagenesContacto['hero']"
-                alt="Colegio Discovery® contacto"
+                :alt="__('site.pages.contact.hero_image_alt')"
                 class="h-72 w-full bg-white object-contain p-8 lg:h-full lg:p-10"
                 placeholder-class="h-72 lg:h-full"
             />
@@ -85,7 +83,7 @@
                 </div>
 
                 <div>
-                    <label for="email" class="mb-2 block text-sm font-bold text-gray-700">Email *</label>
+                    <label for="email" class="mb-2 block text-sm font-bold text-gray-700">{{ __('site.pages.contact.email_label') }}</label>
                     <input id="email" type="email" name="email" value="{{ old('email') }}" class="w-full rounded-lg border border-gray-300 p-3 outline-none focus:border-blue-700 focus:ring-4 focus:ring-blue-100" required>
                     @error('email') <p class="mt-1 text-sm font-semibold text-red-600">{{ $message }}</p> @enderror
                 </div>
@@ -100,8 +98,8 @@
                     <label for="grado" class="mb-2 block text-sm font-bold text-gray-700">{{ __('site.pages.contact.grade') }}</label>
                     <select id="grado" name="grado" class="w-full rounded-lg border border-gray-300 bg-white p-3 outline-none focus:border-blue-700 focus:ring-4 focus:ring-blue-100" required>
                         <option value="">{{ __('site.pages.contact.select') }}</option>
-                        @foreach (['Kindergarten', 'Elementary', 'Middle School', 'High School'] as $grado)
-                            <option value="{{ $grado }}" @selected(old('grado') === $grado)>{{ $grado }}</option>
+                        @foreach (__('site.pages.contact.grades') as $gradoValor => $gradoEtiqueta)
+                            <option value="{{ $gradoValor }}" @selected(old('grado') === $gradoValor)>{{ $gradoEtiqueta }}</option>
                         @endforeach
                     </select>
                     @error('grado') <p class="mt-1 text-sm font-semibold text-red-600">{{ $message }}</p> @enderror
@@ -142,7 +140,7 @@
 
             <x-imagen-seccion
                 :imagen="$imagenesContacto['secundaria']"
-                alt="Comunidad Colegio Discovery®"
+                :alt="__('site.pages.contact.community_image_alt')"
                 class="h-72 w-full rounded-lg object-cover shadow-md"
                 placeholder-class="h-72"
             />

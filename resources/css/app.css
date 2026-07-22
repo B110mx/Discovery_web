@@ -2,6 +2,26 @@
 @tailwind components;
 @tailwind utilities;
 
+.skip-link {
+    position: fixed;
+    top: 0.75rem;
+    left: 0.75rem;
+    z-index: 9999;
+    transform: translateY(-150%);
+    border-radius: 0.25rem;
+    background: var(--discovery-blue, #0066AF);
+    color: white;
+    padding: 0.75rem 1rem;
+    font-weight: 700;
+    transition: transform 160ms ease;
+}
+
+.skip-link:focus {
+    transform: translateY(0);
+    outline: 3px solid var(--discovery-yellow, #FDB913);
+    outline-offset: 2px;
+}
+
 /*
  * Animaciones globales al hacer scroll.
  *

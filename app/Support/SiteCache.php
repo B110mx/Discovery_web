@@ -16,12 +16,20 @@ class SiteCache
 
     public static function key(string $name): string
     {
-        return config("colegio.cache.keys.{$name}", $name);
+        $baseKey = config("colegio.cache.keys.{$name}", $name);
+
+        return $baseKey.'.'.app()->getLocale();
     }
 
     public static function forget(string $name): void
     {
-        Cache::forget(self::key($name));
+        $baseKey = config("colegio.cache.keys.{$name}", $name);
+
+        Cache::forget($baseKey);
+
+        foreach (array_keys(config('idiomas.supported', [])) as $locale) {
+            Cache::forget($baseKey.'.'.$locale);
+        }
     }
 
     public static function forgetMany(array $names): void

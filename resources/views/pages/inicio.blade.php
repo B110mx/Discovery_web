@@ -46,6 +46,7 @@
                         alt="{{ $banner['alt'] ?? $banner['titulo'] ?? 'Colegio Internacional Discovery®' }}"
                         class="aspect-[1916/657] w-full bg-white object-contain"
                         placeholder-class="aspect-[1916/657] w-full"
+                        :lightbox="empty($banner['enlace'])"
                         loading="{{ $loop->first ? 'eager' : 'lazy' }}"
                         fetchpriority="{{ $loop->first ? 'high' : 'auto' }}"
                     />
@@ -413,37 +414,7 @@
             });
         };
 
-        const enableTouchSwipe = (element, onPrevious, onNext) => {
-            if (!element) {
-                return;
-            }
-
-            let startX = 0;
-            let startY = 0;
-
-            element.addEventListener('touchstart', (event) => {
-                const touch = event.touches[0];
-
-                startX = touch.clientX;
-                startY = touch.clientY;
-            }, { passive: true });
-
-            element.addEventListener('touchend', (event) => {
-                const touch = event.changedTouches[0];
-                const deltaX = touch.clientX - startX;
-                const deltaY = touch.clientY - startY;
-
-                if (Math.abs(deltaX) < 45 || Math.abs(deltaX) < Math.abs(deltaY) * 1.2) {
-                    return;
-                }
-
-                if (deltaX < 0) {
-                    onNext();
-                } else {
-                    onPrevious();
-                }
-            }, { passive: true });
-        };
+        const enableTouchSwipe = window.enableSiteTouchSwipe ?? (() => {});
 
         const heroTrack = document.querySelector('[data-home-hero-track]');
         const heroSlides = heroTrack ? Array.from(heroTrack.children) : [];
@@ -563,100 +534,17 @@
         showEvent(0);
         restartEventTimer();
 
-        const videoCarousel = document.querySelector('[data-video-carousel]');
-        const videoTrack = document.querySelector('[data-video-track]');
-        const videoSlides = videoTrack ? Array.from(videoTrack.children) : [];
-        const videoDots = Array.from(document.querySelectorAll('[data-video-dot]'));
-        const videos = Array.from(document.querySelectorAll('[data-video-track] video'));
-        let videoIndex = 0;
-
-        const getVideosPerView = () => {
-            if (!videoCarousel || videoSlides.length === 0 || videoSlides[0].offsetWidth === 0) {
-                return 1;
-            }
-
-            return Math.max(1, Math.round(videoCarousel.clientWidth / videoSlides[0].offsetWidth));
-        };
-
-        const getMaxVideoIndex = () => Math.max(0, videoSlides.length - getVideosPerView());
-
-        const pauseOtherVideos = (currentVideo) => {
-            videos.forEach((video) => {
-                if (video !== currentVideo && !video.paused) {
-                    video.pause();
-                }
-            });
-        };
-
-        const pauseAllVideos = () => {
-            videos.forEach((video) => {
-                if (!video.paused) {
-                    video.pause();
-                }
-            });
-        };
-
-        const showVideo = (index) => {
-            if (!videoTrack || videoSlides.length === 0) {
-                return;
-            }
-
-            videoIndex = Math.max(0, Math.min(index, getMaxVideoIndex()));
-            videoTrack.style.transform = `translateX(-${videoIndex === 0 ? 0 : videoSlides[videoIndex].offsetLeft}px)`;
-            activateDots(videoDots, videoIndex, 'h-3 w-8 rounded-full bg-blue-700', 'h-3 w-3 rounded-full bg-gray-300');
-        };
-
-        document.querySelector('[data-video-prev]')?.addEventListener('click', () => {
-            pauseAllVideos();
-            showVideo(videoIndex - 1);
+        window.initSiteVideoCarousel?.({
+            carouselSelector: '[data-video-carousel]',
+            trackSelector: '[data-video-track]',
+            dotSelector: '[data-video-dot]',
+            previousSelector: '[data-video-prev]',
+            nextSelector: '[data-video-next]',
+            posterSelector: '[data-home-video-poster]',
+            dotDataKey: 'videoDot',
+            activeDotClasses: 'h-3 w-8 rounded-full bg-blue-700',
+            inactiveDotClasses: 'h-3 w-3 rounded-full bg-gray-300',
         });
-        document.querySelector('[data-video-next]')?.addEventListener('click', () => {
-            pauseAllVideos();
-            showVideo(videoIndex + 1);
-        });
-
-        videoDots.forEach((dot) => {
-            dot.addEventListener('click', () => {
-                pauseAllVideos();
-                showVideo(Number(dot.dataset.videoDot));
-            });
-        });
-
-        enableTouchSwipe(
-            videoCarousel,
-            () => {
-                pauseAllVideos();
-                showVideo(videoIndex - 1);
-            },
-            () => {
-                pauseAllVideos();
-                showVideo(videoIndex + 1);
-            },
-        );
-
-        videos.forEach((video) => {
-            const poster = video.parentElement?.querySelector('[data-home-video-poster]');
-
-            poster?.addEventListener('click', () => {
-                video.play();
-            });
-
-            video.addEventListener('play', () => {
-                poster?.classList.add('opacity-0', 'pointer-events-none');
-                pauseOtherVideos(video);
-            });
-
-            video.addEventListener('pause', () => {
-                poster?.classList.remove('opacity-0', 'pointer-events-none');
-            });
-
-            video.addEventListener('ended', () => {
-                poster?.classList.remove('opacity-0', 'pointer-events-none');
-            });
-        });
-
-        window.addEventListener('resize', () => showVideo(videoIndex));
-        showVideo(0);
     });
 </script>
 

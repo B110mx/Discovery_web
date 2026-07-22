@@ -75,4 +75,26 @@ class PublicPageContractsTest extends TestCase
         $response->assertSee('2026-2027');
         $response->assertSee('/storage/listas-utiles/elementary-tercero.pdf', false);
     }
+
+    public function test_public_pages_render_basic_seo_metadata(): void
+    {
+        $response = $this->get(route('contacto'));
+
+        $response->assertOk();
+        $response->assertSee('<title>Contacto | Colegio Discovery</title>', false);
+        $response->assertSee('<meta name="description" content="Informes y admisiones de Colegio Discovery en Tehuacán, Puebla.">', false);
+        $response->assertSee('<meta property="og:type" content="website">', false);
+        $response->assertSee('<link rel="canonical" href="'.route('contacto').'">', false);
+    }
+
+    public function test_sitemap_lists_public_routes_and_levels(): void
+    {
+        $response = $this->get(route('sitemap'));
+
+        $response->assertOk();
+        $response->assertHeader('Content-Type', 'application/xml');
+        $response->assertSee('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">', false);
+        $response->assertSee(route('inicio'), false);
+        $response->assertSee(route('nivel', 'pop-del-ib'), false);
+    }
 }

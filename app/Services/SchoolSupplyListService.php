@@ -29,7 +29,7 @@ class SchoolSupplyListService
             ->map(fn (ListaUtil $list) => [
                 'grado' => $this->formatGrade($list->grado),
                 'nivel' => $this->levelName($list->nivel),
-                'titulo' => $this->normalizeDegreeSymbol($list->titulo),
+                'titulo' => $this->listTitle($list->titulo, $list->grado),
                 'ciclo' => $list->ciclo_escolar,
                 'url' => $this->media->publicUploadUrl($list->archivo_pdf),
             ])
@@ -41,9 +41,9 @@ class SchoolSupplyListService
     {
         return $this->media->filesWithExtensions('Listas de útiles', ['pdf'])
             ->map(fn (string $file) => [
-                'grado' => $this->gradeFromFilename(basename($file)),
+                'grado' => $this->formatGrade($this->gradeFromFilename(basename($file))),
                 'nivel' => $this->levelFromFilename(basename($file)),
-                'titulo' => $this->normalizeDegreeSymbol(pathinfo($file, PATHINFO_FILENAME)),
+                'titulo' => $this->listTitle(pathinfo($file, PATHINFO_FILENAME), $this->gradeFromFilename(basename($file))),
                 'url' => $this->media->url($file),
             ])
             ->sortBy(fn (array $list) => $this->gradeOrder($list['grado']))
@@ -127,11 +127,40 @@ class SchoolSupplyListService
 
     private function formatGrade(string $grade): string
     {
-        return SchoolGradeFormatter::format($grade);
+        $grade = SchoolGradeFormatter::format($grade);
+
+        if (app()->getLocale() !== 'en') {
+            return $grade;
+        }
+
+        return preg_replace_callback('/\b(\d{1,2})°(?:\s+grado)?\b/u', fn (array $matches): string => $this->ordinal((int) $matches[1]).' grade', $grade) ?? $grade;
     }
 
     private function normalizeDegreeSymbol(string $text): string
     {
         return preg_replace('/(?<=\d)[º°]/u', '°', $text) ?? $text;
+    }
+
+    private function listTitle(string $title, string $grade): string
+    {
+        if (app()->getLocale() === 'es') {
+            return $this->normalizeDegreeSymbol($title);
+        }
+
+        return __('site.pages.resources.supply_list_title', ['grade' => $this->formatGrade($grade)]);
+    }
+
+    private function ordinal(int $number): string
+    {
+        if (in_array($number % 100, [11, 12, 13], true)) {
+            return $number.'th';
+        }
+
+        return $number.match ($number % 10) {
+            1 => 'st',
+            2 => 'nd',
+            3 => 'rd',
+            default => 'th',
+        };
     }
 }

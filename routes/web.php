@@ -4,6 +4,34 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ContactoController;
 
+Route::get('/sitemap.xml', function () {
+    $urls = collect([
+        route('inicio'),
+        route('nosotros'),
+        route('oferta-academica'),
+        route('protagonistas'),
+        route('academias-vespertinas'),
+        route('recursos-escolares'),
+        route('contacto'),
+    ]);
+
+    $nivelUrls = collect(config('colegio.niveles.definiciones', []))
+        ->keys()
+        ->map(fn (string $nivel): string => route('nivel', $nivel));
+
+    $xmlUrls = $urls
+        ->merge($nivelUrls)
+        ->unique()
+        ->map(fn (string $url): string => '    <url><loc>'.htmlspecialchars($url, ENT_XML1).'</loc></url>')
+        ->implode("\n");
+
+    return response(
+        "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n{$xmlUrls}\n</urlset>\n",
+        200,
+        ['Content-Type' => 'application/xml'],
+    );
+})->name('sitemap');
+
 /*
 |--------------------------------------------------------------------------
 | Páginas públicas

@@ -6,6 +6,54 @@ return [
         'es' => 'ES',
         'en' => 'EN',
     ],
+    'common' => [
+        'skip_to_content' => 'Skip to main content',
+    ],
+    'seo' => [
+        'default_title' => 'Colegio Discovery',
+        'default_description' => 'Colegio Discovery institutional website.',
+        'routes' => [
+            'inicio' => [
+                'title' => 'Colegio Discovery',
+                'description' => 'Bilingual and international education for Explorers from Kindergarten through High School.',
+            ],
+            'nosotros' => [
+                'title' => 'About Us | Colegio Discovery',
+                'description' => 'Learn about Colegio Discovery’s history, educational model, and community.',
+            ],
+            'oferta-academica' => [
+                'title' => 'Academic Offer | Colegio Discovery',
+                'description' => 'Educational programs for Kindergarten, Elementary, Middle School, High School, IB, and English certification.',
+            ],
+            'nivel' => [
+                'title' => 'Academic Offer | Colegio Discovery',
+                'description' => 'Academic information, experiences, galleries, and resources by academic level.',
+            ],
+            'protagonistas' => [
+                'title' => 'Community | Colegio Discovery',
+                'description' => 'Explorers, families, teachers, and alumni who bring the Discovery community to life.',
+            ],
+            'academias-vespertinas' => [
+                'title' => 'Afternoon Academies | Colegio Discovery',
+                'description' => 'Afternoon activities that complement academic, sports, and creative development.',
+            ],
+            'recursos-escolares' => [
+                'title' => 'School Resources | Colegio Discovery',
+                'description' => 'School calendar, supply lists, and resources for Discovery families.',
+            ],
+            'contacto' => [
+                'title' => 'Contact | Colegio Discovery',
+                'description' => 'Information and admissions for Colegio Discovery in Tehuacan, Puebla.',
+            ],
+        ],
+    ],
+    'event_levels' => [
+        'general' => 'the whole community',
+        'preescolar' => 'Kindergarten',
+        'primaria' => 'Elementary',
+        'secundaria' => 'Middle School',
+        'bachillerato' => 'High School',
+    ],
     'nav' => [
         'social' => 'Colegio Discovery® social media',
         'open_social' => 'Open Colegio Discovery® :name',
@@ -14,10 +62,24 @@ return [
         'about' => 'About Us',
         'academic_offer' => 'Academic Offer',
         'community' => 'Community',
+        'protagonists' => 'Protagonists',
         'school_resources' => 'School Resources',
         'contact' => 'Contact',
         'afternoon_academies' => 'Afternoon Academies',
         'english_certification' => 'English Certification',
+        'levels' => [
+            'preescolar' => 'Kindergarten',
+            'primaria' => 'Elementary',
+            'secundaria' => 'Middle School',
+            'bachillerato' => 'High School',
+            'ib-en-discovery' => 'IB® at Discovery®',
+            'pop-del-ib' => 'IB® CP',
+        ],
+    ],
+    'images' => [
+        'section_default_alt' => 'Section image',
+        'view_large' => 'View large image: :alt',
+        'pending' => 'Image pending',
     ],
     'cta' => [
         'visit' => 'Schedule a visit',
@@ -41,12 +103,20 @@ return [
     ],
     'whatsapp' => [
         'label' => 'Customer support',
+        'message' => 'Hello, I would like to receive information about Colegio Discovery®.',
         'body' => 'Send us a message and we will gladly guide you with information, admissions, or location details.',
         'open_chat' => 'Open chat',
         'open_label' => 'Open :label on WhatsApp',
     ],
     'maintenance' => [
         'preview' => 'Administrative preview: “:name” is under maintenance and is not visible to the public.',
+        'title' => ':name under maintenance | Colegio Discovery®',
+        'logo_alt' => 'Colegio Discovery®',
+        'eyebrow' => 'Update in progress',
+        'heading' => 'We are preparing this section',
+        'body' => 'We are making improvements to offer you clear and updated information. The rest of the site remains available.',
+        'home' => 'Go home',
+        'contact' => 'Write to the school',
     ],
     'pages' => [
         'home' => [
@@ -74,6 +144,20 @@ return [
             'upcoming_text' => 'Activities and important moments to accompany your children’s school life.',
             'view_calendar' => 'View monthly calendar',
             'event_label' => 'Upcoming event',
+            'dynamic_event_title' => 'Discovery® event',
+            'dynamic_event_description' => 'Upcoming activity for :level.',
+            'event_image_reference' => 'Image for the Home events carousel.',
+            'level_logo_title' => ':level logo',
+            'level_logo_reference' => 'Logo shown on the level card on Home.',
+            'about_image_title' => 'Home - About Us',
+            'about_image_reference' => 'Side image for the About Us section on the home page.',
+            'banner_title' => 'Home banner',
+            'banner_alt' => 'Colegio Internacional Discovery®',
+            'default_events' => [
+                ['title' => 'Kindergarten event', 'description' => 'Upcoming activities for our Kindergarten families.'],
+                ['title' => 'Elementary event', 'description' => 'Experiences, projects, and gatherings for our Elementary Explorers.'],
+                ['title' => 'Middle School event', 'description' => 'Academic and community activities for Middle School.'],
+            ],
             'levels_eyebrow' => 'One stage, one kind of guidance',
             'levels_title' => 'Find the space that supports what your children need today',
             'levels_text' => 'Each stage has its own challenges. At Discovery®, we grow alongside your family with close attention and experiences that prepare students for the next step.',
@@ -131,6 +215,16 @@ return [
             'history_title' => 'Our History',
             'history_text' => 'A journey through the milestones that have built Colegio Discovery® as an educational community in constant growth.',
             'sep_school' => 'Colegio Discovery Nuevo Millenium',
+            'history_milestones' => [
+                ['anio' => '2003', 'titulo' => 'Discovery® Kindergarten', 'texto' => 'Discovery® Kindergarten is born, the beginning of an educational dream where the first steps transcend.', 'imagenes' => ['historia_2003', 'historia_2003_2']],
+                ['anio' => '2005', 'titulo' => 'Discovery® Elementary', 'texto' => 'Discovery® Elementary opens, growing with steady steps.', 'imagenes' => ['historia_2005', 'historia_2005_2']],
+                ['anio' => '2011', 'titulo' => 'Discovery® Middle School', 'texto' => 'Discovery® Middle School joins the journey, expanding horizons.', 'imagenes' => ['historia_2011']],
+                ['anio' => '2016', 'titulo' => 'Discovery® High School', 'texto' => 'Discovery® High School arrives, preparing great Explorers and helping them discover their potential.', 'imagenes' => ['historia_2016']],
+                ['anio' => '2018', 'titulo' => 'IB World School', 'texto' => 'We become an IB World School, embracing international education.', 'imagenes' => ['historia_2018']],
+                ['anio' => '2019', 'titulo' => 'New facilities', 'texto' => 'We open new facilities to continue innovating.', 'imagenes' => ['historia_2019', 'historia_2019_2']],
+                ['anio' => '2023', 'titulo' => 'First DKMUN edition', 'texto' => 'We hold our first DKMUN edition, a space for debate and diplomacy.', 'imagenes' => ['historia_2023', 'historia_2023_2']],
+                ['anio' => '2025', 'titulo' => 'Today', 'texto' => 'We continue writing our story, growing and evolving together.', 'imagenes' => ['historia_2025']],
+            ],
             'areas' => [
                 'Bilingual area',
                 'Mathematics area',
@@ -164,6 +258,58 @@ return [
             'university_visit' => 'Visit the official :university website',
             'university_review_call' => 'Review current call',
             'university_validity_note' => 'Agreements and percentages are current as of publication. Benefits are subject to each institution’s requirements, admission process, and current calls.',
+            'level_logo_title' => ':level logo',
+            'level_logo_reference' => 'Logo shown on the Academic Offer card and the level header.',
+            'universities' => [
+                'uvm' => [
+                    'summary' => 'Guidance throughout the admission process.',
+                    'benefits' => ['Pre-university support', 'Free admission exam', 'Scholarship advising and campus visits'],
+                ],
+                'upaep' => [
+                    'summary' => 'Direct admission and merit scholarship options.',
+                    'benefits' => ['Direct admission with an 8.0 GPA, except Medicine', 'Merit Scholarship up to 80%', 'Diagnostic exam, guidance, and visits'],
+                ],
+                'udlap' => [
+                    'summary' => 'Admission and scholarship benefits for IB® graduates.',
+                    'benefits' => ['Free admission exam', '20% scholarship for IB® high school graduates without diploma', 'With an IB® Diploma: 35% to 50% scholarships based on score'],
+                ],
+                'anahuac' => [
+                    'summary' => 'Guidance and different financial aid options.',
+                    'benefits' => ['Scholarship for the top student up to 60%', 'Academic, sports, and artistic scholarships', 'Educational financing options'],
+                ],
+                'ibero' => [
+                    'summary' => 'Preferred admission and Merit Scholarship opportunities.',
+                    'benefits' => ['No exam with a GPA above 8.5', 'Free admission exam', 'Three 50% Merit Scholarships with a 9.0 GPA'],
+                ],
+                'tec' => [
+                    'summary' => 'Admission support and recognition of the IB® Diploma.',
+                    'benefits' => ['Advising, guidance, and visits', 'Recognition for outstanding GPAs', 'Possible IB® Diploma subject credit during admission'],
+                ],
+                'eldp' => [
+                    'summary' => 'Automatic admission and academic scholarships.',
+                    'benefits' => ['Automatic admission with a GPA above 8.0', '25% scholarship with an 8.5 GPA', '50% scholarship with a 9.0 GPA'],
+                ],
+                'vatel' => [
+                    'summary' => 'Admission benefits for hospitality studies.',
+                    'benefits' => ['Admission exam and new enrollment fee benefits', 'Excellence scholarships from 20% to 50% based on GPA', 'Hospitality visits and conferences'],
+                ],
+                'itam' => [
+                    'summary' => 'Admission, scholarship, and financing support.',
+                    'benefits' => ['Free exam with a GPA above 8.0', 'Scholarship or scholarship-loan up to 90%', '100% Bachilleres Scholarship for the highest score by program'],
+                ],
+                'isu' => [
+                    'summary' => 'Preferred admission, scholarships, and university experiences.',
+                    'benefits' => ['No exam with a GPA above 8.5', 'One 50% scholarship and two 25% scholarships', 'Visits, workshops, and sample classes'],
+                ],
+                'inqba' => [
+                    'summary' => 'Business, excellence, and project-based scholarships.',
+                    'benefits' => ['Free diagnostic exam', '40% business scholarship with an 8.5 GPA', '60% to 80% scholarships subject to requirements'],
+                ],
+                'unilomas' => [
+                    'summary' => 'Direct connection with the university experience.',
+                    'benefits' => ['Academic events and activities', 'Talks, workshops, and guidance', 'University tours and visits'],
+                ],
+            ],
             'explore_level' => 'Explore level',
         ],
         'level' => [
@@ -172,6 +318,7 @@ return [
             'gallery' => 'Gallery',
             'promotional_videos' => 'Promotional videos',
             'promotional_videos_title' => 'Experience Discovery®',
+            'promotional_video_title' => 'Discovery® video :number',
             'videos' => 'Videos',
             'open_video_widget' => 'Open Discovery® videos',
             'close_video_widget' => 'Close Discovery® videos',
@@ -197,6 +344,7 @@ return [
             'explore_before_deciding' => 'Explore before deciding',
             'preuniversity_paths' => 'Discovery pre-university paths',
             'preuniversity_paths_text' => 'They do not represent early specialization. They are opportunities to discover strengths, explore professional possibilities, and make more informed decisions.',
+            'preuniversity_path_image_alt' => 'Image for the :title pre-university path.',
             'academic_path' => 'Academic path',
             'interest_areas_title' => 'Professional interest areas in 11th and 12th grade',
             'interest_areas_text' => 'Explorers deepen knowledge related to three major pre-university areas.',
@@ -255,6 +403,9 @@ return [
             'next_video' => 'Next video',
             'play_video' => 'Play :title',
             'empty_videos' => 'We will add testimonial videos soon.',
+            'video_generic_title' => 'Testimonial video :number',
+            'image_title' => 'Discovery® Community',
+            'image_reference' => 'Image for the section about the people who bring our community to life.',
         ],
         'academies' => [
             'hero_eyebrow' => 'Discovery® Community',
@@ -278,6 +429,7 @@ return [
             'closing_1' => 'Each Discovery® afternoon academy is an opportunity to discover talents, strengthen skills, and build a more active, creative, and united community.',
             'closing_2' => 'At Discovery®, we believe learning also happens when we move, create, think, connect, and share experiences that support the holistic development of our Explorers and their families.',
             'image_alt' => ':title in Discovery® Afternoon Academies',
+            'media_title' => 'Afternoon Academies :number',
             'schedule_items' => [
                 ['dias' => 'Mondays and Wednesdays', 'academias' => ['Soccer - Elementary', 'Basketball - Elementary', 'Origami - Kindergarten, Elementary, Middle School, High School, and Explorer parents', 'Conversation Club for Explorers Parents']],
                 ['dias' => 'Mondays', 'academias' => ['Pickleball for Explorer parents']],
@@ -314,6 +466,7 @@ return [
             'calendar_text' => 'Check activities, meetings, and important dates for each level.',
             'previous_month' => 'View previous month',
             'next_month' => 'View next month',
+            'weekdays_short' => ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
             'lists_pdf' => 'PDF lists',
             'lists_title' => 'Lists by academic level',
             'lists_text' => 'Open the PDF in a new tab to review or download it.',
@@ -330,6 +483,8 @@ return [
             'school_calendar' => '2025-2026 calendar',
             'consult_calendar' => 'Check the school calendar',
             'open_calendar' => 'Open calendar',
+            'school_calendar_image_reference' => 'School calendar image shown in School Resources.',
+            'supply_list_title' => 'Supply list for :grade',
         ],
         'contact' => [
             'hero_subtitle' => 'Information and admissions',
@@ -339,11 +494,20 @@ return [
             'email' => 'Email',
             'write' => 'Write to us',
             'form_title' => 'Schedule information or request admissions',
+            'hero_image_alt' => 'Colegio Discovery® contact',
+            'community_image_alt' => 'Colegio Discovery® community',
             'student_name' => 'Applicant full name',
             'guardian_name' => 'Parent/guardian full name',
+            'email_label' => 'Email *',
             'phone' => 'Contact phone *',
             'grade' => 'Grade applying for',
             'select' => 'Select an option',
+            'grades' => [
+                'Kindergarten' => 'Kindergarten',
+                'Elementary' => 'Elementary',
+                'Middle School' => 'Middle School',
+                'High School' => 'High School',
+            ],
             'send' => 'Send message',
             'whatsapp' => 'Contact via WhatsApp',
             'direct' => 'Direct support',

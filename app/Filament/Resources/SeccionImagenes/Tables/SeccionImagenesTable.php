@@ -3,6 +3,8 @@
 namespace App\Filament\Resources\SeccionImagenes\Tables;
 
 use App\Models\SeccionImagen;
+use App\Support\FilamentMediaPreview;
+use App\Support\SiteImageViewOptions;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
@@ -12,7 +14,6 @@ use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
-use Illuminate\Support\Facades\Storage;
 
 class SeccionImagenesTable
 {
@@ -66,21 +67,7 @@ class SeccionImagenesTable
             ->filters([
                 SelectFilter::make('vista')
                     ->label('Vista')
-                    ->options([
-                        'inicio' => 'Inicio',
-                        'nosotros' => 'Nosotros',
-                        'oferta-academica' => 'Oferta Educativa',
-                        'preescolar' => 'Nivel - Kindergarten',
-                        'primaria' => 'Nivel - Elementary',
-                        'secundaria' => 'Nivel - Middle School',
-                        'bachillerato' => 'Nivel - High School',
-                        'ib-en-discovery' => 'Nivel - IB en Discovery®',
-                        'pop-del-ib' => 'POP del IB',
-                        'certificacion-de-ingles' => 'Certificación de Inglés',
-                        'academias-vespertinas' => 'Academias Vespertinas',
-                        'recursos-escolares' => 'Recursos escolares',
-                        'contacto' => 'Contacto',
-                    ]),
+                    ->options(SiteImageViewOptions::all()),
             ])
             ->defaultSort('orden')
             ->recordActions([
@@ -96,22 +83,6 @@ class SeccionImagenesTable
 
     private static function previewUrl(SeccionImagen $record): ?string
     {
-        if ($record->imagen && Storage::disk('public')->exists($record->imagen)) {
-            return Storage::disk('public')->url($record->imagen);
-        }
-
-        if (! $record->respaldo_media_path) {
-            return null;
-        }
-
-        $path = trim(str_replace('\\', '/', $record->respaldo_media_path), '/');
-
-        if (! Storage::disk(config('colegio.media.disk', 'videosyfotos'))->exists($path)) {
-            return null;
-        }
-
-        return '/media/' . collect(explode('/', $path))
-            ->map(fn (string $segment) => rawurlencode($segment))
-            ->implode('/');
+        return FilamentMediaPreview::url($record->imagen, $record->respaldo_media_path);
     }
 }

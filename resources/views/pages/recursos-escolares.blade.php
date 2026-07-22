@@ -98,7 +98,7 @@
         <div class="overflow-x-auto p-4 md:p-8">
             <div class="min-w-[760px]">
                 <div class="grid grid-cols-7 gap-px overflow-hidden rounded-t-lg bg-gray-200">
-                    @foreach (['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'] as $weekday)
+                    @foreach (__('site.pages.resources.weekdays_short') as $weekday)
                         <div class="bg-blue-700 px-2 py-3 text-center text-xs font-extrabold uppercase tracking-wide text-white">
                             {{ $weekday }}
                         </div>
@@ -138,8 +138,8 @@
         </div>
 
         <div class="flex flex-wrap gap-3 border-t border-gray-100 px-6 py-5 text-xs font-bold md:px-8">
-            @foreach (\App\Models\Evento::levelOptions() as $level => $label)
-                <span class="rounded-full border px-3 py-1.5 {{ $calendarStyles[$level] }}">{{ $label }}</span>
+            @foreach (array_keys(\App\Models\Evento::levelOptions()) as $level)
+                <span class="rounded-full border px-3 py-1.5 {{ $calendarStyles[$level] }}">{{ __('site.event_levels.'.$level) }}</span>
             @endforeach
         </div>
     </section>
@@ -247,7 +247,7 @@
                         <p class="text-sm font-bold uppercase tracking-wide text-blue-700">{{ __('site.pages.resources.school_calendar') }}</p>
                         <h2 class="mt-2 text-2xl font-extrabold text-black">{{ __('site.pages.resources.consult_calendar') }}</h2>
                     </div>
-                    <a href="{{ $calendarioEscolar['url'] }}" target="_blank" rel="noopener" class="block bg-gray-50 p-3">
+                    <a href="{{ $calendarioEscolar['url'] }}" class="glightbox block bg-gray-50 p-3" data-gallery="recursos-escolares" data-title="{{ __('site.pages.resources.school_calendar') }}">
                         <img
                             src="{{ $calendarioEscolar['url'] }}"
                             alt="Calendario escolar 2025-2026"

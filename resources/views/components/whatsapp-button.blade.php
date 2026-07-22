@@ -6,7 +6,7 @@
     $label = $label ?? __('site.whatsapp.label');
     $numeroVisible = config('colegio.contacto.whatsapp_numero');
     $numero = preg_replace('/\D+/', '', $numeroVisible);
-    $mensaje = rawurlencode(config('colegio.contacto.whatsapp_mensaje'));
+    $mensaje = rawurlencode(__('site.whatsapp.message'));
     $url = "https://wa.me/{$numero}?text={$mensaje}";
     $telefonoUrl = 'tel:+' . $numero;
 @endphp

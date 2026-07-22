@@ -77,6 +77,7 @@
                                 alt="{{ $protagonista['titulo'] }} Discovery®"
                                 class="h-36 w-full object-contain p-2 md:h-40"
                                 placeholder-class="h-36 md:h-40"
+                                :lightbox="false"
                                 data-community-hero-photo
                             />
                         </a>
@@ -125,12 +126,14 @@
                         data-protagonista-images='@json($item['imagenes'] ?? [$item['imagen']])'
                     >
                         @if (! empty($item['imagen']['url']))
+                            <a href="{{ $item['imagen']['url'] }}" class="glightbox block" data-title="{{ $item['titulo'] }}" data-protagonista-photo-link>
                             <img
                                 src="{{ $item['imagen']['url'] }}"
                                 alt="{{ $item['titulo'] }} Discovery®"
                                 class="h-72 w-full bg-gray-100 object-contain md:h-96"
                                 data-protagonista-photo
                             >
+                            </a>
                         @else
                             <x-imagen-seccion
                                 :imagen="$item['imagen']"
@@ -308,38 +311,6 @@
         const images = Array.from(document.querySelectorAll('[data-protagonista-image]'));
         const heroCards = Array.from(document.querySelectorAll('[data-community-hero-card]'));
 
-        const enableTouchSwipe = (element, onPrevious, onNext) => {
-            if (!element) {
-                return;
-            }
-
-            let startX = 0;
-            let startY = 0;
-
-            element.addEventListener('touchstart', (event) => {
-                const touch = event.touches[0];
-
-                startX = touch.clientX;
-                startY = touch.clientY;
-            }, { passive: true });
-
-            element.addEventListener('touchend', (event) => {
-                const touch = event.changedTouches[0];
-                const deltaX = touch.clientX - startX;
-                const deltaY = touch.clientY - startY;
-
-                if (Math.abs(deltaX) < 45 || Math.abs(deltaX) < Math.abs(deltaY) * 1.2) {
-                    return;
-                }
-
-                if (deltaX < 0) {
-                    onNext();
-                } else {
-                    onPrevious();
-                }
-            }, { passive: true });
-        };
-
         const imageListFromDataset = (element, datasetKey) => {
             try {
                 return JSON.parse(element.dataset[datasetKey] || '[]').filter((image) => image && image.url);
@@ -356,19 +327,25 @@
             return nextOptions[Math.floor(Math.random() * nextOptions.length)];
         };
 
+        const refreshLightboxAfterImageChange = () => {
+            window.requestAnimationFrame(() => {
+                window.refreshSiteLightbox?.();
+            });
+        };
+
         const rotateHeroPhoto = (heroCard) => {
             const photo = heroCard.querySelector('[data-community-hero-photo]');
             const link = heroCard.querySelector('[data-community-hero-link]');
             const validImages = imageListFromDataset(heroCard, 'communityHeroImages');
 
             if (!photo || validImages.length === 0) {
-                return;
+                return false;
             }
 
             const nextImage = nextImageFrom(validImages, photo.getAttribute('src'));
 
             if (!nextImage?.url) {
-                return;
+                return false;
             }
 
             photo.src = nextImage.url;
@@ -376,29 +353,46 @@
             if (link) {
                 link.href = nextImage.url;
             }
+
+            return true;
         };
 
         const pickRandomPhoto = (imageCard) => {
             const photo = imageCard.querySelector('[data-protagonista-photo]');
+            const link = imageCard.querySelector('[data-protagonista-photo-link]');
 
             if (!photo) {
-                return;
+                return false;
             }
 
             const validImages = imageListFromDataset(imageCard, 'protagonistaImages');
 
             if (validImages.length === 0) {
-                return;
+                return false;
             }
 
             const nextImage = nextImageFrom(validImages, photo.getAttribute('src'));
 
             photo.src = nextImage.url;
+
+            if (link) {
+                link.href = nextImage.url;
+            }
+
+            return true;
         };
 
         if (heroCards.length > 0) {
             window.setInterval(() => {
-                heroCards.forEach(rotateHeroPhoto);
+                let hasChangedImage = false;
+
+                heroCards.forEach((heroCard) => {
+                    hasChangedImage = rotateHeroPhoto(heroCard) || hasChangedImage;
+                });
+
+                if (hasChangedImage) {
+                    refreshLightboxAfterImageChange();
+                }
             }, 5000);
         }
 
@@ -416,15 +410,21 @@
                     currentTab.dataset.active = isCurrentTab ? 'true' : 'false';
                 });
 
+                let hasChangedImage = false;
+
                 images.forEach((image) => {
                     const isActive = image.dataset.protagonistaImage === target;
 
                     image.classList.toggle('hidden', !isActive);
 
                     if (isActive) {
-                        pickRandomPhoto(image);
+                        hasChangedImage = pickRandomPhoto(image) || hasChangedImage;
                     }
                 });
+
+                if (hasChangedImage) {
+                    refreshLightboxAfterImageChange();
+                }
 
                 panels.forEach((panel) => {
                     const isActive = panel.dataset.protagonistaPanel === target;
@@ -448,109 +448,18 @@
             });
         });
 
-        const videoCarousel = document.querySelector('[data-community-video-carousel]');
-        const videoTrack = document.querySelector('[data-community-video-track]');
-        const videoSlides = videoTrack ? Array.from(videoTrack.children) : [];
-        const videoDots = Array.from(document.querySelectorAll('[data-community-video-dot]'));
-        const videos = Array.from(document.querySelectorAll('[data-community-video-track] video'));
-        let videoIndex = 0;
-
-        const setActiveVideoDot = () => {
-            videoDots.forEach((dot, dotIndex) => {
-                dot.className = dotIndex === videoIndex
-                    ? 'h-3 w-8 rounded-full bg-yellow-400'
-                    : 'h-3 w-3 rounded-full bg-white/40';
-            });
-        };
-
-        const getVideosPerView = () => {
-            if (!videoCarousel || videoSlides.length === 0 || videoSlides[0].offsetWidth === 0) {
-                return 1;
-            }
-
-            return Math.max(1, Math.round(videoCarousel.clientWidth / videoSlides[0].offsetWidth));
-        };
-
-        const getMaxVideoIndex = () => Math.max(0, videoSlides.length - getVideosPerView());
-
-        const pauseOtherVideos = (currentVideo) => {
-            videos.forEach((video) => {
-                if (video !== currentVideo && !video.paused) {
-                    video.pause();
-                }
-            });
-        };
-
-        const pauseAllVideos = () => {
-            videos.forEach((video) => {
-                if (!video.paused) {
-                    video.pause();
-                }
-            });
-        };
-
-        const showVideo = (index) => {
-            if (!videoTrack || videoSlides.length === 0) {
-                return;
-            }
-
-            videoIndex = Math.max(0, Math.min(index, getMaxVideoIndex()));
-            videoTrack.style.transform = `translateX(-${videoIndex * videoCarousel.clientWidth}px)`;
-            setActiveVideoDot();
-        };
-
-        document.querySelectorAll('[data-community-video-prev]').forEach((button) => button.addEventListener('click', () => {
-            pauseAllVideos();
-            showVideo(videoIndex - 1);
-        }));
-
-        document.querySelectorAll('[data-community-video-next]').forEach((button) => button.addEventListener('click', () => {
-            pauseAllVideos();
-            showVideo(videoIndex + 1);
-        }));
-
-        enableTouchSwipe(
-            videoCarousel,
-            () => {
-                pauseAllVideos();
-                showVideo(videoIndex - 1);
-            },
-            () => {
-                pauseAllVideos();
-                showVideo(videoIndex + 1);
-            },
-        );
-
-        videoDots.forEach((dot) => {
-            dot.addEventListener('click', () => {
-                pauseAllVideos();
-                showVideo(Number(dot.dataset.communityVideoDot));
-            });
+        window.initSiteVideoCarousel?.({
+            carouselSelector: '[data-community-video-carousel]',
+            trackSelector: '[data-community-video-track]',
+            dotSelector: '[data-community-video-dot]',
+            previousSelector: '[data-community-video-prev]',
+            nextSelector: '[data-community-video-next]',
+            posterSelector: '[data-community-video-poster]',
+            dotDataKey: 'communityVideoDot',
+            activeDotClasses: 'h-3 w-8 rounded-full bg-yellow-400',
+            inactiveDotClasses: 'h-3 w-3 rounded-full bg-white/40',
+            translateMode: 'viewport',
         });
-
-        videos.forEach((video) => {
-            const poster = video.parentElement?.querySelector('[data-community-video-poster]');
-
-            poster?.addEventListener('click', () => {
-                video.play();
-            });
-
-            video.addEventListener('play', () => {
-                poster?.classList.add('opacity-0', 'pointer-events-none');
-                pauseOtherVideos(video);
-            });
-
-            video.addEventListener('pause', () => {
-                poster?.classList.remove('opacity-0', 'pointer-events-none');
-            });
-
-            video.addEventListener('ended', () => {
-                poster?.classList.remove('opacity-0', 'pointer-events-none');
-            });
-        });
-
-        window.addEventListener('resize', () => showVideo(videoIndex));
-        showVideo(0);
     });
 </script>
 

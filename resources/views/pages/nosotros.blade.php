@@ -125,6 +125,7 @@
                     alt="Modelo educativo Colegio Discovery®"
                     class="h-72 w-full object-cover lg:h-full transition-transform hover:scale-[1.02]"
                     placeholder-class="h-72 lg:h-full"
+                    :lightbox="false"
                 />
             </a>
             <div class="p-8 md:p-10">
@@ -189,6 +190,7 @@
                                         :alt="$evento['titulo']"
                                         class="w-full h-48 md:h-64 object-cover rounded-xl shadow-sm border border-gray-100"
                                         placeholder-class="w-full min-h-48 md:min-h-64"
+                                        gallery="historia-discovery"
                                     />
                                 @endforeach
                             </div>

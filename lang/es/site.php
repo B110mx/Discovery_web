@@ -6,6 +6,54 @@ return [
         'es' => 'ES',
         'en' => 'EN',
     ],
+    'common' => [
+        'skip_to_content' => 'Saltar al contenido principal',
+    ],
+    'seo' => [
+        'default_title' => 'Colegio Discovery',
+        'default_description' => 'Sitio institucional de Colegio Discovery.',
+        'routes' => [
+            'inicio' => [
+                'title' => 'Colegio Discovery',
+                'description' => 'Formación bilingüe e internacional para Explorers desde Kindergarten hasta High School.',
+            ],
+            'nosotros' => [
+                'title' => 'Nosotros | Colegio Discovery',
+                'description' => 'Conoce la historia, modelo educativo y comunidad de Colegio Discovery.',
+            ],
+            'oferta-academica' => [
+                'title' => 'Oferta Académica | Colegio Discovery',
+                'description' => 'Programas educativos de Kindergarten, Elementary, Middle School, High School, IB y certificación de inglés.',
+            ],
+            'nivel' => [
+                'title' => 'Oferta Académica | Colegio Discovery',
+                'description' => 'Información académica, experiencias, galerías y recursos por nivel educativo.',
+            ],
+            'protagonistas' => [
+                'title' => 'Comunidad | Colegio Discovery',
+                'description' => 'Explorers, familias, docentes y alumni que hacen viva la comunidad Discovery.',
+            ],
+            'academias-vespertinas' => [
+                'title' => 'Academias Vespertinas | Colegio Discovery',
+                'description' => 'Actividades vespertinas que complementan la formación académica, deportiva y creativa.',
+            ],
+            'recursos-escolares' => [
+                'title' => 'Recursos Escolares | Colegio Discovery',
+                'description' => 'Calendario escolar, listas de útiles y recursos para familias Discovery.',
+            ],
+            'contacto' => [
+                'title' => 'Contacto | Colegio Discovery',
+                'description' => 'Informes y admisiones de Colegio Discovery en Tehuacán, Puebla.',
+            ],
+        ],
+    ],
+    'event_levels' => [
+        'general' => 'Toda la comunidad',
+        'preescolar' => 'Kindergarten',
+        'primaria' => 'Elementary',
+        'secundaria' => 'Middle School',
+        'bachillerato' => 'High School',
+    ],
     'nav' => [
         'social' => 'Redes sociales de Colegio Discovery®',
         'open_social' => 'Abrir :name de Colegio Discovery®',
@@ -14,10 +62,24 @@ return [
         'about' => 'Conócenos',
         'academic_offer' => 'Oferta Educativa',
         'community' => 'Comunidad',
+        'protagonists' => 'Protagonistas',
         'school_resources' => 'Recursos escolares',
         'contact' => 'Contacto',
         'afternoon_academies' => 'Academias Vespertinas',
         'english_certification' => 'Certificación de Inglés',
+        'levels' => [
+            'preescolar' => 'Kindergarten',
+            'primaria' => 'Elementary',
+            'secundaria' => 'Middle School',
+            'bachillerato' => 'High School',
+            'ib-en-discovery' => 'IB® en Discovery®',
+            'pop-del-ib' => 'POP del IB®',
+        ],
+    ],
+    'images' => [
+        'section_default_alt' => 'Imagen de sección',
+        'view_large' => 'Ver imagen en grande: :alt',
+        'pending' => 'Imagen pendiente',
     ],
     'cta' => [
         'visit' => 'Agenda una visita',
@@ -41,12 +103,20 @@ return [
     ],
     'whatsapp' => [
         'label' => 'Atención a clientes',
+        'message' => 'Hola, me gustaría recibir información sobre Colegio Discovery®.',
         'body' => 'Escríbenos y con gusto te orientamos sobre informes, admisiones o ubicación.',
         'open_chat' => 'Abrir chat',
         'open_label' => 'Abrir WhatsApp de :label',
     ],
     'maintenance' => [
         'preview' => 'Vista administrativa: “:name” está en mantenimiento y no es visible para el público.',
+        'title' => ':name en mantenimiento | Colegio Discovery®',
+        'logo_alt' => 'Colegio Discovery®',
+        'eyebrow' => 'Actualización en proceso',
+        'heading' => 'Estamos preparando esta sección',
+        'body' => 'Estamos realizando mejoras para ofrecerte información clara y actualizada. El resto del sitio continúa disponible.',
+        'home' => 'Ir al inicio',
+        'contact' => 'Escribir al colegio',
     ],
     'pages' => [
         'home' => [
@@ -74,6 +144,20 @@ return [
             'upcoming_text' => 'Actividades y momentos importantes para acompañar la vida escolar de tus hijos.',
             'view_calendar' => 'Ver calendario mensual',
             'event_label' => 'Evento próximo',
+            'dynamic_event_title' => 'Evento Discovery®',
+            'dynamic_event_description' => 'Actividad próxima para :level.',
+            'event_image_reference' => 'Imagen del carrusel de eventos en Inicio.',
+            'level_logo_title' => 'Logo de :level',
+            'level_logo_reference' => 'Logo mostrado en la tarjeta del nivel dentro de Inicio.',
+            'about_image_title' => 'Inicio - Sobre Nosotros',
+            'about_image_reference' => 'Imagen lateral de la sección Sobre Nosotros en la página de inicio.',
+            'banner_title' => 'Banner de Inicio',
+            'banner_alt' => 'Colegio Internacional Discovery®',
+            'default_events' => [
+                ['title' => 'Evento Kindergarten', 'description' => 'Actividades próximas para nuestras familias de Kindergarten.'],
+                ['title' => 'Evento Elementary', 'description' => 'Experiencias, proyectos y encuentros para nuestros Explorers de Elementary.'],
+                ['title' => 'Evento Middle School', 'description' => 'Actividades académicas y de comunidad para Middle School.'],
+            ],
             'levels_eyebrow' => 'Una etapa, un acompañamiento',
             'levels_title' => 'Encuentra el espacio que acompaña lo que tus hijos necesitan hoy',
             'levels_text' => 'Cada etapa tiene sus propios retos. En Discovery® crecemos junto a tu familia con atención cercana y experiencias que preparan para el siguiente paso.',
@@ -131,6 +215,16 @@ return [
             'history_title' => 'Nuestra Historia',
             'history_text' => 'Un recorrido por los momentos que han construido a Colegio Discovery® como una comunidad educativa en constante crecimiento.',
             'sep_school' => 'Colegio Discovery Nuevo Millenium',
+            'history_milestones' => [
+                ['anio' => '2003', 'titulo' => 'Discovery® Kindergarten', 'texto' => 'Nace Discovery® Kindergarten, el inicio de un sueño educativo porque los primeros pasos trascienden.', 'imagenes' => ['historia_2003', 'historia_2003_2']],
+                ['anio' => '2005', 'titulo' => 'Discovery® Elementary', 'texto' => 'Inauguración de Discovery® Elementary, creciendo con pasos firmes.', 'imagenes' => ['historia_2005', 'historia_2005_2']],
+                ['anio' => '2011', 'titulo' => 'Discovery® Middle School', 'texto' => 'Se suma Discovery® Middle School, ampliando horizontes.', 'imagenes' => ['historia_2011']],
+                ['anio' => '2016', 'titulo' => 'Discovery® High School', 'texto' => 'Llega Discovery® High School, preparando grandes Explorers y descubriendo su potencial.', 'imagenes' => ['historia_2016']],
+                ['anio' => '2018', 'titulo' => 'Colegio del Mundo', 'texto' => 'Nos convertimos en Colegio del Mundo IB, abrazando la educación internacional.', 'imagenes' => ['historia_2018']],
+                ['anio' => '2019', 'titulo' => 'Nuevas instalaciones', 'texto' => 'Estrenamos nuevas instalaciones para seguir innovando.', 'imagenes' => ['historia_2019', 'historia_2019_2']],
+                ['anio' => '2023', 'titulo' => 'DKMUN primera edición', 'texto' => 'Realizamos nuestra primera edición DKMUN, un espacio para el debate y la diplomacia.', 'imagenes' => ['historia_2023', 'historia_2023_2']],
+                ['anio' => '2025', 'titulo' => 'Actualmente', 'texto' => 'Seguimos escribiendo nuestra historia, creciendo y evolucionando juntos.', 'imagenes' => ['historia_2025']],
+            ],
             'areas' => [
                 'Área bilingüe',
                 'Área de matemáticas',
@@ -164,6 +258,58 @@ return [
             'university_visit' => 'Visitar el sitio oficial de :university',
             'university_review_call' => 'Revisar convocatoria',
             'university_validity_note' => 'Convenios y porcentajes vigentes al momento de publicación. Los beneficios están sujetos a requisitos, procesos de admisión y convocatorias de cada institución.',
+            'level_logo_title' => ':level - Logo',
+            'level_logo_reference' => 'Logo mostrado en Oferta Educativa y en el encabezado del nivel.',
+            'universities' => [
+                'uvm' => [
+                    'summary' => 'Acompañamiento durante el proceso de ingreso.',
+                    'benefits' => ['Atención preuniversitaria', 'Examen de admisión sin costo', 'Asesoría sobre becas y visitas al campus'],
+                ],
+                'upaep' => [
+                    'summary' => 'Pase directo y opciones de beca por mérito.',
+                    'benefits' => ['Pase directo con promedio de 8.0, excepto Medicina', 'Beca Mérito de hasta 80%', 'Examen diagnóstico, orientación y visitas'],
+                ],
+                'udlap' => [
+                    'summary' => 'Beneficios de admisión y becas para egresados IB®.',
+                    'benefits' => ['Examen de admisión sin costo', 'Beca de 20% para egresados de preparatoria IB® sin diploma', 'Con Diploma IB®: becas de 35% a 50% según puntaje'],
+                ],
+                'anahuac' => [
+                    'summary' => 'Orientación y distintas modalidades de apoyo financiero.',
+                    'benefits' => ['Beca al mejor estudiante de hasta 60%', 'Becas académicas, deportivas y artísticas', 'Opciones de financiamiento educativo'],
+                ],
+                'ibero' => [
+                    'summary' => 'Ingreso preferente y oportunidades de Beca Mérito.',
+                    'benefits' => ['Sin examen con promedio mayor a 8.5', 'Examen de admisión sin costo', 'Tres Becas Mérito de 50% con promedio de 9.0'],
+                ],
+                'tec' => [
+                    'summary' => 'Acompañamiento de admisión y reconocimiento del Diploma IB®.',
+                    'benefits' => ['Asesoría, orientación y visitas', 'Reconocimiento a promedios destacados', 'Posible acreditación de materias del Diploma IB® durante admisión'],
+                ],
+                'eldp' => [
+                    'summary' => 'Ingreso automático y becas académicas.',
+                    'benefits' => ['Admisión automática con promedio mayor a 8.0', 'Beca de 25% con promedio de 8.5', 'Beca de 50% con promedio de 9.0'],
+                ],
+                'vatel' => [
+                    'summary' => 'Beneficios de ingreso para estudios de hotelería.',
+                    'benefits' => ['Beneficio en el pago del examen y cuota de nuevo ingreso', 'Becas de excelencia de 20% a 50% según promedio', 'Visitas y conferencias de hotelería'],
+                ],
+                'itam' => [
+                    'summary' => 'Apoyos de admisión, beca y financiamiento.',
+                    'benefits' => ['Examen sin costo con promedio mayor a 8.0', 'Beca o beca-préstamo de hasta 90%', 'Beca Bachilleres de 100% para el puntaje más alto por carrera'],
+                ],
+                'isu' => [
+                    'summary' => 'Ingreso preferente, becas y experiencias universitarias.',
+                    'benefits' => ['Sin examen con promedio mayor a 8.5', 'Una beca de 50% y dos becas de 25%', 'Visitas, talleres y clases muestra'],
+                ],
+                'inqba' => [
+                    'summary' => 'Becas empresariales, de excelencia y por proyecto.',
+                    'benefits' => ['Examen diagnóstico sin costo', 'Beca empresarial de 40% con promedio de 8.5', 'Becas de 60% a 80% sujetas a requisitos'],
+                ],
+                'unilomas' => [
+                    'summary' => 'Acercamiento directo a la experiencia universitaria.',
+                    'benefits' => ['Eventos y actividades académicas', 'Pláticas, talleres y orientación', 'Tours y visitas universitarias'],
+                ],
+            ],
             'explore_level' => 'Explorar nivel',
         ],
         'level' => [
@@ -172,6 +318,7 @@ return [
             'gallery' => 'Galería',
             'promotional_videos' => 'Videos promocionales',
             'promotional_videos_title' => 'Vive la experiencia Discovery®',
+            'promotional_video_title' => 'Video Discovery® :number',
             'videos' => 'Videos',
             'open_video_widget' => 'Abrir videos Discovery®',
             'close_video_widget' => 'Cerrar videos Discovery®',
@@ -197,6 +344,7 @@ return [
             'explore_before_deciding' => 'Explorar antes de decidir',
             'preuniversity_paths' => 'Rutas preuniversitarias Discovery',
             'preuniversity_paths_text' => 'No representan una especialización temprana. Son oportunidades para descubrir fortalezas, explorar posibilidades profesionales y tomar decisiones más informadas.',
+            'preuniversity_path_image_alt' => 'Imagen de la ruta preuniversitaria :title.',
             'academic_path' => 'Trayectoria académica',
             'interest_areas_title' => 'Áreas de interés profesional en 11° y 12°',
             'interest_areas_text' => 'Los Explorers profundizan conocimientos relacionados con tres grandes áreas preuniversitarias.',
@@ -255,6 +403,9 @@ return [
             'next_video' => 'Video siguiente',
             'play_video' => 'Reproducir :title',
             'empty_videos' => 'Pronto agregaremos videos testimoniales.',
+            'video_generic_title' => 'Video testimonial :number',
+            'image_title' => 'Comunidad Discovery®',
+            'image_reference' => 'Imagen para la sección Quienes hacen viva nuestra comunidad.',
         ],
         'academies' => [
             'hero_eyebrow' => 'Comunidad Discovery®',
@@ -278,6 +429,7 @@ return [
             'closing_1' => 'Cada academia vespertina Discovery® representa una oportunidad para descubrir talentos, fortalecer habilidades y construir una comunidad más activa, creativa y unida.',
             'closing_2' => 'En Discovery®, creemos que el aprendizaje también sucede cuando nos movemos, creamos, pensamos, convivimos y compartimos experiencias que impulsan el desarrollo integral de nuestros Explorers y sus familias.',
             'image_alt' => ':title en Academias Vespertinas Discovery®',
+            'media_title' => 'Academias Vespertinas :number',
             'schedule_items' => [
                 ['dias' => 'Lunes y miércoles', 'academias' => ['Fútbol - Elementary', 'Basketball - Elementary', 'Origami - Kindergarten, Elementary, Middle School, High School y papás Explorers', 'Conversation Club for Explorers Parents']],
                 ['dias' => 'Lunes', 'academias' => ['Pickleball para papás Explorers']],
@@ -314,6 +466,7 @@ return [
             'calendar_text' => 'Consulta actividades, reuniones y fechas importantes de cada nivel.',
             'previous_month' => 'Ver mes anterior',
             'next_month' => 'Ver mes siguiente',
+            'weekdays_short' => ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'],
             'lists_pdf' => 'Listas en PDF',
             'lists_title' => 'Listas por nivel educativo',
             'lists_text' => 'Abre el PDF en una nueva pestaña para consultarlo o descargarlo.',
@@ -330,6 +483,8 @@ return [
             'school_calendar' => 'Calendario 2025-2026',
             'consult_calendar' => 'Consulta el calendario escolar',
             'open_calendar' => 'Abrir calendario',
+            'school_calendar_image_reference' => 'Imagen del calendario escolar mostrada en Recursos escolares.',
+            'supply_list_title' => 'Lista de útiles para :grade',
         ],
         'contact' => [
             'hero_subtitle' => 'Informes y admisiones',
@@ -339,11 +494,20 @@ return [
             'email' => 'Correo',
             'write' => 'Escríbenos',
             'form_title' => 'Agenda informes o solicita admisiones',
+            'hero_image_alt' => 'Colegio Discovery® contacto',
+            'community_image_alt' => 'Comunidad Colegio Discovery®',
             'student_name' => 'Nombre completo del aspirante',
             'guardian_name' => 'Nombre completo del tutor (a)',
+            'email_label' => 'Correo electrónico *',
             'phone' => 'Teléfono de contacto *',
             'grade' => 'Grado al que aplica',
             'select' => 'Selecciona una opción',
+            'grades' => [
+                'Kindergarten' => 'Kindergarten',
+                'Elementary' => 'Elementary',
+                'Middle School' => 'Middle School',
+                'High School' => 'High School',
+            ],
             'send' => 'Enviar mensaje',
             'whatsapp' => 'Contactar por WhatsApp',
             'direct' => 'Atención directa',

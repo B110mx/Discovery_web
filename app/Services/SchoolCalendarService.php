@@ -41,7 +41,7 @@ class SchoolCalendarService
         }
 
         return [
-            'title' => ucfirst($month->locale('es')->translatedFormat('F Y')),
+            'title' => ucfirst($month->locale(app()->getLocale())->translatedFormat('F Y')),
             'month' => $month->format('Y-m'),
             'previous' => $month->subMonth()->format('Y-m'),
             'next' => $month->addMonth()->format('Y-m'),
@@ -84,16 +84,46 @@ class SchoolCalendarService
     {
         return $events
             ->map(fn (Evento $event) => [
-                'title' => $event->titulo,
-                'description' => $event->descripcion,
+                'title' => $this->eventTitle($event),
+                'description' => $this->eventDescription($event),
                 'date' => $event->fecha_evento->toDateString(),
                 'day' => $event->fecha_evento->day,
-                'month_short' => ucfirst($event->fecha_evento->locale('es')->translatedFormat('M')),
-                'date_label' => $event->fecha_evento->locale('es')->translatedFormat('j \d\e F \d\e Y'),
+                'month_short' => ucfirst($event->fecha_evento->locale(app()->getLocale())->translatedFormat('M')),
+                'date_label' => $this->dateLabel($event->fecha_evento),
                 'level' => $event->nivel ?: 'general',
-                'level_label' => Evento::levelOptions()[$event->nivel ?: 'general'] ?? 'Toda la comunidad',
+                'level_label' => $this->levelLabel($event->nivel ?: 'general'),
             ])
             ->values()
             ->all();
+    }
+
+    private function dateLabel(CarbonInterface $date): string
+    {
+        return app()->getLocale() === 'en'
+            ? $date->locale('en')->translatedFormat('F j, Y')
+            : $date->locale('es')->translatedFormat('j \d\e F \d\e Y');
+    }
+
+    private function levelLabel(string $level): string
+    {
+        return __("site.event_levels.{$level}");
+    }
+
+    private function eventTitle(Evento $event): string
+    {
+        if (app()->getLocale() === 'es') {
+            return $event->titulo;
+        }
+
+        return __('site.pages.home.dynamic_event_title', ['level' => $this->levelLabel($event->nivel ?: 'general')]);
+    }
+
+    private function eventDescription(Evento $event): string
+    {
+        if (app()->getLocale() === 'es') {
+            return $event->descripcion ?? __('site.pages.home.dynamic_event_description', ['level' => $this->levelLabel($event->nivel ?: 'general')]);
+        }
+
+        return __('site.pages.home.dynamic_event_description', ['level' => $this->levelLabel($event->nivel ?: 'general')]);
     }
 }
