@@ -52,5 +52,14 @@ jobs:
           cp .env.example .env
           php artisan key:generate
 
+      - name: Audit Composer dependencies
+        run: composer security:check
+
+      - name: Check PHP formatting
+        run: composer format:check
+
+      - name: Run static analysis
+        run: composer analyse
+
       - name: Run tests with coverage threshold
         run: composer test:coverage

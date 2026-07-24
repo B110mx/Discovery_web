@@ -2,8 +2,8 @@
 
 namespace Tests\Feature;
 
-use App\Models\Evento;
 use App\Models\BannerInicio;
+use App\Models\Evento;
 use App\Models\GaleriaImagen;
 use App\Models\HitoHistoria;
 use App\Models\ListaUtil;

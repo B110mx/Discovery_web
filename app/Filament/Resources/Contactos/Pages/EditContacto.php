@@ -3,9 +3,9 @@
 namespace App\Filament\Resources\Contactos\Pages;
 
 use App\Filament\Resources\Contactos\ContactoResource;
+use App\Filament\Resources\Pages\EditRecord;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\ViewAction;
-use App\Filament\Resources\Pages\EditRecord;
 
 class EditContacto extends EditRecord
 {

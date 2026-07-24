@@ -44,6 +44,9 @@ class PromotionalVideoService
         );
     }
 
+    /**
+     * @param  Builder<VideoPromocional>  $query
+     */
     private function resolve(Builder $query): array
     {
         return $query

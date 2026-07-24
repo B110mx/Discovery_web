@@ -2,6 +2,23 @@
 
 namespace Tests\Feature;
 
+use App\Filament\Resources\BannersInicio\BannerInicioResource;
+use App\Filament\Resources\Contactos\ContactoResource;
+use App\Filament\Resources\Eventos\EventoResource;
+use App\Filament\Resources\GaleriaImagenes\GaleriaImagenResource;
+use App\Filament\Resources\HitoHistorias\HitoHistoriaResource;
+use App\Filament\Resources\ListaUtiles\ListaUtilResource;
+use App\Filament\Resources\NivelContenidos\NivelContenidoResource;
+use App\Filament\Resources\PaginaContenidos\PaginaContenidoResource;
+use App\Filament\Resources\Paginas\ContactoPaginaResource;
+use App\Filament\Resources\Paginas\InicioResource;
+use App\Filament\Resources\Paginas\NosotrosResource;
+use App\Filament\Resources\Paginas\OfertaAcademicaResource;
+use App\Filament\Resources\Paginas\ProtagonistasResource;
+use App\Filament\Resources\SeccionImagenes\SeccionImagenResource;
+use App\Filament\Resources\TestimonioVideos\TestimonioVideoResource;
+use App\Filament\Resources\Usuarios\UsuarioResource;
+use App\Filament\Resources\VideosPromocionales\VideoPromocionalResource;
 use App\Models\User;
 use Filament\Resources\Resource;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -12,28 +29,28 @@ class FilamentResourceCoverageTest extends TestCase
     use RefreshDatabase;
 
     /**
-     * @return array<class-string<Resource>>
+     * @return array<class-string<resource>>
      */
     private function resources(): array
     {
         return [
-            \App\Filament\Resources\BannersInicio\BannerInicioResource::class,
-            \App\Filament\Resources\Contactos\ContactoResource::class,
-            \App\Filament\Resources\Eventos\EventoResource::class,
-            \App\Filament\Resources\GaleriaImagenes\GaleriaImagenResource::class,
-            \App\Filament\Resources\HitoHistorias\HitoHistoriaResource::class,
-            \App\Filament\Resources\ListaUtiles\ListaUtilResource::class,
-            \App\Filament\Resources\NivelContenidos\NivelContenidoResource::class,
-            \App\Filament\Resources\PaginaContenidos\PaginaContenidoResource::class,
-            \App\Filament\Resources\Paginas\ContactoPaginaResource::class,
-            \App\Filament\Resources\Paginas\InicioResource::class,
-            \App\Filament\Resources\Paginas\NosotrosResource::class,
-            \App\Filament\Resources\Paginas\OfertaAcademicaResource::class,
-            \App\Filament\Resources\Paginas\ProtagonistasResource::class,
-            \App\Filament\Resources\SeccionImagenes\SeccionImagenResource::class,
-            \App\Filament\Resources\TestimonioVideos\TestimonioVideoResource::class,
-            \App\Filament\Resources\Usuarios\UsuarioResource::class,
-            \App\Filament\Resources\VideosPromocionales\VideoPromocionalResource::class,
+            BannerInicioResource::class,
+            ContactoResource::class,
+            EventoResource::class,
+            GaleriaImagenResource::class,
+            HitoHistoriaResource::class,
+            ListaUtilResource::class,
+            NivelContenidoResource::class,
+            PaginaContenidoResource::class,
+            ContactoPaginaResource::class,
+            InicioResource::class,
+            NosotrosResource::class,
+            OfertaAcademicaResource::class,
+            ProtagonistasResource::class,
+            SeccionImagenResource::class,
+            TestimonioVideoResource::class,
+            UsuarioResource::class,
+            VideoPromocionalResource::class,
         ];
     }
 

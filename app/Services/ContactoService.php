@@ -34,9 +34,9 @@ class ContactoService
                 implode("\n\n", [
                     'Se recibió una nueva solicitud desde el formulario de contacto del sitio web.',
                     'Datos del tutor:',
-                    'Nombre: ' . $contacto->nombre,
-                    'Correo: ' . $contacto->email,
-                    'Fecha de envío: ' . $contacto->created_at?->timezone(config('app.timezone'))->format('d/m/Y H:i'),
+                    'Nombre: '.$contacto->nombre,
+                    'Correo: '.$contacto->email,
+                    'Fecha de envío: '.$contacto->created_at?->timezone(config('app.timezone'))->format('d/m/Y H:i'),
                     'Datos enviados:',
                     $contacto->mensaje,
                     'Puedes responder directamente a este correo para contactar a la familia.',

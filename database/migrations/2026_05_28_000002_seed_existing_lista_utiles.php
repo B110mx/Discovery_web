@@ -29,7 +29,7 @@ return new class extends Migration
                 $filename = $file->getFilename();
                 $titulo = pathinfo($filename, PATHINFO_FILENAME);
                 $gradoNumero = $this->gradoNumero($filename);
-                $archivoPdf = 'listas-utiles/' . Str::slug($titulo) . '.pdf';
+                $archivoPdf = 'listas-utiles/'.Str::slug($titulo).'.pdf';
 
                 Storage::disk('public')->put($archivoPdf, File::get($file->getPathname()));
 
@@ -40,7 +40,7 @@ return new class extends Migration
                     ],
                     [
                         'nivel' => $this->nivel($gradoNumero),
-                        'grado' => $gradoNumero ? $gradoNumero . ' grado' : 'General',
+                        'grado' => $gradoNumero ? $gradoNumero.' grado' : 'General',
                         'archivo_pdf' => $archivoPdf,
                         'orden' => $gradoNumero ?? 999,
                         'activo' => true,
@@ -69,7 +69,7 @@ return new class extends Migration
     private function cicloEscolar(string $filename): string
     {
         if (preg_match('/(\d{2})\s*-\s*(\d{2})/', $filename, $matches)) {
-            return '20' . $matches[1] . '-20' . $matches[2];
+            return '20'.$matches[1].'-20'.$matches[2];
         }
 
         return '2025-2026';

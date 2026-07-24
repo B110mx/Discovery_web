@@ -3,8 +3,8 @@
 namespace App\Filament\Resources\Eventos\Pages;
 
 use App\Filament\Resources\Eventos\EventoResource;
-use Filament\Actions\DeleteAction;
 use App\Filament\Resources\Pages\EditRecord;
+use Filament\Actions\DeleteAction;
 
 class EditEvento extends EditRecord
 {

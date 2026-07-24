@@ -2,8 +2,8 @@
 
 namespace App\Filament\Resources\Usuarios\Pages;
 
-use App\Filament\Resources\Usuarios\UsuarioResource;
 use App\Filament\Resources\Pages\CreateRecord;
+use App\Filament\Resources\Usuarios\UsuarioResource;
 
 class CreateUsuario extends CreateRecord
 {

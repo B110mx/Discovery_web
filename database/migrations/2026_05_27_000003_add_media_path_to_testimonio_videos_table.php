@@ -29,14 +29,14 @@ return new class extends Migration
         $extensions = ['mp4', 'mov', 'webm', 'm4v'];
         $files = collect(scandir($directory))
             ->filter(function (string $file) use ($directory, $extensions) {
-                return is_file($directory . DIRECTORY_SEPARATOR . $file)
+                return is_file($directory.DIRECTORY_SEPARATOR.$file)
                     && in_array(strtolower(pathinfo($file, PATHINFO_EXTENSION)), $extensions, true);
             })
             ->sort()
             ->values();
 
         foreach ($files as $index => $file) {
-            $mediaPath = 'Testimonios Alumni/' . $file;
+            $mediaPath = 'Testimonios Alumni/'.$file;
 
             DB::table('testimonio_videos')->updateOrInsert(
                 ['video_media_path' => $mediaPath],

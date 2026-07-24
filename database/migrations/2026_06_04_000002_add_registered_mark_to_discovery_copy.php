@@ -43,7 +43,7 @@ return new class extends Migration
             DB::table($table)
                 ->where($column, 'like', "%{$search}%")
                 ->update([
-                    $column => DB::raw("REPLACE({$column}, " . DB::getPdo()->quote($search) . ', ' . DB::getPdo()->quote($replacement) . ')'),
+                    $column => DB::raw("REPLACE({$column}, ".DB::getPdo()->quote($search).', '.DB::getPdo()->quote($replacement).')'),
                 ]);
         }
     }

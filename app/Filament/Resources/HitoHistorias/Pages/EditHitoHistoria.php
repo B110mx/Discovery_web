@@ -3,9 +3,9 @@
 namespace App\Filament\Resources\HitoHistorias\Pages;
 
 use App\Filament\Resources\HitoHistorias\HitoHistoriaResource;
+use App\Filament\Resources\Pages\EditRecord;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\ViewAction;
-use App\Filament\Resources\Pages\EditRecord;
 
 class EditHitoHistoria extends EditRecord
 {

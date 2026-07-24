@@ -2,8 +2,8 @@
 
 namespace App\Filament\Resources\PaginaContenidos\Pages;
 
-use App\Filament\Resources\PaginaContenidos\PaginaContenidoResource;
 use App\Filament\Resources\Pages\EditRecord;
+use App\Filament\Resources\PaginaContenidos\PaginaContenidoResource;
 
 class EditPaginaContenido extends EditRecord
 {
