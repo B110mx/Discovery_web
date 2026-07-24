@@ -16,14 +16,14 @@ class SiteCache
 
     public static function key(string $name): string
     {
-        $baseKey = config("colegio.cache.keys.{$name}", $name);
+        $baseKey = self::baseKey($name);
 
         return $baseKey.'.'.app()->getLocale();
     }
 
     public static function forget(string $name): void
     {
-        $baseKey = config("colegio.cache.keys.{$name}", $name);
+        $baseKey = self::baseKey($name);
 
         Cache::forget($baseKey);
 
@@ -49,5 +49,12 @@ class SiteCache
                 self::forget($name);
             }
         }
+    }
+
+    private static function baseKey(string $name): string
+    {
+        $keys = config('colegio.cache.keys', []);
+
+        return is_array($keys) ? ($keys[$name] ?? $name) : $name;
     }
 }
