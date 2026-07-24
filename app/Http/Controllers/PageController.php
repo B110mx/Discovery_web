@@ -480,7 +480,7 @@ class PageController extends Controller
         }
 
         return $this->media->videoFiles('Testimonios Alumni')
-            ->map(fn (string $path) => [
+            ->map(fn (string $path, int $index) => [
                 'titulo' => $this->localizedVideoTitle(pathinfo($path, PATHINFO_FILENAME), $index),
                 'url' => $this->media->url($path),
             ])
