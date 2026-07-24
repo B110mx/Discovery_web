@@ -10,7 +10,13 @@ return new class extends Migration
 {
     public function up(): void
     {
-        $directory = collect(File::directories(base_path('videosyfotos')))
+        $mediaRoot = base_path('videosyfotos');
+
+        if (! File::isDirectory($mediaRoot)) {
+            return;
+        }
+
+        $directory = collect(File::directories($mediaRoot))
             ->first(fn (string $path) => str_starts_with(File::basename($path), 'Listas'));
 
         if (! $directory) {

@@ -38,7 +38,7 @@ class PaginaContenido extends Model
         SiteCache::forget("pagina_contenido.{$this->slug}");
     }
 
-    public function mapaEmbedUrl(): string
+    public function mapaEmbedUrl(): ?string
     {
         $mapa = trim((string) $this->mapa_url);
 
