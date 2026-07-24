@@ -20,6 +20,10 @@
 /public/storage
 /storage/*.key
 /storage/pail
+/database/dusk.sqlite
+/tests/Browser/console
+/tests/Browser/screenshots
+/tests/Browser/source
 /vendor
 /videosyfotos
 _ide_helper.php

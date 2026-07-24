@@ -63,3 +63,64 @@ jobs:
 
       - name: Run tests with coverage threshold
         run: composer test:coverage
+
+  browser:
+    name: Browser journeys
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: bcmath, dom, fileinfo, intl, mbstring, pdo_sqlite, sqlite3
+          coverage: none
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Install dependencies
+        run: |
+          composer install --no-interaction --prefer-dist --no-progress
+          npm ci
+          npm run build
+
+      - name: Prepare browser test environment
+        run: |
+          cp .env.dusk.local .env
+          touch database/dusk.sqlite
+          php artisan migrate --force
+          php artisan dusk:chrome-driver --detect
+
+      - name: Start application server
+        run: |
+          ./vendor/laravel/dusk/bin/chromedriver-linux --port=9515 > storage/logs/chromedriver.log 2>&1 &
+          php artisan serve --host=127.0.0.1 --port=8012 > storage/logs/dusk-server.log 2>&1 &
+          for attempt in {1..15}; do
+            curl --fail --silent http://127.0.0.1:8012/ > /dev/null && exit 0
+            sleep 1
+          done
+          exit 1
+
+      - name: Run browser journeys
+        run: composer test:browser
+
+      - name: Upload browser failure artifacts
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: browser-failure-artifacts
+          path: |
+            tests/Browser/screenshots
+            tests/Browser/console
+            tests/Browser/source
+            storage/logs/dusk-server.log
+            storage/logs/chromedriver.log
+            storage/logs/laravel.log
+          if-no-files-found: ignore

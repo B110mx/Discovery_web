@@ -49,7 +49,7 @@ return [
 
         'videosyfotos' => [
             'driver' => 'local',
-            'root' => base_path('videosyfotos'),
+            'root' => env('VIDEOSYFOTOS_ROOT', base_path('videosyfotos')),
             'throw' => false,
             'report' => false,
         ],

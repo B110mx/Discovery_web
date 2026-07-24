@@ -15,6 +15,7 @@
     "require-dev": {
         "fakerphp/faker": "^1.23",
         "larastan/larastan": "^3.10",
+        "laravel/dusk": "^8.6",
         "laravel/pail": "^1.2.5",
         "laravel/pao": "^1.0.6",
         "laravel/pint": "^1.27",
@@ -54,8 +55,9 @@
         ],
         "test:coverage": [
             "@php artisan config:clear --ansi",
-            "@php artisan test --coverage --min=90"
+            "@php artisan test --coverage --min=98"
         ],
+        "test:browser": "@php artisan dusk --without-tty",
         "analyse": "phpstan analyse --memory-limit=1G",
         "format:check": "pint --test",
         "security:check": "composer audit",
