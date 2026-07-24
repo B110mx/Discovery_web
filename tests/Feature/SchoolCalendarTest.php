@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\Evento;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
 class SchoolCalendarTest extends TestCase
@@ -74,6 +75,9 @@ class SchoolCalendarTest extends TestCase
 
     public function test_home_shows_the_next_dated_events_and_links_to_their_month(): void
     {
+        Storage::fake('videosyfotos');
+        Storage::disk('videosyfotos')->put('Testimonios Alumni/testimonio.mp4', 'video');
+
         Evento::query()->create([
             'titulo' => 'Reunión de familias',
             'descripcion' => 'Encuentro informativo.',

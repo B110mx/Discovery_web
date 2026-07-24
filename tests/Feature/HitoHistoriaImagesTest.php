@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\HitoHistoria;
 use App\Models\SeccionImagen;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
 class HitoHistoriaImagesTest extends TestCase
@@ -13,6 +14,10 @@ class HitoHistoriaImagesTest extends TestCase
 
     public function test_timeline_images_are_managed_only_by_hito_historia(): void
     {
+        Storage::fake('videosyfotos');
+        Storage::disk('videosyfotos')->put('Linea del tiempo/2003-1.jpg', 'imagen');
+        Storage::disk('videosyfotos')->put('Linea del tiempo/2003-2.jpg', 'imagen');
+
         $hito = HitoHistoria::query()->where('anio', '2003')->firstOrFail();
 
         $this->assertSame('Linea del tiempo/2003-1.jpg', $hito->imagen_media_path);
