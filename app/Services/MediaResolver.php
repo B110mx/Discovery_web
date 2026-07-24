@@ -200,14 +200,18 @@ class MediaResolver
         return collect($defaults)
             ->map(function (array $default, string $key) use ($records) {
                 $record = $records->get($key);
-                $image = $this->uploadedOrMediaUrl($record?->imagen, $record?->respaldo_media_path)
+                $hasRecord = $record instanceof SeccionImagen;
+                $image = $this->uploadedOrMediaUrl(
+                    $hasRecord ? $record->imagen : null,
+                    $hasRecord ? $record->respaldo_media_path : null,
+                )
                     ?? ($default['url'] ?? null)
                     ?? $this->urlIfExists($default['media_path'] ?? null);
 
                 return [
                     'url' => $image,
-                    'titulo' => $record?->titulo ?? $default['titulo'] ?? $key,
-                    'referencia' => $record?->referencia ?? $default['referencia'] ?? null,
+                    'titulo' => $hasRecord ? $record->titulo : ($default['titulo'] ?? $key),
+                    'referencia' => $hasRecord ? $record->referencia : ($default['referencia'] ?? null),
                     'pendiente' => empty($image),
                 ];
             })

@@ -2,6 +2,7 @@
 
 namespace App\Filament\Widgets;
 
+use App\Models\User;
 use App\Models\VistaPublicacion;
 use Filament\Notifications\Notification;
 use Filament\Widgets\Widget;
@@ -44,19 +45,25 @@ class VistaPublicacionWidget extends Widget
 
     protected function getViewData(): array
     {
+        /** @var array<string, array{nombre: string, grupo?: string}> $viewDefinitions */
+        $viewDefinitions = config('publicacion.vistas', []);
+
         $estados = VistaPublicacion::query()
             ->with('actualizadaPor:id,name')
             ->get()
             ->keyBy('clave');
 
-        $grupos = collect(config('publicacion.vistas', []))
+        $grupos = collect($viewDefinitions)
             ->map(function (array $configuracion, string $clave) use ($estados): array {
+                $estado = $estados->get($clave);
+                $actualizadaPor = $estado?->actualizadaPor;
+
                 return [
                     'clave' => $clave,
                     'nombre' => $configuracion['nombre'],
-                    'publicada' => (bool) ($estados->get($clave)?->publicada ?? true),
-                    'actualizada_por' => $estados->get($clave)?->actualizadaPor?->name,
-                    'actualizada_en' => $estados->get($clave)?->updated_at,
+                    'publicada' => $estado ? (bool) $estado->publicada : true,
+                    'actualizada_por' => $actualizadaPor instanceof User ? $actualizadaPor->name : null,
+                    'actualizada_en' => $estado?->updated_at,
                 ];
             })
             ->groupBy(fn (array $vista) => config("publicacion.vistas.{$vista['clave']}.grupo", 'Otras vistas'));

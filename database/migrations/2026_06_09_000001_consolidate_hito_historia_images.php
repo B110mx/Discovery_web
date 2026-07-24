@@ -57,7 +57,7 @@ return new class extends Migration
                 DB::table('seccion_imagenes')->updateOrInsert(
                     ['vista' => 'nosotros', 'clave' => $clave],
                     [
-                        'titulo' => "Nosotros - Historia {$hito->anio}" . ($offset ? ' - Imagen secundaria' : ''),
+                        'titulo' => "Nosotros - Historia {$hito->anio}".($offset ? ' - Imagen secundaria' : ''),
                         'referencia' => "Imagen de la linea del tiempo para el hito {$hito->titulo}.",
                         'imagen' => $imagen,
                         'respaldo_media_path' => $mediaPath,

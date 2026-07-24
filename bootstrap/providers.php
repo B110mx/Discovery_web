@@ -1,6 +1,9 @@
 <?php
 
+use App\Providers\AppServiceProvider;
+use App\Providers\Filament\BryanPanelProvider;
+
 return [
-    App\Providers\AppServiceProvider::class,
-    App\Providers\Filament\BryanPanelProvider::class,
+    AppServiceProvider::class,
+    BryanPanelProvider::class,
 ];

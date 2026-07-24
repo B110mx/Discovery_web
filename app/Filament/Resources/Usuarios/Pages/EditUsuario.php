@@ -2,10 +2,10 @@
 
 namespace App\Filament\Resources\Usuarios\Pages;
 
+use App\Filament\Resources\Pages\EditRecord;
 use App\Filament\Resources\Usuarios\UsuarioResource;
 use App\Models\User;
 use Filament\Actions\DeleteAction;
-use App\Filament\Resources\Pages\EditRecord;
 
 class EditUsuario extends EditRecord
 {

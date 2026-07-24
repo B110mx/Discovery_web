@@ -20,11 +20,17 @@ class VideoPromocionalResource extends Resource
     protected static ?string $model = VideoPromocional::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedPlayCircle;
+
     protected static string|UnitEnum|null $navigationGroup = 'Contenido del sitio';
+
     protected static ?int $navigationSort = 14;
+
     protected static ?string $navigationLabel = 'Videos promocionales';
+
     protected static ?string $modelLabel = 'video promocional';
+
     protected static ?string $pluralModelLabel = 'videos promocionales';
+
     protected static ?string $recordTitleAttribute = 'titulo';
 
     public static function form(Schema $schema): Schema

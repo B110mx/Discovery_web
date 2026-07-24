@@ -3,8 +3,8 @@
 namespace App\Filament\Resources\ListaUtiles\Pages;
 
 use App\Filament\Resources\ListaUtiles\ListaUtilResource;
-use Filament\Actions\DeleteAction;
 use App\Filament\Resources\Pages\EditRecord;
+use Filament\Actions\DeleteAction;
 
 class EditListaUtil extends EditRecord
 {

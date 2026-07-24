@@ -66,7 +66,7 @@ class UsuariosTable
                             ->maxLength(255)
                             ->helperText('No se muestra la contraseña anterior. Escribe una nueva y compártela de forma segura.'),
                     ])
-                    ->modalHeading(fn (User $record): string => 'Restablecer contraseña de ' . $record->name)
+                    ->modalHeading(fn (User $record): string => 'Restablecer contraseña de '.$record->name)
                     ->modalSubmitActionLabel('Guardar nueva contraseña')
                     ->action(function (array $data, User $record): void {
                         $record->forceFill([

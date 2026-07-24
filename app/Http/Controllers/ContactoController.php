@@ -27,11 +27,11 @@ class ContactoController extends Controller
                 'nombre' => $datos['tutor_nombre'],
                 'email' => $datos['email'],
                 'mensaje' => implode("\n", [
-                    'Nombre completo del aspirante: ' . $datos['aspirante_nombre'],
-                    'Nombre completo del tutor (a): ' . $datos['tutor_nombre'],
-                    'Email: ' . $datos['email'],
-                    'Teléfono de contacto: ' . $datos['telefono'],
-                    'Grado al que aplica: ' . $datos['grado'],
+                    'Nombre completo del aspirante: '.$datos['aspirante_nombre'],
+                    'Nombre completo del tutor (a): '.$datos['tutor_nombre'],
+                    'Email: '.$datos['email'],
+                    'Teléfono de contacto: '.$datos['telefono'],
+                    'Grado al que aplica: '.$datos['grado'],
                 ]),
             ]);
         } catch (Throwable) {

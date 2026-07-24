@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PageController;
 use App\Http\Controllers\ContactoController;
+use App\Http\Controllers\PageController;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/sitemap.xml', function () {
     $urls = collect([
@@ -50,7 +50,7 @@ Route::controller(PageController::class)->group(function () {
     Route::get('/comunidad/academias-vespertinas', 'academiasVespertinas')->middleware('vista.publicada:academias-vespertinas')->name('academias-vespertinas');
     Route::get('/recursos-escolares', 'recursosEscolares')->middleware('vista.publicada:recursos-escolares')->name('recursos-escolares');
     Route::get('/contacto', 'contacto')->middleware('vista.publicada:contacto')->name('contacto');
-    
+
     // PageController valida y normaliza la ruta antes de leer videosyfotos.
     Route::get('/media/{path}', 'serveMedia')->where('path', '.*')->name('media');
 });

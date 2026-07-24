@@ -10,22 +10,22 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
-{
-    Schema::create('contactos', function (Blueprint $table) {
-        $table->id();
-        $table->string('nombre');
-        $table->string('email');
-        $table->text('mensaje');
-        $table->timestamps();
-    });
-}
+    {
+        Schema::create('contactos', function (Blueprint $table) {
+            $table->id();
+            $table->string('nombre');
+            $table->string('email');
+            $table->text('mensaje');
+            $table->timestamps();
+        });
+    }
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        
+
         Schema::dropIfExists('contactos');
     }
 };

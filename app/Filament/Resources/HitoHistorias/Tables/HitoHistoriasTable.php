@@ -76,7 +76,7 @@ class HitoHistoriasTable
             return null;
         }
 
-        return '/media/' . collect(explode('/', $path))
+        return '/media/'.collect(explode('/', $path))
             ->map(fn (string $segment) => rawurlencode($segment))
             ->implode('/');
     }

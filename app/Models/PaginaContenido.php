@@ -54,5 +54,4 @@ class PaginaContenido extends Model
 
         return $mapa;
     }
-
 }

@@ -9,8 +9,8 @@ use App\Models\TestimonioVideo;
 use App\Services\EditablePageContentService;
 use App\Services\HistoryTimelineService;
 use App\Services\HomeBannerService;
-use App\Services\LevelGalleryService;
 use App\Services\LevelContentService;
+use App\Services\LevelGalleryService;
 use App\Services\MediaResolver;
 use App\Services\PromotionalVideoService;
 use App\Services\SchoolCalendarService;
@@ -242,6 +242,7 @@ class PageController extends Controller
         ]);
 
         $historiaNosotros = Cache::remember(SiteCache::key('nosotros_historia'), SiteCache::ttl(), fn () => $this->historyTimeline->get());
+
         return view('pages.nosotros', compact('imagenesNosotros', 'historiaNosotros', 'paginaNosotros'));
     }
 
