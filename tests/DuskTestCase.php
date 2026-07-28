@@ -7,9 +7,28 @@ use Facebook\WebDriver\Remote\DesiredCapabilities;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Illuminate\Support\Collection;
 use Laravel\Dusk\TestCase as BaseTestCase;
+use Tests\Support\DuskDatabaseSafety;
 
 abstract class DuskTestCase extends BaseTestCase
 {
+    /**
+     * Validate the database before Laravel runs DatabaseMigrations.
+     *
+     * @return array<class-string>
+     */
+    protected function setUpTraits(): array
+    {
+        $connection = (string) config('database.default');
+
+        DuskDatabaseSafety::assertSafe(
+            $connection,
+            (string) config("database.connections.{$connection}.database"),
+            base_path(),
+        );
+
+        return parent::setUpTraits();
+    }
+
     protected function driver(): RemoteWebDriver
     {
         $options = (new ChromeOptions)->addArguments(collect([
