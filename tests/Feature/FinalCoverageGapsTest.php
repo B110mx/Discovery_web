@@ -11,6 +11,7 @@ use App\Models\Evento;
 use App\Models\HitoHistoria;
 use App\Models\PaginaContenido;
 use App\Models\SeccionImagen;
+use App\Models\TestimonioVideo;
 use App\Models\User;
 use App\Models\VideoPromocional;
 use App\Services\EditablePageContentService;
@@ -19,6 +20,7 @@ use App\Services\LevelContentService;
 use App\Services\MediaResolver;
 use App\Services\PromotionalVideoService;
 use App\Services\SchoolCalendarService;
+use App\Support\FilamentMediaPreview;
 use App\Support\SiteCache;
 use Filament\Auth\Http\Responses\Contracts\LoginResponse;
 use Filament\Facades\Filament;
@@ -98,6 +100,34 @@ class FinalCoverageGapsTest extends TestCase
         );
 
         $this->assertSame(Filament::getUrl(), $response->getTargetUrl());
+    }
+
+    public function test_filament_media_preview_encodes_an_existing_media_path(): void
+    {
+        Storage::fake('videosyfotos');
+        config()->set('colegio.media.disk', 'videosyfotos');
+        Storage::disk('videosyfotos')->put('Galería/imagen uno.jpg', 'image');
+
+        $this->assertSame(
+            '/media/Galer%C3%ADa/imagen%20uno.jpg',
+            FilamentMediaPreview::url(null, '\\Galería\\imagen uno.jpg'),
+        );
+    }
+
+    public function test_home_uses_an_active_uploaded_alumni_testimonial(): void
+    {
+        Storage::fake('public');
+        Storage::disk('public')->put('testimonios/alumni.mp4', 'video');
+        TestimonioVideo::query()->create([
+            'titulo' => 'Testimonio de alumni',
+            'video' => 'testimonios/alumni.mp4',
+            'orden' => 1,
+            'activo' => true,
+        ]);
+
+        $this->get(route('inicio'))
+            ->assertOk()
+            ->assertSee('/storage/testimonios/alumni.mp4', false);
     }
 
     public function test_layout_uses_default_seo_for_a_route_without_translations(): void
