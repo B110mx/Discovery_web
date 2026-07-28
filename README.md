@@ -61,11 +61,31 @@ php artisan optimize:clear
 
 # Aplicar cambios de base de datos
 php artisan migrate --force
+
+# Comprobar el superadmin principal sin cambiar su contraseña
+php artisan admin:ensure-primary
 ```
 
 El entorno local queda disponible en `http://127.0.0.1:8000`. El sitemap se
 genera en `http://127.0.0.1:8000/sitemap.xml` y los metadatos SEO base se
 configuran en `config/seo.php`.
+
+## Seguridad de administración y pruebas de navegador
+
+El comando `php artisan admin:ensure-primary` comprueba que la cuenta principal
+existe y, si ya está registrada, conserva su contraseña actual. Si alguna vez es
+necesario recuperarla, ejecuta:
+
+```bash
+php artisan admin:ensure-primary --reset-password
+```
+
+La nueva contraseña se solicita de forma oculta e interactiva; no se acepta como
+argumento para evitar que quede guardada en el historial de la terminal.
+
+Las pruebas Dusk solo pueden usar la conexión SQLite
+`database/dusk.sqlite`. La ejecución se bloquea antes de aplicar migraciones si
+detecta MySQL, la base SQLite normal, memoria u otra ruta.
 
 ## Estructura principal
 
