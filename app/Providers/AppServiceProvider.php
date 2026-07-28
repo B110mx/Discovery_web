@@ -4,7 +4,6 @@ namespace App\Providers;
 
 use Filament\Auth\Http\Responses\Contracts\LoginResponse;
 use Filament\Facades\Filament;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
@@ -18,7 +17,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->bind(LoginResponse::class, fn (): LoginResponse => new class implements LoginResponse
         {
-            public function toResponse($request): RedirectResponse
+            public function toResponse($request)
             {
                 return redirect()->to(Filament::getUrl());
             }
